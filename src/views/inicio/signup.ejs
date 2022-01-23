@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!--CUSTOM CSS-->
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/signup.css">
+
+    <title>GesFin</title>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="navegacion ">
+            <div class="gesfin ">
+                <div class="texto ">
+                    <h1>GesFin.</h1>
+                </div>
+            </div>
+
+
+            <div class="user ">
+                <div>
+                    <nav>
+
+                        <ul class="men-prin ">
+                            <li>
+                                <h3 id="usuarioDes ">
+
+
+                                    <span class="icon-down-dir "></span></h3>
+                                <ul class="men ">
+                                    <li><a href="">Configuración de usuario</a></li>
+                                    <li><a href="marketp">Configuracion Aplicacion</a></li>
+                                    <li><a href="/logout ">Cerrar sesión</a></li>
+                                </ul>
+
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="altaUsuario">
+            <div>
+                <h1>Creación de usuarios</h1>
+            </div>
+
+            <form action="/users/register" method="POST">
+                <div>
+                    <input type="text" id="name" name="name" placeholder="Nombre" required />
+                </div>
+                <div>
+                    <input type="text" id="surname" name="surname" placeholder="Apellido" required />
+                </div>
+                <div>
+                    <input type="text" id="username" name="username" placeholder="Usuario" required />
+                </div>
+                <div>
+                    <input type="email" id="email" name="email" placeholder="Email" required />
+                </div>
+                <div class="grupoUsuario">
+                    <label for="GrupoUsuario">Grupo de usuario</label>
+                    <select id="GrupoUsuario">
+                <option value="">--Seleccione una opción--</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Usuario del sistema">Usuario full del sistema</option>
+                <option value="Usuario de consulta">Usuario consulta de sistema</option>
+                <option value="Cliente final">Cliente final</option>
+            </select>
+                </div>
+
+                <div>
+                    <input type="password" id="password" name="password" placeholder="Contraseña" required />
+                </div>
+                <div>
+                    <input type="password" id="password2" name="password2" placeholder="Confirma Contraseña" required />
+                </div>
+                <div>
+                    <input type="submit" value="Registro" />
+                </div>
+
+
+                <ul>
+                    <li><a href="/marketp">Market Place</a></li>
+                    <li><a href="/home">Pagina Principal</a></li>
+                </ul>
+
+            </form>
+        </div>
+    </div>
+</body>
+
+<!--JQUERY-->
+<script src="/js/jquery-3.4.1.min.js "></script>
+<!--CUSTOM JS-->
+<script src="/js/desplegableNav.js"></script>
+
+</html>

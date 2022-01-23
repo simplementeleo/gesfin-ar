@@ -1,0 +1,6 @@
+node_modules/
+src/.env
+gesFin.docx
+scripts/
+src/uploads
+src/front/uploads
