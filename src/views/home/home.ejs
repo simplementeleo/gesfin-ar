@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es-ES">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8" />
@@ -7,466 +7,58 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="language" content="es">
     <!--GOOGLE FONTS-->
-    <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet">
     <!--FONTELLO CSS-->
-    <link rel="stylesheet" href="/css/fontello.css">
-    <!--PRINTJS-->
-    <link rel="stylesheet" href="/js/librerias/print.min.css">
     <!--CUSTOM CSS-->
-    <link rel="stylesheet" href="/css/nav/nav.css">
-    <link rel="stylesheet" href="/css/home/formularioAbms.css">
-    <link rel="stylesheet" href="/css/home/home.css">
-    <link rel="stylesheet" href="/css/home/informacionVideo.css">
-    <link rel="stylesheet" href="/css/input.css">
-    <link rel="stylesheet" href="/css/form/formInd.css">
-    <link rel="stylesheet" href="/css/form/impresionForm.css">
-    <link rel="stylesheet" href="/css/carteles.css">
-    <link rel="stylesheet" href="/css/home/formDobEntrada.css">
-
-<title>In Construcciones</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <title>Gesfin</title>
 </head>
 
 <body>
-
     <div class="container">
 
         <div class="navegacion">
-
             <div class="gesfin">
-                <div class="menu">
-                    <span class="icon-menu" title="Menu principal"></span>
-                </div>
-                <div class="imagen">
-                    <img src="/img/logoHome.png" class="logoPrincipal" alt="Logo" class="img">
-                </div>
 
-                <div id=contenedorFidei>
-                    <div class="titulo">
-                        <h2>Fideicomiso:</h2>
-                    </div>
-
-                    <div id="fideic">
-                        <input type="text" value="todos">
-                        <h3>Todos<span class="icon-down-dir"></span></h3>
-                        <div id="fideicomisosOpciones"></div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="user">
-                <img src="/img/iconos/principal/campana.png" alt="campana" class="campana" title="Notificaciones">
-                <img src="/img/iconos/principal/perfil1.png" alt="perfil" class="perfil" title="Usuario">
-                <nav>
-
-                    <ul class="men-prin">
-                        <li>
-                            <h3 id="usuarioDes">
-                                <%= userNombre %>
-
-                                    <span class="icon-down-dir"></span></h3>
-                            <ul class="men">
-                                <li><a href="">Configuración de usuario</a></li>
-                                <li><a href="marketp">Configuracion Aplicacion</a></li>
-                                <li><a href="/logout ">Cerrar sesión</a></li>
-                            </ul>
-
-                        </li>
-
-                    </ul>
-                </nav>
-
-            </div>
-        </div>
-    </div>
-
-    <div id="menu-container" class="menu-container">
-        <div class="nav-vert">
-            <nav>
-                <ul>
-                    <li><img src="/img/iconos/principal/cob.png" alt="Maletin" title="Cobranzas" class="cob"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/pag.png" alt="Pagos" title="Pagos" class="pag"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/compras.svg" alt="Compras" title="Compras" class="comp"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/cheque.svg" alt="Cheques" title="Cheques liberados" class="chLib"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/precio.svg" alt="Precio de Rubros" title="Precio de Rubros" class="prRb"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/calculadora.svg" alt="Computo" title="Computo de materiales" class="computo"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/porcentage.svg" alt="Porcentage" title="Porcentage de Obligaciones monetarias y derechos" class="porcen"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/menu.png" alt="Menu" title="Panel de control" class="panel"></li>
-                </ul>
-
-            </nav>
-
-        </div>
-        <div class="nav-completa">
-            <nav>
-                <ul>
-
-                    <li>
-                        <p class="cobb">Cobranzas<span class="icon-down-dir"></span></p>
-                        <ul class="subMenuCob">
-                            <li>
-                                <p class="menuFormulario" id="cobrosRecibidos">Ingresar Cobranzas</p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm" id="cobrosRecibidos">Cobranzas recibidas</p>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <p class="pagg">Pagos<span class="icon-down-dir"></span></p>
-                        <ul class="subMenuPag">
-                            <li>
-                                <p class="menuFormulario" id="pagosRealizados">Ingresar Pagos</p>
-                                <li>
-                                    <p class="menuSelectAbm" id="pagosRealizados">Pagos realizados</p>
-                                </li>
-                        </ul>
-                        </li>
-                        <li>
-                            <p class="compraMenu">Materiales<span class="icon-down-dir"></span></p>
-                            <ul class="subMenuCompras">
-                                <li>
-                                    <p class="menuSelectAbm" id="acopio">Acopio</p>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <li>
-                            <p class="ch">Operaciones Financieras<span class="icon-down-dir"></span></p>
-                            <ul class="subMenuOperFin">
-                                <li>
-                                    <p class="menuSelectAbm" id="movimientoFinanciero">Movimientos Financieros</p>
-                                </li>
-                                <li>
-                                    <p class="menuDobleEntrada" id="proyeccionesCashFlow">Proyecciones</p>
-                                </li>
-                                <li>
-                                    <p class="menuSelectAbm" id="prestamosFideicomisos">Prestamos fedeicomisos</p>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="co inactivo">
-                            <p class="inactivo">Costos por obra<span class="icon-down-dir"></span></p>
-                            <ul class="subMenuComputo">
-                                <li>
-                                    <p class="menuSelect" id="costoFideicomiso" pestSec="unidades" pestTerc="tipoPago" pestCuart="moneda">Costo por fideicomiso</p>
-                                </li>
-                                <li>
-                                    <li class="inactivo">
-                                        <p></p>Computo de homigón</p>
-                                    </li>
-                                    <li class="inactivo">
-                                        <p>Computo de otros materiales</p>
-                                    </li>
-
-                            </ul>
-                            </li>
-
-                            <li class="pr inactivo">Precio por rubro</li>
-
-                            <li>
-                                <p class="pr">Indices<span class="icon-down-dir"></span></p>
-                                <ul class="subMenuIndice">
-                                    <li>
-                                        <p class="menuSelectAbm" id="icc">ICC</p>
-                                    </li>
-                                    <li>
-                                        <p class="menuSelectAbm" id="tipoCambio">Tipo de Cambio</p>
-                                    </li>
-
-                                </ul>
-                            </li>
-
-                            <li class="panel">Panel de control</li>
-                </ul>
-            </nav>
-
-        </div>
-
-        <div id="tablas" class="comp">
-            <div class="tabs_links" id="tabs_links"></div>
-            <div class="comandos" id="comandera"></div>
-            <div class="tabs_contents" id="tabs_contents">
-            </div>
-
-        </div>
-
-        <!-- Indicadores-->
-
-        <div id="principalesIndicadores" class="principalesIndicadores">
-
-            <div id="primerRenglon">
-                <table id="tcHome">
-                    <tr>
-                        <th></th>
-                        <th>Fecha</th>
-                        <th>BNA</th>
-                        <th>Blue</th>
-
-                    </tr>
-                    <tbody>
-
-                        <tr>
-                            <td>Tipo de cambio</td>
-                            <td id="fechaTipoCambio"></td>
-                            <td id="TipoCambioRatio"></td>
-                            <td id="TipoCambioRatioDos"></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table id="iccHome">
-                    <tr>
-                        <th></th>
-                        <th>Fecha</th>
-                        <th>Indice</th>
-
-                    </tr>
-                    <tbody>
-                        <tr>
-                            <td>ICC</td>
-                            <td id="fechaIcc"></td>
-                            <td id="IccRatio"></td>
-
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div id="fecha">
-                    <div id="fechaTexto">
-                        <div>
-                            <p>De:</p><input type="date" id="fechaTextoDe" /></div>
-                        <div>
-                            <p>Hasta:</p><input type="date" id="fechaTextoHasta" /></div>
-                    </div>
-
-                </div>
-
-
-            </div>
-            <div id="segundoRenglon">
-                <div id="cajaBancos">
-                    <table>
-                        <tr>
-                            <th colspan="4" id="fechaHastView">Caja y Bancos al </th>
-                        </tr>
-                        <tr>
-                            <th class="thDer">Valor</th>
-                            <th>Pesos</th>
-                            <th>Dolar</th>
-                        </tr>
-                        <tbody id="cajaBancosHome">
-
-                        </tbody>
-                    </table>
-                </div>
-                <div id="cobroRubro">
-                    <table>
-
-                        <tr>
-                            <th colspan="3" id="cobrosRecibidosView">Cobros Recibidos</th>
-                        </tr>
-                        <tr>
-                            <th class="thDer">Rubro</th>
-                            <th>Pesos</th>
-                            <th>Dolar</th>
-                        </tr>
-                        <tbody id="cobrosRecibidosHome">
-
-                        </tbody>
-                    </table>
-                </div>
-                <div id="pagoRubro">
-                    <table>
-                        <tr>
-                            <th colspan="4" id="pagosRealizadosView">Pagos Realizados</th>
-                        </tr>
-                        <tr>
-                            <th class="thDer">Rubro</th>
-                            <th>Pesos</th>
-                            <th>Dolar</th>
-                        </tr>
-                        <tbody id="pagosRealizadosHome">
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-            </div>
-            <div id="tercerRenglon">
-                <div id="prestamos">
-                    <table>
-                        <tr>
-                            <th colspan="7">Prestamos Intenos Abiertos</th>
-                        </tr>
-                        <tr>
-                            <th class="thDer">Nombre</th>
-                            <th>Fecha</th>
-                            <th>Origen</th>
-                            <th>Destino</th>
-                            <th>Moneda</th>
-                            <th>Monto Total</th>
-                            <th>Saldo</th>
-                        </tr>
-                        <tbody id="prestamosFideicomisosHome">
-
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-    <div class="logoFondo">
-        <!-- <img src="/img/logo12.png" alt="">-->
-    </div>
-
-    </div>
-
-    <div>
-        <input id="oculto" value="<%=username %>">
-
-    </div>
-
-    <!-- Creacion formulario individual-->
-
-    <div id="formularioIndividual2"></div>
-    <div id="formularioIndividual">
-
-        <div class="cuadroForm">
-            <div class="primeraLinea">
-
-                <div id="comanderaIndiv">
-                </div>
-
-
-            </div>
-            <div class="logoForm">
-                <img src="/img/logo1.png" alt="">
-            </div>
-
-            <div id="cabeceraForm">
-            </div>
-        </div>
-    </div>
-    <!-- Creacion Menu contextual-->
-
-    <div id="menuContextual">
-
-    </div>
-
-    <div id="impresionFormulario">
-        <div id=documentoImpresion>
-            <div class="primeraLineaImpresion">
-
-                <div id="comanderaIndivImpresion">
-                </div>
-            </div>
-            <div id="impresionFinal">
-                <div class="segundLineaImpresion">
-                    <div class="logoFormImpresionDef">
-                        <img src="/img/In-negro.png" alt="">
-                    </div>
-                    <div class="logoFormImpresion">
-                        <img src="/img/logo1.png" alt="">
+                <img src="/img/icono/flechaBarra.svg" class="logoPrincipal" alt="Logo">
+                <div id="letraLogo">
+                    <div>
+                        <h1>GesFin</h1>
+                        <p>Cuidando las finanzas</p>
                     </div>
                 </div>
-                <div id=cuerpoImpresion>
+            </div>
+            <div class="medio">
+                <% if (error.length> 0) {%>
+                    <div class="cartelError">
+                        <%= error %>
+                    </div>
+                    <%}%>
+            </div>
+            <div class="login">
+                <form action="/users/login" method="POST">
 
-                </div>
+                    <div class="inputMail">
+                        <span class="icon-email"></span>
+                        <input type="text" id="username" name="username" placeholder="Usuario" required />
+                        <span class="icon-lock-open"></span>
+                        <input type="password" id="password" name="password" placeholder="Contraseña" required />
+                        <input type="submit" value="Login" class="btnLog" />
+
+                    </div>
+
+                    <div class="olvidaste">
+                        <p><a href="">Olvidaste tu contraseña ?</a></p>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-    <div id="ayuda">
-        <div id=documentoAyuda>
-            <div id="comanderaIndivAyuda">
-            </div>
-            <div class="primerLineaAyuda">
-                <div class="logoAyuda">
-                    <img src="/img/gesfinPrinc.png" alt="GesFin">
-                </div>
-            </div>
-            <div id=cuerpoAyuda>
 
-            </div>
-        </div>
-    </div>
-
-
-
-    <div id="canvas_container">
-        <div class="crossForm">
-            <div>+</div>
-        </div>
-
-        <embed id="vistaPrevia" src="">
 
     </div>
-
-
     <!--JQUERY-->
-    <script src="/js/librerias/jquery-3.4.1.min.js"></script>
+    <script src="/js/librerias/jquery-3.4.1.min.js "></script>
 
-    <!--MOMENTJS-->
-    <script src="/js/librerias/moment.js"></script>
-    <!--PRINTJS-->
-    <script src="/js/librerias/print.min.js"></script>
-    <!--CARTEL ERROR-->
-    <script src="/js/librerias/cartelError.js"></script>
-    <!--CUSTOM JS-->
-    <script src="/js/home/desplegableNav.js "></script>
-    <!--Craecion y formulas abms-->
-    <script src="/js/home/abm/crearAbm.js"></script>
-    <script src="/js/inConst/formAbmIn.js"></script>
-    <script src="/js/home/abm/formAbm.js"></script>
-    <!--Craecion y formulas unica instancia-->
-    <script src="/js/home/unicaInstancia/crearFormUnicaInst.js"></script>
-    <script src="/js/home/unicaInstancia/formUnicaInstancia.js"></script>
-    <!--Craecion y formulas tabla Doble-->
-    <script src="/js/home/tablaDoble/crearTablaDoEntrada.js"></script>
-    <script src="/js/home/tablaDoble/formDobleTabla.js"></script>
-    <!--DOBLE ENTRADA JS-->
-    <script src="/js/home/tablaDoble/crearDobleEntradaPest.js"></script>
-    <!--CUSTOM JS-->
-    <script src="/js/home/funcionesGrales/monedasTotales.js"></script>
-    <script src="/js/home/funcionesGrales/variables iniciales y atributos.js"></script>
-    <script src="/js/home/funcionesGrales/objetos y funciones iniciales.js"></script>
-    <script src="/js/home/funcionesGrales/inicioHome.js"></script>
-    <script src="/js/impresion/impresionFormularios.js"></script>
-    <script src="/js/ayuda/ayudaAbm.js"></script>
-    
+</body>
+
 </html>

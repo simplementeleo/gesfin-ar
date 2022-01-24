@@ -10,7 +10,7 @@ const User = require("../models/marketPlace/User");
 const { rawListeners } = require('../models/marketPlace/User');
 
 router.get('/', (req, res) => {
-    res.render('inicio/login');
+    res.render('home/home');
 });
 
 router.get('/marketp/signup', (req, res) => {

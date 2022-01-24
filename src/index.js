@@ -16,7 +16,7 @@ require('./lib/passportConfig');
 
 
 //Settings
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 1000;
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, 'views'));
 
@@ -51,7 +51,6 @@ app.use(
         })
     })
 );
-
 // Funtion inside passport which initializes passport
 app.use(passport.initialize());
 // Store our variables to be persisted across the whole session. Works with app.use(Session) above
@@ -68,7 +67,7 @@ app.use((req, res, next) => {
 
 app.use(require('./controladores/inicio'));
 app.use(require('./controladores/home'));
-app.use(require('./controladores/market'));
+//app.use(require('./controladores/market'));
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
