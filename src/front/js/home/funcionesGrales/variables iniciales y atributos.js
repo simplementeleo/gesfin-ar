@@ -169,6 +169,7 @@ const tarea = { nombre: `tarea`, type: `texto`, maxCaract: 100, key: [`name`] }
 
 ///////logico
 const acopio = { nombre: `acopio`, type: `logico`, maxCaract: 1 };
+const logico = { nombre: `logico`, type: `logico`, maxCaract: 1 };
 ///////logico
 const estado = { nombre: `estado`, type: `texto`, maxCaract: 50 };
 const habilitado = { nombre: `habilitado`, type: `texto`, maxCaract: 50 };
@@ -329,7 +330,6 @@ const prestamoCompuesto = {
         post: post
     }
 }
-
 
 const expresiones = {
     //usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo

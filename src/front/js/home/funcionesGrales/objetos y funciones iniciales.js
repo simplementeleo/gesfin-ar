@@ -94,7 +94,7 @@ let variablesIniciales = {
         funcionesPropias: {
             cargar: {
                 deptos: dept, //Form ABM -- 1093
-                numeroFidei: numeroFideicomiso, //Form ABM -- 1072
+                numeroFidei: numeroconFiltro, //Form ABM -- 1072
                 inhabilitarNumer: inhabilitarNumer, //Form ABM -- 1437
                 totalesBaseYMoneda: totalesBaseYMoneda, //Form ABM -- 834
                 nombreBotonAdjunto: nombreBotonAdjunto,
@@ -246,7 +246,7 @@ let variablesIniciales = {
         },
         funcionesPropias: {
             cargar: {
-                numeroFidei: numeroFideicomiso, //Form ABM -- 1072
+                numeroFidei: numeroconFiltro, //Form ABM -- 1072
                 totalesBaseYMoneda: totalesBaseYMoneda, //Form ABM -- 834
                 nombreBotonAdjunto: nombreBotonAdjunto,
 
@@ -413,7 +413,7 @@ let variablesIniciales = {
                 nombreBotonAdjunto: nombreBotonAdjunto,
                 totalesBaseYMoneda: totalesBaseYMoneda,
                 //saldoMayorCero: saldoMayorCero,
-                numeroFidei: numeroFideicomiso,
+                numeroFidei: numeroconFiltro,
             },
             formularioIndiv: {
                 deshabitarValidarColec: deshabitarValidarColec,

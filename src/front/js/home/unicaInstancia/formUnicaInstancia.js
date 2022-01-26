@@ -1,5 +1,4 @@
 let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fidecomisoSelec, consulta) {
-    console.log(consultaArray)
 
     let accion = objeto.accion;
     let key = objeto.key;
@@ -3027,5 +3026,16 @@ const abrirAdjuntoFormIndividual = function (objeto, numeroForm) {
         $(`#formularioIndividual  td.${value.nombre} div.formColec.src`).click(vistaPrevia);
         $(`#formularioIndividual div.fo.${value.nombre} div.src`).addClass(`vistaPrevia`);
         $(`#formularioIndividual  td.${value.nombre} div.formColec.src`).addClass(`vistaPrevia`);
+    });
+}
+const insertarNumerador = function (numerador) {
+    $.ajax({
+        type: "POST",
+        url: `/numeradores`,
+        data: numerador,
+        success: function (response) { },
+        error: function (error) {
+            console.log(error);
+        },
     });
 };

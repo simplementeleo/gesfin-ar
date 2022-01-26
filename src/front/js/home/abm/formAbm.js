@@ -1173,8 +1173,6 @@ let eliminarRegistroDesencadenado = function (value, idRegistro) {
 const numeroconFiltro = function (objeto, numeroForm) {
     let accion = objeto.accion;
 
-    const selectsFidei = document.querySelectorAll(`#formulario${accion}${numeroForm} select.unidades`);
-
     const insertarNumero = function (e) {
         let father = $(this).parent().parent();
         let unidades = $(`#formularioIndividual select.${objeto.numerador.funcion[0].atributoFiltro.name}`).val() || $(`#t${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.name}`).val()

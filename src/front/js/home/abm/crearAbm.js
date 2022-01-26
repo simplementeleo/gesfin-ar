@@ -55,7 +55,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
     let menTabCon = $(menutablaContext);
 
     menTabCon.appendTo('#menuContextual');
-console.log(objeto.pestanas.totales)
+
     $.getJSON(servidor + `/${objeto.accion}?unid=${fidecomisoSelec}`,
         function (data) {
             consulta = data;
@@ -377,7 +377,6 @@ console.log(objeto.pestanas.totales)
         }
 
     })
-
     $(`#bf${numeroForm} .desHabilitarBoton`).click(function (e) {
 
         if (editando == true) {
