@@ -4,7 +4,6 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     let key = objeto.key;
     let pestanas = objeto.pestanas.totales;
     let valorAbm = new Object;
-    let editarCompuesto = false;
     let formIndividualPestana = false;
     formularioIndAbm = true;
     let editando = false;
@@ -3027,7 +3026,7 @@ const abrirAdjuntoFormIndividual = function (objeto, numeroForm) {
         $(`#formularioIndividual div.fo.${value.nombre} div.src`).addClass(`vistaPrevia`);
         $(`#formularioIndividual  td.${value.nombre} div.formColec.src`).addClass(`vistaPrevia`);
     });
-}
+};
 const insertarNumerador = function (numerador) {
     $.ajax({
         type: "POST",

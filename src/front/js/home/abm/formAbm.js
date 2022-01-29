@@ -845,7 +845,7 @@ const desencadenante = function (desencadena, objeto, numeroForm, fileData, id) 
     console.log(file)
 
     if (formularioIndAbm == false) {
-        console.log(1)
+
         $.each(desencadena, (ind, val) => {
             $.ajax({
                 type: "POST",
@@ -2289,49 +2289,112 @@ const habilitarDesHabilitarRegistro = function (
     });
 };
 const lecturaUnoUOtro = function (objeto, numeroForm, atrUno, atrDos) {
-    let atributoUno = "";
-    let atributoDos = "";
 
-    atributoUno = $(`#t${numeroForm} input.edit.${atrUno.nombre}`);
-    atributoDos = $(`#t${numeroForm} input.edit.${atrDos.nombre}`);
+    let inputLength = function () {
 
-    if (
-        $(`#t${numeroForm} input.edit.${atrUno.nombre}`).val() == undefined &&
-        $(`#t${numeroForm} input.edit.${atrDos.nombre}`).val() == undefined
-    ) {
-        atributoUno = $(`#t${numeroForm} input.${atrUno.nombre}`);
-        atributoDos = $(`#t${numeroForm} input.${atrDos.nombre}`);
-    }
+        let father = $(this).parent().parent()
+        console.log(father)
+        let atributoUno = $(`input.${atrUno.nombre}`, father)
+        let atributoDos = $(`input.${atrDos.nombre}`, father)
 
-    if ($(atributoUno).val().length > 0) {
-        $(atributoDos).prop("readOnly", true);
-    } else {
-        atributoDos.removeAttr("readOnly");
-    }
+        if ($(atributoUno).val().length > 0) {
 
-    if ($(atributoDos).val().length > 0) {
-        atributoUno.prop("readOnly", true);
-    } else {
-        atributoUno.removeAttr("readOnly");
-    }
+            $(atributoDos).prop("readOnly", true);
+            $(atributoDos).removeClass("requerido");
+            $(atributoDos).val("");
 
-    if (formularioIndAbm == true) {
-        let atributoUnoForm = "";
-        let atributoDosForm = "";
-
-        atributoUnoForm = $(`#formularioIndividual input.${atrUno.nombre}`);
-        atributoDosForm = $(`#formularioIndividual input.${atrDos.nombre}`);
-
-        if ($(atributoUnoForm).val().length > 0) {
-            $(atributoDosForm).prop("readOnly", true);
         } else {
-            $(atributoDosForm).removeAttr("readOnly");
+            atributoDos.removeAttr("readOnly");
+            $(atributoDos).addClass("requerido");
+            $(atributoDos).addClass("prueba");
         }
 
         if ($(atributoDos).val().length > 0) {
-            $(atributoUnoForm).prop("readOnly", true);
+            atributoUno.prop("readOnly", true);
+            atributoUno.removeClass("requerido");
+            atributoUno.val("");
         } else {
-            $(atributoUnoForm).removeAttr("readOnly");
+            atributoUno.removeAttr("readOnly");
+            atributoUno.addClass("requerido");
         }
     }
+
+    let checkLengt = function () {
+
+        console.log($(`#t${numeroForm} input.edit.${atrUno.nombre}`))
+        if ($(`#formularioIndividual .formulario`).length == 0 && $(`table.tabs_contents_item.${numeroForm}`).length > 0 && $(`#t${numeroForm} input.edit.${atrUno.nombre}`).length > 0) {
+
+            if ($(`#t${numeroForm} input.edit.${atrUno.nombre}`).val().length > 0) {
+
+                $(`#t${numeroForm} input.edit.${atrDos.nombre}`).prop("readOnly", true)
+                $(`#t${numeroForm} input.edit.${atrDos.nombre}`).removeClass("requerido")
+            }
+
+            if ($(`#t${numeroForm} input.edit.${atrDos.nombre}`).val().length > 0) {
+
+                $(`#t${numeroForm} input.edit.${atrUno.nombre}`).prop("readOnly", true)
+                $(`#t${numeroForm} input.edit.${atrUno.nombre}`).removeClass("requerido")
+            }
+
+        } else if ($(`#formularioIndividual .formulario`).length > 0) {
+
+            if ($(`#formularioIndividual input.${atrUno.nombre}`).val().length > 0) {
+
+                $(`#formularioIndividual input.${atrDos.nombre}`).prop("readOnly", true)
+                $(`#formularioIndividual input.${atrDos.nombre}`).removeClass("requerido")
+            }
+            if ($(`#formularioIndividual input.${atrDos.nombre}`).val().length > 0) {
+
+                $(`#formularioIndividual input.${atrUno.nombre}`).prop("readOnly", true)
+                $(`#formularioIndividual input.${atrUno.nombre}`).removeClass("requerido")
+            }
+        }
+    }
+
+    if ($(`#formularioIndividual .formulario`).length == 0) {
+        $(`#t${numeroForm} input.${atrUno.nombre},
+           #t${numeroForm} input.${atrDos.nombre}`).change(inputLength);
+    } else {
+        $(`#formularioIndividual input.${atrUno.nombre},
+           #formularioIndividual input.${atrDos.nombre}`).change(inputLength);
+    }
+
+    checkLengt()
+
 };
+const lecturaLengthBooleano = function (objeto, numeroForm, logico, atrDos) {
+
+    let lecturaCondicionalBooleano = function () {
+
+        let father = $(this).parent().parent();
+        let atributo = $(this).attr(`name`)
+
+        if ($(`input.${atributo}`, father).is(`:checked`)) {
+
+            let atributoObjetivo = $(`select.${atrDos.nombre}`, father)
+
+            if (atributoObjetivo == undefined) {
+                $(`input.${atrDos.nombre}`, father).prop(`readonly`, true)
+            } else {
+                $(`select.${atrDos.nombre}`, father).attr(`disabled`, true)
+                $(`select.${atrDos.nombre}`, father).removeClass(`requerido`)
+            }
+
+            $(father).removeClass(`sel`)
+        } else {
+
+            $(`input.${atrDos.nombre}`, father).removeAttr(`readonly`)
+            $(`select.${atrDos.nombre}`, father).removeAttr(`disabled`)
+            $(`select.${atrDos.nombre}`, father).addClass(`requerido`)
+
+            $(father).removeClass(`sel`)
+        }
+    }
+
+    if ($(`#formularioIndividual .formulario`).length == 0) {
+        $(`#t${numeroForm} input.${logico.nombre}`).change(lecturaCondicionalBooleano);
+    } else {
+        $(`#formularioIndividual input.${logico.nombre}`).change(lecturaCondicionalBooleano);
+    }
+}
+

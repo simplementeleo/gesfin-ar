@@ -95,7 +95,6 @@ let variablesIniciales = {
             cargar: {
                 deptos: dept, //Form ABM -- 1093
                 numeroFidei: numeroconFiltro, //Form ABM -- 1072
-                inhabilitarNumer: inhabilitarNumer, //Form ABM -- 1437
                 totalesBaseYMoneda: totalesBaseYMoneda, //Form ABM -- 834
                 nombreBotonAdjunto: nombreBotonAdjunto,
 
@@ -111,7 +110,8 @@ let variablesIniciales = {
                 0: {
                     name: `cobrosRecibidos`,
                     atributos: [num, unidades, username],
-                    filtro: true
+                    filtro: true,
+                    atributoFiltro: unidades
                 },
             },
         },
@@ -262,7 +262,8 @@ let variablesIniciales = {
                 0: {
                     name: `pagosRealizados`,
                     atributos: [num, unidades, username],
-                    filtro: true
+                    filtro: true,
+                    atributoFiltro: unidades
                 },
             },
         },
@@ -412,7 +413,6 @@ let variablesIniciales = {
             cargar: {
                 nombreBotonAdjunto: nombreBotonAdjunto,
                 totalesBaseYMoneda: totalesBaseYMoneda,
-                //saldoMayorCero: saldoMayorCero,
                 numeroFidei: numeroconFiltro,
             },
             formularioIndiv: {
@@ -429,7 +429,8 @@ let variablesIniciales = {
                 0: {
                     name: `acopio`,
                     atributos: [num, unidades, username],
-                    filtro: true
+                    filtro: true,
+                    atributoFiltro: unidades
                 },
             },
         },
@@ -604,8 +605,8 @@ let variablesIniciales = {
     },
     prestamosFideicomisos: {
         atributos: {
-            names: [id, num, nombre, fecha, unidades, unidadesDestino, moneda, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, prestamoCompuesto, devolucionImporte, devolucionImporteArs, devolucionImporteUsd, saldo, saldoArs, saldoUsd, observaciones, date, username, destino, contadorId],
-            titulos: [`id`, 'Numero', `Nombre`, `Fecha`, `Origen`, `Destino`, `Moneda`, `Importe`, `importeArs`, `importeUsd`, `Tipo de Cambio`, `Forma de pago`, `fechaDevolucion`, `importe`, `importeArs`, `importeUsd`, `descripcion`, `tipoPagoColeccion`, `idColec`, `destinoColec`, `post`, `Devuelto`, `devolucionImporteArs`, `devolucionImporteUsd`, `Saldo`, `saldoArs`, `saldoUsd`, `Observaciones`, `Auditoria`, 'Usuario'],
+            names: [id, num, fecha, unidades, unidadesDestino, moneda, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, prestamoCompuesto, devolucionImporte, devolucionImporteArs, devolucionImporteUsd, saldo, saldoArs, saldoUsd, observaciones, date, username, destino, contadorId],
+            titulos: [`id`, 'Numero', `Fecha`, `Origen`, `Destino`, `Moneda`, `Importe`, `importeArs`, `importeUsd`, `Tipo de Cambio`, `Forma de pago`, `fechaDevolucion`, `importe`, `importeArs`, `importeUsd`, `descripcion`, `tipoPagoColeccion`, `idColec`, `destinoColec`, `post`, `Devuelto`, `devolucionImporteArs`, `devolucionImporteUsd`, `Saldo`, `saldoArs`, `saldoUsd`, `Observaciones`, `Auditoria`, 'Usuario'],
             soloLectura: [num, tipoCambio, devolucion, saldo, saldoArs, date, devolucionImporte, username],
             oculto: [id, importeTotalArs, importeTotalUsd, devolucionImporteArs, devolucionImporteUsd, saldoUsd, saldoArs, origen, destino, fechaDevolucion, importe, importeArs, importeUsd, descripcion, tipoPagoColeccion, idColec, contadorId, destinoColec, post],
             deshabilitado: [importe, tipoPagoColeccion, fechaDevolucion],
@@ -659,13 +660,13 @@ let variablesIniciales = {
                     cinco: [num],
                     siete: [date, importeTotal, importe, devolucionImporte, saldo],
                     diez: [fecha, tipoPago, username],
-                    quince: [nombre, unidades, unidadesDestino, observaciones],
+                    quince: [unidades, unidadesDestino, observaciones],
                 }
             },
             modificar: {
-                names: [id, num, nombre, fecha, unidades, unidadesDestino, moneda, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, devolucion, devolucionImporteArs, devolucionImporteUsd, saldo, saldoArs, saldoUsd, observaciones, date, username, destino],
-                pestanas: [tipoPago, moneda],
-                soloLectura: [num, unidades, unidadesDestino, tipoCambio, devolucion, saldo, date, username],
+                names: [id, num, fecha, unidades, unidadesDestino, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, devolucion, devolucionImporteArs, devolucionImporteUsd, saldo, saldoArs, saldoUsd, observaciones, date, username, destino],
+                pestanas: [tipoPago],
+                soloLectura: [num, unidades, unidadesDestino, tipoCambio, moneda, devolucion, saldo, date, username],
             },
             eliminar: true,
             deshabilitar: false,
@@ -673,7 +674,7 @@ let variablesIniciales = {
         formInd: {
             compuesto: true,
             compuestoObligatorio: false,
-            titulos: [`id`, 'Numero', `Nombre`, `Fecha`, `Origen`, `Destino`, `Moneda`, `Prestamo`, `importeArs`, `importeUsd`, `Tipo de Cambio`, `Forma de pago`, `Compuesto`, `Devuelto`, `devolucionImporteArs`, `devolucionImporteUsd`, `Saldo`, `saldoArs`, `saldoUsd`, `Observaciones`, `Auditoria`, 'Usuario'],
+            titulos: [`id`, 'Numero', `Fecha`, `Origen`, `Destino`, `Moneda`, `Importe`, `importeArs`, `importeUsd`, `Tipo de Cambio`, `Forma de pago`, `Compuesto`, `Devuelto`, `devolucionImporteArs`, `devolucionImporteUsd`, `Saldo`, `saldoArs`, `saldoUsd`, `Observaciones`, `Auditoria`, 'Usuario'],
             titulosCompuesto: {
                 prestamoCompuesto: [`Fecha`, `Devolucion`, `Observaciones`, `Forma de pago`]
             },
@@ -682,15 +683,15 @@ let variablesIniciales = {
             soloLectura: {
                 compuesto: []
             },
-            inputRenglones: [8, 6, 7, `compuesto`, 6],
+            inputRenglones: [7, 6, 7, `compuesto`, 6],
             soloLectura: {
                 compuesto: []
             },
             modificar: {
-                names: [id, num, nombre, fecha, unidades, unidadesDestino, moneda, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, devolucion, devolucionImporteArs, devolucionImporteUsd, saldo, saldoArs, saldoUsd, observaciones, date, username, destino],
+                names: [id, num, fecha, unidades, unidadesDestino, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, devolucion, devolucionImporteArs, devolucionImporteUsd, saldo, saldoArs, saldoUsd, observaciones, date, username, destino],
                 compuesto: [importe, importeArs, importeUsd, fechaDevolucion, descripcion, idColec, tipoPagoColeccion, destinoColec, post],
-                pestanas: [unidades, unidadesDestino, moneda, tipoPago, tipoPagoColeccion],
-                soloLectura: [num, tipoCambio, devolucion, saldo, date, username],
+                pestanas: [unidades, unidadesDestino, tipoPago, tipoPagoColeccion],
+                soloLectura: [num, tipoCambio, devolucion, moneda, saldo, date, username],
             },
             impresion: {
                 tituloFormulario: `Prestamos Inter-Company`,
@@ -701,7 +702,6 @@ let variablesIniciales = {
         funcionesPropias: {
             cargar: {
                 totalesBaseYMoneda: totalesBaseYMoneda, //Form ABM -- 834
-
             },
             formularioIndiv: {
                 deshabitarValidarColec: deshabitarValidarColec,
@@ -710,15 +710,12 @@ let variablesIniciales = {
             coleccionFormIndividual: {
                 idColeccion: idColeccion,
                 postPutColeccionInicialAdd: postPutColeccionInicialAdd,
-
-
             },
         },
         numerador: {
             global: {
                 0: {
                     name: `prestamosFideicomisos`,
-                    atributos: [num, unidades, username],
                     filtro: false
                 },
             },
@@ -792,6 +789,152 @@ let variablesIniciales = {
             modificar: modficarInd,
             entidades: [],
             desencadena: [``],
+            eliminar: true,
+            deshabilitar: false,
+            FiltroRapido: [],
+        }
+    },
+    liquidacionMoneda: {
+        atributos: {
+            names: [id, num, fecha, unidades, logico, unidadesDestino, moneda, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, observaciones, date, username, destino],
+            titulos: [`id`, 'Numero', `Fecha`, `Origen`, `Externo`, `Destino`, `Moneda`, `Importe`, `importeArs`, `importeUsd`, `Tipo de Cambio`, `Forma de pago`, `Observaciones`, `Auditoria`, 'Usuario'],
+            soloLectura: [num, tipoCambio, date, username],
+            oculto: [id, importeTotalArs, importeTotalUsd],
+            deshabilitado: [importe, tipoPagoColeccion, fechaDevolucion],
+            importe: {
+                totalizadorCabecera: {
+                    importeBase: {
+                        total: [devolucionImporte],
+                        cantidad: [],
+                        digitosPositivos: [importe],
+                        digitosNegativos: []
+                    },
+                    saldo: []
+                },
+                totalizadorColeccion: [],
+                cantidad: [],
+                importeBase: [importe],
+                importePesos: [importeArs],
+                importeUsd: [importeUsd],
+            },
+            compuesto: [],
+            signo: [],
+            color: [],
+            vistaPrevia: [],
+            number: [importeTotal, importeTotalArs, importeTotalUsd, tipoCambio],
+            date: [fecha],
+            valoresIniciales: {
+                funcion: {
+                    fecha: fechaInicialHoy,
+
+                },
+                string: [],
+                select: {
+                    moneda: `Dolar`,
+                }
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [moneda, tipoCambio],
+                    cinco: [num],
+                    siete: [date, importeTotal],
+                    diez: [fecha, tipoPago, username],
+                    quince: [nombre, unidades, unidadesDestino, observaciones],
+                }
+            },
+            modificar: {
+                names: [id, num, fecha, unidades, unidadesDestino, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, observaciones, date, username, destino],
+                pestanas: [tipoPago],
+                soloLectura: [num, unidades, unidadesDestino, tipoCambio, moneda, devolucion, saldo, date, username],
+            },
+            eliminar: true,
+            deshabilitar: false,
+        },
+        formInd: {
+            compuesto: true,
+            compuestoObligatorio: false,
+            titulos: [`id`, 'Numero', `Fecha`, `Origen`, `Externo`, `Destino`, `Moneda`, `Importe`, `importeArs`, `importeUsd`, `Tipo de Cambio`, `Forma de pago`, `Observaciones`, `Auditoria`, 'Usuario'],
+            titulosCompuesto: [],
+            oculto: [id, num, importeTotalArs, importeTotalUsd],
+            ordenFormu: [0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+            soloLectura: {
+                compuesto: []
+            },
+            inputRenglones: [, 6, 7, 5, 6],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [id, num, fecha, unidades, unidadesDestino, importeTotal, importeTotalArs, importeTotalUsd, tipoCambio, tipoPago, observaciones, date, username, destino],
+                compuesto: [],
+                pestanas: [tipoPago],
+                soloLectura: [num, unidades, unidadesDestino, tipoCambio, moneda, devolucion, saldo, date, username],
+            },
+            impresion: {
+                tituloFormulario: `Liquidacion moneda extrangera`,
+                oculto: [],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            cargar: {
+                totalesBaseYMoneda: totalesBaseYMoneda, //Form ABM -- 834
+
+            },
+            cargarDosAtributo: {
+                lecturaLengthBooleano: [lecturaLengthBooleano, logico, unidadesDestino]
+            },
+            formularioIndiv: [],
+            coleccionFormIndividual: [],
+        },
+        numerador: {
+            global: {
+                0: {
+                    name: `liquidacionMoneda`,
+                    filtro: false
+                },
+            },
+        },
+        acumulador: [],
+        validaciones: [fecha],
+        key: {
+            atributo: num,
+            nombre: `numero`,
+        },
+        pest: `Moneda Extrangera`,
+        accion: `liquidacionMoneda`,
+        pestanas: {
+            cabecera: [unidades, unidadesDestino, tipoPago, moneda],
+            coleccion: [],
+            totales: [unidades, unidadesDestino, tipoPago, moneda, tipoPagoColeccion],
+        },
+        tablaDobleEntrada: false,
+        desencadena: {
+            principal: [],
+            desencadenaModif: {
+                signoNumero: {
+                    movimientoFinanciero: [importeTotal, importeTotalArs, importeTotalUsd],
+                },
+                atributo: {
+                    movimientoFinanciero: {
+                        atributoOrigen: [unidadesDestino],
+                        atributoEnDestino: [unidades]
+                    }
+                },
+                signoNumeroAtyributo: []
+            },
+            condicionalUnBooleano: [],
+        },
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran las operaciones de monedas extrangeras
+             de In-inversiones.`,
+            modificar: modficarInd,
+            entidades: [],
+            desencadena: [`Movimientos financieros`],
             eliminar: true,
             deshabilitar: false,
             FiltroRapido: [],
@@ -1213,10 +1356,13 @@ let variablesIniciales = {
         },
         funcionesPropias: {
             formularioIndiv: {
-                inhabilitarNumer: inhabilitarNumer
+
             },
             cargar: {
-                inhabilitarNumer: inhabilitarNumer
+                //           inhabilitarNumer: inhabilitarNumer
+            },
+            cargarDosAtributo: {
+                lecturaUnoUOtro: [lecturaUnoUOtro, letra, numer]
             },
             coleccionFormIndividual: [],
             inicio: {
@@ -1228,7 +1374,6 @@ let variablesIniciales = {
             global: {
                 0: {
                     name: `cliente`,
-                    atributos: [num, username],
                     filtro: false
                 },
             },
@@ -1438,7 +1583,6 @@ let variablesIniciales = {
             global: {
                 0: {
                     name: `proveedor`,
-                    atributos: [num, username],
                     filtro: false
                 },
             }
@@ -1746,7 +1890,6 @@ let variablesIniciales = {
             global: {
                 0: {
                     name: `subRubroPagos`,
-                    atributos: [num, unidades, username],
                     filtro: false
                 },
             }
@@ -2389,8 +2532,6 @@ let progressBarFun = function (numeroForm) {
     }
 
 }
-
-
 const numerosNegativos = function () {
     let ars = $(`.arsHome`);
 

@@ -8,4 +8,14 @@ const multer = require(`multer`)
 
 const User = require("../models/marketPlace/User");
 
+router.post("/users/login", passport.authenticate("local", {
+    successRedirect: "/home",
+    failureRedirect: "/",
+    failureFlash: true
+}));
+
+router.get('/home', (req, res) => {
+    res.render('home/homeLog', { userNombre: req.user.name, username: req.user.username });
+});
+
 module.exports = router;
