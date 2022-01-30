@@ -36,7 +36,6 @@ const calculartotalesCabecera = function (value, numeroForm, accion, target) {
     $(`input.${value.total[0].nombre}`, fila).val(parseFloat(total || 0))
     $(`#formulario${accion}${numeroForm} input.${value.total[0].nombre}`).val(parseFloat(totalForm || 0))
 };
-
 const calculartotalesColeccion = function (value, e) {
 
     let fila = $(e.target).parent().parent();
@@ -58,7 +57,6 @@ const calculartotalesColeccion = function (value, e) {
 
     $(`input.${value.total[0].nombre}`, fila).val(totalimporteSuma);
 };
-
 const calcularcotizacionYTotales = (objeto, numeroForm, e, monedaCompPesos) => {
 
     let accion = objeto.accion
@@ -160,7 +158,6 @@ const calcularcotizacionYTotales = (objeto, numeroForm, e, monedaCompPesos) => {
         })
     }
 }
-
 ///////////////FUNCIONES TRIGER
 const totalesBaseYMoneda = function (objeto, numeroForm, editando) {
     let accion = objeto.accion;

@@ -1,201 +1,195 @@
-.principalesIndicadores {
-  width: 100%;
-  display: block;
-  flex-wrap: wrap;
-  margin-top: 1%;
+body {
+  background-color: #154ce2;
+  background-image: url("../../img/background/fondoMarmol.png");
+  scroll-behavior: initial;
 }
 
-#principalesIndicadores {
-  position: absolute;
-  left: 4em;
-  max-width: calc(100% - 5em);
-}
-#principalesIndicadores td {
-  background-color: rgb(255, 255, 255);
-  transition: 3s;
-}
 
-#principalesIndicadores td.modif {
-  background-color: rgb(171, 200, 238);
-  transition: 3s;
-}
-
-#principalesIndicadores.vistaActive {
-  position: absolute;
-  left: 20em;
-  max-width: calc(100% - 5em);
-}
-
-.principalesIndicadores.noShow {
-  display: none;
-}
-
-#principalesIndicadores h2 {
-  color: rgb(255, 255, 255);
-}
-
-#primerRenglon {
-  width: 100%;
+.navegacion {
   display: flex;
+  justify-content: space-between;
+  margin-top: 0.5em;
 }
-
-#segundoRenglon {
-  width: 100%;
-  margin-top: 3em;
+.navegacion .login {
   display: flex;
-  border-top: 2px solid #bbb;
-}
-
-#segundoRenglon div {
-  margin-right: 4em;
-  margin-top: 2em;
-}
-
-#tercerRenglon {
-  width: 100%;
+  flex-flow: row;
+  justify-content: flex-end;
   margin-top: 1em;
-  margin-bottom: 3em;
-  display: flex;
-  border-top: 2px solid #bbb;
+  align-items: center;
+  padding-right: 5em;
+  width: 100%;
+}
+.navegacion .login .inputMail {
+  margin-top: 1em;
 }
 
-#tercerRenglon div {
-  margin-right: 4em;
-  margin-top: 2em;
+.navegacion .login .inputMail input {
+  height: 2em;
+  border-radius: 2em;
+  width: 15em;
+  padding-left: 1em;
 }
 
-.tituloTabla {
-  background-color: rgb(184, 184, 184);
+.navegacion .login .inputMail input.btnLog {
+  height: 2.5em;
   font-weight: bold;
-  border-radius: 5px 5px 0 0;
-  width: 5em;
+  width: 7em;
+  margin-left: 1.5em;
 }
 
-.tituloTabla.descripcionTabla {
-  width: 10em;
+.navegacion .login .olvidaste a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1em;
 }
 
-.descripcionTabla {
-  text-align: left;
-  padding-left: 1em;
+.menu {
+  margin-top: 0%;
+  margin-right: 5%;
+  margin-bottom: 0%;
 }
 
-.fondoTabla {
-  border-radius: 0px 0px 5px 5px;
-}
-
-#tcHome,
-#iccHome {
-  margin-right: 4em;
-}
-
-#tcHome th,
-#tcHome td {
-  padding: 0em 1em 0em 1em;
-}
-
-#iccHome th,
-#iccHome td {
-  padding: 0em 1em 0em 1em;
-}
-
-#iccHome th,
-#tcHome th {
-  background-color: rgba(206, 200, 211, 0.301);
-}
-
-#cajaBancos .thDer,
-#cobroRubro table th.thDer,
-#pagoRubro table th.thDer,
-#prestamos table th.thDer {
-  text-align: left;
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
-/*FECHA*/
-
-#fecha {
-  margin-right: 2em;
-}
-
-#fechaTexto {
+.gesfin {
   display: flex;
-  align-items: flex-end;
-}
-
-#fechaTexto {
-  display: flex;
-  align-content: flex-end;
-}
-
-#fechaTexto div p {
-  margin: auto;
+  flex-wrap: wrap;
   margin-left: 3em;
-  margin-bottom: 0.5em;
-  font-weight: bold;
-  font-family: "Ubuntu Condensed", sans-serif;
+  margin-top: 1em;
+  padding-left: 0.5%;
+  width: 100%;
+  max-height: 40px;
+  color: white;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-/*IMPORTE*/
+.gesfinHome {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 0em;
 
-.arsHome::before {
-  content: "$ ";
+  margin-top: 0em;
+  padding-left: 0;
+  width: 100%;
+  max-height: 40px;
+  color: white;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.usdHome::before {
-  content: "USD ";
+.gesfin .logoPrincipal {
+  width: 6em;
+  display: flex;
+}
+#letraLogo {
+  display: flex;
+  border-left: 0.3em solid rgb(0, 0, 0);
+  margin-left: 0.5em;
+}
+#letraLogo div {
+  align-self: center;
+  margin-left: 0.5em;
+  font-family: "Source Sans Pro", sans-serif;
+}
+#letraLogo h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 3em;
 }
 
-.arsHome.signo-1 {
-  color: red;
+#letraLogo p {
+  margin: 0;
+  padding: 0;
 }
 
-/*TABLAS*/
-
-#cajaBancos table td {
-  padding: 0 1em 0 1em;
+ul.men-prin {
+  list-style: none;
+}
+div.user {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-right: 3em;
+  margin-bottom: 0;
+  padding-top: 0.8em;
+  padding-bottom: 0;
 }
 
-#cajaBancos table th,
-#cobroRubro table th,
-#pagoRubro table th,
-#prestamos table th {
-  font-size: 1.1em;
-  padding: 0.2em 0 0.2em 0;
+div.user nav {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+div.user .men {
+  display: none;
+  list-style: none;
+  margin-right: 3em;
+}
+div.user .men li a {
+  text-decoration: none;
+  color: #000000;
 }
 
-#cajaBancos table td,
-#cobroRubro table td,
-#pagoRubro table td,
-#prestamos table td {
-  padding-left: 1em;
-  padding-right: 1em;
+div.user .men li a:hover {
+  text-decoration: none;
+  color: #ffffff;
 }
 
-#cajaBancos table td:first-child {
-  text-align: left;
-  font-size: 1.2em;
-}
-
-.logoFondo {
-  margin-top: 10em;
+div.user .men.show {
+  display: block;
+  height: auto;
+  width: 15em;
+  animation: fadeIn 0.3s forwards;
+  position: absolute;
+  margin-top: -1em;
   margin-left: -8em;
+  padding: 0;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 10px 10px 10px 10px;
+  padding: 1em;
+  background-color: rgb(114, 160, 129);
+  z-index: 1000;
+}
+div.user img {
+  width: 2em;
+  height: 2em;
+  margin-left: 1em;
+  margin-bottom: 0;
 }
 
-.logoFondo.noShow {
-  display: none;
+div.user nav ul {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
-#oculto {
-  display: none;
+div.user nav h3 {
+  display: flex;
+  flex-wrap: nowrap;
+  color: rgb(0, 0, 0);
+  list-style: none;
+  margin-top: 0;
+  margin-left: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  justify-self: center;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.8em;
+  cursor: pointer;
+}
+div.user nav h3:hover {
+  color: white;
 }
 
-.thDer.cuerpo {
-  background-color: rgb(230, 230, 230);
+div.user nav img.fechaDown {
+  width: 0.7em;
+  height: 0.7em;
+  margin-top: 0.4em;
+  margin-left: 0.5em;
+  padding-left: 0;
 }
 
-.thDer.total,
-th.total {
-  background-color: rgb(135, 151, 136);
+ul.men li {
+  font-size: 1.1em;
+  margin-bottom: 4%;
 }
