@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="language" content="es">
+    <!--GOOGLE FONTS-->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet">
+
+    <!--FONTELLO CSS-->
+    <!--CUSTOM CSS-->
+    <link rel="stylesheet" href="/css/form/forInd.css">
+    <link rel="stylesheet" href="/css/form/impresionForm.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/formularioAbms.css">
+    <link rel="stylesheet" href="/css/carteles.css">
+    <link rel="stylesheet" href="/css/market.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/input.css">
+    <title>Gesfin</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="navegacion">
+            <div class="gesfinHome">
+                <img src="/img/icono/MenuNav.svg" class="menuMarket" alt="Menu">
+                <img src="/img/icono/flechaBarra.svg" class="logoPrincipalMarket" alt="Logo">
+                <div id="letraLogoMarket">
+                    <div>
+                        <h4>GesFin</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="medio">
+                <% if (error.length> 0) {%>
+                    <div class="cartelError">
+                        <%= error %>
+                    </div>
+                    <%}%>
+            </div>
+            <div class="user">
+                <img src="/img/icono/campana.png" alt="campana" class="campana" title="Notificaciones">
+                <img src="/img/icono/user.png" alt="perfil" class="perfil" title="Usuario">
+                <nav>
+
+                    <ul class="men-prin">
+                        <li>
+                            <h3 id="usuarioDes">
+                                <%= user.name %>
+                                    
+                                    <img src="/img/icono/triangAbajo.png" class="fechaDown">
+                            </h3>
+
+
+                            <ul class="men">
+                                <li><a href="">Configuración de usuario</a></li>
+                                <li><a href="marketp">Configuracion Aplicacion</a></li>
+                                <li><a href="/logout ">Cerrar sesión</a></li>
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+        <div id="menu-container" class="menu-container ">
+            <div class="nav-vert ">
+                <nav>
+                    <ul>
+                        <li><img src="/img/icono/usuario2.svg" alt="Usuario " title="Configuracion de usuarios" class="usur"></li>
+                    </ul>
+                    <ul>
+                        <li><img src="/img/icono/candado.svg" alt="Segurdad " title="Configuración de seguridad" class="seg"></li>
+                    </ul>
+                    <ul>
+                        <li><img src="/img/icono/cliente.svg" alt="Cliente " title="Configuracion de cobros" class="cobra"></li>
+                    </ul>
+                     <ul>
+                        <li><img src="/img/abm/configGral.svg" alt="Procesos " title="Configuracion de procesos" class="proces"></li>
+                    </ul>
+
+                    <ul>
+                        <li><img src="/img/icono/mundo.svg" alt="Pagos " title="Configuraciones generales" class="conf"></li>
+                    </ul>
+                    <ul>
+                        <li><img src="/img/icono/menu.png" alt="Menu " title="Panel de control" class="panelControl"></li>
+                    </ul>
+        
+                </nav>
+        
+            </div>
+            <div class="nav-completa market">
+                <nav>
+                    <ul>
+        
+                        <li class="usur inactivo">
+                            <p id="usuario ">Usuarios</p>
+                        </li>
+        
+                        <li class="seg inactivo">
+                            <p id="seguridad ">Seguridad</p>
+                            <ul class="subMenuSeg oculto">
+                                <li>
+                                    <p>Segurdiad de usuario</p>
+                                </li>
+                                <li>
+                                    <p>Seguridad de dominio</p>
+                                </li>
+                                <li>
+                                    <p>Grupos de seguridad</p>
+                                </li>
+                                <li>
+                                    <p>Segurdiad por reporte</p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p class="cobr desplegable" menu="subMenuCob" img="proces">Clientes</p>
+                            <ul class="subMenuCob ">
+                                <li>
+                                    <p class="menuSelectAbm" id="cliente">Cliente</p>
+                                </li>
+
+                            </ul>
+                        </li>
+                         <li>
+                            <p class="proceso desplegable" menu="subMenuProceso" img="conf">Procesos</p>
+                            <ul class="subMenuProceso">
+                                <li>
+                                    <p class="menuSelectAbm" id="estadoProceso">Estado</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm" id="criticidad">Criticidad</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm" id="tarea">Tareas</p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p class="dir desplegable" menu="subMenuDir" img="panelControl">Direcciones<span class="icon-down-dir"></span></p>
+                            <ul class="subMenuDir">
+                                <li>
+                                    <p class="menuSelectAbm" id="ciudad">Ciudad</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm" id="provincia">Provincia</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm" id=pais>Pais</p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="homeMp "> <a href="/home ">Home</a></li>
+                    </ul>
+                </nav>
+        
+            </div>
+        
+        
+        
+            <div id="tablas" class="comp">
+                <div class="tabs_links" id="tabs_links"></div>
+                <div class="comandos" id="comandera"></div>
+                <div class="tabs_contents" id="tabs_contents"></div>
+        
+            </div>
+        
+        
+        </div>
+        
+        <div>
+            <input id="oculto" value=<%=user.username %> >
+        
+        </div>
+
+        <!-- Creacion formulario individual-->
+        
+        <div id="formularioIndividual2"></div>
+        <div id="formularioIndividual">
+        
+            <div class="cuadroForm">
+                <div class="primeraLinea">
+        
+                    <div id="comanderaIndiv">
+        
+        
+                    </div>
+        
+        
+                </div>
+                <div class="logoForm">
+                    <!-- <img src="/img/logo1.png" alt=""> -->
+                </div>
+        
+                <div id="cabeceraForm">
+        
+                </div>
+            </div>
+        </div>
+        <!-- Creacion Menu contextual-->
+        <div id="menuContextual">
+        
+        </div>
+        
+        <div id="impresionFormulario">
+            <div id=documentoImpresion>
+                <div class="primeraLineaImpresion">
+        
+                    <div id="comanderaIndivImpresion">
+                    </div>
+        
+        
+                </div>
+                <div id="impresionFinal">
+                    <div class="segundLineaImpresion">
+                        <div class="logoFormImpresionDef">
+                        <!--   <img src="/img/In-negro.png" alt="">-->
+                        </div>
+                        <div class="logoFormImpresion">
+                        <!-- <img src="/img/logo1.png" alt="">-->
+                        </div>
+                    </div>
+                    <div id=cuerpoImpresion>
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="ayuda">
+            <div id=documentoAyuda>
+                <div id="comanderaIndivAyuda">
+                </div>
+                <div class="primerLineaAyuda">
+                    <div class="logoAyuda">
+                     <!-- <img src="/img/gesfinPrinc.png" alt="GesFin">  -->   
+                    </div>
+                </div>
+                <div id=cuerpoAyuda>
+        
+                </div>
+            </div>
+        </div>
+        
+        <div id="canvas_container">
+            <div class="crossForm">
+                <div>+</div>
+            </div>
+        
+            <embed id="vistaPrevia" src="">
+        </div>
+        
+        
+        <div id="videoTutorialDiv">
+            <div class="crossForm">
+                <div>+</div>
+            </div>
+        
+            <embed id="videoTutorial" src="">
+        </div>
+
+
+
+    <!--JQUERY-->
+    <!--LIBRERIAS-->
+    <script src="/js/librerias/jquery-3.4.1.min.js "></script>
+    <script src="/js/librerias/moment.js "></script>
+    <!--ABM -->
+    <script src="/js/abm/crearAbm.js"></script>
+    <script src="/js/abm/formAbm.js"></script>
+    <!--UNICA INSTANCIA -->
+    <script src="/js/unicaInstancia/crearFormUnicaInst.js"></script>
+    <script src="/js/unicaInstancia/formUnicaInstancia.js"></script>
+    <!--VARIABLES INICIALES-->
+    <script src="/js/home/desplegable.js"></script>
+    <script src="/js/home/atributoDefinicion.js"></script>
+    <script src="/js/home/objetosIniciales.js"></script>
+
+</body>
+
+</html> 
