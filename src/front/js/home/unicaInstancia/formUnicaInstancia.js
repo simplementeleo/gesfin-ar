@@ -1173,6 +1173,9 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
         complete: function (data) { },
         success: function (response) {
 
+
+            if(response.posteo != false){
+
             if (desencadenateTriger == true) {
 
                 desencadenanteForm(dessencadenanteForm, objeto, numeroForm, file, response.posteo._id)
@@ -1310,6 +1313,10 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
 
                 value(objeto, contador)
             })
+        }else{
+            $(`.cartelErrorForm p`).html(response.mensaje)
+            $(`.cartelErrorForm`).css("display", "block");
+        }
         },
         error: function (error) {
             console.log(error);

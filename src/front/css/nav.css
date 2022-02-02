@@ -218,6 +218,7 @@ li.homeMp a {
 ul.men-prin {
   list-style: none;
 }
+
 div.user {
   display: flex;
   flex-wrap: nowrap;
@@ -247,21 +248,7 @@ div.user .men li a:hover {
   color: #ffffff;
 }
 
-div.user .men.show {
-  display: block;
-  height: auto;
-  width: 15em;
-  animation: fadeIn 0.3s forwards;
-  position: absolute;
-  margin-top: -1em;
-  margin-left: -8em;
-  padding: 0;
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 10px 10px 10px 10px;
-  padding: 1em;
-  background-color: rgb(114, 160, 129);
-  z-index: 1000;
-}
+
 div.user img {
   width: 2em;
   height: 2em;
@@ -302,8 +289,17 @@ div.user nav img.fechaDown {
   margin-left: 0.5em;
   padding-left: 0;
 }
-
+.menu {
+  margin-top: 0%;
+  margin-right: 5%;
+  margin-bottom: 0%;
+}
 ul.men li {
   font-size: 1.1em;
   margin-bottom: 4%;
 }
+
+ul.men-prin {
+  list-style: none;
+}
+

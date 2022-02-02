@@ -67,7 +67,7 @@ app.use((req, res, next) => {
 
 app.use(require('./controladores/inicio'));
 app.use(require('./controladores/home'));
-//app.use(require('./controladores/market'));
+app.use(require('./controladores/market'));
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

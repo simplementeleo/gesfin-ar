@@ -96,6 +96,8 @@ const vencimientoAcopio = { nombre: `vencimientoAcopio`, type: `fecha`, maxCarac
 const observacionesCompleto = { nombre: `observacionesCompleto`, type: `textarea`, maxCaract: 10000 };
 const descripcionCompleto = { nombre: `descripcionCompleto`, type: `textarea`, maxCaract: 10000 };
 //////atriutos textos
+const apellido = { nombre: `surname`, type: `texto`, maxCaract: 100 };
+const password = { nombre: `password`, type: `texto`, maxCaract: 100 };
 const post = { nombre: `post`, type: `texto`, maxCaract: 20 };
 const devolucionImporteArs = { nombre: `devolucionImporteArs`, type: `texto`, maxCaract: 100 };
 const devolucionImporteUsd = { nombre: `devolucionImporteUsd`, type: `texto`, maxCaract: 100 };
@@ -142,6 +144,7 @@ const totales = { nombre: `totales`, type: `texto`, maxCaract: 100 }
 const impuesto = { nombre: `impuesto`, type: `texto`, maxCaract: 100 }
 const tresHab = { nombre: `tresHab`, type: `texto`, observaciones: `Cantidad de departamentos tres habitaciones que posee un edificio`, maxCaract: 100 };
 const unaHab = { nombre: `unaHab`, type: `texto`, observaciones: `Cantidad de departamentos una habitaciones que posee un edificio`, maxCaract: 100 };
+const usuario = { nombre: `usuario`, type: `texto`, maxCaract: 100 };
 const username = { nombre: `username`, type: `texto`, maxCaract: 100 };
 const position = { nombre: `position`, type: `text`, maxCaract: 50 };
 //////referencia
@@ -458,8 +461,6 @@ let iCalenF = `<div><img src="/img/abm/calen.svg" class="imgB achiq2" alt="Elimi
 let iCheckF = `<div><img src="/img/abm/check.svg" class="imgB achiq1" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
 let progressBar = `<div class="progressBar" style="--with: 10"></div>`;
 let logoFormIndividual = `<div class="logoIndividual"><img src="/img/logo1.png" alt=""></img></div>`
-
-
 
 const formatoNumeroFactura = function (numero) {
     let primerosCuatro = (numero.slice(0, 4))

@@ -1,4 +1,4 @@
-$('.menuSelectAbm').on('click ', this.id, function () {
+$('.menuSelectAbm').on('click ', this.id, function () { 
 
     let objeto = variablesIniciales[this.id]
 
@@ -45,10 +45,10 @@ $('.menuSelectAbm').on('click ', this.id, function () {
     
     <div id="menuContextualCuerpoTabla">
             <ul>
-                <li class="menuEditar ${contador}"><img src="/img/iconos/market/edit.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Editar</li>
-                  <li class="menuCancelar ${contador}"><img src="/img/iconos/market/cruz.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Cancelar Edit</li>
-                  <li class="menuEliminar ${contador}"><img src="/img/iconos/market/delete.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Eliminar</li>
-                  <li class="menuCrear ${contador}"><img src="/img/iconos/market/crear.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Formulario Individual</li>
+                <li class="menuEditar ${contador}"><img src="/img/abm/edit.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Editar</li>
+                  <li class="menuCancelar ${contador}"><img src="/img/abm/cruz.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Cancelar Edit</li>
+                  <li class="menuEliminar ${contador}"><img src="/img/abm/delete.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Eliminar</li>
+                  <li class="menuCrear ${contador}"><img src="/img/abm/crear.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Formulario Individual</li>
             </ul>
         </div>`;
 

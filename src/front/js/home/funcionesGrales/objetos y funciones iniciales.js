@@ -916,6 +916,108 @@ let variablesIniciales = {
             desencadenaModif: []
         },
     },
+    users: {
+        atributos: {
+            names: [_id, nombre, apellido, email, logico, usuario, password, username, habilitado],
+            titulos: [`_id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Username`, `Contraseña`, 'Auditoria', 'Usuario'],
+            soloLectura: [password, date, username],
+            oculto: [_id, habilitado],
+            importe: {
+                totalizador: [],
+                importeBase: [],
+                importePesos: [],
+                importeUsd: [],
+            },
+            compuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: {
+                    habilitado: true
+                },
+                select: []
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [],
+                    cinco: [],
+                    siete: [],
+                    diez: [],
+                    quince: [],
+                }
+            },
+            modificar: {
+                names: [_id, nombre, direccion, email, date, username],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            eliminar: false,
+            deshabilitar: true
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`_id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Usuario`, `Contraseña`, 'Auditoria', 'Usuario'],
+            titulosCompuesto: [],
+            oculto: [_id, habilitado],
+            ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+            inputRenglones: [4, 4, 4, 4, 6],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [_id, nombre, direccion, email, date, username],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            impresion: {
+                tituloFormulario: `Usuarios`,
+                ocultoImpresion: [_id, id, mono, unaHab, dosHab, tresHab, cuatroHab, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        acumulador: [],
+        numerador: [],
+        validaciones: [nombre, direccion],
+        key: {
+            atributo: email,
+            nombre: `email`,
+        },
+        pest: `Usuarios`,
+        accion: `users`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: [],
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran los usuarios que utiliza In-inversiones.`,
+            modificar: modficarTodo,
+            entidades: [],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
     unidades: {
         atributos: {
             names: [_id, nombre, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, plantaBaja, subsuelo, torres, date, username, habilitado],
