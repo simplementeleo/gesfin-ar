@@ -50,7 +50,7 @@ let crearTabla = function (contador, objeto, consulta) {
                     case "coleccion":
                         $.each(value.componentes, function (ind, val) {
                             tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
-                 <input class="inputR ${val.nombre} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
+                             <input class="inputR ${val.nombre} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
                         });
 
                         break;
@@ -65,6 +65,10 @@ let crearTabla = function (contador, objeto, consulta) {
                         tabla += `<td class="celda ${value.nombre}">
                             <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony></td>`;
                         break;
+                        case "password":
+                            tabla += `<td class="celda ${value.nombre}">
+                                <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony></td>`;
+                            break;
                     case "adjunto":
                         tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
                         <label for="in${value.nombre}${contador}" class="inputR ${value.nombre} ${contador}">Adjunto</label>
@@ -73,7 +77,7 @@ let crearTabla = function (contador, objeto, consulta) {
                         break;
                     default:
                         tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador} >
-                 <input class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" maxlength="${value.maxCaract}"></td>`;
+                          <input class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" maxlength="${value.maxCaract}"></td>`;
                 }
             });
         }
@@ -980,23 +984,20 @@ function active(contador) {
 const validarFormulario = function (objeto, numeroForm) {
     let accion = objeto.accion;
 
-    const validarCampo = (e) => {
-        if (expresiones.hasOwnProperty(e.target.name)) {
-            let expresion = expresiones[e.target.name];
-            let input = e.target;
-            let value = e.target.value;
-            let inputSel = $(input);
-
-            if (expresion.test(value)) {
-                $(input).addClass("validado");
-                $(input).attr("validado", true);
-            } else {
-                if (!inputSel.is("[readonly]")) {
-                    $(input).removeClass("validado");
-                    $(input).attr("validado", false);
+    const validarCampo = (match, e) => {
+    
+            if (match.test(e.target.value)) {
+                $(e.target).addClass("validado");
+                $(e.target).attr("validado", true);
+             
+            } else {    
+               
+                if (!$(e.target).is("[readonly]")) {
+                    $(e.target).removeClass("validado");
+                    $(e.target).attr("validado", false);
                 }
             }
-        }
+        
     };
 
     const validarCampoSelect = (e) => {
@@ -1009,15 +1010,28 @@ const validarFormulario = function (objeto, numeroForm) {
         } else {
             $(sel).removeClass("validado");
             $(sel).attr("validado", false);
+       
         }
     };
+      
+    if($(`#formulario${accion}${numeroForm}`) != undefined){
 
-    $(`#t${numeroForm}`).on(`keyup`, `input`, validarCampo);
-    $(`#t${numeroForm}`).on(`blur`, `input`, validarCampo);
-    $(`#formulario${accion}${numeroForm}`).on(`keyup`, `input`, validarCampo);
-    $(`#formulario${accion}${numeroForm}`).on(`blur`, `input`, validarCampo);
-    $(`#t${numeroForm}`).on(`change`, `select`, validarCampoSelect);
-    $(`#formulario${accion}${numeroForm}`).on(`change`, `select`, validarCampoSelect);
+        $.each(objeto.validaciones, (indice,value)=>{
+         
+            $(`#formulario${accion}${numeroForm}`).on(`keyup`, `input.${value.nombre}`, function(e){
+                validarCampo(value.validacion.match, e)
+            });
+            $(`#formulario${accion}${numeroForm}`).on(`change`, `select`, validarCampoSelect);   
+            
+        })
+    }else{
+        $.each(objeto.validaciones, (indice,value)=>{
+            $(`#t${numeroForm}`).on(`keyup`, `input`, function(e){
+                validarCampo(value.validacion.match, e)
+            });
+            $(`#t${numeroForm}`).on(`change`, `select`, validarCampoSelect);
+        })
+    }
 };
 /////////////////Eliminar Registro Definitivo/////////////////////////////////////////////////
 let popUpEliminacion = function (pregunta, numeroForm, idRegistro, objeto, esForm, fidecomisoSelec, filaEliminar) {

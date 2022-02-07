@@ -191,7 +191,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             $(`.formColec.${pestanas[indice].nombre}`).attr("disabled", "true");
             $(`.formColec.${pestanas[indice].nombre}`).removeClass("requerido");
 
-            var s = `<select class="select form ${pestanas[indice].nombre} requerido"  name="${pestanas[indice].nombre}" form="f${accion}${numeroForm}" validado="false">`;
+            var s = `<select class="select form ${pestanas[indice].nombre} requerido"  name="${pestanas[indice].nombre}" form="f${accion}${numeroForm}" validado="false">>`;
 
             s += `<option class="opciones" value=""></option>`;
 
@@ -325,7 +325,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             valid.push($(`#form${value.nombre}${numeroForm} .${value.nombre}.requerido`).attr("validado"));
 
             if ($(`#form${value.nombre}${numeroForm} .${value.nombre}.requerido`).attr("validado") == "false") {
-                let p = `<div class="contError"><p>${textoExpresiones[value.nombre]}</p></div>`;
+                let p = `<div class="contError"><p>${value.validaciones.texto}</p></div>`;
 
                 let texto = $(p);
 
@@ -344,7 +344,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                     let prove = $(`.${value.nombre}.requerido`, v).attr("validado")
 
                     if (prove == "false") {
-                        let p = `<div class="contError"><p>${textoExpresiones[value.nombre]}</p></div>`;
+                        let p = `<div class="contError"><p>${value.validacion.texto}</p></div>`;
 
                         let texto = $(p);
 
@@ -358,7 +358,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             }
         })
 
-        if ($(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).attr(`keyRep`) == `true`) {
+        /*if ($(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).attr(`keyRep`) == `true`) {
 
             let valueRepetido = $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).val()
             $(`.cartelErrorForm p`).html(`Ya existe un registro con ${objeto.key.nombre.nombre} ${valueRepetido}`)
@@ -371,7 +371,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             $(`.cartelErrorForm p`).html("Revisar los campos en rojo")
             $(`.cartelErrorForm`).css("display", "block");
             confirmarImprimir = false
-        } else {
+        } else {*/
 
             let id = $(`#formularioIndividual input.id.${numeroForm}`).val()
             let fileEnviado = $(`myFormEdit${objeto.accion}${numeroForm}`)
@@ -459,7 +459,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             if (confirmarImprimir == true) {
                 imprimirDirecto(objeto, numeroForm),
                     confirmarImprimir = false
-            }
+           // }
         }
     });
     $(`#formularioIndividual .editBoton`).click(function () {
@@ -671,7 +671,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     });
 
     validarFormulario(objeto, numeroForm);
-    validarKeyForm(objeto, consulta, numeroForm)
+    //validarKeyForm(objeto, consulta, numeroForm)
     activePestana(objeto, numeroForm)
     renglones(objeto, numeroForm)
     formatoCeldas(objeto, contador);
@@ -853,10 +853,10 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                     select.appendTo(`#f${pestanas.totales[indice].nombre}${contador},
                                      .vacio.${pestanas.totales[indice].nombre}.${contador}:first`);
 
-
                     select.val(valor);
+                    
                     if (valor != undefined) {
-
+                     
                         $(`#t${contador} select.${pestanas.cabecera[indice].nombre}`).attr(`validado`, true)
                         $(`#t${contador} select.${pestanas.cabecera[indice].nombre}`).addClass(`validado`)
                     }
@@ -911,7 +911,7 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
             valid.push($(`#t${contador} #form${value.nombre}${contador} .${value.nombre}.requerido`).attr("validado"));
 
             if ($(`#tablas #form${value.nombre}${contador} .${value.nombre}.requerido`).attr("validado") == "false") {
-                let p = `<div class="contError"><p>${textoExpresiones[value.nombre]}</p></div>`;
+                let p = `<div class="contError"><p>${value.validacion.texto}</p></div>`;
                 let texto = $(p);
 
                 texto.appendTo(`#form${value.nombre}${contador}`);
@@ -927,7 +927,7 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                     let prove = $(`.${value.nombre}.requerido`, v).attr("validado")
 
                     if (prove == "false") {
-                        let p = `<div class="contError"><p>${textoExpresiones[value.nombre]}</p></div>`;
+                        let p = `<div class="contError"><p>${value.validacion.texto}</p></div>`;
 
                         let texto = $(p);
 
@@ -1173,8 +1173,7 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
         complete: function (data) { },
         success: function (response) {
 
-
-            if(response.posteo != false){
+            if(response.posteo != undefined){
 
             if (desencadenateTriger == true) {
 
@@ -1314,12 +1313,23 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
                 value(objeto, contador)
             })
         }else{
-            $(`.cartelErrorForm p`).html(response.mensaje)
-            $(`.cartelErrorForm`).css("display", "block");
+            console.log(response)
+            if($(`#t${numeroForm}`).hasClass(`formularioPestana`)){
+
+                $(`#bf${numeroForm} .cartelErrorForm p`).html(response.mensaje)
+                $(`#bf${numeroForm} .cartelErrorForm`).css("display", "block");
+            }else{
+                $(`#formularioIndividual .cartelErrorForm p`).html(response.mensaje)
+                $(`#formularioIndividual .cartelErrorForm`).css("display", "block");
+
+
+            }
+     
         }
         },
         error: function (error) {
             console.log(error);
+            
         }
     })
 
@@ -1891,6 +1901,24 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                 }
                 orden++;
                 break
+            case `password`:
+
+                form += `<div id="form${value.nombre}${numeroForm}" class="fo ${value.nombre}" style="order:${ordenFormu[orden]}" >
+
+        <h2>${titulos[indice]}</h2>`;
+
+                if ((valor[value.nombre] !== undefined)) {
+
+                    form += `<input type="password" class="form ${value.nombre} ${numeroForm}" name="${value.nombre}" value="${valor[value.nombre]}" form="f${accion}${numeroForm}" tabindex="${ordenFormu[orden]}" disabled="disabled" />
+        </div>`;
+
+                } else {
+                    form += `<input type="password" class="form ${value.nombre} ${numeroForm}" name="${value.nombre}" form="f${accion}${numeroForm}" tabindex="${ordenFormu[orden]}"/>
+        </div>`;
+                }
+                orden++;
+
+                break;
             default:
                 form += `<div id="form${value.nombre}${numeroForm}" class="fo ${value.nombre}" style="order:${ordenFormu[orden]}" >
         <h2>${titulos[indice]}</h2>`;

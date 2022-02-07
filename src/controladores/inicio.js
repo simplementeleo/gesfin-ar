@@ -7,6 +7,7 @@ const path = require('path');
 const multer = require(`multer`)
 
 const User = require("../models/marketPlace/User");
+const Numerador = require('../models/Numerador')
 const { rawListeners } = require('../models/marketPlace/User');
 
 router.get('/', (req, res) => {
@@ -61,6 +62,81 @@ router.get("/logout", (req, res) => {
     req.logout();
     req.flash("success_msg", "You have logged out successfully")
     res.redirect("/");
+});
+router.get('/numeradores', async (req, res) => {
+
+    let nameR = req.query.name;
+
+    const numerador = await Numerador.aggregate([{
+
+        $match: {
+            name: nameR,
+        }
+    },
+    {
+        $project: {
+            num: 1,
+            name: 1
+        }
+    },
+
+    ]).sort({ _id: -1 }).limit(1);;
+
+
+
+    res.json(numerador);
+
+
+});
+router.get('/numeradoresFiltro', async (req, res) => {
+
+    let nameR = req.query.name;
+    let unid = req.query.unid;
+
+    const numerador = await Numerador.aggregate([{
+        $lookup: {
+            from: "unidades",
+            localField: "unidades",
+            foreignField: "_id",
+            as: "unidadesNum"
+        }
+    },
+    {
+        $match: {
+            name: nameR,
+            "unidadesNum.name": unid
+        }
+    },
+    {
+        $project: {
+            num: 1,
+            name: 1,
+            unidades: "$unidadesCR.name",
+        }
+    },
+
+    ]).sort({ _id: -1 }).limit(1);;
+
+    res.json(numerador);
+});
+router.post(`/numeradores`, async (req, res) => {
+
+    try {
+        let { name, num, username, } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newNumeroNumerador = new Numerador({
+            name,
+            num,
+            username: usersFound.map((user) => user._id),
+        });
+        var numeroNumerador = await newNumeroNumerador.save();
+
+        res.json(`numerador Exitoso`);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 module.exports = router;

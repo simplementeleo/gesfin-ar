@@ -3,11 +3,11 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema({
-    name: { type: String, required: true },
-    surname: { type: String, required: true },
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    name: { type: String },
+    surname: { type: String },
+    username: { type: String, unique: true },
+    email: { type: String,  unique: true },
+    password: { type: String },
     date: { type: Date, default: Date.now() },
 });
 

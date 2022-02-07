@@ -2,7 +2,6 @@
      function() {
 
          let objeto = variablesIniciales[this.id]
-
          let numerador = "";
          let fidecomisoSelec = $(`#fideic input`).val() || "";
 
