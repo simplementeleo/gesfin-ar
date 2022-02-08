@@ -96,7 +96,7 @@ const vencimientoAcopio = { nombre: `vencimientoAcopio`, type: `fecha`, maxCarac
 const observacionesCompleto = { nombre: `observacionesCompleto`, type: `textarea`, maxCaract: 10000 };
 const descripcionCompleto = { nombre: `descripcionCompleto`, type: `textarea`, maxCaract: 10000 };
 //////atriutos textos
-const apellido = { nombre: `surname`, type: `texto`, maxCaract: 100,  validacion: {match:/.{3}$/, texto:`Campo obligatorio y la primera letra debe ser mayuscula`} };
+const apellido = { nombre: `surname`, type: `texto`, maxCaract: 100, validacion: { match: /.{3}$/, texto: `Campo obligatorio y la primera letra debe ser mayuscula` } };
 const password = { nombre: `password`, type: `password`, maxCaract: 100 };
 const post = { nombre: `post`, type: `texto`, maxCaract: 20 };
 const devolucionImporteArs = { nombre: `devolucionImporteArs`, type: `texto`, maxCaract: 100 };
@@ -108,9 +108,8 @@ const saldoUsd = { nombre: `saldoUsd`, type: `texto`, maxCaract: 100 };
 const origen = { nombre: `origen`, type: `texto`, Observaciones: `Representa el orgine de la las operaciones desencadenadas`, maxCaract: 100 };
 const destino = { nombre: `destino`, type: `texto`, maxCaract: 100 };
 const destinoColec = { nombre: `destinoColec`, type: `texto`, maxCaract: 100 };
-const links = { nombre: `links`, type: `texto`, Observaciones: `Contiene links referencias del item`, maxCaract: 100 };
 const _id = { nombre: `_id`, type: `texto`, maxCaract: 100 };
-const abrev = { nombre: `abrev`, type: `texto`, observaciones: `Abrevietura de tres letras maximo 5 caracteres`, validacion:{match:/.{5}$/,texto:`Debe contener entre 3 caracteres`} };
+const abrev = { nombre: `abrev`, type: `texto`, observaciones: `Abrevietura de tres letras maximo 5 caracteres`, validacion: { match: /.{5}$/, texto: `Debe contener entre 3 caracteres` } };
 const cochera = { nombre: `cochera`, type: `texto`, observaciones: `Oficinas en una edificio`, maxCaract: 100 };
 const cocheraTotal = { nombre: `cocheraTotal`, type: `texto`, observaciones: `Cantidad de cocheras que contiene el fideicomiso`, maxCaract: 100 };
 const cuatroHab = { nombre: `cuatroHab`, type: `texto` };
@@ -120,14 +119,14 @@ const descripcion = { nombre: `descripcion`, type: `texto`, maxCaract: 100 };
 const direccion = { nombre: `direccion`, type: `texto`, maxCaract: 100 };
 const dni = { nombre: `dni`, type: `texto`, maxCaract: 100 };
 const dosHab = { nombre: `dosHab`, type: `texto`, observaciones: `Cantidad de departamentos dos habitaciones que posee un edificio`, maxCaract: 100 };
-const email = { nombre: `email`, type: `texto`, validacion: {match:/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto:`Debe contener "@" y ".com"` }  };
+const email = { nombre: `email`, type: `texto`, validacion: { match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto: `Debe contener "@" y ".com"` } };
 const id = { nombre: `id`, type: `texto`, maxCaract: 100 };
 const letra = { nombre: `letra`, type: `texto`, observaciones: `Letra de los departamentos`, maxCaract: 100 };
 const locales = { nombre: `locales`, type: `texto`, observaciones: `Locales en un edificio` };
 const localesTotal = { nombre: `localesTotal`, type: `texto`, observaciones: `Cantidad de locales que contiene el fideicomiso`, maxCaract: 100 };
 const mono = { nombre: `mono`, type: `texto`, observaciones: `Cantidad de departamentos monoambiente que posee un edificio`, maxCaract: 100 };
-const nombre = { nombre: `name`, type: `texto`, validacion: {match:/.{3}$/, texto:`Campo obligatorio y la primera letra debe ser mayuscula`} };
-const name = {validacion: { match:/.{3}$/, texto:`Campo obligatorio y la primera letra debe ser mayuscula`}}
+const nombre = { nombre: `name`, type: `texto`, validacion: { match: /.{3}$/, texto: `Campo obligatorio y la primera letra debe ser mayuscula` } };
+const name = { validacion: { match: /.{3}$/, texto: `Campo obligatorio y la primera letra debe ser mayuscula` } }
 const nume = { nombre: `nume`, type: `texto`, observaciones: `Quedo guardado para cuando no queria usar numerador predefinido`, maxCaract: 100 }; /*Eliminar hoy esta en rubro egresos*/
 const numer = { nombre: `numer`, type: `texto`, observaciones: `Numero de los departamentos`, maxCaract: 100 };
 const observaciones = { nombre: `observaciones`, type: `texto`, maxCaract: 100 };
@@ -236,7 +235,6 @@ const componenteFiscalCompra = {
 
     }
 }
-
 const componenteFiscal = {
     titulos: `Items`,
     nombre: `componenteFiscal`,
@@ -262,7 +260,6 @@ const componenteFiscal = {
 
     }
 }
-
 const componenteAcopio = {
     titulos: `Items Acopiados`,
     nombre: `componenteAcopio`,
@@ -279,7 +276,6 @@ const componenteAcopio = {
 
     }
 }
-
 const departamento = {
     titulos: `Departamentos`,
     nombre: `departamento`,
@@ -294,7 +290,6 @@ const departamento = {
         descripcion: descripcion,
     }
 }
-
 const compuestoCobranza = {
     titulos: `Items`,
     nombre: `compuestoCobranza`,
@@ -315,7 +310,6 @@ const compuestoCobranza = {
 
     }
 }
-
 const prestamoCompuesto = {
     titulos: `Devolcion Prestamo`,
     nombre: `prestamoCompuesto`,
@@ -337,11 +331,8 @@ const prestamoCompuesto = {
 const expresiones = {
     //usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     //nombre: /^[a-zA-ZÀ-ÿ\s]{1,70}$/, // Letras y espacios, pueden llevar acentos.
-   
-    links: /.{1,80}$/,
-    tipoCambio: /.{1,80}$/, //  /^\d{1,20}$/,
+    tipoCambio: /d.{1,80}$/, //  /^\d{1,20}$/,
     tipoCambioAlternativo: /.{1,80}$/, //  /^\d{1,20}$/,
-
     // Letras y espacios, pueden llevar acentos.
     //password: /^.{4,12}$/, // 4 a 12 digitos.
     cantidad: /^\d{1,10}$/,
@@ -388,8 +379,6 @@ const textoExpresiones = {
     total: `Campo obligatorio`,
     iva: `Campo obligatorio`,
     letra: `Campo obligatorio`,
-    links: `Campo obligatorio`,
-    //name: `Campo obligatorio`,
     nume: `Debe contener entre 1 y 5 num`,
     numeroFactura: `Campo obligatorio con 12 digitos`,
     num: `Debe contener entre 1 y 5 num`,
