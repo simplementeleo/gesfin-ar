@@ -662,7 +662,7 @@ let variablesIniciales = {
             FiltroRapido: `Habitalitado/deshabilitado`
         }
     },
-    tarea: {
+    tarea: {    
         atributos: {
             names: [_id, orden, nombre, date, username, habilitado],
             titulos: [`_id`, 'Orden', 'Nombre', 'Auditoria', 'Usuario'],
@@ -962,7 +962,7 @@ let variablesIniciales = {
     },
     ciudad: {
         atributos: {
-            names: [id, nombre, cp, provincia, pais, date, username, habilitado],
+            names: [id, nombre, abrev, provincia, pais, date, username, habilitado],
             titulos: [`id`, 'Nombre', `CP`, `Provincia`, `Pais`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
             oculto: [id, habilitado],
@@ -984,7 +984,7 @@ let variablesIniciales = {
             },
             configAbm: {
                 with: {
-                    cuatroCinco: [cp],
+                    cuatroCinco: [abrev],
                     cinco: [],
                     siete: [username, date],
                     diez: [nombre, provincia],
@@ -992,7 +992,7 @@ let variablesIniciales = {
                 }
             },
             modificar: {
-                names: [id, nombre, cp, provincia, pais, date, username],
+                names: [id, nombre, abrev, provincia, pais, date, username],
                 pestanas: [provincia, pais],
                 soloLectura: [date, username]
             },
@@ -1011,7 +1011,7 @@ let variablesIniciales = {
             },
 
             modificar: {
-                names: [id, nombre, cp, provincia, pais, date, username],
+                names: [id, nombre, abrev, provincia, pais, date, username],
                 pestanas: [provincia, pais],
                 soloLectura: [date, username]
             },
@@ -1028,7 +1028,7 @@ let variablesIniciales = {
         },
         numerador: [],
         acumulador: [],
-        validaciones: [nombre, cp, provincia, pais],
+        validaciones: [nombre, abrev, provincia, pais],
         key: {
             atributo: nombre,
             nombre: `nombre`,

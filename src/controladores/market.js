@@ -750,7 +750,7 @@ router.get('/ciudad', async (req, res) => {
         $project: {
             _id: 1,
             name: 1,
-            cp: 1,
+            abrev: 1,
             provincia: `$ciudadProv.name`,
             pais: `$ciudadPais.name`,
             date: 1,
@@ -762,10 +762,10 @@ router.get('/ciudad', async (req, res) => {
     ]);
 
     let ciudad = [];
-    var CiudadC = function (id, name, cp, provincia, pais, date, username, habilitado) {
+    var CiudadC = function (id, name, abrev, provincia, pais, date, username, habilitado) {
         this.id = id;
         this.name = name;
-        this.cp = cp;
+        this.abrev = abrev;
         this.provincia = provincia;
         this.pais = pais;
         this.date = date;
@@ -778,7 +778,7 @@ router.get('/ciudad', async (req, res) => {
         var ciud = new CiudadC(
             ci[x]._id,
             ci[x].name,
-            ci[x].cp,
+            ci[x].abrev,
             ci[x].provincia,
             ci[x].pais,
             ci[x].date,
@@ -791,7 +791,7 @@ router.get('/ciudad', async (req, res) => {
 });
 router.post('/ciudad', async (req, res) => {
     try {
-        let { name, cp, provincia, pais, date, username, habilitado } = req.body;
+        let { name, abrev, provincia, pais, date, username, habilitado } = req.body;
 
         const provinciaFound = await Provincia.find({ name: { $in: provincia } });
         const paisFound = await Pais.find({ name: { $in: pais } });
@@ -799,7 +799,7 @@ router.post('/ciudad', async (req, res) => {
 
         const newCiudad = new Ciudad({
             name,
-            cp,
+            abrev,
             provincia: provinciaFound.map((provincia) => provincia._id),
             pais: paisFound.map((pais) => pais._id),
             date,
@@ -838,7 +838,7 @@ router.delete('/ciudad', async (req, res) => {
 router.put('/ciudad', async (req, res) => {
 
     try {
-        let { id, name, cp, provincia, pais, date, username } = req.body;
+        let { id, name, abrev, provincia, pais, date, username } = req.body;
 
         const provinciaFound = await Provincia.find({ name: { $in: provincia } });
         const paisFound = await Pais.find({ name: { $in: pais } });
@@ -846,7 +846,7 @@ router.put('/ciudad', async (req, res) => {
 
         const newCiudadAct = ({
             name,
-            cp,
+            abrev,
             provincia: provinciaFound.map((provincia) => provincia._id),
             pais: paisFound.map((pais) => pais._id),
             date,

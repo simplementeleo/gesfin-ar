@@ -110,10 +110,9 @@ const destino = { nombre: `destino`, type: `texto`, maxCaract: 100 };
 const destinoColec = { nombre: `destinoColec`, type: `texto`, maxCaract: 100 };
 const links = { nombre: `links`, type: `texto`, Observaciones: `Contiene links referencias del item`, maxCaract: 100 };
 const _id = { nombre: `_id`, type: `texto`, maxCaract: 100 };
-const abrev = { nombre: `abrev`, type: `texto`, observaciones: `Abrevietura de tres letras de monedas`, validacion:{match:/.{3}$/,texto:`Debe contener entre 3 caracteres`} };
+const abrev = { nombre: `abrev`, type: `texto`, observaciones: `Abrevietura de tres letras maximo 5 caracteres`, validacion:{match:/.{5}$/,texto:`Debe contener entre 3 caracteres`} };
 const cochera = { nombre: `cochera`, type: `texto`, observaciones: `Oficinas en una edificio`, maxCaract: 100 };
 const cocheraTotal = { nombre: `cocheraTotal`, type: `texto`, observaciones: `Cantidad de cocheras que contiene el fideicomiso`, maxCaract: 100 };
-const cp = { nombre: `cp`, type: `texto`, maxCaract: 100 };
 const cuatroHab = { nombre: `cuatroHab`, type: `texto` };
 const date = { nombre: `date`, type: `date`, observaciones: `Cantidad de departamentos cuatro habitaciones que posee un edificio`, maxCaract: 100 };
 const deptos = { nombre: `deptos`, type: `texto`, observaciones: `Cantidad de departaentos totales que tiene un edificio`, maxCaract: 100 };
@@ -345,8 +344,6 @@ const expresiones = {
 
     // Letras y espacios, pueden llevar acentos.
     //password: /^.{4,12}$/, // 4 a 12 digitos.
-  
-    cp: /^\d{3,5}$/,
     cantidad: /^\d{1,10}$/,
     direccion: /^[a-zA-ZÀ-ÿ\s0-9]{1,80}$/, // Letras, numeros, guion y guion_bajo
     descripcion: /^[a-zA-ZÀ-ÿ\s0-9]{1,80}$/,
@@ -375,8 +372,6 @@ const expresiones = {
 
 const textoExpresiones = {
     //usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-  
-    cp: `Debe contener entre 3 y 5 num`,
     cantidad: `Debe contener al menos un numero`,
     direccion: `La direccion es obligatoria`,
     descripcion: `Campo obligatorio`,

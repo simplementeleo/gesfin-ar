@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 
 const CiudadSchema = new Schema({
     name: { type: String, required: true },
-    cp: { type: Number, required: true },
+    abrev: { type: String },
     provincia: {
         type: Schema.Types.ObjectId,
         ref: "Provincia"
