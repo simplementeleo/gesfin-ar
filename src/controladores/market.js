@@ -78,26 +78,26 @@ router.get('/users', async (req, res) => {
     }
 
     res.json(user);
-   
+
 });
 router.post('/users', async (req, res) => {
     try {
         let { name, surname, email, password, logico, usuario, date, habilitado, username } = req.body;
 
-            const usersFound = await User.find({ username: { $in: username } });
-            const newUser = new User({
-                name,
-                surname,
-                email,
-                password,
-                logico,
-                username: usuario,
-                date,
-                usuario: usersFound.map((user) => user._id),
-                habilitado
+        const usersFound = await User.find({ username: { $in: username } });
+        const newUser = new User({
+            name,
+            surname,
+            email,
+            password,
+            logico,
+            username: usuario,
+            date,
+            usuario: usersFound.map((user) => user._id),
+            habilitado
 
-            });
-           let userNew = await newUser.save();
+        });
+        let userNew = await newUser.save();
 
         res.json({
             mensaje: msj,
@@ -112,7 +112,7 @@ router.post('/users', async (req, res) => {
 router.put('/users', async (req, res) => {
 
 })
-router.delete('/users', async (req, res) => {})
+router.delete('/users', async (req, res) => { })
 //Cliente
 router.get('/cliente', async (req, res) => {
 
@@ -137,7 +137,7 @@ router.get('/cliente', async (req, res) => {
             _id: 1,
             num: 1,
             name: 1,
-            dni: 1,
+            documento: 1,
             telefono: 1,
             email: 1,
             direccion: 1,
@@ -151,11 +151,11 @@ router.get('/cliente', async (req, res) => {
 
     ]);
     var cliente = [];
-    var ClienteO = function (id, num, name, dni, telefono, email, direccion, ciudad, observaciones, username, date, habilitado) {
+    var ClienteO = function (id, num, name, documento, telefono, email, direccion, ciudad, observaciones, username, date, habilitado) {
         this.id = id;
         this.num = num;
         this.name = name;
-        this.dni = dni;
+        this.documento = documento;
         this.telefono = telefono;
         this.email = email;
         this.direccion = direccion;
@@ -173,7 +173,7 @@ router.get('/cliente', async (req, res) => {
             client[x]._id,
             client[x].num,
             client[x].name,
-            client[x].dni,
+            client[x].documento,
             client[x].telefono,
             client[x].email,
             client[x].direccion,
@@ -192,7 +192,7 @@ router.get('/cliente', async (req, res) => {
 });
 router.post('/cliente', async (req, res) => {
     try {
-        let { num, name, dni, telefono, email, direccion, ciudad, observaciones, username, date, habilitado } = req.body;
+        let { num, name, documento, telefono, email, direccion, ciudad, observaciones, username, date, habilitado } = req.body;
 
         const ciudadFound = await Ciudad.find({ name: { $in: ciudad } });
         const usersFound = await User.find({ username: { $in: username } });
@@ -200,7 +200,7 @@ router.post('/cliente', async (req, res) => {
         const newCliente = new Cliente({
             num,
             name,
-            dni,
+            documento,
             telefono,
             email,
             direccion,

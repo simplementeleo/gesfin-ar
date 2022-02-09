@@ -65,10 +65,10 @@ let crearTabla = function (contador, objeto, consulta) {
                         tabla += `<td class="celda ${value.nombre}">
                             <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony></td>`;
                         break;
-                        case "password":
-                            tabla += `<td class="celda ${value.nombre}">
+                    case "password":
+                        tabla += `<td class="celda ${value.nombre}">
                                 <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony></td>`;
-                            break;
+                        break;
                     case "adjunto":
                         tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
                         <label for="in${value.nombre}${contador}" class="inputR ${value.nombre} ${contador}">Adjunto</label>
@@ -985,19 +985,19 @@ const validarFormulario = function (objeto, numeroForm) {
     let accion = objeto.accion;
 
     const validarCampo = (match, e) => {
-    
-            if (match.test(e.target.value)) {
-                $(e.target).addClass("validado");
-                $(e.target).attr("validado", true);
-             
-            } else {    
-               
-                if (!$(e.target).is("[readonly]")) {
-                    $(e.target).removeClass("validado");
-                    $(e.target).attr("validado", false);
-                }
+
+        if (match.test(e.target.value)) {
+            $(e.target).addClass("validado");
+            $(e.target).attr("validado", true);
+
+        } else {
+
+            if (!$(e.target).is("[readonly]")) {
+                $(e.target).removeClass("validado");
+                $(e.target).attr("validado", false);
             }
-        
+        }
+
     };
 
     const validarCampoSelect = (e) => {
@@ -1010,23 +1010,23 @@ const validarFormulario = function (objeto, numeroForm) {
         } else {
             $(sel).removeClass("validado");
             $(sel).attr("validado", false);
-       
+
         }
     };
-      
-    if($(`#formulario${accion}${numeroForm}`) != undefined){
 
-        $.each(objeto.validaciones, (indice,value)=>{
-         
-            $(`#formulario${accion}${numeroForm}`).on(`keyup`, `input.${value.nombre}`, function(e){
+    if ($(`#formulario${accion}${numeroForm}`) != undefined) {
+
+        $.each(objeto.validaciones, (indice, value) => {
+
+            $(`#formulario${accion}${numeroForm}`).on(`keyup`, `input.${value.nombre}`, function (e) {
                 validarCampo(value.validacion.match, e)
             });
-            $(`#formulario${accion}${numeroForm}`).on(`change`, `select`, validarCampoSelect);   
-            
+            $(`#formulario${accion}${numeroForm}`).on(`change`, `select`, validarCampoSelect);
+
         })
-    }else{
-        $.each(objeto.validaciones, (indice,value)=>{
-            $(`#t${numeroForm}`).on(`keyup`, `input`, function(e){
+    } else {
+        $.each(objeto.validaciones, (indice, value) => {
+            $(`#t${numeroForm}`).on(`keyup`, `input`, function (e) {
                 validarCampo(value.validacion.match, e)
             });
             $(`#t${numeroForm}`).on(`change`, `select`, validarCampoSelect);
@@ -2411,4 +2411,6 @@ const lecturaLengthBooleano = function (objeto, numeroForm, logico, atrDos) {
         $(`#formularioIndividual input.${logico.nombre}`).change(lecturaCondicionalBooleano);
     }
 }
+
+
 

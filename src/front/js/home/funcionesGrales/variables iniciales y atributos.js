@@ -66,14 +66,14 @@ const desen = { nombre: `desen`, type: `texto`, maxCaract: 100 };
 const idColec = { nombre: `idColec`, type: `texto`, maxCaract: 100 };
 const contadorId = { nombre: `contadorId`, type: `texto`, maxCaract: 100 };
 /////tc
-const tipoCambio = { nombre: `tipoCambio`, type: `tipoCambio`, maxCaract: 20 };
-const tipoCambioAlternativo = { nombre: `tipoCambioAlternativo`, type: `tipoCambio`, maxCaract: 20 };
+const tipoCambio = { nombre: `tipoCambio`, type: `tipoCambio`, maxCaract: 20, validacion: { match: /\d{1,4}[\s.,]\d{0,5}$/, texto: `Campo obligatorio numero` } };
+const tipoCambioAlternativo = { nombre: `tipoCambioAlternativo`, type: `tipoCambio`, validacion: { match: /\d{1,4}[\s.,]\d{0,5}$/, texto: `Campo obligatorio numero` } };
 /////// Importe
-const cantidad = { nombre: `cantidad`, type: `numero`, maxCaract: 20 };
+const cantidad = { nombre: `cantidad`, type: `numero`, maxCaract: 10, validacion: { match: /^\d{1,10}$/, texto: `Campo obligatorio número entero` } };
+const cantidadDos = { nombre: `cantidadDos`, type: `numero`, maxCaract: 10, validacion: { match: /^\d{1,10}$/, texto: `Campo obligatorio número entero` } };
+const cantidadTres = { nombre: `cantidadTres`, type: `numero`, maxCaract: 10, validacion: { match: /^\d{1,10}$/, texto: `Campo obligatorio número entero` } };
 const tiempoEstimado = { nombre: `tiempoEstimado`, type: `numero`, maxCaract: 20 };
-const cantidadDos = { nombre: `cantidadDos`, type: `numero`, maxCaract: 20 };
 const tiempoConsumido = { nombre: `tiempoConsumido`, type: `numero`, maxCaract: 20 };
-const cantidadTres = { nombre: `cantidadTres`, type: `numero`, maxCaract: 20 };
 const tiempoRemanente = { nombre: `tiempoRemanente`, type: `numero`, maxCaract: 20 };
 const num = { nombre: `num`, type: `numerador`, maxCaract: 10 };
 /////// Porcentage
@@ -93,10 +93,11 @@ const fechaDevolucion = { nombre: `fechaDevolucion`, type: `fecha`, maxCaract: 1
 const vencimiento = { nombre: `vencimiento`, type: `fecha`, maxCaract: 10 };
 const vencimientoAcopio = { nombre: `vencimientoAcopio`, type: `fecha`, maxCaract: 10 };
 ////atributos texto completo
-const observacionesCompleto = { nombre: `observacionesCompleto`, type: `textarea`, maxCaract: 10000 };
-const descripcionCompleto = { nombre: `descripcionCompleto`, type: `textarea`, maxCaract: 10000 };
+const observacionesCompleto = { nombre: `observacionesCompleto`, type: `textarea` };
+const descripcionCompleto = { nombre: `descripcionCompleto`, type: `textarea` };
 //////atriutos textos
-const apellido = { nombre: `surname`, type: `texto`, maxCaract: 100, validacion: { match: /.{3}$/, texto: `Campo obligatorio y la primera letra debe ser mayuscula` } };
+const apellido = { nombre: `surname`, type: `texto`, maxCaract: 100, validacion: { match: /[A-Z]{1}\w*\s?([A-Z]{1}\w*)?/, texto: `La primera letra de cada palabra debe ser mayuscula` } };
+const nombre = { nombre: `name`, type: `texto`, validacion: { match: /[A-Z]{1}\w*\s?([A-Z]{1}\w*)?/, texto: `La primera letra de cada palabra debe ser mayuscula` } };
 const password = { nombre: `password`, type: `password`, maxCaract: 100 };
 const post = { nombre: `post`, type: `texto`, maxCaract: 20 };
 const devolucionImporteArs = { nombre: `devolucionImporteArs`, type: `texto`, maxCaract: 100 };
@@ -115,9 +116,9 @@ const cocheraTotal = { nombre: `cocheraTotal`, type: `texto`, observaciones: `Ca
 const cuatroHab = { nombre: `cuatroHab`, type: `texto` };
 const date = { nombre: `date`, type: `date`, observaciones: `Cantidad de departamentos cuatro habitaciones que posee un edificio`, maxCaract: 100 };
 const deptos = { nombre: `deptos`, type: `texto`, observaciones: `Cantidad de departaentos totales que tiene un edificio`, maxCaract: 100 };
-const descripcion = { nombre: `descripcion`, type: `texto`, maxCaract: 100 };
-const direccion = { nombre: `direccion`, type: `texto`, maxCaract: 100 };
-const dni = { nombre: `dni`, type: `texto`, maxCaract: 100 };
+const descripcion = { nombre: `descripcion`, type: `texto`, maxCaract: 100, validacion: { match: /.{1,500}$/, texto: `Campo obligatorio` } };
+const direccion = { nombre: `direccion`, type: `texto`, validacion: { match: /.{1,80}$/, texto: `Campo obligatorio` } };
+const documento = { nombre: `documento`, type: `texto`, maxCaract: 100 };
 const dosHab = { nombre: `dosHab`, type: `texto`, observaciones: `Cantidad de departamentos dos habitaciones que posee un edificio`, maxCaract: 100 };
 const email = { nombre: `email`, type: `texto`, validacion: { match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto: `Debe contener "@" y ".com"` } };
 const id = { nombre: `id`, type: `texto`, maxCaract: 100 };
@@ -125,8 +126,6 @@ const letra = { nombre: `letra`, type: `texto`, observaciones: `Letra de los dep
 const locales = { nombre: `locales`, type: `texto`, observaciones: `Locales en un edificio` };
 const localesTotal = { nombre: `localesTotal`, type: `texto`, observaciones: `Cantidad de locales que contiene el fideicomiso`, maxCaract: 100 };
 const mono = { nombre: `mono`, type: `texto`, observaciones: `Cantidad de departamentos monoambiente que posee un edificio`, maxCaract: 100 };
-const nombre = { nombre: `name`, type: `texto`, validacion: { match: /.{3}$/, texto: `Campo obligatorio y la primera letra debe ser mayuscula` } };
-const name = { validacion: { match: /.{3}$/, texto: `Campo obligatorio y la primera letra debe ser mayuscula` } }
 const nume = { nombre: `nume`, type: `texto`, observaciones: `Quedo guardado para cuando no queria usar numerador predefinido`, maxCaract: 100 }; /*Eliminar hoy esta en rubro egresos*/
 const numer = { nombre: `numer`, type: `texto`, observaciones: `Numero de los departamentos`, maxCaract: 100 };
 const observaciones = { nombre: `observaciones`, type: `texto`, maxCaract: 100 };
@@ -331,14 +330,9 @@ const prestamoCompuesto = {
 const expresiones = {
     //usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     //nombre: /^[a-zA-ZÀ-ÿ\s]{1,70}$/, // Letras y espacios, pueden llevar acentos.
-    tipoCambio: /d.{1,80}$/, //  /^\d{1,20}$/,
-    tipoCambioAlternativo: /.{1,80}$/, //  /^\d{1,20}$/,
     // Letras y espacios, pueden llevar acentos.
     //password: /^.{4,12}$/, // 4 a 12 digitos.
-    cantidad: /^\d{1,10}$/,
-    direccion: /^[a-zA-ZÀ-ÿ\s0-9]{1,80}$/, // Letras, numeros, guion y guion_bajo
-    descripcion: /^[a-zA-ZÀ-ÿ\s0-9]{1,80}$/,
-    dni: /^\d{7,12}$/,
+    dni: /\d{1,3}\.\d{3}\.\d{3}$/,
     adjunto: /^[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     fecha: /^[a-zA-Z0-9\_\-]{4,16}$/,
     fechaDevolucion: /^[a-zA-Z0-9\_\-]{4,16}$/,
@@ -363,9 +357,7 @@ const expresiones = {
 
 const textoExpresiones = {
     //usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
-    cantidad: `Debe contener al menos un numero`,
-    direccion: `La direccion es obligatoria`,
-    descripcion: `Campo obligatorio`,
+
     dni: `Debe contener entre 7 y 10 num`,
     adjunto: `Es obligatorio adjuntar factura`,
     fecha: `Campo obligatorio`,
@@ -383,8 +375,6 @@ const textoExpresiones = {
     numeroFactura: `Campo obligatorio con 12 digitos`,
     num: `Debe contener entre 1 y 5 num`,
     numer: `Campo obligatorio`,
-    tipoCambio: `Campo obligatorio`,
-    tipoCambioAlternativo: `Campo obligatorio`,
     piso: `Campo obligatorio`,
     precioUnitario: `Campo obligatorio`,
     tc: `Campo obligatorio`,
@@ -520,8 +510,6 @@ $(`#canvas_container .crossForm`).click(function () {
     $(`#canvas_container`).css("display", `none`)
 
 })
-
-
 $(`#videoTutorialDiv .crossForm`).click(function () {
 
     $(`#videoTutorialDiv`).removeClass("show")
@@ -536,3 +524,23 @@ $(`#videoTutorialDiv .crossForm`).click(function () {
 let getFileExtension = function (filename) {
     return filename.split('.').pop();
 }
+
+const formatoNumeroDni = function (objeto, numeroForm, atributos) {
+
+    const doc = function (e) {
+
+        let numero = parseFloat(e.target.value.replaceAll(".", ""));
+
+        let dni = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0, }).format(numero)
+
+        $(e.target).val(dni)
+    }
+    if ($(`#formularioIndividual .formulario`).length == 0) {
+
+        $(`#t${numeroForm} input.documento`).keyup(doc);
+    } else {
+        $(`#formularioIndividual input.documento`).keyup(doc);
+    }
+
+}
+

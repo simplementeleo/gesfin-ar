@@ -4,7 +4,7 @@ const { Schema, model } = require("mongoose");
 const ClientesSchema = new Schema({
     num: { type: Number, required: true },
     name: { type: String, required: true },
-    dni: { type: Number },
+    documento: { type: Number },
     telefono: { type: String },
     email: { type: String },
     direccion: { type: String },

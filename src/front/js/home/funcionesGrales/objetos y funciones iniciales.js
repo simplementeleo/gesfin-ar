@@ -344,7 +344,7 @@ let variablesIniciales = {
     },
     cliente: {
         atributos: {
-            names: [id, num, nombre, dni, telefono, email, direccion, ciudad, observaciones, username, date, habilitado],
+            names: [id, num, nombre, documento, telefono, email, direccion, ciudad, observaciones, username, date, habilitado],
             titulos: [`id`, 'Numero', 'Nombre ', `DNI/CUIT`, `Telefono`, `Email`, `Dirección`, `Ciudad`, `Observaciones`, 'Usuario', 'Auditoria'],
             soloLectura: [id, num, username, date],
             oculto: [id, habilitado],
@@ -368,13 +368,17 @@ let variablesIniciales = {
                 with: {
                     cuatroCinco: [],
                     cinco: [num],
-                    siete: [dni, telefono, email, username, date],
+                    siete: [documento, telefono, email, username, date],
                     diez: [nombre, ciudad],
                     quince: [direccion, observaciones],
+                },
+                format: {
+                    formatoNumeroDni: [formatoNumeroDni, [documento]],
+
                 }
             },
             modificar: {
-                names: [id, num, nombre, dni, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date],
+                names: [id, num, nombre, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date],
                 pestanas: [ciudad],
                 soloLectura: [id, num, username, date],
             },
@@ -402,7 +406,7 @@ let variablesIniciales = {
                 compuesto: []
             },
             modificar: {
-                names: [id, num, nombre, dni, telefono, email, direccion, ciudad, observaciones, username, date],
+                names: [id, num, nombre, documento, telefono, email, direccion, ciudad, observaciones, username, date],
                 pestanas: [ciudad],
                 soloLectura: [id, username, date],
             },
@@ -414,7 +418,7 @@ let variablesIniciales = {
         },
         funcionesPropias: {
             formularioIndiv: [],
-            cargar:[],
+            cargar: [],
             coleccionFormIndividual: [],
             inicio: {
                 filtroRapido: filtroRapido
@@ -430,7 +434,7 @@ let variablesIniciales = {
                 },
             },
         },
-        validaciones: [nombre, dni, telefono, email, direccion, ciudad],
+        validaciones: [nombre, documento, telefono, email, direccion, ciudad],
         key: {
             atributo: nombre,
             nombre: `nombre`,
@@ -662,7 +666,7 @@ let variablesIniciales = {
             FiltroRapido: `Habitalitado/deshabilitado`
         }
     },
-    tarea: {    
+    tarea: {
         atributos: {
             names: [_id, orden, nombre, date, username, habilitado],
             titulos: [`_id`, 'Orden', 'Nombre', 'Auditoria', 'Usuario'],
