@@ -21,163 +21,121 @@ $(`#fechaTextoDe`).val(fechaDesde)
 $(`#fechaTextoHasta`).val(fechaHasta)
 //let objeto = new Object
 
-//////atributos numericos
-const importe = { nombre: `importe`, type: `importe`, maxCaract: 50 };
-const importeArs = { nombre: `importeArs`, type: `importe`, observaciones: `Importe en Pesos`, maxCaract: 50 };
-const importeUsd = { nombre: `importeUsd`, type: `importe`, observaciones: `Importe en Dolares`, maxCaract: 50 };
-const iva = { nombre: `iva`, type: `importe`, maxCaract: 50 };
-const ivaArs = { nombre: `ivaArs`, type: `importe`, maxCaract: 50 };
-const ivaUsd = { nombre: `ivaUsd`, type: `importe`, maxCaract: 50 };
-const otrosImp = { nombre: `otrosImp`, type: `importe`, maxCaract: 50 };
-const otrosImpuestos = { nombre: `otrosImpuestos`, type: `importe`, maxCaract: 50 };
-const otrosImpuestosArs = { nombre: `otrosImpuestosArs`, type: `importe`, maxCaract: 50 };
-const otrosImpuestosUsd = { nombre: `otrosImpuestosUsd`, type: `importe`, maxCaract: 50 };
-const otrosImpArs = { nombre: `otrosImpArs`, type: `importe`, maxCaract: 50 };
-const otrosImpUsd = { nombre: `otrosImpUsd`, type: `importe`, maxCaract: 50 };
-const importeAcopio = { nombre: `importeAcopio`, type: `importe`, maxCaract: 50 };
-const importeAcopioArs = { nombre: `importeAcopioArs`, type: `importe`, maxCaract: 50 };
-const importeAcopioUsd = { nombre: `importeAcopioUsd`, type: `importe`, maxCaract: 50 };
-const importeTotal = { nombre: `importeTotal`, type: `importe`, maxCaract: 50 };
-const importeTotalArs = { nombre: `importeTotalArs`, type: `importe`, maxCaract: 50 };
-const importeTotalUsd = { nombre: `importeTotalUsd`, type: `importe`, maxCaract: 50 };
-const importeBruto = { nombre: `importeBruto`, type: `importe`, maxCaract: 50 };
-const importeBrutoArs = { nombre: `importeBrutoArs`, type: `importe`, maxCaract: 50 };
-const importeBrutoUsd = { nombre: `importeBrutoUsd`, type: `importe`, maxCaract: 50 };
-const importePrest = { nombre: `importePrest`, type: `importe`, maxCaract: 50 };
-const importeArsPrest = { nombre: `importeArsPrest`, type: `importe`, maxCaract: 50 };
-const importeUsdPrest = { nombre: `importeUsdPrest`, type: `importe`, maxCaract: 50 };
-const devolucionImporte = { nombre: `devolucionImporte`, type: `importe`, maxCaract: 50 };
-const previsto = { nombre: `previsto`, type: `importe`, maxCaract: 50 };
-const gastoReal = { nombre: `gastoReal`, type: `importe`, maxCaract: 50 };
-const pagado = { nombre: `pagado`, type: `importe`, maxCaract: 50 };
-const aPagar = { nombre: `aPagar`, type: `importe`, maxCaract: 50 };
-const total = { nombre: `total`, type: `importe`, maxCaract: 50 }; ////// lo agrego solo para hacer solo lectura en registro de factura
-const totalArs = { nombre: `totalArs`, type: `importe`, maxCaract: 50 }; ////// lo agrego solo para hacer solo lectura en registro de factura
-const totalUsd = { nombre: `totalUsd`, type: `importe`, maxCaract: 50 }; ////// lo agrego solo para hacer solo lectura en registro de factura
-const precioUnitario = { nombre: `precioUnitario`, type: `importe`, maxCaract: 50 };
-const precioUnitarioArs = { nombre: `precioUnitarioArs`, type: `importe`, maxCaract: 50 };
-const precioUnitarioUsd = { nombre: `precioUnitarioUsd`, type: `importe`, maxCaract: 50 };
+//////Importe
+const importevalidacion = /[\d.,]{1,30}$/
+const importe = { nombre: `importe`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeArs = { nombre: `importeArs`, type: `importe`, observaciones: `Importe en Pesos`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeUsd = { nombre: `importeUsd`, type: `importe`, observaciones: `Importe en Dolares`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const iva = { nombre: `iva`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const ivaArs = { nombre: `ivaArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const ivaUsd = { nombre: `ivaUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const otrosImp = { nombre: `otrosImp`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const otrosImpuestos = { nombre: `otrosImpuestos`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const otrosImpuestosArs = { nombre: `otrosImpuestosArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const otrosImpuestosUsd = { nombre: `otrosImpuestosUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const otrosImpArs = { nombre: `otrosImpArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const otrosImpUsd = { nombre: `otrosImpUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeTotal = { nombre: `importeTotal`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeTotalArs = { nombre: `importeTotalArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeTotalUsd = { nombre: `importeTotalUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeBruto = { nombre: `importeBruto`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeBrutoArs = { nombre: `importeBrutoArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeBrutoUsd = { nombre: `importeBrutoUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importePrest = { nombre: `importePrest`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeArsPrest = { nombre: `importeArsPrest`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeUsdPrest = { nombre: `importeUsdPrest`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const precioUnitario = { nombre: `precioUnitario`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const precioUnitarioArs = { nombre: `precioUnitarioArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const precioUnitarioUsd = { nombre: `precioUnitarioUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 const orden = { nombre: `orden`, type: `numero`, maxCaract: 4 };
-
 /////idDesen
-const idDesen = { nombre: `idDesen`, type: `texto`, maxCaract: 100 };
-const idDesenAct = { nombre: `idDesenAct`, type: `texto`, maxCaract: 100 };
-const desen = { nombre: `desen`, type: `texto`, maxCaract: 100 };
-const idColec = { nombre: `idColec`, type: `texto`, maxCaract: 100 };
-const contadorId = { nombre: `contadorId`, type: `texto`, maxCaract: 100 };
+const idDesen = { nombre: `idDesen`, type: `texto` };// Cuando un eslemento se crea desencadenado, este id en el destino el mismo id que lo creo en origen
+const desen = { nombre: `desen`, type: `texto` };// cuando desencadena de un elemento, indica el tipo de descandenante, a fin de distinguir si tiene dos o mas desencadenante, ejemplo signo numero
+const idColec = { nombre: `idColec`, type: `texto` };
+const contadorId = { nombre: `contadorId`, type: `texto` };
+const post = { nombre: `post`, type: `texto` };
+const origen = { nombre: `origen`, type: `texto` };//Representa el orgine de la las operaciones desencadenadas
+const destino = { nombre: `destino`, type: `texto` };
+const destinoColec = { nombre: `destinoColec`, type: `texto` };
+const position = { nombre: `position`, type: `text` };
 /////tc
-const tipoCambio = { nombre: `tipoCambio`, type: `tipoCambio`, maxCaract: 20, validacion: { match: /\d{1,4}[\s.,]\d{0,5}$/, texto: `Campo obligatorio numero` } };
-const tipoCambioAlternativo = { nombre: `tipoCambioAlternativo`, type: `tipoCambio`, validacion: { match: /\d{1,4}[\s.,]\d{0,5}$/, texto: `Campo obligatorio numero` } };
-/////// Importe
-const cantidad = { nombre: `cantidad`, type: `numero`, maxCaract: 10, validacion: { match: /^\d{1,10}$/, texto: `Campo obligatorio número entero` } };
-const cantidadDos = { nombre: `cantidadDos`, type: `numero`, maxCaract: 10, validacion: { match: /^\d{1,10}$/, texto: `Campo obligatorio número entero` } };
-const cantidadTres = { nombre: `cantidadTres`, type: `numero`, maxCaract: 10, validacion: { match: /^\d{1,10}$/, texto: `Campo obligatorio número entero` } };
-const tiempoEstimado = { nombre: `tiempoEstimado`, type: `numero`, maxCaract: 20 };
-const tiempoConsumido = { nombre: `tiempoConsumido`, type: `numero`, maxCaract: 20 };
-const tiempoRemanente = { nombre: `tiempoRemanente`, type: `numero`, maxCaract: 20 };
-const num = { nombre: `num`, type: `numerador`, maxCaract: 10 };
+const tipoCAmbioValidacoin = /\d{1,4}[\s.,]\d{0,5}$/
+const tipoCambio = { nombre: `tipoCambio`, type: `tipoCambio`, validacion: { match: tipoCAmbioValidacoin, texto: `Campo obligatorio numero` } };
+const tipoCambioAlternativo = { nombre: `tipoCambioAlternativo`, type: `tipoCambio`, validacion: { match: tipoCAmbioValidacoin, texto: `Campo obligatorio numero` } };
+/////// Cantidad
+const cantidadValidacion = /^\d{1,10}$/
+const cantidad = { nombre: `cantidad`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
+const cantidadDos = { nombre: `cantidadDos`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
+const cantidadTres = { nombre: `cantidadTres`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
+const tiempoEstimado = { nombre: `tiempoEstimado`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
+const tiempoConsumido = { nombre: `tiempoConsumido`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
+const tiempoRemanente = { nombre: `tiempoRemanente`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
+const num = { nombre: `num`, type: `numerador`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
 /////// Porcentage
-const tasaImpuesto = { nombre: `tasaImpuesto`, type: `porcentage`, maxCaract: 10 };
-const porcentage = { nombre: `porcentage`, type: `porcentage`, maxCaract: 10 };
-////// numeroMask
-const numeroFactura = { nombre: `numeroFactura`, type: `texto`, maxCaract: 13 };
+const porcentage = { nombre: `porcentage`, type: `porcentage` };
 ////// adjunto
-const adjunto = { nombre: `adjunto`, type: `adjunto` };
-const adjuntoColeccion = { nombre: `adjuntoColeccion`, type: `adjunto` };
-
+const adjunto = { nombre: `adjunto`, type: `adjunto`, validacion: { match: /^[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto: `Campo oblogatorio` } };
+const adjuntoColeccion = { nombre: `adjuntoColeccion`, type: `adjunto`, validacion: { match: /^[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto: `Campo oblogatorio` } };
 /////Fechas
-const fecha = { nombre: `fecha`, type: `fecha`, maxCaract: 10 };
-const fechaDos = { nombre: `fechaDos`, type: `fecha`, maxCaract: 10 };
-const fechaTres = { nombre: `fechaTres`, type: `fecha`, maxCaract: 10 };
-const fechaDevolucion = { nombre: `fechaDevolucion`, type: `fecha`, maxCaract: 10 };
-const vencimiento = { nombre: `vencimiento`, type: `fecha`, maxCaract: 10 };
-const vencimientoAcopio = { nombre: `vencimientoAcopio`, type: `fecha`, maxCaract: 10 };
+const fechaValidacion = /^[a-zA-Z0-9\_\-]{4,16}$/
+const fecha = { nombre: `fecha`, type: `fecha`, validacion: { match: fechaValidacion, texto: `Campo Obligatorio` } };
+const fechaDos = { nombre: `fechaDos`, type: `fecha`, validacion: { match: fechaValidacion, texto: `Campo Obligatorio` } };
+const fechaTres = { nombre: `fechaTres`, type: `fecha`, validacion: { match: fechaValidacion, texto: `Campo Obligatorio` } };
 ////atributos texto completo
 const observacionesCompleto = { nombre: `observacionesCompleto`, type: `textarea` };
 const descripcionCompleto = { nombre: `descripcionCompleto`, type: `textarea` };
 //////atriutos textos
-const apellido = { nombre: `surname`, type: `texto`, maxCaract: 100, validacion: { match: /[A-Z]{1}\w*\s?([A-Z]{1}\w*)?/, texto: `La primera letra de cada palabra debe ser mayuscula` } };
+const letra = { nombre: `letra`, type: `texto`, observaciones: `Texto de un caracter`, validacion: { match: /[A-Z]{1,2}$/, texto: `Una letra Mayuscula es obligatoria` } };
+const apellido = { nombre: `surname`, type: `texto`, validacion: { match: /[A-Z]{1}\w*\s?([A-Z]{1}\w*)?/, texto: `La primera letra de cada palabra debe ser mayuscula` } };
 const nombre = { nombre: `name`, type: `texto`, validacion: { match: /[A-Z]{1}\w*\s?([A-Z]{1}\w*)?/, texto: `La primera letra de cada palabra debe ser mayuscula` } };
-const password = { nombre: `password`, type: `password`, maxCaract: 100 };
-const post = { nombre: `post`, type: `texto`, maxCaract: 20 };
-const devolucionImporteArs = { nombre: `devolucionImporteArs`, type: `texto`, maxCaract: 100 };
-const devolucionImporteUsd = { nombre: `devolucionImporteUsd`, type: `texto`, maxCaract: 100 };
-const devolucion = { nombre: `devolucion`, type: `texto`, maxCaract: 100 };
-const saldo = { nombre: `saldo`, type: `texto`, maxCaract: 100 };
-const saldoArs = { nombre: `saldoArs`, type: `texto`, maxCaract: 100 };
-const saldoUsd = { nombre: `saldoUsd`, type: `texto`, maxCaract: 100 };
-const origen = { nombre: `origen`, type: `texto`, Observaciones: `Representa el orgine de la las operaciones desencadenadas`, maxCaract: 100 };
-const destino = { nombre: `destino`, type: `texto`, maxCaract: 100 };
-const destinoColec = { nombre: `destinoColec`, type: `texto`, maxCaract: 100 };
-const _id = { nombre: `_id`, type: `texto`, maxCaract: 100 };
+const password = { nombre: `password`, type: `password` };
+const _id = { nombre: `_id`, type: `texto` };
+const id = { nombre: `id`, type: `texto` };
 const abrev = { nombre: `abrev`, type: `texto`, observaciones: `Abrevietura de tres letras maximo 5 caracteres`, validacion: { match: /.{5}$/, texto: `Debe contener entre 3 caracteres` } };
-const cochera = { nombre: `cochera`, type: `texto`, observaciones: `Oficinas en una edificio`, maxCaract: 100 };
-const cocheraTotal = { nombre: `cocheraTotal`, type: `texto`, observaciones: `Cantidad de cocheras que contiene el fideicomiso`, maxCaract: 100 };
-const cuatroHab = { nombre: `cuatroHab`, type: `texto` };
-const date = { nombre: `date`, type: `date`, observaciones: `Cantidad de departamentos cuatro habitaciones que posee un edificio`, maxCaract: 100 };
-const deptos = { nombre: `deptos`, type: `texto`, observaciones: `Cantidad de departaentos totales que tiene un edificio`, maxCaract: 100 };
-const descripcion = { nombre: `descripcion`, type: `texto`, maxCaract: 100, validacion: { match: /.{1,500}$/, texto: `Campo obligatorio` } };
+const date = { nombre: `date`, type: `date`, observaciones: `Cantidad de departamentos cuatro habitaciones que posee un edificio` };
+const descripcion = { nombre: `descripcion`, type: `texto`, validacion: { match: /.{1,500}$/, texto: `Campo obligatorio` } };
 const direccion = { nombre: `direccion`, type: `texto`, validacion: { match: /.{1,80}$/, texto: `Campo obligatorio` } };
-const documento = { nombre: `documento`, type: `texto`, maxCaract: 100 };
-const dosHab = { nombre: `dosHab`, type: `texto`, observaciones: `Cantidad de departamentos dos habitaciones que posee un edificio`, maxCaract: 100 };
 const email = { nombre: `email`, type: `texto`, validacion: { match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto: `Debe contener "@" y ".com"` } };
-const id = { nombre: `id`, type: `texto`, maxCaract: 100 };
-const letra = { nombre: `letra`, type: `texto`, observaciones: `Letra de los departamentos`, maxCaract: 100 };
-const locales = { nombre: `locales`, type: `texto`, observaciones: `Locales en un edificio` };
-const localesTotal = { nombre: `localesTotal`, type: `texto`, observaciones: `Cantidad de locales que contiene el fideicomiso`, maxCaract: 100 };
-const mono = { nombre: `mono`, type: `texto`, observaciones: `Cantidad de departamentos monoambiente que posee un edificio`, maxCaract: 100 };
-const nume = { nombre: `nume`, type: `texto`, observaciones: `Quedo guardado para cuando no queria usar numerador predefinido`, maxCaract: 100 }; /*Eliminar hoy esta en rubro egresos*/
-const numer = { nombre: `numer`, type: `texto`, observaciones: `Numero de los departamentos`, maxCaract: 100 };
-const observaciones = { nombre: `observaciones`, type: `texto`, maxCaract: 100 };
-const observacionesColec = { nombre: `observacionesColec`, type: `texto`, maxCaract: 100 };
-const oficina = { nombre: `oficina`, type: `texto`, observaciones: `Importe en Pesos`, maxCaract: 100 };
-const oficinaTotal = { nombre: `oficinaTotal`, type: `texto`, observaciones: `Cantidad de oficinas que contiene el fideicomiso`, maxCaract: 100 };
-const piso = { nombre: `piso`, type: `texto`, observaciones: `Numero de piso en la direccion del departamento`, maxCaract: 100 };
-const pisos = { nombre: `pisos`, type: `texto`, observaciones: `Cantidad de pisos que tiene un edificio`, maxCaract: 100 };
-const plantaBaja = { nombre: `plantaBaja`, type: `texto`, observaciones: `Planta bajas de los fideicomiso`, maxCaract: 100 };
-const subsuelo = { nombre: `subsuelo`, type: `texto`, observaciones: `Cantidad de subsuelos que tienen los fideicomiso`, maxCaract: 100 };
-const telefono = { nombre: `telefono`, type: `texto`, maxCaract: 100 };
-const torres = { nombre: `torres`, type: `texto`, observaciones: `Cantidad de torres que tiene el fideicomiso`, maxCaract: 100 };
-const totales = { nombre: `totales`, type: `texto`, maxCaract: 100 }
-const impuesto = { nombre: `impuesto`, type: `texto`, maxCaract: 100 }
-const tresHab = { nombre: `tresHab`, type: `texto`, observaciones: `Cantidad de departamentos tres habitaciones que posee un edificio`, maxCaract: 100 };
-const unaHab = { nombre: `unaHab`, type: `texto`, observaciones: `Cantidad de departamentos una habitaciones que posee un edificio`, maxCaract: 100 };
-const usuario = { nombre: `usuario`, type: `texto`, maxCaract: 100 };
-const username = { nombre: `username`, type: `texto`, maxCaract: 100 };
-const position = { nombre: `position`, type: `text`, maxCaract: 50 };
+const observaciones = { nombre: `observaciones`, type: `texto` };
+const observacionesColec = { nombre: `observacionesColec`, type: `texto` };
+const oficina = { nombre: `oficina`, type: `texto`, observaciones: `Importe en Pesos` };
+const oficinaTotal = { nombre: `oficinaTotal`, type: `texto`, observaciones: `Cantidad de oficinas que contiene el fideicomiso` };
+const telefono = { nombre: `telefono`, type: `texto` };
+const totales = { nombre: `totales`, type: `texto` }
+const impuesto = { nombre: `impuesto`, type: `texto` }
+const usuario = { nombre: `usuario`, type: `texto` };
+const username = { nombre: `username`, type: `texto` };
+
 //////referencia
-const letraComprobante = { nombre: `letraComprobante`, type: `texto`, maxCaract: 1, key: [`letraComprobante`] };
-const prestamosFideicomisosAb = { nombre: `prestamosFideicomisosAb`, type: `texto`, Observaciones: `Referencia a los proveedores existentes`, maxCaract: 100, key: [`name`] };
-const subRubroPagos = { nombre: `subRubroPagos`, type: `texto`, Observaciones: `Referencia a los sub rubros pagos creados`, maxCaract: 100, key: [`name`] };
-const rubro = { nombre: `rubro`, type: `referencia`, observaciones: `Referencia a concepto del pago`, maxCaract: 100, key: [`name`] };
-const rubroPagos = { nombre: `rubroPagos`, type: `referencia`, Observaciones: `Referencia a los rubros pagos creados`, maxCaract: 100, key: [`nume`, `name`] };
-const cliente = { nombre: `cliente`, type: `texto`, maxCaract: 100, key: [`name`] };
-const ciudad = { nombre: `ciudad`, type: `texto`, maxCaract: 100, key: [`name`] };
-const proveedor = { nombre: `proveedor`, type: `texto`, Observaciones: `Referencia a los proveedores existentes`, maxCaract: 100, key: [`name`] };
-const pais = { nombre: `pais`, type: `texto`, referencia: `pais`, maxCaract: 100, key: [`name`] };
-const provincia = { nombre: `provincia`, type: `texto`, referencia: `provincia`, maxCaract: 100, key: [`name`] };
-const tipoPago = { nombre: `tipoPago`, type: `texto`, referencia: `tipoPago`, maxCaract: 100, key: [`name`] };
-const tipoPagoColeccion = { nombre: `tipoPagoColeccion`, type: `texto`, referencia: `tipoPago`, maxCaract: 100, key: [`name`] };
-const tipoUnidad = { nombre: `tipoUnidad`, type: `texto`, referencia: `tipoPago`, maxCaract: 100, key: [`name`] };
-const unidades = { nombre: `unidades`, type: `texto`, referencia: `unidades`, maxCaract: 100, key: [`name`] };
-const unidadesDestino = { nombre: `unidadesDestino`, type: `texto`, referencia: `unidades`, maxCaract: 100, key: [`name`] }
-const tipoComprobante = { nombre: `tipoComprobante`, type: `texto`, maxCaract: 100, key: [`letraComprobante`] };
-const moneda = { nombre: `moneda`, type: `texto`, observaciones: `Referencia a la moneda del comprobante`, maxCaract: 100, key: [`abrev`] };
-const agrupadorRubrosPago = { nombre: `agrupadorRubrosPago`, type: `texto`, maxCaract: 100, key: [`name`] };
-const criticidad = { nombre: `criticidad`, type: `texto`, maxCaract: 100, key: [`name`] }
-const estadoProceso = { nombre: `estadoProceso`, type: `texto`, maxCaract: 100, key: [`name`] }
-const tarea = { nombre: `tarea`, type: `texto`, maxCaract: 100, key: [`name`] }
+const letraComprobante = { nombre: `letraComprobante`, type: `texto`, maxCaract: 1, key: [`letraComprobante`], validacion: { texto: `Seleccione una opcion` } };
+const subRubroPagos = { nombre: `subRubroPagos`, type: `texto`, Observaciones: `Referencia a los sub rubros pagos creados`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const rubroPagos = { nombre: `rubroPagos`, type: `referencia`, Observaciones: `Referencia a los rubros pagos creados`, key: [`nume`, `name`] };
+const cliente = { nombre: `cliente`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const ciudad = { nombre: `ciudad`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const proveedor = { nombre: `proveedor`, type: `texto`, Observaciones: `Referencia a los proveedores existentes`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const pais = { nombre: `pais`, type: `texto`, referencia: `pais`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const provincia = { nombre: `provincia`, type: `texto`, referencia: `provincia`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const tipoPago = { nombre: `tipoPago`, type: `texto`, referencia: `tipoPago`, key: [`name`] };
+const tipoPagoColeccion = { nombre: `tipoPagoColeccion`, type: `texto`, referencia: `tipoPago`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const tipoUnidad = { nombre: `tipoUnidad`, type: `texto`, referencia: `tipoPago`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const unidades = { nombre: `unidades`, type: `texto`, referencia: `unidades`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const unidadesDestino = { nombre: `unidadesDestino`, type: `texto`, referencia: `unidades`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
+const tipoComprobante = { nombre: `tipoComprobante`, type: `texto`, key: [`letraComprobante`], validacion: { texto: `Seleccione una opcion` } };
+const moneda = { nombre: `moneda`, type: `texto`, observaciones: `Referencia a la moneda del comprobante`, key: [`abrev`], validacion: { texto: `Seleccione una opcion` } };
+const agrupadorRubrosPago = { nombre: `agrupadorRubrosPago`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const criticidad = { nombre: `criticidad`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
+const estadoProceso = { nombre: `estadoProceso`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
+const tarea = { nombre: `tarea`, type: `texto`, key: [`name`] }
 
 ///////logico
-const acopio = { nombre: `acopio`, type: `logico`, maxCaract: 1 };
-const logico = { nombre: `logico`, type: `logico`, maxCaract: 1 };
-///////logico
-const estado = { nombre: `estado`, type: `texto`, maxCaract: 50 };
-const habilitado = { nombre: `habilitado`, type: `texto`, maxCaract: 50 };
+const acopio = { nombre: `acopio`, type: `logico` };
+const logico = { nombre: `logico`, type: `logico` };
+const estado = { nombre: `estado`, type: `texto` };
+const habilitado = { nombre: `habilitado`, type: `texto` };
 /////////// el archivo adjunto, solo para ocultar
-const filename = { nombre: `filename`, type: `texto`, maxCaract: 500 };
-const originalname = { nombre: `originalname`, type: `texto`, maxCaract: 500 };
-const path = { nombre: `path`, type: `texto`, maxCaract: 500 }
+const filename = { nombre: `filename`, type: `texto` };
+const originalname = { nombre: `originalname`, type: `texto` };
+const path = { nombre: `path`, type: `texto` }
 
 //////////////////atributos Descripción
 const modficarTodo = `Se puede modificar todo desde el formulario Abm o del formulario de unica instancia`;
@@ -326,79 +284,18 @@ const prestamoCompuesto = {
         post: post
     }
 }
-
 const expresiones = {
     //usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     //nombre: /^[a-zA-ZÀ-ÿ\s]{1,70}$/, // Letras y espacios, pueden llevar acentos.
-    // Letras y espacios, pueden llevar acentos.
+    //Letras y espacios, pueden llevar acentos.
     //password: /^.{4,12}$/, // 4 a 12 digitos.
-    dni: /\d{1,3}\.\d{3}\.\d{3}$/,
-    adjunto: /^[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    fecha: /^[a-zA-Z0-9\_\-]{4,16}$/,
-    fechaDevolucion: /^[a-zA-Z0-9\_\-]{4,16}$/,
-    vencimiento: /^[a-zA-Z0-9\_\-]{4,16}$/,
-    importeArs: /.{1,20}$/,
-    importeUsd: /.{1,20}$/,
-    importe: /.{1,20}$/,
-    importeTotal: /.{1,20}$/,
-    iva: /.{1,20}$/,
-    total: /.{1,20}$/,
-    numeroFactura: /.{12,13}$/,
-    // letra: /.{1,2}$/,
-    letraComprobante: /[A-Z]{1,2}$/,
-    nume: /.{1,5}$/,
-    num: /.{1,5}$/,
-    //numer: /.{1,2}$/,
-    piso: /.{1,2}$/,
-    precioUnitario: /.{1,20}$/,
-    tc: /.{1,8}$/,
     telefono: /^\d{7,20}$/ // 7 a 20 numeros.
 }
 
 const textoExpresiones = {
     //usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
 
-    dni: `Debe contener entre 7 y 10 num`,
-    adjunto: `Es obligatorio adjuntar factura`,
-    fecha: `Campo obligatorio`,
-    fechaDevolucion: `Campo obligatorio`,
-    vencimiento: `Campo obligatorio`,
-    letraComprobante: `Debe contener un caracter MAYUSCULA`,
-    importeArs: `Campo obligatorio`,
-    importeUsd: `Campo obligatorio`,
-    importe: `Campo obligatorio`,
-    importeTotal: `Campo obligatorio`,
-    total: `Campo obligatorio`,
-    iva: `Campo obligatorio`,
-    letra: `Campo obligatorio`,
-    nume: `Debe contener entre 1 y 5 num`,
-    numeroFactura: `Campo obligatorio con 12 digitos`,
-    num: `Debe contener entre 1 y 5 num`,
-    numer: `Campo obligatorio`,
-    piso: `Campo obligatorio`,
-    precioUnitario: `Campo obligatorio`,
-    tc: `Campo obligatorio`,
-    telefono: `El telefono es obligatorio`,
-    agrupadorRubrosPago: `Seleccione una opcion`,
 
-    provincia: `Seleccione una opcion`,
-    pais: `Seleccione una opcion`,
-    ciudad: `Seleccione una opcion`,
-    tipoPago: `Seleccione una opcion`,
-    cliente: `Seleccione una opcion`,
-    proveedor: `Seleccione una opcion`,
-    rubro: `Seleccione una opcion`,
-    rubroPagos: `Seleccione una opcion`,
-    subRubroPagos: `Seleccione una opcion`,
-    unidades: `Seleccione una opcion`,
-    unidadesDestino: `Seleccione una opcion`,
-    tipoUnidad: `Seleccione una opcion`,
-    tipoCobros: `Seleccione una opcion`,
-    tipoPago: `Seleccione una opcion`,
-    moneda: `Seleccione una opcion`,
-    tarea: `Seleccione una opcion`,
-
-    prestamosFideicomisosAb: `Seleccione una opcion`,
 }
 
 
@@ -536,11 +433,62 @@ const formatoNumeroDni = function (objeto, numeroForm, atributos) {
         $(e.target).val(dni)
     }
     if ($(`#formularioIndividual .formulario`).length == 0) {
+        $.each(atributos, (indice, value) => {
+            $(`#t${numeroForm} input.${value.nombre}`).keyup(doc);
+        })
 
-        $(`#t${numeroForm} input.documento`).keyup(doc);
+
     } else {
-        $(`#formularioIndividual input.documento`).keyup(doc);
+        $.each(atributos, (indice, value) => {
+            $(`#formularioIndividual input.${value.nombre}`).keyup(doc);
+        })
+    }
+}
+const formatoNumero = function (objeto, numeroForm, atributos) {
+
+    const doc = function (e) {
+
+        let num = parseFloat(e.target.value.replaceAll(".", ""));
+        let numero = parseFloat(num.replaceAll(",", "."));
+
+        let importe = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 2, }).format(numero)
+
+        $(e.target).val(importe)
+    }
+    if ($(`#formularioIndividual .formulario`).length == 0) {
+        $.each(atributos, (indice, value) => {
+            $(`#t${numeroForm} input.${value.nombre}`).keyup(doc);
+        })
+
+
+    } else {
+        $.each(atributos, (indice, value) => {
+            $(`#formularioIndividual input.${value.nombre}`).keyup(doc);
+        })
+    }
+}
+
+const monedaSigno = function (objeto, numeroForm, gatillo, atributos) {
+    let father = $(`select.${gatillo.nombre}`).parent().parent()
+
+    const moneda = function (e) {
+
+        let currency = $(e.target).val()
+
+        $.each(atributos, (indice, value) => {
+            $(`input.${value.nombre}`, father).addClass(currency)
+        })
+
     }
 
+    if ($(`#formularioIndividual .formulario`).length == 0) {
+
+        $(`#t${numeroForm} input.${gatillo.nombre}`).change(moneda);
+
+    } else {
+
+        $(`#formularioIndividual input.${gatillo.nombre}`).change(moneda);
+
+    }
 }
 

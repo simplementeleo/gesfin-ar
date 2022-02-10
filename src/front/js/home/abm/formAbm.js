@@ -982,6 +982,7 @@ function active(contador) {
 }
 /////////////////VALIDACION FORMULARIOS/////////////////////////////////////////////////
 const validarFormulario = function (objeto, numeroForm) {
+
     let accion = objeto.accion;
 
     const validarCampo = (match, e) => {
@@ -1013,10 +1014,12 @@ const validarFormulario = function (objeto, numeroForm) {
 
         }
     };
+    console.log($(`#formulario${accion}${numeroForm}`))
 
-    if ($(`#formulario${accion}${numeroForm}`) != undefined) {
+    if ($(`#formulario${accion}${numeroForm}`).length > 0) {
 
         $.each(objeto.validaciones, (indice, value) => {
+
 
             $(`#formulario${accion}${numeroForm}`).on(`keyup`, `input.${value.nombre}`, function (e) {
                 validarCampo(value.validacion.match, e)
@@ -1026,7 +1029,8 @@ const validarFormulario = function (objeto, numeroForm) {
         })
     } else {
         $.each(objeto.validaciones, (indice, value) => {
-            $(`#t${numeroForm}`).on(`keyup`, `input`, function (e) {
+
+            $(`#t${numeroForm}`).on(`keyup`, `input.${value.nombre}`, function (e) {
                 validarCampo(value.validacion.match, e)
             });
             $(`#t${numeroForm}`).on(`change`, `select`, validarCampoSelect);
@@ -1444,6 +1448,7 @@ const consultaNumer = function (name, filtro, id, unidades, father) {
     }
 }
 const formatoCeldas = function (objeto, cont) {
+
     $.each(objeto.atributos.oculto, function (indice, value) {
         $(`#t${cont} td.${value.nombre}`).addClass("oculto");
         $(`#t${cont} th.${value.nombre}`).addClass("oculto");
@@ -1493,7 +1498,6 @@ const formatoCeldas = function (objeto, cont) {
             $(`.tablaCompuesto.${cont} .form.${val.nombre}`).addClass(indice);
         });
     });
-
     $.each(objeto.atributos.desencadenado, (indice, value) => {
         let registros = $(`#t${cont} tbody > tr.fila`);
 
@@ -1503,6 +1507,12 @@ const formatoCeldas = function (objeto, cont) {
             }
         });
     });
+    $.each(objeto.atributos.configAbm.formatoFunc, (indice, value) => {
+
+        value[0](objeto, cont, value[1])
+
+    });
+
 };
 const tipoAtributo = function (consulta, objeto) {
 

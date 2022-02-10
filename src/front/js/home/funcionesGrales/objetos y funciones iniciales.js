@@ -372,7 +372,7 @@ let variablesIniciales = {
                     diez: [nombre, ciudad],
                     quince: [direccion, observaciones],
                 },
-                format: {
+                formatoFunc: {
                     formatoNumeroDni: [formatoNumeroDni, [documento]],
 
                 }
