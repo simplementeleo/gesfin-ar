@@ -276,6 +276,10 @@ let variablesIniciales = {
                     siete: [],
                     diez: [],
                     quince: [],
+                },
+                formatoFunc: {
+                    primeraLetraMayuscula: [primeraLetraMayuscula, [nombre, apellido]],
+
                 }
             },
             modificar: {
@@ -303,7 +307,7 @@ let variablesIniciales = {
             },
             impresion: {
                 tituloFormulario: `Usuarios`,
-                ocultoImpresion: [_id, id, mono, unaHab, dosHab, tresHab, cuatroHab, habilitado],
+                ocultoImpresion: [_id, id, habilitado],
                 titulosImpresionCompuesto: [],
             }
         },
