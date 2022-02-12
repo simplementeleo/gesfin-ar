@@ -120,7 +120,7 @@ const descripcionCompleto = { nombre: `descripcionCompleto`, type: `textarea`, v
 //email
 const email = { nombre: `email`, type: `texto`, validacion: { match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto: `Debe contener "@" y ".com"` } };
 //Primera letra mayuscula
-const validacionMayuscula = /[A-Z]{1}\w*\s?([A-Z]{1}\w*)?/
+const validacionMayuscula = /^[a-zA-Z\s]*[a-zA-Z]*$/
 const nombre = { nombre: `name`, type: `texto`, validacion: { match: validacionMayuscula, texto: `La primera letra de cada palabra debe ser mayuscula` } };
 const apellido = { nombre: `surname`, type: `texto`, validacion: { match: validacionMayuscula, texto: `La primera letra de cada palabra debe ser mayuscula` } };
 //Maximo largo 2 caracteres solo letras mayuscula
@@ -402,10 +402,22 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
     let match = /\s[^'\s]/
     const mayuscula = function (e) {
 
-        console.log(match.test(e.target.value))
-        //if (match.test(e.target.value)
+        let mayus = ""
 
-        let mayus = e.target.value[0].toUpperCase() + e.target.value.slice(1)
+        if (match.test(e.target.value)) {
+
+            let words = e.target.value.split(" ")
+            let may = ""
+
+            $.each(words, (indice, value) => {
+
+                may += value[0].toUpperCase() + value.slice(1) + " "
+            })
+            mayus = may.slice(0, -1)
+
+        } else {
+            mayus = e.target.value[0].toUpperCase() + e.target.value.slice(1)
+        }
 
         $(e.target).val(mayus)
     }

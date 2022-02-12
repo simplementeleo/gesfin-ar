@@ -986,6 +986,8 @@ const validarFormulario = function (objeto, numeroForm) {
     let accion = objeto.accion;
 
     const validarCampo = (match, e) => {
+        console.log(e.target.value)
+        console.log(match)
 
         if (match.test(e.target.value)) {
             $(e.target).addClass("validado");
@@ -1014,7 +1016,6 @@ const validarFormulario = function (objeto, numeroForm) {
 
         }
     };
-    console.log($(`#formulario${accion}${numeroForm}`))
 
     if ($(`#formulario${accion}${numeroForm}`).length > 0) {
 
