@@ -49,6 +49,12 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                   <li class="menuEliminar ${contador}"><img src="/img/abm/delete.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Eliminar</li>
                   <li class="menuCrear ${contador}"><img src="/img/abm/crear.svg" alt="Orden Descendente" title="Orden Descendente" class="filtroMenu">Formulario Individual</li>
             </ul>
+            </div>
+            <div id="menuContextualInput">
+            <ul>
+                <li class="menuValidacion ${contador}">Como valido ?</li>
+                  
+            </ul>
         </div>`;
 
     let menTabCon = $(menutablaContext);
@@ -218,7 +224,9 @@ $('.menuSelectAbm').on('click ', this.id, function () {
 
                 valid.push($(`#t${numeroForm} td.inputTd .${value.nombre}.requerido`).attr("validado"));
                 if ($(`td.inputTd .${value.nombre}.requerido`).attr("validado") == "false") {
-                    let p = `<div class="contError"><p>${textoExpresiones[value.nombre]}</p></div>`;
+                    let ancho = $(`#t${numeroForm} td.inputTd.${value.nombre}`).css(`width`)
+              
+                    let p = `<div class="contError" style="max-width: ${ancho}"><p>${value.validacion.texto}</p></div>`;
 
                     let texto = $(p);
 
@@ -663,6 +671,34 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         $(`#videoTutorial`).attr("src", src)
 
     });
+    $(`body`).on(`contextmenu`,`#t${numeroForm} .inputR.requerido`,function(e){
+
+        e.preventDefault();
+      
+        const atributo = objeto.atributos.names.find( atr => atr.nombre === this.name )
+    
+        $("#menuContextualInput").css({ 'display': 'block', 'left': e.pageX, 'top': e.pageY });
+    
+        $(`body`).on(`click`,`.menuValidacion`,function(e){
+          
+        
+            let div = `<div class="cartelMovil" style="left:${e.pageX}px; top:${e.pageY}px">${atributo.validacion.texto}</div>`
+            let d = $(div)
+            
+            $(`body`).append(div);
+
+        
+        })
+        $(`#t${numeroForm}`).click(function(){
+               $(`.cartelMovil`).remove()
+           }) 
+           $(`#t${numeroForm}`).on(`contextmenu`,function(){
+            $(`.cartelMovil`).remove()
+        }) 
+       
+      
+    
+    })
     $("body").on('dblclick', `#t${numeroForm} .inputTd.des`, function (e) {
 
         losInput = true;

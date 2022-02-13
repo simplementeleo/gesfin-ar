@@ -129,7 +129,7 @@ const letra = { nombre: `letra`, type: `texto`, observaciones: `Texto de un cara
 const abrev = { nombre: `abrev`, type: `texto`, observaciones: `Abrevietura de tres letras maximo 5 caracteres`, validacion: { match: /.{3,5}$/, texto: `Debe contener entre 3 caracteres` } };
 //Password
 const validarPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,15}[^'\s]$/
-const password = { nombre: `password`, type: `password`, validacion: { match: validarPassword, texto: `Campo obligatorio` } };
+const password = { nombre: `password`, type: `password`, validacion: { match: validarPassword, texto: `Debe contener 6 a 15 caractere, al menos una mayuscula, un numero y un caracter complejo ` } };
 //Solo valida que completa 
 const validacionTextoStandar = /.{1,500}$/
 const descripcion = { nombre: `descripcion`, type: `texto`, validacion: { match: validacionTextoStandar, texto: `Campo obligatorio` } };
@@ -289,15 +289,38 @@ $(`body`).on('contextmenu', `tr.fila`, function (e) {
 
     $("#menuContextualCuerpoTabla").css({ 'display': 'block', 'left': e.pageX, 'top': e.pageY });
     // return objetivoClickMenuContextual;
-
 });
+$(`body`).on(`mouseover`,`.contError`,function(e){
+
+    let div = `<div class="cartelMovil" style="left:${e.pageX}px; top:${e.pageY}px">${$(`p`, $(this)).html()}</div>`
+    let d = $(div)
+    
+    $(`body`).append(div);
+})
+$(`body`).on(`mouseout`,`.contError`,function(e){
+
+    $(`body .cartelMovil`).remove()
+   
+})
+
+
+
+   
 $(document).click(function (e) {
     if (e.button == 0) {
         $(`#menuContextualTitulo,
-           #menuContextualCuerpoTabla`).css("display", "none");
+           #menuContextualCuerpoTabla,
+           #menuContextualInput`).css("display", "none");
         /////////////este cierre la venta emergente del pdf////////
 
+        //$(`.cartelMovil`).remove();
     }
+    //var container = $(".menuvalidacion");
+
+      //if (!$(".menuvalidacion").is(e.target) && $(".menuvalidacion").has(e.target).length === 0) { 
+        //Se ha pulsado en cualquier lado fuera de los elementos contenidos en la variable container
+
+        //}
 });
 $(document).keydown(function (e) {
     if (e.keyCode == 27) {
@@ -307,9 +330,9 @@ $(document).keydown(function (e) {
         /////////////este cierre la venta emergente del pdf////////
         $(`#vistaPrevia`).attr("src", "")
         $(`#canvas_container`).css("display", `none`)
+        $(`.cartelMovil`).remove();
     };
 })
-
 $(`#canvas_container .crossForm`).click(function () {
 
     /////////////este cierre la venta emergente del pdf////////
@@ -327,6 +350,7 @@ $(`#videoTutorialDiv .crossForm`).click(function () {
     emb.appendTo(`#videoTutorialDiv`)
 
 })
+
 let getFileExtension = function (filename) {
     return filename.split('.').pop();
 }
@@ -433,4 +457,6 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
         })
     }
 }
+
+
 

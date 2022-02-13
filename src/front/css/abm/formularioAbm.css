@@ -124,17 +124,23 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .contError {
   display: flex;
-  flex-wrap: nowrap;
   justify-content: center;
+  height: auto;
+  font-size: 0.9em;
+  overflow-x: hidden;
+
 }
 
 td.inputTd p,
 td.celda p {
-  font-size: 0.9em;
+  display: flex;
+  flex-wrap: wrap;
+  word-wrap: break-word;   
   color: red;
   text-align: center;
   margin-top: 0.3em;
   margin-bottom: 0.2em;
+
 }
 
 tr.desHabilitado td {
@@ -158,8 +164,19 @@ tr.desencadenado td {
   text-align: center;
 }
 
-.contError p:hover {
-  font-size: 1.3em;
+.cartelMovil {
+  position: absolute;
+  font-size: 1em;
+  color: rgb(94, 0, 0);
+  font-weight: bold;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding-right: 1em;
+  padding-left: 1em;
+  text-align: center;
+  background-color: rgb(161, 159, 159);
+  border-radius: 5px;
+  border: 3px solid rgb(94, 0, 0);
 }
 
 input:-webkit-autofill {
@@ -412,7 +429,8 @@ td.dolar::before {
 }
 
 #menuContextualTitulo,
-#menuContextualCuerpoTabla {
+#menuContextualCuerpoTabla,
+#menuContextualInput{
   display: none;
   position: absolute;
   border: 1px solid black;
