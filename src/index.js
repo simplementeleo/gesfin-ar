@@ -16,7 +16,7 @@ require('./lib/passportConfig');
 
 
 //Settings
-const PORT = process.env.PORT || 1000;
+const PORT = process.env.PORT || 7000;
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, 'views'));
 
