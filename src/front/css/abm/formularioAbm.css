@@ -128,19 +128,17 @@ input[type="number"]::-webkit-inner-spin-button {
   height: auto;
   font-size: 0.9em;
   overflow-x: hidden;
-
 }
 
 td.inputTd p,
 td.celda p {
   display: flex;
   flex-wrap: wrap;
-  word-wrap: break-word;   
+  word-wrap: break-word;
   color: red;
   text-align: center;
   margin-top: 0.3em;
   margin-bottom: 0.2em;
-
 }
 
 tr.desHabilitado td {
@@ -167,14 +165,14 @@ tr.desencadenado td {
 .cartelMovil {
   position: absolute;
   font-size: 1em;
-  color: rgb(94, 0, 0);
+  color: rgb(211, 5, 5);
   font-weight: bold;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   padding-right: 1em;
   padding-left: 1em;
   text-align: center;
-  background-color: rgb(161, 159, 159);
+  background-color: rgb(223, 208, 208);
   border-radius: 5px;
   border: 3px solid rgb(94, 0, 0);
 }
@@ -430,7 +428,7 @@ td.dolar::before {
 
 #menuContextualTitulo,
 #menuContextualCuerpoTabla,
-#menuContextualInput{
+#menuContextualInput {
   display: none;
   position: absolute;
   border: 1px solid black;

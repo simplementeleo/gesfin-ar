@@ -120,7 +120,7 @@ const descripcionCompleto = { nombre: `descripcionCompleto`, type: `textarea`, v
 //email
 const email = { nombre: `email`, type: `texto`, validacion: { match: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, texto: `Debe contener "@" y ".com"` } };
 //Primera letra mayuscula
-const validacionMayuscula = /^[a-zA-Z\s]*[a-zA-Z]*$/
+const validacionMayuscula = /^[A-Za-zñ]+[a-zA-Z\sñ]*[a-zA-Zñ]*$/
 const nombre = { nombre: `name`, type: `texto`, validacion: { match: validacionMayuscula, texto: `La primera letra de cada palabra debe ser mayuscula` } };
 const apellido = { nombre: `surname`, type: `texto`, validacion: { match: validacionMayuscula, texto: `La primera letra de cada palabra debe ser mayuscula` } };
 //Maximo largo 2 caracteres solo letras mayuscula
@@ -290,22 +290,22 @@ $(`body`).on('contextmenu', `tr.fila`, function (e) {
     $("#menuContextualCuerpoTabla").css({ 'display': 'block', 'left': e.pageX, 'top': e.pageY });
     // return objetivoClickMenuContextual;
 });
-$(`body`).on(`mouseover`,`.contError`,function(e){
+$(`body`).on(`mouseover`, `.contError`, function (e) {
 
     let div = `<div class="cartelMovil" style="left:${e.pageX}px; top:${e.pageY}px">${$(`p`, $(this)).html()}</div>`
     let d = $(div)
-    
+
     $(`body`).append(div);
 })
-$(`body`).on(`mouseout`,`.contError`,function(e){
+$(`body`).on(`mouseout`, `.contError`, function (e) {
 
     $(`body .cartelMovil`).remove()
-   
+
 })
 
 
 
-   
+
 $(document).click(function (e) {
     if (e.button == 0) {
         $(`#menuContextualTitulo,
@@ -313,14 +313,9 @@ $(document).click(function (e) {
            #menuContextualInput`).css("display", "none");
         /////////////este cierre la venta emergente del pdf////////
 
-        //$(`.cartelMovil`).remove();
+        // $(`.cartelErrorFront`).remove();
     }
-    //var container = $(".menuvalidacion");
 
-      //if (!$(".menuvalidacion").is(e.target) && $(".menuvalidacion").has(e.target).length === 0) { 
-        //Se ha pulsado en cualquier lado fuera de los elementos contenidos en la variable container
-
-        //}
 });
 $(document).keydown(function (e) {
     if (e.keyCode == 27) {
@@ -331,6 +326,7 @@ $(document).keydown(function (e) {
         $(`#vistaPrevia`).attr("src", "")
         $(`#canvas_container`).css("display", `none`)
         $(`.cartelMovil`).remove();
+        $(`.cartelErrorFront`).remove();
     };
 })
 $(`#canvas_container .crossForm`).click(function () {

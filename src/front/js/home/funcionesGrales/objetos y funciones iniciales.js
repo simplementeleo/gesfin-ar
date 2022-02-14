@@ -319,10 +319,10 @@ let variablesIniciales = {
         acumulador: [],
         numerador: [],
         validaciones: [nombre, apellido, email, usuario, password],
-        key: {
+        /*key: {
             atributo: email,
             nombre: `email`,
-        },
+        },*/
         pest: `Usuarios`,
         accion: `users`,
         pestanas: {

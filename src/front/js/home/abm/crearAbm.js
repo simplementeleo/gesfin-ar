@@ -1,4 +1,4 @@
-$('.menuSelectAbm').on('click ', this.id, function () { 
+$('.menuSelectAbm').on('click ', this.id, function () {
 
     let objeto = variablesIniciales[this.id]
     let botonEditar = false;
@@ -173,6 +173,8 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                 $(`#bf${id}`).remove();
                 $(`#t${id}`).remove();
             }
+            $(`.cartelMovil`).remove()
+            $(`.cartelErrorFront`).remove();
         }
 
     );
@@ -225,7 +227,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                 valid.push($(`#t${numeroForm} td.inputTd .${value.nombre}.requerido`).attr("validado"));
                 if ($(`td.inputTd .${value.nombre}.requerido`).attr("validado") == "false") {
                     let ancho = $(`#t${numeroForm} td.inputTd.${value.nombre}`).css(`width`)
-              
+
                     let p = `<div class="contError" style="max-width: ${ancho}"><p>${value.validacion.texto}</p></div>`;
 
                     let texto = $(p);
@@ -248,13 +250,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             }
         })
 
-        if ($(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).attr(`keyRep`) == `true`) {
-
-            let valueRepetido = $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).val()
-
-            $(`#bf${numeroForm} .cartelErrorFront p`).html(`Ya existe un registro con ${objeto.key.nombre} ${valueRepetido}`)
-            $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
-        } else if (valid.includes("false")) {
+        if (valid.includes("false")) {
 
             $(`#bf${numeroForm} .cartelErrorFront p`).html("Revisar los campos en rojo")
             $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
@@ -305,7 +301,6 @@ $('.menuSelectAbm').on('click ', this.id, function () {
 
                         }
                     } else {
-
 
                         $.each(value.componentes, (ind, val) => {
 
@@ -671,33 +666,33 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         $(`#videoTutorial`).attr("src", src)
 
     });
-    $(`body`).on(`contextmenu`,`#t${numeroForm} .inputR.requerido`,function(e){
+    $(`body`).on(`contextmenu`, `#t${numeroForm} .inputR.requerido`, function (e) {
 
         e.preventDefault();
-      
-        const atributo = objeto.atributos.names.find( atr => atr.nombre === this.name )
-    
+
+        const atributo = objeto.atributos.names.find(atr => atr.nombre === this.name)
+
         $("#menuContextualInput").css({ 'display': 'block', 'left': e.pageX, 'top': e.pageY });
-    
-        $(`body`).on(`click`,`.menuValidacion`,function(e){
-          
-        
+
+        $(`body`).on(`click`, `.menuValidacion`, function (e) {
+
+
             let div = `<div class="cartelMovil" style="left:${e.pageX}px; top:${e.pageY}px">${atributo.validacion.texto}</div>`
             let d = $(div)
-            
+
             $(`body`).append(div);
 
-        
+
         })
-        $(`#t${numeroForm}`).click(function(){
-               $(`.cartelMovil`).remove()
-           }) 
-           $(`#t${numeroForm}`).on(`contextmenu`,function(){
+        $(`#t${numeroForm}`).click(function () {
             $(`.cartelMovil`).remove()
-        }) 
-       
-      
-    
+        })
+        $(`#t${numeroForm}`).on(`contextmenu`, function () {
+            $(`.cartelMovil`).remove()
+        })
+
+
+
     })
     $("body").on('dblclick', `#t${numeroForm} .inputTd.des`, function (e) {
 
@@ -862,7 +857,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         });
 
         validarFormulario(objeto, cont);
-        validarKey(objeto, consulta, cont)
+        //validarKey(objeto, consulta, cont)
 
         $.each(objeto.atributos.deshabilitado, function (indice, value) {
 
@@ -952,4 +947,5 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             }
         }
     });
+
 })

@@ -67,7 +67,7 @@ let crearTabla = function (contador, objeto, consulta) {
                         break;
                     case "password":
                         tabla += `<td class="inputTd ${value.nombre}">
-                                <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony></td>`;
+                                <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword" src="../img/abm/ojoTachado.svg"></td>`;
                         break;
                     case "adjunto":
                         tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
@@ -164,7 +164,7 @@ let reCrearTabla = function (id, objeto, fidecomisoSelec) {
 
 
 
-            $(`#in${objeto.key.atributo.nombre}${id}`).focus();
+            $(`#in${objeto.atributos.names[0].nombre}${contador}`).focus()
 
             formatoCeldas(objeto, id);
             validarFormulario(objeto, id)
@@ -804,34 +804,45 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
             complete: function (data) { },
             success: function (response) {
 
-                registroEnviado.push({ name: `idDesen`, value: response.posteo._id });
-                registroEnviado.push({ name: `filename`, value: response.posteo.filename }, { name: `originalname`, value: response.posteo.originalname }, { name: `path`, value: response.posteo.path });
+                if (response.posteo != undefined) {
 
-                if (desencadenateTriger == true) {
-                    desencadenante(dessencadenanteForm, objeto, id, file, response.posteo._id);
-                }
+                    registroEnviado.push({ name: `idDesen`, value: response.posteo._id });
+                    registroEnviado.push({ name: `filename`, value: response.posteo.filename }, { name: `originalname`, value: response.posteo.originalname }, { name: `path`, value: response.posteo.path });
 
-                if (desencadenateModifTriger == true) {
-                    desencadenaModif(desencadenanteModif, objeto, id, false, fileEvniar, response.posteo._id);
-                }
+                    if (desencadenateTriger == true) {
+                        desencadenante(dessencadenanteForm, objeto, id, file, response.posteo._id);
+                    }
 
-                agregarRegistro(id, lengthUnoSelect, objeto, fidecomisoSelec, registroEnviado, response.posteo);
+                    if (desencadenateModifTriger == true) {
+                        desencadenaModif(desencadenanteModif, objeto, id, false, fileEvniar, response.posteo._id);
+                    }
 
-                $.each(objeto.numerador.global, (indice, value) => {
-                    consultaNumer(value.name, value.filtro, id);
-                });
+                    agregarRegistro(id, lengthUnoSelect, objeto, fidecomisoSelec, registroEnviado, response.posteo);
 
-                if (individual == "false") {
-                    $(`#bf${id} .cartelErrorFront p`).html(response.mensaje);
-                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                    $.each(objeto.numerador.global, (indice, value) => {
+                        consultaNumer(value.name, value.filtro, id);
+                    });
+
+                    if (individual == "false") {
+                        $(`#bf${id} .cartelErrorFront p`).html(response.mensaje);
+                        $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                    } else {
+                        $(`#formnumFidei${id} p`).html(0);
+                    }
+
+                    $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
+                    $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
+                    $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
+                    clearInterval(barraCargar);
                 } else {
-                    $(`#formnumFidei${id} p`).html(0);
-                }
 
-                $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
-                $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
-                $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
-                clearInterval(barraCargar);
+                    let key = Object.keys(response.keyValue)
+
+                    $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
+                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                    $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+
+                }
             },
             error: function (error) {
                 /*
@@ -1638,7 +1649,7 @@ const tipoAtributo = function (consulta, objeto) {
 
     return celdas;
 };
-const validarKey = function (objeto, consulta, numeroForm) {
+/*const validarKey = function (objeto, consulta, numeroForm) {
     $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).on(
         `change`,
         function () {
@@ -1666,7 +1677,7 @@ const validarKey = function (objeto, consulta, numeroForm) {
             });
         }
     );
-};
+};*/
 const verdepenOnAtributo = function (objeto, numeroForm, gatillo, atributo, atributoDos) {
     let check = $(`#t${numeroForm} input.form.${gatillo.nombre},
                     #t${numeroForm} input.inputR.${gatillo.nombre},
