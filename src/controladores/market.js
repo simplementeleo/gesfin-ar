@@ -36,26 +36,26 @@ router.get('/users', async (req, res) => {
                 name: 1,
                 surname: 1,
                 email: 1,
+                password: 1,
                 logico: 1,
                 username: 1,
-                password: 1,
-                usuario: "$clienteUser.username",
                 date: 1,
+                usuario: "$clienteUser.username",
                 habilitado: 1
             }
         }
     ]);
     var user = [];
-    var Usuario = function (id, name, surname, email, logico, username, password, usuario, date, habilitado) {
+    var Usuario = function (id, name, surname, email, password, logico, username, date, usuario, habilitado) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.password = password;
         this.logico = logico;
         this.usuario = username;
-        this.password = password;
-        this.username = usuario;
         this.date = date;
+        this.username = usuario;
         this.habilitado = habilitado;
     }
 
@@ -63,21 +63,21 @@ router.get('/users', async (req, res) => {
 
         var us = new Usuario(
             usuario[x]._id,
-            usuario[x].num,
+            usuario[x].name,
             usuario[x].surname,
             usuario[x].email,
+            usuario[x].password,
             usuario[x].logico,
             usuario[x].username,
-            usuario[x].password,
-            usuario[x].observaciones,
-            usuario[x].usuario,
             usuario[x].date,
+            usuario[x].usuario,
             usuario[x].habilitado)
 
         user.push(us);
     }
 
     res.json(user);
+    console.log(user)
 
 });
 router.post('/users', async (req, res) => {
@@ -97,16 +97,18 @@ router.post('/users', async (req, res) => {
             habilitado
 
         });
+        newUser.password = await newUser.encryptPassword(password);
         let userNew = await newUser.save();
 
         res.json({
-            mensaje: msj,
+            mensaje: `El usuario ${usuario}  fue creado con extito`,
             posteo: userNew
         });
 
     } catch (error) {
         console.error(error);
         res.json(error);
+
     }
 });
 router.put('/users', async (req, res) => {

@@ -5,10 +5,13 @@ const bcrypt = require("bcrypt");
 const UserSchema = new Schema({
     name: { type: String },
     surname: { type: String },
-    username: { type: String, unique: true },
-    email: { type: String,  unique: true },
+    email: { type: String, unique: true },
     password: { type: String },
+    logico: { type: Boolean },
+    username: { type: String, unique: true },
     date: { type: Date, default: Date.now() },
+    usuario: { type: String, unique: true },
+    habilitado: { type: Boolean },
 });
 
 UserSchema.methods.encryptPassword = async (password) => {

@@ -94,3 +94,15 @@ body {
   padding: 0;
 }
 
+div.inputMail img {
+  width: 1.6em;
+  height: 1.6em;
+  padding: 0;
+  margin-left: 0.1em;
+  margin-top: 0;
+  margin-bottom: -0.4em;
+}
+div.inputMail img:hover {
+  transform: scale(1.3);
+  cursor: pointer;
+}

@@ -67,7 +67,7 @@ let crearTabla = function (contador, objeto, consulta) {
                         break;
                     case "password":
                         tabla += `<td class="inputTd ${value.nombre}">
-                                <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword" src="../img/abm/ojoTachado.svg"></td>`;
+                                <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword tachado" src="/img/abm/ojoTachado.png"></td>`;
                         break;
                     case "adjunto":
                         tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
@@ -782,12 +782,10 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
         dessencadenanteForm.push(value);
         desencadenateTriger = true;
     });
-
     $.each(objeto.desencadena.desencadenaModif, (indice, value) => {
         desencadenanteModif[indice] = value;
         desencadenateModifTriger = true;
     });
-
     if (inputs.length > 0) {
         $.ajax({
             type: "POST",
@@ -835,12 +833,18 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
                     $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
                     clearInterval(barraCargar);
                 } else {
-
+                    console.log(response)
                     let key = Object.keys(response.keyValue)
 
                     $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
                     $(`#bf${id} .cartelErrorFront`).css("display", "block");
                     $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+
+                    $(`#t${id} input.inputR.${key[0]}`).css(`background-color`, `rgb(199, 94, 94)`)
+
+                    $(`#t${id} input.inputR.${key[0]}`).on(`focus`, function () {
+                        $(this).css(`background-color`, `rgb(235, 233, 236)`)
+                    })
 
                 }
             },
@@ -848,6 +852,7 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
                 /*
                  * Se ejecuta si la peticón ha sido erronea
                  * */
+
                 console.log(error);
             },
         });

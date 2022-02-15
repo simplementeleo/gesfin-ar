@@ -303,8 +303,24 @@ $(`body`).on(`mouseout`, `.contError`, function (e) {
 
 })
 
+$(`body`).on(`click`, `img.ojoPassword`, function (e) {
 
+    let target = e.target
+    let parent = $(e.target).parent()
 
+    if ($(target).hasClass(`tachado`)) {
+        $(target).attr(`src`, `/img/abm/ojo.png`)
+        $(target).removeClass(`tachado`)
+
+        $(`input.password, #password`, parent).attr(`type`, `text`)
+    } else {
+
+        $(e.target).addClass(`tachado`)
+        $(e.target).attr(`src`, `/img/abm/ojoTachado.png`)
+        $(`input.password, #password`, parent).attr(`type`, `password`)
+    }
+
+})
 
 $(document).click(function (e) {
     if (e.button == 0) {
@@ -453,6 +469,10 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
         })
     }
 }
+
+
+
+
 
 
 
