@@ -7,10 +7,13 @@ const UserSchema = new Schema({
     surname: { type: String },
     email: { type: String, unique: true },
     password: { type: String },
-    logico: { type: Boolean },
+    logico: { type: String },
     username: { type: String, unique: true },
     date: { type: Date, default: Date.now() },
-    usuario: { type: String, unique: true },
+    usuario: {
+        type: Schema.Types.ObjectId,
+        ref: "usuario"
+    },
     habilitado: { type: Boolean },
 });
 

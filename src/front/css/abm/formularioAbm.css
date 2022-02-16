@@ -392,6 +392,10 @@ select.proveedor {
 .inputTd.des.name {
   width: 100%;
 }
+td.inputTd.des.password {
+  display: flex;
+  margin: 0;
+}
 
 .celda.name {
   width: 100%;

@@ -242,10 +242,10 @@ let variablesIniciales = {
     },
     users: {
         atributos: {
-            names: [_id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
-            titulos: [`_id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Username`, `Contraseña`, 'Auditoria', 'Usuario'],
+            names: [id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
+            titulos: [`id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Username`, `Contraseña`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
-            oculto: [_id, habilitado],
+            oculto: [id, habilitado],
             importe: {
                 totalizador: [],
                 importeBase: [],
@@ -283,16 +283,16 @@ let variablesIniciales = {
                 }
             },
             modificar: {
-                names: [_id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
+                names: [id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
                 pestanas: [],
-                soloLectura: [password, date, username],
+                soloLectura: [date, username],
             },
             eliminar: false,
             deshabilitar: true
         },
         formInd: {
             compuesto: false,
-            titulos: [`_id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Usuario`, `Contraseña`, 'Auditoria', 'Usuario'],
+            titulos: [`id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Usuario`, `Contraseña`, 'Auditoria', 'Usuario'],
             titulosCompuesto: [],
             oculto: [_id, habilitado],
             ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -301,7 +301,7 @@ let variablesIniciales = {
                 compuesto: []
             },
             modificar: {
-                names: [_id, nombre, direccion, email, date, username],
+                names: [id, nombre, direccion, email, date, username],
                 pestanas: [],
                 soloLectura: [date, username],
             },
@@ -319,10 +319,6 @@ let variablesIniciales = {
         acumulador: [],
         numerador: [],
         validaciones: [nombre, apellido, email, usuario, password],
-        /*key: {
-            atributo: email,
-            nombre: `email`,
-        },*/
         pest: `Usuarios`,
         accion: `users`,
         pestanas: {

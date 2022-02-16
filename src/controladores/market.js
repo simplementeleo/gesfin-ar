@@ -25,9 +25,9 @@ router.get('/users', async (req, res) => {
         {
             $lookup: {
                 from: "users",
-                localField: "username",
+                localField: "usuario",
                 foreignField: "_id",
-                as: "clienteUser"
+                as: "User"
             }
         },
         {
@@ -40,7 +40,7 @@ router.get('/users', async (req, res) => {
                 logico: 1,
                 username: 1,
                 date: 1,
-                usuario: "$clienteUser.username",
+                usuario: "$User.username",
                 habilitado: 1
             }
         }
@@ -77,7 +77,6 @@ router.get('/users', async (req, res) => {
     }
 
     res.json(user);
-    console.log(user)
 
 });
 router.post('/users', async (req, res) => {
@@ -112,7 +111,43 @@ router.post('/users', async (req, res) => {
     }
 });
 router.put('/users', async (req, res) => {
+    try {
+        let { id, password, usuario, username } = req.body;
+        console.log(req.body)
 
+        let keys = Object.keys(req.body);
+
+        let newUsersFlex = new Object;
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newUsersFlex[keys[x]] = req.body[keys[x]]
+        }
+
+        const usersFound = await User.find({ username: { $in: username } });
+        newUsersFlex.usuario = usersFound.map((user) => user._id)
+        newUsersFlex.username = usuario;
+        delete newUsersFlex.id
+
+        if (password == "******") {
+            delete newUsersFlex.password
+        } else {
+            newUsersFlex.password = await newUsersFlex.encryptPassword(password);
+        }
+        console.log(newUsersFlex)
+
+        let usersAct = await User.findByIdAndUpdate(id, newUsersFlex);
+
+        res.json({
+            mensaje: `El usuario ${usuario}  fue creado con extito`,
+            posteo: usersAct
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.json(error);
+
+    }
 })
 router.delete('/users', async (req, res) => { })
 //Cliente

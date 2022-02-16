@@ -24,7 +24,6 @@ let crearTabla = function (contador, objeto, consulta) {
                     filtro.push(value.nombre);
                 }
             });
-
             tabla += `<tr>`;
             $.each(objeto.atributos.titulos, function (indice, value) {
                 tabla += `<th class="tituloTablas ${filtro[indice]}" filtro="${filtro[indice]
@@ -217,6 +216,7 @@ let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, en
     nuevaFila += `<tr class="fila ${numeroFila}">`;
 
     $.each(enviarRegistroNuevo, (ind, val) => {
+        console.log(val)
         switch (val.name) {
             case `date`:
                 var ano = val.value.slice(6);
@@ -243,10 +243,12 @@ let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, en
                 nuevaFila += `<td class="celda ${val.name}">${numero}</td>`;
                 break;
             case "adjunto":
-
                 nuevaFila += `<td class="celda ${val.name} vistaPrevia" src="${posteo.path}">${posteo.originalname}</td>`;
                 break;
-            case "acopio":
+            case "password":
+                nuevaFila += `<td class="celda ${val.name}">******</td>`;
+                break;
+            case "logico":
                 nuevaFila += `<td class="celda ${val.name}">`;
                 if (val.value == `on`) {
                     nuevaFila += `<input type=checkbox class"${val.name}" name="${val.name}"  checked disabled="disabled"/></td>`;
@@ -350,7 +352,6 @@ let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, en
         $(`#t${id} input.${indice}`).addClass(`validado`);
         $(`#t${id} input.${indice}`).attr(`validado`, true);
     })
-
     $.each(objeto.atributos.valoresIniciales.string, function (indice, value) {
         $(`#t${id} input.${indice}`).val(value);
         $(`#t${id} input.${indice}`).attr(`validado`, true)
@@ -464,7 +465,6 @@ let agregarRegistroEditado = function (id, objeto, fidecomisoSelec, enviarRegist
         $(`#t${id} tbody tr.fila.${numeroFila} td.celda.${value.nombre}`).addClass("oculto");
     });
 };
-
 let eliminarRegistroTabla = function (id, objeto, fidecomisoSelec) {
     let filaSeleccionada = $(`#t${id} tbody > tr.sel`);
 
@@ -566,8 +566,20 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
                     let v = valor.replace(".", "");
                     let vn = v.replace(",", ".");
                     let valorNumerico = parseFloat(vn).toFixed(2);
-                    //$(`.edit.${value}`).prop("type", "number");
                     $(`.edit.${value.nombre}`).val(valorNumerico);
+                    break;
+                case `password`:
+                    let imgPassword = `<img class="ojoPassword tachado" src="/img/abm/ojoTachado.png">`;
+
+                    $(imgPassword).appendTo($(`tr.sel td.celda.${value.nombre}`));
+                    $(`#t${numeroForm} .edit.${value.nombre}`).val("******");
+                    $(`#t${numeroForm} .edit.${value.nombre}`).attr(`type`, `password`);
+                    break;
+                case `logico`:
+
+                    $(`#t${numeroForm} .edit.${value.nombre}`).attr(`type`, `checkbox`);
+                    console.log(valor)
+
                     break;
                 case `adjunto`:
 
@@ -697,8 +709,7 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
         }
     });
 
-    validarFormulario(numeroForm);
-    validarKey(objeto, consulta, numeroForm);
+    validarFormulario(objeto, numeroForm);
     formatoCeldas(objeto, numeroForm);
 
     $.each(objeto.funcionesPropias.cargar, function (indice, value) {
@@ -716,7 +727,6 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
     return eliminarAdjuntos
 
 };
-
 let desabilitarRegistroEditando = function (objeto, memoriaValoreEditados) {
     let names = objeto.atributos.names;
 
@@ -1004,6 +1014,7 @@ const validarFormulario = function (objeto, numeroForm) {
     const validarCampo = (match, e) => {
 
         if (match.test(e.target.value)) {
+
             $(e.target).addClass("validado");
             $(e.target).attr("validado", true);
 
@@ -1033,6 +1044,7 @@ const validarFormulario = function (objeto, numeroForm) {
 
     if ($(`#formulario${accion}${numeroForm}`).length > 0) {
 
+
         $.each(objeto.validaciones, (indice, value) => {
 
 
@@ -1043,6 +1055,7 @@ const validarFormulario = function (objeto, numeroForm) {
 
         })
     } else {
+
         $.each(objeto.validaciones, (indice, value) => {
 
             $(`#t${numeroForm}`).on(`keyup`, `input.${value.nombre}`, function (e) {
@@ -1557,6 +1570,9 @@ const tipoAtributo = function (consulta, objeto) {
                 celdas += `<td class="celda ${value.nombre}">${consulta[value.nombre]
                     }</td>`;
                 break;
+            case `password`:
+                celdas += `<td class="celda ${value.nombre}">******</td>`;
+                break;
             case `adjunto`:
 
                 if (consulta[value.nombre].path != "") {
@@ -1627,15 +1643,15 @@ const tipoAtributo = function (consulta, objeto) {
                 });
                 break;
             case `logico`:
-                if (consulta[value.nombre] == true) {
+
+                if (consulta[value.nombre] == "on") {
+
                     celdas += `<td class="celda ${value.nombre}">
-                    <input type="checkbox" name="${value.nombre}" value=${consulta[value.nombre]
-                        } checked disabled="disabled">
+                    <input  type="checkbox" name="${value.nombre}" checked disabled="disabled">
                     </td>`;
                 } else {
                     celdas += `<td class="celda ${value.nombre
-                        }"><input type="checkbox" name="${value.nombre}" value=${consulta[value.nombre]
-                        } disabled="disabled"></td>`;
+                        }"><input type="checkbox" name="${value.nombre}" disabled="disabled"></td>`;
                 }
 
                 break;
@@ -1654,35 +1670,6 @@ const tipoAtributo = function (consulta, objeto) {
 
     return celdas;
 };
-/*const validarKey = function (objeto, consulta, numeroForm) {
-    $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).on(
-        `change`,
-        function () {
-            keyRepetida = false;
-            $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).removeClass(
-                `red`
-            );
-            $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).removeAttr(
-                `keyRep`
-            );
-
-            $.each(consulta, (indice, value) => {
-                if (
-                    consulta[indice][objeto.key.atributo.nombre] ==
-                    $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).val()
-                ) {
-                    $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).addClass(
-                        `red`
-                    );
-                    $(`#t${numeroForm} input.${objeto.key.atributo.nombre}`).attr(
-                        `keyRep`,
-                        `true`
-                    );
-                }
-            });
-        }
-    );
-};*/
 const verdepenOnAtributo = function (objeto, numeroForm, gatillo, atributo, atributoDos) {
     let check = $(`#t${numeroForm} input.form.${gatillo.nombre},
                     #t${numeroForm} input.inputR.${gatillo.nombre},
