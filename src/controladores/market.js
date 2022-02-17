@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const session = require("express-session");
-const User = require("../models/marketPlace/User");
+
+const bcrypt = require("bcrypt");
 
 //Clientes
 const Cliente = require("../models/marketPlace/cliente/Cliente");
@@ -13,6 +14,7 @@ const Tarea = require("../models/marketPlace/procesos/Tarea");
 const Provincia = require("../models/marketPlace/geografico/Provincia");
 const Ciudad = require("../models/marketPlace/geografico/Ciudad");
 const Pais = require("../models/marketPlace/geografico/Pais");
+const User = require("../models/marketPlace/User");
 
 router.get('/marketp', (req, res) => {
     res.render('inicio/market');
@@ -113,7 +115,6 @@ router.post('/users', async (req, res) => {
 router.put('/users', async (req, res) => {
     try {
         let { id, password, usuario, username } = req.body;
-        console.log(req.body)
 
         let keys = Object.keys(req.body);
 
@@ -132,14 +133,15 @@ router.put('/users', async (req, res) => {
         if (password == "******") {
             delete newUsersFlex.password
         } else {
-            newUsersFlex.password = await newUsersFlex.encryptPassword(password);
+
+            const salt = await bcrypt.genSalt(10);
+            newUsersFlex.password = await bcrypt.hash(password, salt);
         }
-        console.log(newUsersFlex)
 
         let usersAct = await User.findByIdAndUpdate(id, newUsersFlex);
 
         res.json({
-            mensaje: `El usuario ${usuario}  fue creado con extito`,
+            mensaje: `El usuario ${usuario}  fue actualizado con extito`,
             posteo: usersAct
         });
 
@@ -149,7 +151,17 @@ router.put('/users', async (req, res) => {
 
     }
 })
-router.delete('/users', async (req, res) => { })
+router.delete('/users', async (req, res) => {
+    let { id, habilitado } = req.body;
+
+    const newUsuarioHab = ({
+        habilitado
+    });
+
+    let criticidadAct = await User.findByIdAndUpdate(id, newUsuarioHab);
+
+    res.json(`El registro ha sido deshabilitado con exito`);
+})
 //Cliente
 router.get('/cliente', async (req, res) => {
 

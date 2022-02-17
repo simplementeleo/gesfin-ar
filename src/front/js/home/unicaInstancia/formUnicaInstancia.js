@@ -373,93 +373,93 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             confirmarImprimir = false
         } else {*/
 
-            let id = $(`#formularioIndividual input.id.${numeroForm}`).val()
-            let fileEnviado = $(`myFormEdit${objeto.accion}${numeroForm}`)
+        let id = $(`#formularioIndividual input.id.${numeroForm}`).val()
+        let fileEnviado = $(`myFormEdit${objeto.accion}${numeroForm}`)
 
-            if ((editando == true) && (id != "")) {
+        if ((editando == true) && (id != "")) {
 
-                let desencadenanteColecModif = new Object
-                let desencadenateColecTriger = false
-                $.each(objeto.desencadenaColeccion.desencadenaModif, function (indice, value) {
+            let desencadenanteColecModif = new Object
+            let desencadenateColecTriger = false
+            $.each(objeto.desencadenaColeccion.desencadenaModif, function (indice, value) {
 
-                    desencadenanteColecModif[indice] = value
-                    desencadenateColecTriger = true
-                })
+                desencadenanteColecModif[indice] = value
+                desencadenateColecTriger = true
+            })
 
-                if (desencadenateColecTriger == true) {
+            if (desencadenateColecTriger == true) {
 
-                    desencadenaColecModifEdit(desencadenanteColecModif, objeto, numeroForm)
-                }
-
-                ///////////////////////////////////////////////////////////
-
-                $.each(objeto.desencadena.condicionalUnBooleano, function (indice, value) {
-
-                    if ($(`.form.${value.condicion.nombre}.${numeroForm}`).prop(`checked`)) {
-
-                        enviarRegistroEditadoDesenc(objeto, numeroForm, value.destino)
-                    }
-                })
-
-                $.each(objeto.desencadena.principal, function (indice, value) {
-
-                    enviarRegistroEditadoDesenc(objeto, numeroForm, value)
-                })
-                let desencadenateModifTriger = false
-                let desencadenanteModif = new Object;
-
-                $.each(objeto.desencadena.desencadenaModif, (indice, value) => {
-
-                    desencadenanteModif[indice] = value
-                    desencadenateModifTriger = true
-                })
-
-                if (desencadenateModifTriger == true) {
-
-                    desencadenaModifForm(desencadenanteModif, objeto, numeroForm)
-                }
-
-                enviarRegistroEditadoForm(objeto, numeroForm, lengthUnoSelect, eliminarDesenColc, eliminarAdjuntos);
-                editando = false
-                confirmarImprimir = false
-
-                if (confirmarImprimir == true) {
-                    imprimirDirecto(objeto, numeroForm),
-                        confirmarImprimir = false
-                }
-
-
-            } else {
-
-
-                let fideicomiso = $(`#formunidades${contador} select option:selected`).val();
-                let individual = true;
-
-                $.when($.each(objeto.numerador, (ind, val) => {
-
-                    $.each(val, (indice, value) => {
-
-                        let numeradorObjeto = new Object;
-                        numeradorObjeto[`name`] = value.name;
-
-                        $.each(value.atributos, (i, v) => {
-
-                            if ($(`#formulario${accion}${numeroForm} .form.${v.nombre}`).val() == "") {
-                                numeradorObjeto[v.nombre] = $(`#formulario${accion}${numeroForm}  .select.${v.nombre} option:selected`).val();;
-                            } else {
-                                numeradorObjeto[v.nombre] = $(`#formulario${accion}${numeroForm} input.form.${v.nombre}`).val();
-                            }
-                        })
-
-                        insertarNumerador(numeradorObjeto)
-                    })
-                })).done(enviarRegistroNuevoForm(numeroForm, objeto, lengthUnoSelect, false))
+                desencadenaColecModifEdit(desencadenanteColecModif, objeto, numeroForm)
             }
+
+            ///////////////////////////////////////////////////////////
+
+            $.each(objeto.desencadena.condicionalUnBooleano, function (indice, value) {
+
+                if ($(`.form.${value.condicion.nombre}.${numeroForm}`).prop(`checked`)) {
+
+                    enviarRegistroEditadoDesenc(objeto, numeroForm, value.destino)
+                }
+            })
+
+            $.each(objeto.desencadena.principal, function (indice, value) {
+
+                enviarRegistroEditadoDesenc(objeto, numeroForm, value)
+            })
+            let desencadenateModifTriger = false
+            let desencadenanteModif = new Object;
+
+            $.each(objeto.desencadena.desencadenaModif, (indice, value) => {
+
+                desencadenanteModif[indice] = value
+                desencadenateModifTriger = true
+            })
+
+            if (desencadenateModifTriger == true) {
+
+                desencadenaModifForm(desencadenanteModif, objeto, numeroForm)
+            }
+
+            enviarRegistroEditadoForm(objeto, numeroForm, lengthUnoSelect, eliminarDesenColc, eliminarAdjuntos);
+            editando = false
+            confirmarImprimir = false
 
             if (confirmarImprimir == true) {
                 imprimirDirecto(objeto, numeroForm),
                     confirmarImprimir = false
-           // }
+            }
+
+
+        } else {
+
+
+            let fideicomiso = $(`#formunidades${contador} select option:selected`).val();
+            let individual = true;
+
+            $.when($.each(objeto.numerador, (ind, val) => {
+
+                $.each(val, (indice, value) => {
+
+                    let numeradorObjeto = new Object;
+                    numeradorObjeto[`name`] = value.name;
+
+                    $.each(value.atributos, (i, v) => {
+
+                        if ($(`#formulario${accion}${numeroForm} .form.${v.nombre}`).val() == "") {
+                            numeradorObjeto[v.nombre] = $(`#formulario${accion}${numeroForm}  .select.${v.nombre} option:selected`).val();;
+                        } else {
+                            numeradorObjeto[v.nombre] = $(`#formulario${accion}${numeroForm} input.form.${v.nombre}`).val();
+                        }
+                    })
+
+                    insertarNumerador(numeradorObjeto)
+                })
+            })).done(enviarRegistroNuevoForm(numeroForm, objeto, lengthUnoSelect, false))
+        }
+
+        if (confirmarImprimir == true) {
+            imprimirDirecto(objeto, numeroForm),
+                confirmarImprimir = false
+            // }
         }
     });
     $(`#formularioIndividual .editBoton`).click(function () {
@@ -699,7 +699,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
 
         value(objeto, numeroForm, consultaArray)
     })
-    if (valorAbm[objeto.key.atributo.nombre] == undefined) {
+    if (valorAbm[objeto.validaciones[0]] == undefined) {
 
         $.each(objeto.numerador.global, (indice, value) => {
 
@@ -854,9 +854,9 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                                      .vacio.${pestanas.totales[indice].nombre}.${contador}:first`);
 
                     select.val(valor);
-                    
+
                     if (valor != undefined) {
-                     
+
                         $(`#t${contador} select.${pestanas.cabecera[indice].nombre}`).attr(`validado`, true)
                         $(`#t${contador} select.${pestanas.cabecera[indice].nombre}`).addClass(`validado`)
                     }
@@ -1173,163 +1173,183 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
         complete: function (data) { },
         success: function (response) {
 
-            if(response.posteo != undefined){
+            if (response.posteo != undefined) {
 
-            if (desencadenateTriger == true) {
+                if (desencadenateTriger == true) {
 
-                desencadenanteForm(dessencadenanteForm, objeto, numeroForm, file, response.posteo._id)
-            }
-            if (desencadenateModifTriger == true) {
-
-                desencadenaModif(desencadenanteModif, objeto, id, false, fileEnviar, response.posteo._id)
-            }
-            if ((desencadenateColecTriger == true) && (prePost == true)) {
-
-                desencadenaColecModifNew(desencadenanteColecModif, objeto, id, enviarRegistroNuevo, enviarRegistroTabla, response.posteo._id)
-            }
-            if (objeto.formInd.compuesto == false) {
-
-                if (pestanaInd != true) {
-
-                    agregarRegistro(numeroForm, lengthUnoSelect, objeto, fidecomisoSelec, enviarRegistroNuevo, response.posteo)
+                    desencadenanteForm(dessencadenanteForm, objeto, numeroForm, file, response.posteo._id)
                 }
-            }
+                if (desencadenateModifTriger == true) {
 
-            $(`.contError`).remove();
+                    desencadenaModif(desencadenanteModif, objeto, id, false, fileEnviar, response.posteo._id)
+                }
+                if ((desencadenateColecTriger == true) && (prePost == true)) {
 
-            let numeroFormN = $(`#formnum${numeroForm} p`).text();
-            let numeroFormNu = parseFloat(numeroFormN);
+                    desencadenaColecModifNew(desencadenanteColecModif, objeto, id, enviarRegistroNuevo, enviarRegistroTabla, response.posteo._id)
+                }
+                if (objeto.formInd.compuesto == false) {
 
-            $(`#t${numeroForm} .form.num, #formularioIndividual .form.num`).val(parseFloat($(`input.form.num.${numeroForm}`).val()) + 1);
+                    if (pestanaInd != true) {
 
-            $(`#formnum${numeroForm} p`).empty();
+                        agregarRegistro(numeroForm, lengthUnoSelect, objeto, fidecomisoSelec, enviarRegistroNuevo, response.posteo)
+                    }
+                }
 
-            $(`.cartelErrorForm p`).html(response.mensaje);
-            $(`.cartelErrorForm`).css("display", "block");
+                $(`.contError`).remove();
 
-            $(`#t${numeroForm} input.form, #t${numeroForm} input.formColec,
+                let numeroFormN = $(`#formnum${numeroForm} p`).text();
+                let numeroFormNu = parseFloat(numeroFormN);
+
+                $(`#t${numeroForm} .form.num, #formularioIndividual .form.num`).val(parseFloat($(`input.form.num.${numeroForm}`).val()) + 1);
+
+                $(`#formnum${numeroForm} p`).empty();
+
+                $(`.cartelErrorForm p`).html(response.mensaje);
+                $(`.cartelErrorForm`).css("display", "block");
+
+                $(`#t${numeroForm} input.form, #t${numeroForm} input.formColec,
                #formularioIndividual input.form.${numeroForm}, #formularioIndividual input.formColec.${numeroForm}`).val("");
-            $(`#t${numeroForm} .select.form,
+                $(`#t${numeroForm} .select.form,
                #formularioIndividual .select.form`).val("");
-            $(`#t${numeroForm} textarea`).val("");
+                $(`#t${numeroForm} textarea`).val("");
 
-            $(`#t${numeroForm} input.form, #t${numeroForm} input.formColec, #formularioIndividual input.form, #formularioIndividual input.formColec,
+                $(`#t${numeroForm} input.form, #t${numeroForm} input.formColec, #formularioIndividual input.form, #formularioIndividual input.formColec,
               #t${numeroForm} select.form, #formularioIndividual select.form,
               #t${numeroForm} label.adjunto, #formularioIndividual label.adjunto`).removeClass("validado");
 
-            $(`.select.form,#t${numeroForm} label.adjunto,
+                $(`.select.form,#t${numeroForm} label.adjunto,
                #formularioIndividual label.adjunto`).attr("validado", false);
 
-            $(objeto.validaciones, (indice, value) => {
+                $(objeto.validaciones, (indice, value) => {
 
-                $(`#t${numeroForm} input.form.${value.nombre},
+                    $(`#t${numeroForm} input.form.${value.nombre},
                    #t${numeroForm} input.formColec.${value.nombre}`).attr("validado", false);
 
-                $(`#forlmularioIndividual input.form.${value.nombre},
+                    $(`#forlmularioIndividual input.form.${value.nombre},
                    #forlmularioIndividual input.formColec.${value.nombre}`).attr("validado", false);
-            })
+                })
 
-            $(`#t${numeroForm} label.adjunto,
+                $(`#t${numeroForm} label.adjunto,
                #formularioIndividual label.adjunto.${numeroForm}`).html("Adjunto")
-            $(`#t${numeroForm} input[type=checkbox],
+                $(`#t${numeroForm} input[type=checkbox],
                #formularioIndividual input[type=checkbox].${numeroForm}`).prop(`checked`, null)
 
-            if (pestanaIndividual == true) {
+                if (pestanaIndividual == true) {
 
-                $.each(lengthUnoSelect, (indice, value) => {
-                    $(`#t${numeroForm} input.form.${indice}`).val(value);
-                    $(`#t${numeroForm} input.form.${indice}`).prop(`readOnly`, true)
-                    $(`#t${numeroForm} input.form.${indice}`).removeClass(`requerido`);
-                    $(`#t${numeroForm} input.form.${indice}`).removeAttr(`validado`);
+                    $.each(lengthUnoSelect, (indice, value) => {
+                        $(`#t${numeroForm} input.form.${indice}`).val(value);
+                        $(`#t${numeroForm} input.form.${indice}`).prop(`readOnly`, true)
+                        $(`#t${numeroForm} input.form.${indice}`).removeClass(`requerido`);
+                        $(`#t${numeroForm} input.form.${indice}`).removeAttr(`validado`);
+                    })
+                } else {
+
+                    $.each(lengthUnoSelect, (indice, value) => {
+
+                        $(`#formularioIndividual input.form.${indice}`).val(value);
+                        $(`#formularioIndividual input.form.${indice}`).prop(`readOnly`, true)
+                        $(`#formularioIndividual input.form.${indice}`).removeClass(`requerido`);
+                        $(`#formularioIndividual input.form.${indice}`).removeAttr(`validado`);
+
+                    })
+                }
+
+                $(`#t${numeroForm} .form.username, #formularioIndividual .form.username`).prop("readonly", "true");
+                $(`#t${numeroForm} .form.username, #formularioIndividual .form.username`).val(usu);
+
+                var fecha = moment(Date.now()).format('L');
+                $(`#t${numeroForm} .form.date, #formularioIndividual .form.date`).prop("readonly", "true");
+                $(`#t${numeroForm} .form.date, #formularioIndividual .form.date`).val(fecha);
+
+                $(`.form.destino`).val(pest);
+
+                fechaInicialHoy(objeto, numeroForm)
+
+                let tables = $(`#tablaCol${objeto.accion}${numeroForm} table`)
+
+                $.each(tables, (indice, value) => {
+
+                    let tabla = $(`tr`, value).slice(2)
+                    let tablaComp = tabla.slice(0, -1)
+                    tablaComp.remove()
                 })
-            } else {
 
-                $.each(lengthUnoSelect, (indice, value) => {
+                $.each(objeto.numerador.global, (indice, value) => {
 
-                    $(`#formularioIndividual input.form.${indice}`).val(value);
-                    $(`#formularioIndividual input.form.${indice}`).prop(`readOnly`, true)
-                    $(`#formularioIndividual input.form.${indice}`).removeClass(`requerido`);
-                    $(`#formularioIndividual input.form.${indice}`).removeAttr(`validado`);
-
+                    consultaNumer(value.name, value.filtro, numeroForm);
                 })
-            }
+                $.each(objeto.formInd.oculto, function (indice, value) {
 
-            $(`#t${numeroForm} .form.username, #formularioIndividual .form.username`).prop("readonly", "true");
-            $(`#t${numeroForm} .form.username, #formularioIndividual .form.username`).val(usu);
+                    $(`#t${numeroForm} .fo.${value.nombre}`).addClass("oculto");
+                    $(`#formularioIndividual .fo.${value.nombre}`).addClass("oculto");
+                })
 
-            var fecha = moment(Date.now()).format('L');
-            $(`#t${numeroForm} .form.date, #formularioIndividual .form.date`).prop("readonly", "true");
-            $(`#t${numeroForm} .form.date, #formularioIndividual .form.date`).val(fecha);
+                $(`#bf${numeroForm} .botonesPest .imgB.okfBoton`).css(`display`, `flex`)
+                $(`#bf${numeroForm} .botonesPest .progressBar`).css(`display`, `none`)
+                $(`#bf${numeroForm} .botonesPest .imgB`).css(`cursor`, `pointer`)
+                clearInterval(barraCargar);
 
-            $(`.form.destino`).val(pest);
+                $.each(objeto.atributos.valoresIniciales.string, function (indice, value) {
 
-            fechaInicialHoy(objeto, numeroForm)
-
-            let tables = $(`#tablaCol${objeto.accion}${numeroForm} table`)
-
-            $.each(tables, (indice, value) => {
-
-                let tabla = $(`tr`, value).slice(2)
-                let tablaComp = tabla.slice(0, -1)
-                tablaComp.remove()
-            })
-
-            $.each(objeto.numerador.global, (indice, value) => {
-
-                consultaNumer(value.name, value.filtro, numeroForm);
-            })
-            $.each(objeto.formInd.oculto, function (indice, value) {
-
-                $(`#t${numeroForm} .fo.${value.nombre}`).addClass("oculto");
-                $(`#formularioIndividual .fo.${value.nombre}`).addClass("oculto");
-            })
-
-            $(`#bf${numeroForm} .botonesPest .imgB.okfBoton`).css(`display`, `flex`)
-            $(`#bf${numeroForm} .botonesPest .progressBar`).css(`display`, `none`)
-            $(`#bf${numeroForm} .botonesPest .imgB`).css(`cursor`, `pointer`)
-            clearInterval(barraCargar);
-
-            $.each(objeto.atributos.valoresIniciales.string, function (indice, value) {
-
-                $(`#formularioIndividual input.${indice},
+                    console.log(value)
+                    $(`#formularioIndividual input.${indice},
                    #t${numeroForm} input.${indice}`).val(value)
-                $(`#formularioIndividual input.${indice},
+                    $(`#formularioIndividual input.${indice},
                    #t${numeroForm} input.${indice}`).attr(`validado`, true)
-                $(`#formularioIndividual input.${indice},
+                    $(`#formularioIndividual input.${indice},
                    #t${numeroForm} input.${indice}`).addClass(`validado`)
-            })
-            $.each(objeto.atributos.valoresIniciales.select, function (indice, value) {
+                })
+                $.each(objeto.atributos.valoresIniciales.select, function (indice, value) {
 
-                $(`#t${numeroForm} select.${indice},
+                    $(`#t${numeroForm} select.${indice},
                    #formularioIndividual select.${indice}`).val(value)
-                $(`#t${numeroForm} select.${indice},
+                    $(`#t${numeroForm} select.${indice},
                    #formularioIndividual select.${indice}`).attr(`validado`, true)
-                $(`#t${numeroForm} select.${indice},
+                    $(`#t${numeroForm} select.${indice},
                    #formularioIndividual select.${indice}`).addClass(`validado`)
 
-            })
-            $.each(objeto.atributos.valoresIniciales.funcion, function (indice, value) {
+                })
+                $.each(objeto.atributos.valoresIniciales.funcion, function (indice, value) {
 
-                value(objeto, contador)
-            })
-        }else{
-            console.log(response)
-            if($(`#t${numeroForm}`).hasClass(`formularioPestana`)){
+                    value(objeto, contador)
+                })
+            } else {
+                console.log(response)
 
-                $(`#bf${numeroForm} .cartelErrorForm p`).html(response.mensaje)
-                $(`#bf${numeroForm} .cartelErrorForm`).css("display", "block");
-            }else{
-                $(`#formularioIndividual .cartelErrorForm p`).html(response.mensaje)
-                $(`#formularioIndividual .cartelErrorForm`).css("display", "block");
+                let key = Object.keys(response.keyValue)
 
+                if ($(`#t${numeroForm}`).hasClass(`formularioPestana`)) {
+
+                    $(`#bf${numeroForm} .cartelErrorForm p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
+                    $(`#bf${numeroForm} .cartelErrorForm`).css("display", "block");
+
+                    $(`#t${id} div.fo.${key[0]} input`).css(`background-color`, `rgb(199, 94, 94)`)
+                    $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+
+                    $(`#t${id} div.fo.${key[0]} input`).on(`focus`, function () {
+                        $(this).css(`background-color`, `rgb(235, 233, 236)`)
+                    })
+
+                } else {
+
+                    $(`#formularioIndividual .cartelErrorForm p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
+                    $(`#formularioIndividual .cartelErrorForm`).css("display", "block");
+
+                    $(`#t${id} div.fo.${key[0]} input`).css(`background-color`, `rgb(199, 94, 94)`)
+                    $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+
+                    $(`#t${id} div.fo.${key[0]} input`).on(`focus`, function () {
+                        $(this).css(`background-color`, `rgb(235, 233, 236)`)
+                    })
+
+
+                }
 
             }
-     
-        }
         },
         error: function (error) {
             console.log(error);
-            
+
         }
     })
 
@@ -1385,11 +1405,6 @@ const enviarRegistroEditadoForm = (objeto, numeroForm, lengthUnoSelect, eliminar
             if (objeto.formInd.compuesto == false) {
                 agregarRegistroEditado(numeroForm, objeto, fidecomisoSelec, registroEditadoIndividualEviar)
             }
-
-            /*$.each(eliminarAdjuntos, (inidce, value) => {
-                eliminarAdjunto(value)
-
-            })*/
 
             editando = false;
 
@@ -1475,23 +1490,7 @@ const enviarRegistroEditadoForm = (objeto, numeroForm, lengthUnoSelect, eliminar
             console.log(error);
         }
     });
-}
-const validarKeyForm = function (objeto, consulta, numeroForm) {
 
-    $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).on(`change`, function () {
-        keyRepetida = false;
-        $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).removeClass(`red`);
-        $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).removeAttr(`keyRep`);
-
-
-        $.each(consulta, (indice, value) => {
-            if (consulta[indice][objeto.key.atributo.nombre] == $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).val()) {
-                $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).addClass(`red`);
-                $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).attr(`keyRep`, `true`);
-            }
-        })
-
-    });
 }
 const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPestana, consulta) {
 
@@ -1910,10 +1909,12 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                 if ((valor[value.nombre] !== undefined)) {
 
                     form += `<input type="password" class="form ${value.nombre} ${numeroForm}" name="${value.nombre}" value="${valor[value.nombre]}" form="f${accion}${numeroForm}" tabindex="${ordenFormu[orden]}" disabled="disabled" />
+                    <img class="ojoPassword tachado" src="/img/abm/ojoTachado.png">
         </div>`;
 
                 } else {
                     form += `<input type="password" class="form ${value.nombre} ${numeroForm}" name="${value.nombre}" form="f${accion}${numeroForm}" tabindex="${ordenFormu[orden]}"/>
+                              <img class="ojoPassword tachado" src="/img/abm/ojoTachado.png">
         </div>`;
                 }
                 orden++;

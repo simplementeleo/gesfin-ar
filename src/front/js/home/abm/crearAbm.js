@@ -534,6 +534,9 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         } else {
             $(`#bf${numeroForm} .cartelErrorFront p`).html("Hay un registo en edición")
             $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
+
+            $(`#bf${numeroForm} .cartelErrorFront`).fadeOut(5000)
+
         }
 
     });
@@ -601,6 +604,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         } else {
             $(`#bf${numeroForm} .cartelErrorFront p`).html("Hay un registo en edición")
             $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
+            $(`#bf${numeroForm} .cartelErrorFront`).fadeOut(5000)
         }
     })
     $(`#bf${numeroForm} .cancelBoton,
@@ -857,7 +861,6 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         });
 
         validarFormulario(objeto, cont);
-        //validarKey(objeto, consulta, cont)
 
         $.each(objeto.atributos.deshabilitado, function (indice, value) {
 

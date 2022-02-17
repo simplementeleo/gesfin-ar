@@ -843,7 +843,7 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
                     $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
                     clearInterval(barraCargar);
                 } else {
-                    console.log(response)
+
                     let key = Object.keys(response.keyValue)
 
                     $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
@@ -940,22 +940,39 @@ let enviarRegistroEditado = (id, objeto, fidecomisoSelec, enviarEditadoReconst, 
             complete: function () { },
             success: function (response) {
 
-                agregarRegistroEditado(id, objeto, fidecomisoSelec, enviarEditadoReconst);
+                if (response.posteo != undefined) {
 
-                $(`#bf${id} .cartelErrorFront p`).html(response);
-                $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                    agregarRegistroEditado(id, objeto, fidecomisoSelec, enviarEditadoReconst);
 
-                $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
-                $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
-                $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
+                    $(`#bf${id} .cartelErrorFront p`).html(response);
+                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
+
+                    $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
+                    $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
+                    $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
 
 
-                $.each(eliminarAdjunto, (inidce, value) => {
-                    eliminarAdjunto(value)
+                    $.each(eliminarAdjunto, (inidce, value) => {
+                        eliminarAdjunto(value)
 
-                })
+                    })
 
-                clearInterval(barraCargar);
+                    clearInterval(barraCargar)
+                } else {
+
+                    let key = Object.keys(response.keyValue)
+
+                    $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
+                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                    $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+
+                    $(`#t${id} input.inputR.${key[0]}`).css(`background-color`, `rgb(199, 94, 94)`)
+
+                    $(`#t${id} input.inputR.${key[0]}`).on(`focus`, function () {
+                        $(this).css(`background-color`, `rgb(235, 233, 236)`)
+                    })
+
+                }
             },
             error: function (error) {
                 console.log(error);

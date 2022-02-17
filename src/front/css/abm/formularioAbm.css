@@ -567,9 +567,10 @@ td.dolar::before {
   background-color: rgb(72, 145, 84);
 }
 div.inputMail img,
-td.password img {
-  width: 1.5em;
-  height: 1.5em;
+td.password img,
+div.fo.password img {
+  width: 1.4em;
+  height: 1.4em;
   padding: 0;
   margin-left: 0.1em;
   margin-top: 0;
