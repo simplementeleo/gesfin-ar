@@ -1062,29 +1062,3 @@ let variablesIniciales = {
 
     }
 }
-
-////////////////ESCRITORIO///////////////
-///CAJA Y BANCOS////
-
-let progressBarFun = function (numeroForm) {
-
-
-    let valorPrgress = $(`#bf${numeroForm} .progressBar`).css(`--with`)
-
-
-    if (parseFloat(valorPrgress) > 70) {
-
-        $(`#bf${numeroForm} .progressBar`).css(`--with`, 10)
-    } else {
-        $(`#bf${numeroForm} .progressBar`).css(`--with`, parseFloat(valorPrgress) + 10)
-
-    }
-
-}
-const numerosNegativos = function () {
-    let ars = $(`.arsHome`);
-
-    $.each(ars, function (indice, value) {
-        Math.sign(value)
-    })
-}

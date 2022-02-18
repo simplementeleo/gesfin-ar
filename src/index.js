@@ -13,7 +13,7 @@ const MONGO_URL = `mongodb://127.0.0.1:27017/mainTree`
 
 const app = express();
 require('./dbConfig');
-require('./lib/passportConfig');
+require('./modelo/lib/passportConfig');
 
 
 //Settings
@@ -23,10 +23,12 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'front')));
+app.use(express.static(path.join(__dirname, 'modelo/front')));
+app.use(express.static(path.join(__dirname, 'mainTree/front')));
+
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'front/uploads'),
+    destination: path.join(__dirname, 'mainTree/front/uploads'),
     filename: (req, file, cb, filename) => {
 
         cb(null, uuid() + path.extname(file.originalname));

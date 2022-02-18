@@ -1,18 +1,16 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const User = require('../models/marketPlace/User');
+const User = require('../../models/marketPlace/User');
 
 passport.use(new LocalStrategy({
     usernameField: 'username'
-}, async(username, password, done) => {
+}, async (username, password, done) => {
     // Match Email's User
     const user = await User.findOne({ username: username });
     if (!user) {
         return done(null, false, { message: 'Usuario no registrado' });
-    } else if(!user.habilitado) {
-        return done(null, false, { message: 'Usuario deshabilitado' });
-    }else {
+    } else {
         // Match Password's User
         const match = await user.matchPassword(password);
         if (match) {

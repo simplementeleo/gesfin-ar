@@ -8,13 +8,18 @@ document.querySelector('.men-prin').addEventListener('click',
 $(`body`).click(function () {
 
     $('.men').removeClass("show");
+
 })
+
 $('.men-prin').click(function (event) {
     event.stopPropagation();
 });
+
 $('.men').click(function (event) {
     event.stopPropagation();
 });
+
+
 //Desplegable Menu
 document.querySelector('.icon-menu').addEventListener('click',
     function () {
@@ -24,6 +29,7 @@ document.querySelector('.icon-menu').addEventListener('click',
 
     }
 )
+
 //Desplegable Sub Menu variables
 
 $('.cobr').on('click',
@@ -33,6 +39,7 @@ $('.cobr').on('click',
         document.querySelector('.nav-vert li img.pagMarket').classList.toggle("show");
     }
 );
+
 //Desplegable Sub Menu Pagos
 $('.pags').on('click',
     function () {
@@ -49,6 +56,8 @@ $('.fina').on('click',
         document.querySelector('.nav-vert li img.conf').classList.toggle("show");
     }
 );
+
+
 //Desplegable Sub Geografico
 $('.dir').on('click',
     function () {
@@ -68,4 +77,6 @@ $(".obras").on(`click`,
 $("input").on('click', function () {
     console.log("habilitado");
     $(".inputR").attr("disabled", false);
+
+
 });
