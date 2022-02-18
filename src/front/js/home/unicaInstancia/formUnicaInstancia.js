@@ -175,13 +175,14 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
         }
     })
     $.each(consultaArray, function (indice, value) {
+        let editPestana = false
 
         var selectRemove = $(`#form${pestanas[indice].nombre}`).children("select");
         selectRemove.remove();
 
         let valor = $(`tr.sel td.${pestanas[indice].nombre}`).html();
         if (valor != undefined) {
-            editando = true
+            editPestana = true
         }
 
         if (value.length > 1) {
@@ -232,7 +233,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             }
             select.attr("tabindex", ordenSelect);
 
-            if (editando == true) {
+            if (editPestana == true) {
 
                 select.attr("disabled", "disabled");
             }
@@ -264,9 +265,9 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                     })
                 })
             }
-            editando = false
+            editPestana = false
         } else {
-            editando = false
+            editPestana = false
             if (value[0].habilitado == true) {
 
                 let show = ""
@@ -357,21 +358,6 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 })
             }
         })
-
-        /*if ($(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).attr(`keyRep`) == `true`) {
-
-            let valueRepetido = $(`#formulario${objeto.accion}${numeroForm} input.${objeto.key.atributo.nombre}`).val()
-            $(`.cartelErrorForm p`).html(`Ya existe un registro con ${objeto.key.nombre.nombre} ${valueRepetido}`)
-            $(`.cartelErrorForm`).css("display", "block");
-            confirmarImprimir = false
-
-
-        } else if (valid.includes("false")) {
-
-            $(`.cartelErrorForm p`).html("Revisar los campos en rojo")
-            $(`.cartelErrorForm`).css("display", "block");
-            confirmarImprimir = false
-        } else {*/
 
         let id = $(`#formularioIndividual input.id.${numeroForm}`).val()
         let fileEnviado = $(`myFormEdit${objeto.accion}${numeroForm}`)
@@ -469,6 +455,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
         editFormulario(objeto, numeroForm)
 
         editando = true;
+        console.log(editando)
 
     });
     $(`#formularioIndividual #formulario${accion}${numeroForm}`).on(`dblclick`, `input.form, select.form`, function (e) {
@@ -671,7 +658,6 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     });
 
     validarFormulario(objeto, numeroForm);
-    //validarKeyForm(objeto, consulta, numeroForm)
     activePestana(objeto, numeroForm)
     renglones(objeto, numeroForm)
     formatoCeldas(objeto, contador);
@@ -699,7 +685,9 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
 
         value(objeto, numeroForm, consultaArray)
     })
-    if (valorAbm[objeto.validaciones[0]] == undefined) {
+
+    if (valorAbm[objeto.validaciones[0].name] == undefined) {
+
 
         $.each(objeto.numerador.global, (indice, value) => {
 
@@ -1314,7 +1302,6 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
                     value(objeto, contador)
                 })
             } else {
-                console.log(response)
 
                 let key = Object.keys(response.keyValue)
 
@@ -1391,100 +1378,118 @@ const enviarRegistroEditadoForm = (objeto, numeroForm, lengthUnoSelect, eliminar
         },
         success: function (response) {
 
-            $.each(eliminarDesenColc, (indice, v) => {
-                $.each(objeto.desencadenaColeccion.desencadenaModif, (indice, value) => {
-                    $.each(value, (ind, val) => {
+            if (response.posteo != undefined) {
 
-                        eliminarRegistroDesencadenadoColec(ind, v);
+                $.each(eliminarDesenColc, (indice, v) => {
+                    $.each(objeto.desencadenaColeccion.desencadenaModif, (indice, value) => {
+                        $.each(value, (ind, val) => {
+
+                            eliminarRegistroDesencadenadoColec(ind, v);
+                        });
                     });
-                });
-            })
+                })
 
-            let fidecomisoSelec = ""
+                let fidecomisoSelec = ""
 
-            if (objeto.formInd.compuesto == false) {
-                agregarRegistroEditado(numeroForm, objeto, fidecomisoSelec, registroEditadoIndividualEviar)
+                if (objeto.formInd.compuesto == false) {
+                    agregarRegistroEditado(numeroForm, objeto, fidecomisoSelec, registroEditadoIndividualEviar)
+                }
+
+                editando = false;
+
+                $(`.cartelErrorForm p`).html(response);
+                $(`.cartelErrorForm`).css("display", "block");
+
+                $(`input.form`).val("");
+                $(`input.formColec`).val("");
+                $(`.select.form`).val("");
+
+                $(`#formularioIndividual input.form, #formularioIndividual .select.form`).removeClass("validado");
+                $(`#formularioIndividual .select.form`).attr("validado", false);
+
+                $.each(objeto.validaciones, (indice, value) => {
+
+                    $(`#formularioIndividual .input.${value.nombre}`).attr("validado", false);
+                })
+
+                $(`.form.username`).val(usu);
+                $(`.form.destino`).val(pest);
+
+                var fecha = moment(Date.now()).format('L');
+                $(`.form.date`).prop("readonly", "true");
+                $(`.form.date`).val(fecha);
+
+                $(`#formnum${numeroForm} p`).text();
+                $(`#formnum${numeroForm} p`).text("");
+                $(`#formulario${objeto.accion}${numeroForm} label`).html("Adjunto");
+                $(`#formulario${objeto.accion}${numeroForm} label`).attr("validado", false);
+                $(`#formulario${objeto.accion}${numeroForm} label`).removeClass("validado");
+                $(`#formulario${objeto.accion}${numeroForm} label`).removeClass("disabled");
+                $(`.form.num`).val();
+
+                $.each(lengthUnoSelect, (indice, value) => {
+                    $(`#formularioIndividual input.form.${indice}`).val(value);
+                    $(`#formularioIndividual input.form.${indice}`).prop(`readOnly`, true)
+                    $(`#formularioIndividual input.form.${indice}`).removeClass(`requerido`);
+                    $(`#formularioIndividual input.form.${indice}`).removeAttr(`validado`);
+                })
+
+                $.each(objeto.numerador.global, (indice, value) => {
+
+                    consultaNumer(value.name, value.filtro, numeroForm);
+                })
+
+                $.each(objeto.atributos.valoresIniciales.string, function (indice, value) {
+
+                    $(`#formularioIndividual input.${indice}`).val(value)
+                    $(`#formularioIndividual input.${indice}`).attr(`validado`, true)
+                    $(`#formularioIndividual input.${indice}`).addClass(`validado`)
+                })
+
+                $.each(objeto.atributos.valoresIniciales.select, function (indice, value) {
+
+                    $(`#formularioIndividual select.${indice}`).attr(`validado`, true)
+                    $(`#formularioIndividual select.${indice}`).addClass(`validado`)
+                    $(`#formularioIndividual select.select.form.${indice}`).val(`Pesos`)
+                    $(`#formularioIndividual select.${indice} option[value="${value}"]`).attr(`selected`, true)
+                    $(`#formularioIndividual select.${indice}`).val(value)
+
+                })
+
+                $.each(objeto.atributos.valoresIniciales.funcion, function (indice, value) {
+
+                    value(objeto, contador)
+                })
+
+                let tables = $(`#tablaCol${objeto.accion}${numeroForm} table`)
+
+                $.each(tables, (indice, value) => {
+
+                    let tabla = $(`tr`, value).slice(2)
+                    let tablaComp = tabla.slice(0, -1)
+                    tablaComp.remove()
+                })
+
+
+                ////////////// ultimo corrijo mouse e icono
+                $(`#bf${numeroForm} .botonesPest .imgB`).css(`cursor`, `pointer`)
+                clearInterval(barraCargar);
+            } else {
+                let key = Object.keys(response.keyValue)
+
+                $(`#formularioIndividual .cartelErrorForm p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
+                $(`#formularioIndividual .cartelErrorForm`).css("display", "block");
+
+                $(`#t${id} div.fo.${key[0]} input`).css(`background-color`, `rgb(199, 94, 94)`)
+                $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+
+                $(`#t${id} div.fo.${key[0]} input`).on(`focus`, function () {
+                    $(this).css(`background-color`, `rgb(235, 233, 236)`)
+                })
+
+
+
             }
-
-            editando = false;
-
-            $(`.cartelErrorForm p`).html(response);
-            $(`.cartelErrorForm`).css("display", "block");
-
-            $(`input.form`).val("");
-            $(`input.formColec`).val("");
-            $(`.select.form`).val("");
-
-            $(`#formularioIndividual input.form, #formularioIndividual .select.form`).removeClass("validado");
-            $(`#formularioIndividual .select.form`).attr("validado", false);
-
-            $.each(objeto.validaciones, (indice, value) => {
-
-                $(`#formularioIndividual .input.${value.nombre}`).attr("validado", false);
-            })
-
-            $(`.form.username`).val(usu);
-            $(`.form.destino`).val(pest);
-
-            var fecha = moment(Date.now()).format('L');
-            $(`.form.date`).prop("readonly", "true");
-            $(`.form.date`).val(fecha);
-
-            $(`#formnum${numeroForm} p`).text();
-            $(`#formnum${numeroForm} p`).text("");
-            $(`#formulario${objeto.accion}${numeroForm} label`).html("Adjunto");
-            $(`#formulario${objeto.accion}${numeroForm} label`).attr("validado", false);
-            $(`#formulario${objeto.accion}${numeroForm} label`).removeClass("validado");
-            $(`#formulario${objeto.accion}${numeroForm} label`).removeClass("disabled");
-            $(`.form.num`).val();
-
-            $.each(lengthUnoSelect, (indice, value) => {
-                $(`#formularioIndividual input.form.${indice}`).val(value);
-                $(`#formularioIndividual input.form.${indice}`).prop(`readOnly`, true)
-                $(`#formularioIndividual input.form.${indice}`).removeClass(`requerido`);
-                $(`#formularioIndividual input.form.${indice}`).removeAttr(`validado`);
-            })
-
-            $.each(objeto.numerador.global, (indice, value) => {
-
-                consultaNumer(value.name, value.filtro, numeroForm);
-            })
-
-            $.each(objeto.atributos.valoresIniciales.string, function (indice, value) {
-
-                $(`#formularioIndividual input.${indice}`).val(value)
-                $(`#formularioIndividual input.${indice}`).attr(`validado`, true)
-                $(`#formularioIndividual input.${indice}`).addClass(`validado`)
-            })
-
-            $.each(objeto.atributos.valoresIniciales.select, function (indice, value) {
-
-                $(`#formularioIndividual select.${indice}`).attr(`validado`, true)
-                $(`#formularioIndividual select.${indice}`).addClass(`validado`)
-                $(`#formularioIndividual select.select.form.${indice}`).val(`Pesos`)
-                $(`#formularioIndividual select.${indice} option[value="${value}"]`).attr(`selected`, true)
-                $(`#formularioIndividual select.${indice}`).val(value)
-
-            })
-
-            $.each(objeto.atributos.valoresIniciales.funcion, function (indice, value) {
-
-                value(objeto, contador)
-            })
-
-            let tables = $(`#tablaCol${objeto.accion}${numeroForm} table`)
-
-            $.each(tables, (indice, value) => {
-
-                let tabla = $(`tr`, value).slice(2)
-                let tablaComp = tabla.slice(0, -1)
-                tablaComp.remove()
-            })
-
-
-            ////////////// ultimo corrijo mouse e icono
-            $(`#bf${numeroForm} .botonesPest .imgB`).css(`cursor`, `pointer`)
-            clearInterval(barraCargar);
         },
         error: function (error) {
             console.log(error);
@@ -2020,14 +2025,14 @@ const editFormulario = function (objeto, numeroForm) {
             #formularioIndividual .comp.first .form.${value.nombre}`).removeClass("validado");
     })
 
-    $.each(objeto.key.atributo, function (indice, value) {
-
-        $(`input.form.${value.nombre}`).removeAttr("disabled");
-        $(`select.${value.nombre}`).attr("disabled", "true");
-        $(`input.form.${value.nombre}`).val($(`select.unidades`).val());
-
-
-    })
+    /* $.each(objeto.key.atributo, function (indice, value) {
+ 
+         $(`input.form.${value.nombre}`).removeAttr("disabled");
+         $(`select.${value.nombre}`).attr("disabled", "true");
+         $(`input.form.${value.nombre}`).val($(`select.unidades`).val());
+ 
+ 
+     })*/
     $.each(objeto.pestanas.totales, function (indice, value) {
         console.log(value)
 

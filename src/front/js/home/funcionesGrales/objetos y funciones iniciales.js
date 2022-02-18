@@ -301,7 +301,7 @@ let variablesIniciales = {
                 compuesto: []
             },
             modificar: {
-                names: [id, nombre, direccion, email, date, username],
+                names: [id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
                 pestanas: [],
                 soloLectura: [date, username],
             },
