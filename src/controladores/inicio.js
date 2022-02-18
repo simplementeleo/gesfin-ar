@@ -57,12 +57,13 @@ router.post("/users/register", async (req, res) => {
         }
     }
 });
-
 router.get("/logout", (req, res) => {
     req.logout();
     req.flash("success_msg", "You have logged out successfully")
     res.redirect("/");
 });
+router
+
 router.get('/numeradores', async (req, res) => {
 
     let nameR = req.query.name;
