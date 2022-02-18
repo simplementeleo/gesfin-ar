@@ -1,0 +1,222 @@
+#impresionFormulario {
+  background-color: rgba(0, 0, 0, 0.493);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  justify-content: center;
+  display: none;
+  z-index: 100;
+  margin: 0;
+  padding: 20px;
+}
+
+#impresionFormulario.show {
+  display: flex;
+}
+
+#documentoImpresion {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  width: 85%;
+  /*height: auto;*/
+  margin-top: 2%;
+  padding: 2em;
+  margin-bottom: 6%;
+  color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  background-color: #a6a6a6;
+  background-image: url("https://www.transparenttextures.com/patterns/binding-dark.png");
+  border-radius: 10px;
+}
+
+.logoFormImpresionDef {
+  display: none;
+}
+
+@media print {
+  #impresionFinal {
+    display: block;
+    width: 27cm;
+    margin: 0;
+    color-adjust: exact;
+    border-radius: 20px;
+    padding: 10px;
+    border: 5px solid black;
+  }
+  #impresionFinal table {
+    table-layout: fixed;
+    width: 180px;
+  }
+  #impresionFinal th {
+    font-size: 18px;
+  }
+  #impresionFinal td {
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  #impresionFinal th.Iva,
+  #impresionFinal th.Otros,
+  #impresionFinal th.Total,
+  #impresionFinal th.Precio {
+    word-wrap: break-all;
+    white-space: normal;
+    padding: 0;
+    padding-right: 1px;
+    justify-content: center;
+    text-align: center;
+    width: 55px;
+    height: auto;
+    overflow: hidden;
+    font-size: 15px;
+  }
+  #impresionFinal div.impresionAtributo.num {
+    padding-top: 5px;
+  }
+  #impresionFinal .logoFormImpresionDef {
+    display: flex;
+  }
+  #impresionFinal .segundLineaImpresion {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-family: "Source Sans Pro", sans-serif;
+    border-bottom: 4px double black;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+  }
+  #impresionFinal .logoFormImpresion {
+    display: none;
+  }
+}
+
+/*/////////////////////////////////////////////////////*/
+
+#documentoImpresion .primeraLineaImpresion {
+  width: 100%;
+  border-bottom: 0.2em double black;
+  display: flex;
+  justify-content: center;
+}
+
+#documentoImpresion .primeraLineaImpresion .com div {
+  margin-left: 0.6em;
+  margin-right: 0.6em;
+}
+
+#documentoImpresion .segundLineaImpresion {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#documentoImpresion .segundLineaImpresion .logoFormImpresion {
+  margin-top: 1em;
+  padding-right: 0;
+  padding-bottom: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+#documentoImpresion .segundLineaImpresion h1 {
+  font-size: 2.5em;
+  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 0.5em;
+  border-bottom: 2px double black;
+}
+
+#cuerpoImpresion {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#cuerpoImpresion .renglonImpresion {
+  width: 100%;
+  display: flex;
+}
+
+#cuerpoImpresion .renglonImpresion .impresionAtributo {
+  margin-right: 3em;
+  width: 12em;
+  justify-content: center;
+  text-align: center;
+}
+
+#cuerpoImpresion table {
+  width: 100%;
+}
+
+.impresionAtributo {
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.impresionAtributo h2 {
+  font-family: "Source Sans Pro", sans-serif;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.impresionAtributo p {
+  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 0;
+  padding-top: 0.3em;
+  margin-bottom: 0;
+}
+
+.impresionAtributo.num {
+  background-color: rgb(230, 228, 228);
+  border-radius: 2em;
+  border: 1px solid black;
+}
+
+.impresionAtributo.importeTotal {
+  background-color: rgb(230, 228, 228);
+  border: 1px solid black;
+  align-items: center;
+  padding-top: 0;
+  margin-top: 1em;
+  border-radius: 2em;
+}
+
+.impresionAtributo.importeTotal p {
+  font-weight: bold;
+  padding-bottom: 0.5em;
+}
+
+.impresionAtributo.num h2 {
+  margin-top: -0.1em;
+  padding-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.impresionAtributo.num p {
+  font-size: 2em;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.renglonImpresion table.impresion {
+  border-radius: 2px;
+}
+
+.renglonImpresion table.impresion th {
+  font-size: 1.3em;
+  font-family: "Source Sans Pro", sans-serif;
+  margin: 3em;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+}
+
+.renglonImpresion table.impresion tr {
+  font-size: 1em;
+  font-family: "Source Sans Pro", sans-serif;
+  justify-content: left;
+  text-align: left;
+  margin: 3em;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+}

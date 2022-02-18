@@ -1,0 +1,182 @@
+.progressBar {
+  display: none;
+  position: relative;
+  width: 2.5em;
+  height: 2em;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50px;
+}
+
+.progressBar::before {
+  content: ".";
+  color: rgba(125, 228, 122, 0);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 2em;
+  width: calc(var(--with, 0) * 1%);
+  min-width: 0.2em;
+  max-width: 4em;
+  background-color: rgb(126, 228, 122);
+  border-radius: 70px;
+}
+
+input.letraComprobante,
+input.letraComprobante {
+  display: flex;
+  box-sizing: content-box;
+  width: 4em;
+}
+
+input.adjunto,
+input.adjuntoColeccion {
+  background-color: rgb(90, 137, 190);
+  display: none;
+  opacity: 0;
+  border-radius: 5px;
+}
+
+label {
+  display: flex;
+  background-color: rgb(199, 212, 226);
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 15px;
+  overflow: hidden;
+  min-width: 7em;
+  font-size: 0.9em;
+  text-align: center;
+  justify-content: center;
+}
+.tabs_contents .botonesAdj label {
+  width: 100%;
+}
+label.form {
+  margin-top: 0.5em;
+  background-color: rgb(199, 212, 226);
+  border-radius: 5px;
+  width: 100%;
+}
+label.formColec {
+  margin-top: 0.5em;
+  background-color: rgb(199, 212, 226);
+  border-radius: 5px;
+  height: 1.3em;
+  text-align: center;
+  align-items: center;
+}
+
+label.requerido {
+  border: 3px solid rgb(241, 0, 0);
+}
+
+label.requerido.validado {
+  border: 3px solid rgb(0, 241, 100);
+}
+
+label.disabled {
+  border: 4px solid rgb(223, 200, 0);
+}
+.inputTd label {
+  width: 100%;
+}
+
+.inputTd.adjunto input {
+  display: none;
+}
+
+input.modificado {
+  background-color: rgb(112, 250, 131);
+}
+
+input.modificadoError {
+  background-color: rgb(255, 159, 159);
+}
+
+select.modificado {
+  background-color: rgb(144, 202, 152);
+}
+
+select.modificadoError,
+.sel option.false,
+.renglon option.opciones.false {
+  background-color: rgb(255, 159, 159);
+}
+
+input.masDeUnDepto {
+  background-color: rgb(245, 255, 159);
+}
+
+select.masDeUnDepto {
+  background-color: rgb(245, 255, 159);
+}
+
+td.comp select.select.form {
+  height: 2.1em;
+  margin-top: -0.2em;
+}
+
+input {
+  background-color: rgb(235, 233, 236);
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  border: 2px solid rgb(0, 0, 0);
+}
+
+input.requerido {
+  border: 3px solid rgb(241, 0, 0);
+  border-radius: 5px;
+}
+
+input.requerido:focus {
+  border: 3px solid rgb(241, 0, 0);
+  border-radius: 5px;
+}
+
+select.requerido {
+  border: 3px solid rgb(241, 0, 0);
+  border-radius: 5px;
+}
+
+input.requerido.validado {
+  border: 3px solid rgb(0, 241, 100);
+  border-radius: 5px;
+}
+
+select.requerido.validado {
+  border: 3px solid rgb(0, 241, 100);
+  border-radius: 5px;
+}
+
+input:read-only:focus {
+  background-color: #8f8c8cab;
+}
+
+input:read-only {
+  background-color: #8f8c8cab;
+  font-weight: bold;
+}
+
+input.ocultoSiempre {
+  display: none;
+}
+
+input.inputCeldaTabla {
+  width: 70%;
+}
+
+input.form.fecha {
+  min-width: 10em;
+}
+
+input.cantidad {
+  max-width: 5em;
+}
+
+textarea.form {
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  font-family: "Ubuntu Condensed", sans-serif;
+}

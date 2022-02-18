@@ -1,0 +1,156 @@
+#ayuda {
+  background-color: rgba(0, 0, 0, 0.493);
+  width: 100%;
+  height: auto;
+  overflow: inherit;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  justify-content: center;
+  display: none;
+  z-index: 100;
+  margin: 0;
+  padding: 20px;
+}
+
+#ayuda.show {
+  display: flex;
+}
+
+#documentoAyuda {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  width: 85%;
+  margin-top: 2%;
+  flex-direction: row;
+  padding: 2em;
+  margin-bottom: 6%;
+  color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  background-color: #e9e9e9;
+  border-radius: 10px;
+}
+
+#ayuda .primerLineaAyuda {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.primerLineaAyuda .logoAyuda {
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.primerLineaAyuda img {
+  width: 80%;
+  height: 80%;
+  align-self: center;
+}
+
+#documentoAyuda h1 {
+  font-size: 2.5em;
+  color: rgb(8, 18, 73);
+  font-weight: bold;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+#documentoAyuda h2 {
+  font-size: 1.8em;
+  margin-bottom: 0.2em;
+  padding-bottom: 0;
+  color: rgb(8, 18, 73);
+  font-weight: bold;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+#documentoAyuda .ayudasItems {
+  margin-bottom: 0.5em;
+}
+
+#documentoAyuda .ayudasItems p,
+#documentoAyuda .ayudasItems ul {
+  color: rgb(65, 82, 179);
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+#documentoAyuda .ayudasItems li {
+  color: rgb(2, 22, 134);
+  font-family: "Source Sans Pro", sans-serif;
+  text-decoration: none;
+  list-style: none;
+}
+
+#documentoAyuda p {
+  font-family: "Source Sans Pro", sans-serif;
+  margin-top: 0;
+  padding-top: 0.3em;
+  margin-bottom: 0;
+  text-indent: 1.5em;
+}
+
+/*////VIDEO/////*/
+
+#videoTutorialDiv {
+  background-color: rgba(0, 0, 0, 0.493);
+  width: 100%;
+  height: auto;
+  overflow: inherit;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  justify-content: center;
+  display: none;
+  z-index: 100;
+  margin: 0;
+  padding: 20px;
+}
+
+#videoTutorialDiv.show {
+  display: flex;
+}
+
+#videoTutorial {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  height: 95%;
+  margin-top: 2%;
+  flex-direction: row;
+  padding: 2em;
+  margin-bottom: 6%;
+  color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+  background-color: #e9e9e9;
+  border-radius: 10px;
+}
+
+#videoTutorial source {
+  width: 85%;
+}
+
+#videoTutorialDiv {
+  display: none;
+}
+
+#videoTutorialDiv .crossForm {
+  background-color: rgb(136, 136, 136);
+  border: 4px solid rgb(0, 0, 0);
+  border-radius: 10px;
+  margin: 0;
+  position: absolute;
+  right: 4.5em;
+  top: 1.2em;
+  cursor: pointer;
+  z-index: 20;
+}
+
+#videoTutorialDiv .crossForm div {
+  transform: rotate(45deg);
+  margin: -0.2em 0.1em -0.2em 0.1em;
+  font-size: 2.5em;
+  font-weight: bold;
+}
