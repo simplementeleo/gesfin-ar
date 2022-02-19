@@ -43,6 +43,6 @@ const ErrorSchema = new Schema({
 
 });
 
-//////////
+//////////Error
 
 module.exports = model("Error", ErrorSchema);
