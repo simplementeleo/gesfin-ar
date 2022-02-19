@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const session = require("express-session");
-
 const bcrypt = require("bcrypt");
 
 //Clientes
 const Cliente = require("../models/marketPlace/cliente/Cliente");
 //Procesos
-const Estado = require("../models/marketPlace/procesos/Estado");
-const Criticidad = require("../models/marketPlace/procesos/Criticidad");
-const Tarea = require("../models/marketPlace/procesos/Tarea");
+const Estado = require("../../models/marketPlace/procesos/Estado");
+const Criticidad = require("../../models/marketPlace/procesos/Criticidad");
+const Tarea = require("../../models/marketPlace/procesos/Tarea");
 //Direcciones
 const Provincia = require("../models/marketPlace/geografico/Provincia");
 const Ciudad = require("../models/marketPlace/geografico/Ciudad");

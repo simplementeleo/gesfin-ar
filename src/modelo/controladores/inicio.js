@@ -64,6 +64,11 @@ router.get("/logout", (req, res) => {
 });
 router
 
+router.delete('/imagen', async (req, res) => {
+
+
+    unlink(path.resolve(`./src/front` + req.body.adjunto))
+})
 router.get('/numeradores', async (req, res) => {
 
     let nameR = req.query.name;
