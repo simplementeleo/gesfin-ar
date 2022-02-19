@@ -21,7 +21,7 @@ router.post("/users/login", passport.authenticate("local", {
     failureRedirect: "/",
     failureFlash: true
 }));
-//hola forro
+//hola forro trolo
 router.get('/home', (req, res) => {
     res.render('home/homeLog', { userNombre: req.user.name, username: req.user.username });
 });
