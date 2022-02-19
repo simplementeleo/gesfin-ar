@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-
-const ErrorSchema = new Schema({
+const RequerimientoSchema = new Schema({
     num: { type: Number, required: true },
     fecha: { type: Date },
     cliente: {
@@ -43,4 +42,6 @@ const ErrorSchema = new Schema({
 
 });
 
-module.exports = model("Error", ErrorSchema);
+
+
+module.exports = model("Requerimiento", RequerimientoSchema);
