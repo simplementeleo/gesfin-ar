@@ -1,0 +1,142 @@
+#cabeceraForm .titulos {
+  width: 100%;
+  padding-left: 7em;
+  margin-top: 1em;
+  color: white;
+  font-family: "Mukta", sans-serif;
+}
+
+#cabeceraForm .titulos h2 {
+  font-size: 1.8em;
+  margin: 0;
+  padding: 0;
+}
+
+#cabeceraForm .titulos h3 {
+  font-size: 1.1em;
+  padding: 0;
+  margin: 0;
+  margin-top: -0.5em;
+}
+
+.tablaDoble {
+  margin-top: 1em;
+  overflow-y: auto;
+  display: none;
+  flex-direction: row;
+  flex-flow: wrap;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  align-items: center;
+}
+
+.tablaDoble.active {
+  display: flex;
+}
+
+td.celdaTab.fijo {
+  background-color: rgb(161, 174, 216);
+}
+
+td.celdaTab.fijo.porcentage {
+  background-color: rgb(190, 190, 190);
+}
+
+tr.sel td.celdaTab.fijo {
+  background-color: rgb(138, 149, 211);
+  color: rgb(75, 75, 75);
+}
+
+td.celdaTab.mes p,
+td.celdaTab.fijo p {
+  width: 5em;
+  padding: 0;
+  margin: 0;
+}
+
+.audit {
+  width: 100%;
+  display: flex;
+  margin-top: 1em;
+  margin-left: 8em;
+}
+
+.audit input {
+  margin-left: 1em;
+}
+
+.tablaDoble th {
+  width: 5em;
+}
+
+.tablaDoble th.filaNombre {
+  text-align: left;
+}
+
+.tablaDoble .total,
+.tablaDoble .totales {
+  background-color: rgb(104, 143, 107);
+}
+
+input.dobleEntrada {
+  display: none;
+}
+
+input.doEn {
+  display: none;
+}
+
+input.dobleEntrada.show {
+  display: table;
+  width: 6em;
+}
+
+input.d {
+  display: table;
+  width: 6em;
+}
+
+input.d.id {
+  display: none;
+}
+/*Tabla Doble Dinamica*/
+
+td.columnaPrincipal {
+  text-align: left;
+  padding-left: 1em;
+}
+
+td.celdaTab.total::before,
+th.celdaTab::before,
+td.celdaTab p.conValorPesos::before {
+  content: "$";
+  padding-right: 0.5em;
+  float: left;
+}
+
+tr:hover td.celdaTab,
+tr:hover td.columnaPrincipal {
+  background-color: rgb(161, 159, 159);
+}
+
+tr:hover td.celdaTab.fijo {
+  background-color: rgb(138, 149, 211);
+}
+
+th.porcentage,
+td.porcentage {
+  padding-right: 0.5em;
+}
+
+td.porcentage.conValor::before {
+  content: "%";
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+}
+
+th.porcentage::before {
+  content: "%";
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+}
