@@ -1099,7 +1099,6 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
     let enviarRegistroTabla = $(`#tablaCol${accion}${numeroForm} tr`);
     let indiceAcopio = objeto.atributos.names.indexOf(acopio)
     let indiceAdjunto = objeto.atributos.names.indexOf(adjunto)
-    let adjuntoFile = $(`#formularioIndividual label.form.adjunto.${numeroForm}`).html()
 
     let desencadenateTriger = false
     let desencadenateModifTriger = false
@@ -1219,6 +1218,10 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
 
                 $(`#t${numeroForm} label.adjunto,
                #formularioIndividual label.adjunto.${numeroForm}`).html("Adjunto")
+               $(`#t${numeroForm} div.adjunto div.descripcionAdjunto,
+               #t${numeroForm} div.adjunto div.src,
+                #formularioIndividual div.adjunto.${numeroForm} div.descripcionAdjunto,
+                #formularioIndividual div.adjunto.${numeroForm} div.src`).html("Sin Adjunto")
                 $(`#t${numeroForm} input[type=checkbox],
                #formularioIndividual input[type=checkbox].${numeroForm}`).prop(`checked`, null)
 
@@ -1705,7 +1708,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
 
                                             if ((consulta[ind][value.nombre][i].originalnameColec[x] == undefined) || (consulta[ind][value.nombre][i].originalnameColec[x] == "")) {
 
-                                                colec += `<div src="" class="formColec src"><div>Sin Adjunto</div></div>`
+                                                colec += `<div src="" class="formColec src"><div class="descripcionAdjunto">Sin Adjunto</div></div>`
 
                                             } else {
 
@@ -1767,7 +1770,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                                     if ((v.nombre == "adjunto") || (v.nombre == "adjuntoColeccion")) {
 
                                         valorColec = "Adjunto"
-                                        colec += `<div src="" class="formColec src"><div>Sin Adjunto</div></div>`
+                                        colec += `<div src="" class="formColec src"><div class="descripcionAdjunto">Sin Adjunto</div></div>`
                                         colec += `<label for="${v.nombre}num${numeroForm}ord0" class="formColec ${i} ${numeroForm} 0 disabled">Adjunto</label>`
                                         colec += `<input type=file class="formColec ${i} ${numeroForm}0" id="${v.nombre}num${numeroForm}ord0" name="${i}" disabled="disabled" ord=0 form="f${accion}${numeroForm}" validado="true"/>`;
                                         colec += `<input class="formColec ${i} postAdj ${numeroForm}0" id="${v.nombre}post" name="post" ord=0 form="f${accion}${numeroForm}" validado="true"/>`;
@@ -1795,7 +1798,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                         colec += `<td class="vacio ${val.nombre} ${numeroForm}">`;
 
                         if ((val.nombre == "adjunto") || (val.nombre == "adjuntoColeccion")) {
-                            colec += `<div src="" class="formColec src" src=""><div>Sin Adjunto</div></div>`
+                            colec += `<div src="" class="formColec src" src=""><div class="descripcionAdjunto">Sin Adjunto</div></div>`
                             colec += `<label for="${val.nombre}num${numeroForm}ord${ord}" class="formColec ${ind} ${numeroForm}">Adjunto</label>`;
                             colec += `<input type=file class="formColec ${ind} ${numeroForm} ord${ord}" id="${val.nombre}num${numeroForm}ord${ord}" name="${ind}" ord="${ord}" form="f${accion}${numeroForm}" validado="true"/>`;
                             colec += `<input class="formColec ${ind} postAdj ${numeroForm} ord${ord}" id="${val.nombre}post" name="postt" ord=${ord} form="f${accion}${numeroForm}" validado="true"/>`;
@@ -1816,7 +1819,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
 
                     if ((val.nombre == "adjunto") || (val.nombre == "adjuntoColeccion") || (val.nombre == "adjuntos")) {
 
-                        colec += `<div class="formColec src" src=""><div>Sin Adjunto</div></div>`
+                        colec += `<div class="formColec src" src=""><div class="descripcionAdjunto">Sin Adjunto</div></div>`
                         colec += `<label for="${val.nombre}ord${ord + 1}num${numeroForm}" class="formColec ${ind} ${numeroForm} disabled">Adjunto</label>`
                         colec += `<input type=file class="formColec ${ind} ${numeroForm} ord${ord + 1}" id="${val.nombre}ord${ord + 1}num${numeroForm}" name="${ind}" ord="${ord + 1}" disabled="disabled" form="f${accion}${numeroForm}" validado="true"/>`;
                         colec += `<input class="formColec ${ind} ${numeroForm} postAdj ord${ord + 1}" id="${val.nombre}post" name="post" ord=0 form="f${accion}${numeroForm}" validado="true"/>`;
@@ -1897,7 +1900,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
 
                     form += `<div id="form${value.nombre}${numeroForm}" class="fo ${value.nombre}" style="order:${ordenFormu[orden]}" >`;
                     form += `<h2>${titulos[indice]}</h2>`;
-                    form += `<div class="src" src=""><div>Sin adjunto</div></div>`;
+                    form += `<div class="src" src=""><div class="descripcionAdjunto">Sin adjunto</div></div>`;
                     form += `<div class="botonesAdj"><label for="${value.nombre}${numeroForm}" class="form ${value.nombre} ${numeroForm}" tabindex="${ordenFormu[orden]}">Adjunto</label><div><img class="eliminarAdj"src="/img/iconos/principal/eliminarAdj.png" title="Eliminar adjunto"></div></div>`
                     form += `<input type=file class="form ${value.nombre} ${numeroForm}" id="${value.nombre}${numeroForm}" name="${value.type}" form="f${accion}${numeroForm}" tabindex="${ordenFormu[orden]}"/>
 

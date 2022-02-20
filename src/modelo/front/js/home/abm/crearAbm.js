@@ -141,7 +141,9 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             var clase = cl.attr("class"); //atrapo clase de la pestaña selecconada
             var linksParent = $('.tabs_links'); //Atrapado todas las pestañas
             var links = linksParent.find('a'); //Atrapo los "a" de las pestañas
-            var linksIdfirst = links.eq(0).attr("id").slice(1); //Selecciona y limpio el id de la primera pestaña
+            console.log(links[0])
+            var linksIdfirst = $(links[0]).attr("id").slice(1); //Selecciona y limpio el id de la primera pestaña
+            console.log(linksIdfirst)
 
             //Si la tabla selecciona tiene clase active es diferente a la primeta asigno active a la de izquierda
             if ((clase === "pestana active") && (id != linksIdfirst)) {

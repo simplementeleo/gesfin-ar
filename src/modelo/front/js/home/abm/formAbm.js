@@ -2147,7 +2147,7 @@ const nombreBotonAdjunto = function (objeto, numeroForm) {
 
     $(fila).on(`change`, `input, select`, actualizarPost)
 
-    $(`#t${numeroForm} input.adjunto`).change(function () {
+    $(`#t${numeroForm} td   input.adjunto`).change(function () {
         let father = $(this).parent();
 
         let valorAdjunto = $(this).val();
@@ -2176,6 +2176,7 @@ const nombreBotonAdjunto = function (objeto, numeroForm) {
             $(this).siblings(`label`).removeClass("validado");
             $(this).siblings(`label`).attr("validado", false);
         } else {
+           
             let father = $(this).parent().parent()
             $(`div.src`, father).html(valorAdjunto);
             $(`label`, father).addClass("validado");
