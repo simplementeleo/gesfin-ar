@@ -845,8 +845,8 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
 
                     if (valor != undefined) {
 
-                        $(`#t${contador} select.${pestanas.cabecera[indice].nombre}`).attr(`validado`, true)
-                        $(`#t${contador} select.${pestanas.cabecera[indice].nombre}`).addClass(`validado`)
+                        $(`#t${contador} select.${pestanas.totales[indice].nombre}`).attr(`validado`, true)
+                        $(`#t${contador} select.${pestanas.totales[indice].nombre}`).addClass(`validado`)
                     }
                     select.attr("tabindex", ordenSelect)
 

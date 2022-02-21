@@ -1,6 +1,6 @@
 $('.menuSelectAbm').on('click ', this.id, function () {
 
-    let objeto = variablesIniciales[this.id]
+    let objeto = variablesModelo[this.id] || variablesIniciales[this.id]
     let botonEditar = false;
     var memoriaValoreEditados = []
     let editando = false;
