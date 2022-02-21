@@ -106,3 +106,6 @@ div.inputMail img:hover {
   transform: scale(1.3);
   cursor: pointer;
 }
+input[type="submit"] {
+  cursor: pointer;
+}

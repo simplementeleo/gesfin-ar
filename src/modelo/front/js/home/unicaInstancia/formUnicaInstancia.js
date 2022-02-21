@@ -1850,12 +1850,12 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                 if (valor[value.nombre] == `true`) {
 
                     form += `<input type="checkbox" class="form ${value.nombre} ${numeroForm}" name="${value.nombre}" form="f${accion}${numeroForm}" value=${valor[value.nombre]} checked tabindex="${ordenFormu[orden]}" disabled="disabled"/>
-        </div>`;
+                             <input type="text" class="inputR ${value.nombre} ${numeroForm}" id="in${value.nombre}${numeroForm}" readonly name="${value.nombre}" form="myForm${objeto.accion}${numeroForm} value="false" style="display:none"></div>`;
 
                 } else {
 
                     form += `<input type="checkbox" class="form ${value.nombre} ${numeroForm}" name="${value.nombre}" form="f${accion}${numeroForm}" tabindex="${ordenFormu[orden]}"/>
-        </div>`;
+                    <input type="text" class="inputR ${value.nombre} ${numeroForm}" id="in${value.nombre}${numeroForm}" readonly name="${value.nombre}" form="myForm${objeto.accion}${numeroForm} value="false" style="display:none"></div>`;
                 }
                 orden++;
 

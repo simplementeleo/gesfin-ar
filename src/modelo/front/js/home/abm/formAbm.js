@@ -62,11 +62,12 @@ let crearTabla = function (contador, objeto, consulta) {
                         break;
                     case "logico":
                         tabla += `<td class="inputTd ${value.nombre}">
-                            <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony></td>`;
+                            <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony>
+                            <input type="text" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador} value="false" style="display:none"></td>`;
                         break;
                     case "password":
                         tabla += `<td class="inputTd ${value.nombre}">
-                                <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly ${value.nombre}" name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword tachado" src="/img/abm/ojoTachado.png"></td>`;
+                                <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword tachado" src="/img/abm/ojoTachado.png"></td>`;
                         break;
                     case "adjunto":
                         tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
@@ -210,13 +211,14 @@ let reCrearTabla = function (id, objeto, fidecomisoSelec) {
 //////Agregar, eliminar, editar registros, son los registro enviados pero agregados en el front end/////////////////////////
 let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, enviarRegistroNuevo, posteo) {
 
+
     let input = $(`#t${id} tbody > tr:last`);
     let numeroFila = $(`#t${id} tbody > tr.fila`).length;
     let nuevaFila = "";
     nuevaFila += `<tr class="fila ${numeroFila}">`;
-
+  console.log(enviarRegistroNuevo)
     $.each(enviarRegistroNuevo, (ind, val) => {
-        console.log(val)
+        
         switch (val.name) {
             case `date`:
                 var ano = val.value.slice(6);
@@ -250,9 +252,11 @@ let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, en
                 break;
             case "logico":
                 nuevaFila += `<td class="celda ${val.name}">`;
+                alert(1)
                 if (val.value == `on`) {
                     nuevaFila += `<input type=checkbox class"${val.name}" name="${val.name}"  checked disabled="disabled"/></td>`;
                 } else {
+                    alert(0)
                     nuevaFila += `<input type=checkbox class"${val.name}" name="${val.name}" disabled="disabled"/></td>`;
                 }
 

@@ -199,7 +199,6 @@ const adjuntos = {
         adjuntoColeccion: adjunto,
     }
 }
-
 const compuestoCobranza = {
     titulos: `Items`,
     nombre: `compuestoCobranza`,
@@ -243,8 +242,6 @@ const componenteFiscal = {
         totalUsd: importeUsd
     }
 }
-
-
 
 const formatoNumeroFactura = function (numero) {
     let primerosCuatro = (numero.slice(0, 4))
@@ -302,7 +299,6 @@ $(`body`).on(`mouseout`, `.contError`, function (e) {
     $(`body .cartelMovil`).remove()
 
 })
-
 $(`body`).on(`click`, `img.ojoPassword`, function (e) {
 
     let target = e.target
@@ -321,7 +317,19 @@ $(`body`).on(`click`, `img.ojoPassword`, function (e) {
     }
 
 })
+$(`body`).on(`click`, `input[type=checkbox]`, function (e) {
 
+    let target = e.target
+    let parent = $(e.target).parent()
+if($(e.target).is(':checked')){
+  $(`input[type=text]`, parent).attr(`disabled`, `disabled`)   
+
+     }else{
+        $(`input[type=text]`, parent).removeAttr(`disabled`)   
+     }
+    
+
+})
 $(document).click(function (e) {
     if (e.button == 0) {
         $(`#menuContextualTitulo,
@@ -362,7 +370,6 @@ $(`#videoTutorialDiv .crossForm`).click(function () {
     emb.appendTo(`#videoTutorialDiv`)
 
 })
-
 let getFileExtension = function (filename) {
     return filename.split('.').pop();
 }
@@ -447,12 +454,13 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
 
             $.each(words, (indice, value) => {
 
-                may += value[0].toUpperCase() + value.slice(1) + " "
+                may += value[0].toUpperCase() + value.slice(1).toLowerCase() + " "
+                                                            
             })
             mayus = may.slice(0, -1)
 
         } else {
-            mayus = e.target.value[0].toUpperCase() + e.target.value.slice(1)
+            mayus = e.target.value[0].toUpperCase() + e.target.value.slice(1).toLowerCase()
         }
 
         $(e.target).val(mayus)
