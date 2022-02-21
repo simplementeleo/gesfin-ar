@@ -267,7 +267,7 @@ let variablesModelo = {
                 string: {
                     habilitado: true
                 },
-            
+
                 select: []
             },
             configAbm: {

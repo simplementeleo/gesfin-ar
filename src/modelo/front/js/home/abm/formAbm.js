@@ -63,7 +63,7 @@ let crearTabla = function (contador, objeto, consulta) {
                     case "logico":
                         tabla += `<td class="inputTd ${value.nombre}">
                             <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony>
-                            <input type="text" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador} value="false" style="display:none"></td>`;
+                            <input type="text" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" value="false" style="display:none"></td>`;
                         break;
                     case "password":
                         tabla += `<td class="inputTd ${value.nombre}">
@@ -216,9 +216,9 @@ let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, en
     let numeroFila = $(`#t${id} tbody > tr.fila`).length;
     let nuevaFila = "";
     nuevaFila += `<tr class="fila ${numeroFila}">`;
-  console.log(enviarRegistroNuevo)
+
     $.each(enviarRegistroNuevo, (ind, val) => {
-        
+
         switch (val.name) {
             case `date`:
                 var ano = val.value.slice(6);
@@ -252,11 +252,11 @@ let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, en
                 break;
             case "logico":
                 nuevaFila += `<td class="celda ${val.name}">`;
-                alert(1)
+
                 if (val.value == `on`) {
                     nuevaFila += `<input type=checkbox class"${val.name}" name="${val.name}"  checked disabled="disabled"/></td>`;
                 } else {
-                    alert(0)
+
                     nuevaFila += `<input type=checkbox class"${val.name}" name="${val.name}" disabled="disabled"/></td>`;
                 }
 
@@ -582,7 +582,6 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
                 case `logico`:
 
                     $(`#t${numeroForm} .edit.${value.nombre}`).attr(`type`, `checkbox`);
-                    console.log(valor)
 
                     break;
                 case `adjunto`:
@@ -876,7 +875,6 @@ const desencadenante = function (desencadena, objeto, numeroForm, fileData, id) 
 
     let file = fileData;
     file.set(`idDesen`, id);
-    console.log(file)
 
     if (formularioIndAbm == false) {
 
@@ -899,7 +897,6 @@ const desencadenante = function (desencadena, objeto, numeroForm, fileData, id) 
             });
         });
     } else {
-        console.log(2)
         $.each(desencadena, (ind, val) => {
 
             $.ajax({
@@ -1145,7 +1142,6 @@ let eliminarRegistro = function (idRegistro, id, objeto, pregunta, fidecomisoSel
         complete: function () { },
         success: function (data) {
 
-            console.log()
             eliminarRegistroTabla(id, objeto, fidecomisoSelec, idRegistro);
 
             $(`#formularioIndividual input.form,
@@ -1222,21 +1218,7 @@ let eliminarRegistroDesencadenado = function (value, idRegistro) {
         },
     });
 };
-///////////////////////////////
-/*let consultaNumeradorDesencadentante = function (accion) {
-    $.ajax({
-        type: "GET",
-        url: `/${accion}Num`,
-        beforeSend: function () { },
-        complete: function () { },
-        success: function (response) {
-            let num = response[0].num + 1;
-        },
-        error: function (error) {   
-            console.log(error);
-        },
-    });
-};*/
+
 const numeroconFiltro = function (objeto, numeroForm) {
     let accion = objeto.accion;
 
@@ -1333,7 +1315,6 @@ const desencadenaModif = function (valor, objeto, numeroForm, editando, registro
     } else {
 
         let fileEnviado = $(`#myFormEdit${objeto.accion}${numeroForm}`);
-        console.log(fileEnviado == [])
 
         $.each(valor.signoNumero, (indice, sigNume) => {
             let atributoDesen = `signoNumero`;
@@ -2180,7 +2161,6 @@ const nombreBotonAdjunto = function (objeto, numeroForm) {
             $(this).siblings(`label`).removeClass("validado");
             $(this).siblings(`label`).attr("validado", false);
         } else {
-           
             let father = $(this).parent().parent()
             $(`div.src`, father).html(valorAdjunto);
             $(`label`, father).addClass("validado");
@@ -2341,7 +2321,6 @@ const lecturaUnoUOtro = function (objeto, numeroForm, atrUno, atrDos) {
     let inputLength = function () {
 
         let father = $(this).parent().parent()
-        console.log(father)
         let atributoUno = $(`input.${atrUno.nombre}`, father)
         let atributoDos = $(`input.${atrDos.nombre}`, father)
 
@@ -2369,7 +2348,6 @@ const lecturaUnoUOtro = function (objeto, numeroForm, atrUno, atrDos) {
 
     let checkLengt = function () {
 
-        console.log($(`#t${numeroForm} input.edit.${atrUno.nombre}`))
         if ($(`#formularioIndividual .formulario`).length == 0 && $(`table.tabs_contents_item.${numeroForm}`).length > 0 && $(`#t${numeroForm} input.edit.${atrUno.nombre}`).length > 0) {
 
             if ($(`#t${numeroForm} input.edit.${atrUno.nombre}`).val().length > 0) {

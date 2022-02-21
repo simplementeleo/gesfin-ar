@@ -242,7 +242,6 @@ const componenteFiscal = {
         totalUsd: importeUsd
     }
 }
-
 const formatoNumeroFactura = function (numero) {
     let primerosCuatro = (numero.slice(0, 4))
     let ultimosOcho = (numero.slice(4))
@@ -321,13 +320,14 @@ $(`body`).on(`click`, `input[type=checkbox]`, function (e) {
 
     let target = e.target
     let parent = $(e.target).parent()
-if($(e.target).is(':checked')){
-  $(`input[type=text]`, parent).attr(`disabled`, `disabled`)   
+    if ($(e.target).is(':checked')) {
+        alert(1)
+        $(`input[type=text]`, parent).attr(`disabled`, `disabled`)
+    } else {
+        alert(2)
+        $(`input[type=text]`, parent).removeAttr(`disabled`)
+    }
 
-     }else{
-        $(`input[type=text]`, parent).removeAttr(`disabled`)   
-     }
-    
 
 })
 $(document).click(function (e) {
@@ -455,7 +455,7 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
             $.each(words, (indice, value) => {
 
                 may += value[0].toUpperCase() + value.slice(1).toLowerCase() + " "
-                                                            
+
             })
             mayus = may.slice(0, -1)
 
