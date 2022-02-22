@@ -14,7 +14,7 @@ const Requerimiento = require("../models/home/Requerimiento");
 const Tarea = require("../models/marketPlace/procesos/Tarea");
 const Estado = require("../models/marketPlace/procesos/Estado");
 const Criticidad = require("../models/marketPlace/procesos/Criticidad");
-const Cliente = require("../models/marketPlace/cliente/Cliente");
+const Cliente = require("../models/marketPlace/terceros/Cliente");
 
 router.post("/users/login", passport.authenticate("local", {
     successRedirect: "/home",

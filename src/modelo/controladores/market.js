@@ -4,7 +4,7 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 
 //Clientes
-const Cliente = require("../models/marketPlace/cliente/Cliente");
+const Cliente = require("../models/marketPlace/terceros/Cliente");
 //Procesos
 const Estado = require("../models/marketPlace/procesos/Estado");
 const Criticidad = require("../models/marketPlace/procesos/Criticidad");

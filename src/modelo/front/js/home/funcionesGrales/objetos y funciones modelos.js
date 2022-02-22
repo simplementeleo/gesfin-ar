@@ -343,6 +343,106 @@ let variablesModelo = {
             FiltroRapido: `Habitalitado/deshabilitado`
         }
     },
+    grupoSeguridad: {
+        atributos: {
+            names: [id, nombre, observaciones, usuario, date],
+            titulos: [`id`, 'Nombre', `Observaciones`, 'Auditoria', 'Usuario'],
+            soloLectura: [date, username],
+            oculto: [id],
+            importe: {
+                totalizador: [],
+                importeBase: [],
+                importePesos: [],
+                importeUsd: [],
+            },
+            compuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: [],
+                select: []
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [],
+                    cinco: [],
+                    siete: [],
+                    diez: [],
+                    quince: [],
+                },
+                formatoFunc: {
+                    primeraLetraMayuscula: [primeraLetraMayuscula, [nombre]],
+
+                }
+            },
+            modificar: {
+                names: [id, nombre, observaciones, username, date],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            eliminar: false,
+            deshabilitar: true
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`id`, 'Nombre', `Observaciones`, 'Auditoria', 'Usuario'],
+            titulosCompuesto: [],
+            oculto: [_id, habilitado],
+            ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+            inputRenglones: [4, 4, 4, 4, 6],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [id, nombre, observaciones, username, date],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            impresion: {
+                tituloFormulario: `Usuarios`,
+                ocultoImpresion: [_id, id, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        acumulador: [],
+        numerador: [],
+        validaciones: [nombre, apellido, email, usuario, password],
+        pest: `Grupo de seguridad`,
+        accion: `grupoSeguridad`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: [],
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran los grupo de seguridad .`,
+            modificar: modficarTodo,
+            entidades: [],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
     cliente: {
         atributos: {
             names: [id, num, nombre, documento, telefono, email, direccion, ciudad, observaciones, username, date, habilitado],
