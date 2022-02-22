@@ -10,6 +10,8 @@ passport.use(new LocalStrategy({
     const user = await User.findOne({ username: username });
     if (!user) {
         return done(null, false, { message: 'Usuario no registrado' });
+    } else if (!user.habilitado) {
+        return done(null, false, { message: 'Usuario deshabilitado' });
     } else {
         // Match Password's User
         const match = await user.matchPassword(password);

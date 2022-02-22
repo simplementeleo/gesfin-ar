@@ -321,10 +321,10 @@ $(`body`).on(`click`, `input[type=checkbox]`, function (e) {
     let target = e.target
     let parent = $(e.target).parent()
     if ($(e.target).is(':checked')) {
-        alert(1)
+
         $(`input[type=text]`, parent).attr(`disabled`, `disabled`)
     } else {
-        alert(2)
+
         $(`input[type=text]`, parent).removeAttr(`disabled`)
     }
 
