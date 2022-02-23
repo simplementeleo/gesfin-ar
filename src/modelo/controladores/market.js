@@ -3,8 +3,13 @@ const router = express.Router();
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 
-//Clientes
+//Terceros
 const Cliente = require("../models/marketPlace/terceros/Cliente");
+const Proveedor = require("../models/marketPlace/terceros/Proveedor");
+//Financiero
+const Moneda = require("../models/marketPlace/financiero/Moneda");
+const TipoComprobante = require("../models/marketPlace/financiero/TipoComprobante.Js");
+const TipoPagos = require("../models/marketPlace/financiero/TipoPagos");
 //Procesos
 const Estado = require("../models/marketPlace/procesos/Estado");
 const Criticidad = require("../models/marketPlace/procesos/Criticidad");
@@ -308,6 +313,170 @@ router.put('/cliente', async (req, res) => {
         let cliente = await Cliente.findByIdAndUpdate(id, newClientetAct)
         res.json(`El cliente "${name}" fue actualizado con exito`)
 
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.get('/proveedor', async (req, res) => {
+
+    const pro = await Proveedor.aggregate([{
+
+        $lookup: {
+            from: "ciudads",
+            localField: "ciudad",
+            foreignField: "_id",
+            as: "proveedorCiudad"
+        }
+    },
+    {
+        $lookup: {
+            from: "tipopagos",
+            localField: "tipoPago",
+            foreignField: "_id",
+            as: "proveedorPago"
+        }
+    },
+    {
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "proveedorUser"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            num: 1,
+            name: 1,
+            lastName: 1,
+            razon: 1,
+            documento: 1,
+            telefono: 1,
+            email: 1,
+            direccion: 1,
+            ciudad: "$proveedorCiudad.name",
+            tipoPago: "$proveedorPago.name",
+            observaciones: 1,
+            username: "$proveedorUser.username",
+            date: 1,
+            habilitado: 1
+        }
+    }
+    ]);
+    var proveedor = [];
+    var Prov = function (id, num, name, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date, habilitado) {
+        this.id = id;
+        this.num = num;
+        this.name = name;
+        this.documento = documento;
+        this.telefono = telefono;
+        this.email = email;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.tipoPago = tipoPago;
+        this.observaciones = observaciones;
+        this.username = username;
+        this.date = date;
+        this.habilitado = habilitado;
+    }
+    for (var x = 0; x < pro.length; x++) {
+
+        var prov = new Prov(
+            pro[x]._id,
+            pro[x].num,
+            pro[x].name,
+            pro[x].documento,
+            pro[x].telefono,
+            pro[x].email,
+            pro[x].direccion,
+            pro[x].ciudad,
+            pro[x].tipoPago,
+            pro[x].observaciones,
+            pro[x].username,
+            pro[x].date,
+            pro[x].habilitado
+        )
+
+        proveedor.push(prov);
+
+    }
+    res.json(proveedor);
+});
+router.post('/proveedor', async (req, res) => {
+    try {
+        let { num, name, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date, habilitado } = req.body;
+
+        const ciudadFound = await Ciudad.find({ name: { $in: ciudad } });
+        const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newProveedor = new Proveedor({
+            num,
+            name,
+            documento,
+            telefono,
+            email,
+            direccion,
+            ciudad: ciudadFound.map((ciudad) => ciudad._id),
+            tipoPago: pagosFound.map((pago) => pago._id),
+            observaciones,
+            date,
+            username: usersFound.map((user) => user._id),
+            habilitado
+
+        });
+
+        let proveedor = await newProveedor.save();
+
+
+        res.json({
+            mensaje: `El proveedor ${name} fue creado con exito`,
+            posteo: proveedor
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.delete('/proveedor', async (req, res) => {
+
+    let { id, habilitado } = req.body;
+
+    const proveedorHab = ({
+        habilitado
+    });
+
+    let proveedorh = await Proveedor.findByIdAndUpdate(id, proveedorHab);
+    res.json(`El registro ha sido deshabilitado con exito`);
+
+})
+router.put('/proveedor', async (req, res) => {
+    try {
+        let { id, num, name, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, date, username } = req.body;
+
+        const ciudadFound = await Ciudad.find({ name: { $in: ciudad } });
+        const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newProveedorAct = ({
+            num,
+            name,
+            documento,
+            telefono,
+            email,
+            direccion,
+            ciudad: ciudadFound.map((ciudad) => ciudad._id),
+            tipoPago: pagosFound.map((pago) => pago._id),
+            observaciones,
+            date,
+            username: usersFound.map((user) => user._id),
+
+        });
+
+        let proveedorAct = await Proveedor.findByIdAndUpdate(id, newProveedorAct);
+
+        res.json(`EL proveedor ${name} fue actualizado`);
     } catch (error) {
         console.error(error);
     }
@@ -769,6 +938,269 @@ router.put('/provincia', async (req, res) => {
         console.error(error);
     }
 });
+//Financiero
+//Moneda
+router.get('/moneda', async (req, res) => {
+
+    const monedas = await Moneda.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "tipoUser"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            name: 1,
+            abrev: 1,
+            date: 1,
+            username: "$tipoUser.username",
+            habilitado: 1,
+
+        }
+    }
+    ]);
+
+    res.json(monedas);
+
+});
+router.post('/moneda', async (req, res) => {
+    try {
+        let { name, abrev, date, username, habilitado } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newMoneda = new Moneda({
+            name,
+            abrev,
+            date,
+            username: usersFound.map((user) => user._id),
+            habilitado
+
+        });
+
+        let moneda = await newMoneda.save();
+
+        res.json({
+            mensaje: `La moneda ${name} fue creado con exito`,
+            posteo: moneda
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.json(`error`);
+    }
+});
+router.delete('/moneda', async (req, res) => {
+
+    let { id, habilitado } = req.body;
+
+    const monedaHab = ({
+        habilitado
+    });
+
+
+    let monedaRecHab = await Moneda.findByIdAndUpdate(id, monedaHab);
+
+    res.json("Delete");
+
+})
+router.put('/moneda', async (req, res) => {
+    try {
+        let { _id, name, abrev, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newMonAct = ({
+            name,
+            abrev,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        let monedaRecAct = await Moneda.findByIdAndUpdate(_id, newMonAct);
+        res.json(`La moneda ${name} fue actualizada`);
+
+
+    } catch (error) {
+        console.error(error);
+        res.json(`error`);
+    }
+});
+router.get('/tipoPago', async (req, res) => {
+
+    const tipoPago = await TipoPagos.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "tipoPagoUser"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            name: 1,
+            date: 1,
+            username: "$tipoPagoUser.username",
+            habilitado: 1
+        }
+    }
+    ]);
+    res.json(tipoPago);
+
+});
+router.delete('/tipoPago', async (req, res) => {
+
+    let { id, habilitado } = req.body;
+
+    const tipoPagoHab = ({
+        habilitado
+    });
+
+    let tipoAct = await TipoPagos.findByIdAndUpdate(id, tipoPagoHab);
+
+    res.json(`El registro ha sido deshabilitado con exito`);
+
+})
+router.put('/tipoPago', async (req, res) => {
+    try {
+        let { _id, name, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+
+        const newTipo = ({
+            name,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        var tipoAct = await TipoPagos.findByIdAndUpdate(_id, newTipo);
+        res.json(`La forma de pago ${name} fue actualizada`);
+
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.post('/tipoPago', async (req, res) => {
+    try {
+        let { name, date, username, habilitado } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newTipoPagos = new TipoPagos({
+            name,
+            date,
+            username: usersFound.map((user) => user._id),
+            habilitado
+        });
+
+        let tipoPagos = await newTipoPagos.save();
+
+        res.json({
+            mensaje: `La forma de pago "${name}" fue creada con exito`,
+            posteo: tipoPagos
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.get('/tipoComprobante', async (req, res) => {
+
+    const tipoFac = await TipoComprobante.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "tipoUser"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            letraComprobante: 1,
+            name: 1,
+            date: 1,
+            username: "$tipoUser.username",
+            habilitado: 1
+        }
+    }
+    ]);
+
+    res.json(tipoFac);
+
+});
+router.post('/tipoComprobante', async (req, res) => {
+    try {
+        let { letraComprobante, name, date, username, habilitado } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newTipoFac = new TipoComprobante({
+            letraComprobante,
+            name,
+            date,
+            username: usersFound.map((user) => user._id),
+            habilitado
+
+        });
+
+
+        let tipoComp = await newTipoFac.save();
+
+        res.json({
+            mensaje: `El tipo de comprobante ${letraComprobante} fue creado con exito`,
+            posteo: tipoComp
+        });
+    } catch (error) {
+        console.error(error);
+        res.json(`error`);
+    }
+});
+router.delete('/tipoComprobante', async (req, res) => {
+
+    let { id, habilitado } = req.body;
+
+
+    const newTipoFacHab = ({
+        habilitado
+    })
+
+    let tipoCompAct = await TipoComprobante.findByIdAndUpdate(id, newTipoFacHab);
+
+    res.json(`El registro ha sido deshabilitado con exito`);
+})
+router.put('/tipoComprobante', async (req, res) => {
+    try {
+        let { _id, letraComprobante, name, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newTipoFac = ({
+            letraComprobante,
+            name,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        var monedaRecAct = await TipoComprobante.findByIdAndUpdate(_id, newTipoFac);
+        res.json(`El tipo de comprobante ${letraComprobante} fue actualizada`);
+
+
+    } catch (error) {
+        console.error(error);
+        res.json(`error`);
+    }
+});
+//geografico
 router.get('/ciudad', async (req, res) => {
 
     const ci = await Ciudad.aggregate([{

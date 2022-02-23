@@ -8,13 +8,20 @@ const multer = require(`multer`)
 const { unlink } = require(`fs-extra`)
 
 const User = require("../models/marketPlace/User");
-const Error = require("../models/home/Error");
-const Requerimiento = require("../models/home/Requerimiento");
+const Error = require("../models/home/crm/Error");
+const Requerimiento = require("../models/home/crm/Requerimiento");
 
 const Tarea = require("../models/marketPlace/procesos/Tarea");
 const Estado = require("../models/marketPlace/procesos/Estado");
 const Criticidad = require("../models/marketPlace/procesos/Criticidad");
 const Cliente = require("../models/marketPlace/terceros/Cliente");
+
+//financiero
+const MovimientoFinanciero = require("../models/home/operacionFinanciera/MovimientosFinancieros");
+
+//Indices
+const Icc = require("../models/home/indices/Icc");
+const TipoCambio = require("../models/home/indices/TipoDeCambio");
 
 router.post("/users/login", passport.authenticate("local", {
     successRedirect: "/home",
@@ -727,7 +734,583 @@ router.delete('/requerimiento', async (req, res) => {
     res.json('ok');
 
 })
+//Operaciones financieras
+router.get('/movimientoFinanciero', async (req, res) => {
+    let fechaHasta = req.query.fechaHasta
+    let unidFidei = /./;
 
+    if (req.query.unid != "undefined") {
+
+        unidFidei = req.query.unid
+    }
+
+    if ((req.query.unid == "Todos") || (req.query.unid == "todos") || (req.query.unid == "")) {
+
+        unidFidei = /./;
+    }
+
+    const mf = await MovimientoFinanciero.aggregate([{
+
+        $lookup: {
+            from: "unidades",
+            localField: "unidades",
+            foreignField: "_id",
+            as: "unidadesMv"
+        }
+    },
+    {
+        $lookup: {
+            from: "tipopagos",
+            localField: "tipoPagos",
+            foreignField: "_id",
+            as: "tipoPagos"
+        }
+    },
+    {
+        $lookup: {
+            from: "monedas",
+            localField: "moneda",
+            foreignField: "_id",
+            as: "moneda"
+        }
+    },
+    {
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "user"
+        }
+    },
+    {
+        $match: {
+            "unidadesMv.name": unidFidei,
+            // fecha: { $lt: new Date(fechaHasta) },
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            num: 1,
+            origen: 1,
+            fecha: 1,
+            unidades: "$unidadesMv.name",
+            moneda: "$moneda.name",
+            importeTotal: 1,
+            importeTotalArs: 1,
+            importeTotalUsd: 1,
+            tc: 1,
+            tipo: "$tipoPagos.name",
+            observaciones: 1,
+            date: 1,
+            username: "$user.username",
+            idDesen: 1,
+            desen: 1,
+            position: 1,
+            idColec: 1
+        }
+    }
+    ]);
+    let movimientoFinanciero = [];
+    let MovFinanciero = function (_id, num, origen, fecha, unidades, moneda, importeTotal, importeTotalArs, importeTotalUsd, tc, tipo, observaciones, date, username, idDesen, desen, position, idColec) {
+        this.id = _id;
+        this.num = num;
+        this.origen = origen;
+        this.fecha = fecha;
+        this.unidades = unidades;
+        this.moneda = moneda;
+        this.importeTotal = importeTotal;
+        this.importeTotalArs = importeTotalArs;
+        this.importeTotalUsd = importeTotalUsd;
+        this.tc = tc;
+        this.tipoPago = tipo;
+        this.observaciones = observaciones;
+        this.date = date;
+        this.username = username;
+        this.idDesen = idDesen;
+        this.desen = desen;
+        this.position = position;
+        this.idColec = idColec;
+    }
+    for (let x = 0; x < mf.length; x++) {
+
+        let mfin = new MovFinanciero(
+            mf[x]._id,
+            mf[x].num,
+            mf[x].origen,
+            mf[x].fecha,
+            mf[x].unidades,
+            mf[x].moneda,
+            mf[x].importeTotal,
+            mf[x].importeTotalArs,
+            mf[x].importeTotalUsd,
+            mf[x].tc,
+            mf[x].tipo,
+            mf[x].observaciones,
+            mf[x].date,
+            mf[x].username,
+            mf[x].idDesen,
+            mf[x].desen,
+            mf[x].position,
+            mf[x].idColec
+
+        )
+        movimientoFinanciero.push(mfin);
+    }
+    res.json(movimientoFinanciero);
+
+});
+router.get('/movimientoFinancieroSaldo', async (req, res) => {
+    let fechaHasta = req.query.fechaHasta
+
+    let unidFidei = /./;
+
+
+    if ((req.query.unidad != "undefined")) {
+
+        unidFidei = req.query.unidad
+    }
+
+    if ((req.query.unidad == "Todos") || (req.query.unidad == "todos") || (req.query.unidad == "")) {
+
+        unidFidei = /./;
+    }
+
+
+    const mf = await MovimientoFinanciero.aggregate([
+        {
+            $lookup: {
+                from: "unidades",
+                localField: "unidades",
+                foreignField: "_id",
+                as: "unidadesMv"
+            },
+        },
+        {
+            $lookup: {
+                from: "tipopagos",
+                localField: "tipoPagos",
+                foreignField: "_id",
+                as: "tipoPagos"
+            }
+        },
+
+
+        {
+            $match: {
+                "unidadesMv.name": unidFidei,
+                fecha: { $lte: new Date(fechaHasta) },
+            }
+        },
+
+
+        {
+            $group: {
+
+                _id: `$tipoPagos.name`,
+                totalArs: { $sum: `$importeTotalArs` },
+                totalUsd: { $sum: `$importeTotalUsd` },
+                tc: { $avg: `$tc` },
+            }
+        },
+    ]);
+
+    res.json(mf);
+});
+router.get('/movimientoFinancieroNum', async (req, res) => {
+
+    var numerador = await MovimientoFinanciero.find({}, { num: 1, _id: 0 }).sort({ $natural: -1 }).limit(1);;
+
+    res.json(numerador);
+
+});
+router.post('/movimientoFinanciero', async (req, res) => {
+    try {
+        let { unidades, moneda, tipoPago, username } = req.body;
+
+        let keys = Object.keys(req.body);
+        let newMovFinFlex = new MovimientoFinanciero({});
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newMovFinFlex[keys[x]] = req.body[keys[x]]
+        }
+
+
+        const unidadesFound = await Unidades.find({ name: { $in: unidades } });
+        newMovFinFlex.unidades = unidadesFound.map((unidad) => unidad._id)
+        const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
+        newMovFinFlex.tipoPagos = pagosFound.map((pago) => pago._id)
+        const usersFound = await User.find({ username: { $in: username } });
+        newMovFinFlex.username = usersFound.map((user) => user._id)
+        const monedaFound = await Moneda.find({ name: { $in: moneda } });
+        newMovFinFlex.moneda = monedaFound.map((md) => md._id)
+
+        let MovimientoRealizado = await newMovFinFlex.save();
+
+        res.json({
+            mensaje: `El movimiento del fue registrado con exito`,
+            posteo: MovimientoRealizado
+        });
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.put('/movimientoFinanciero', async (req, res) => {
+    try {
+        let { id, unidades, tipoPago, username, moneda, origen } = req.body;
+        let keys = Object.keys(req.body);
+
+        let newMovFinFlex = new Object;
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newMovFinFlex[keys[x]] = req.body[keys[x]]
+        }
+
+        const unidadesFound = await Unidades.find({ name: { $in: unidades } });
+        newMovFinFlex.unidades = unidadesFound.map((unidad) => unidad._id)
+        const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
+        newMovFinFlex.tipoPagos = pagosFound.map((pago) => pago._id)
+        const usersFound = await User.find({ username: { $in: username } });
+        newMovFinFlex.username = usersFound.map((user) => user._id)
+        const monedaFound = await Moneda.find({ name: { $in: moneda } });
+        newMovFinFlex.moneda = monedaFound.map((md) => md._id)
+        delete newMovFinFlex.id
+
+        let movFinActDes = await MovimientoFinanciero.findOneAndUpdate({
+            id,
+        },
+            newMovFinFlex);
+
+        res.json({
+            mensaje: `El movimiento del fue actualizado con exito`,
+            posteo: movFinActDes
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.put('/movimientoFinancieroDes', async (req, res) => {
+    try {
+        let { id, unidades, tipoPago, username, moneda, desen, idDesen } =
+            req.body;
+        console.log(1)
+        console.log(req.body)
+        let keys = Object.keys(req.body);
+        let newMovFinFlex = new Object;
+
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newMovFinFlex[keys[x]] = req.body[keys[x]]
+        }
+
+        const unidadesFound = await Unidades.find({ name: { $in: unidades } });
+        newMovFinFlex.unidades = unidadesFound.map((unidad) => unidad._id)
+        const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
+        newMovFinFlex.tipoPagos = pagosFound.map((pago) => pago._id)
+        const usersFound = await User.find({ username: { $in: username } });
+        newMovFinFlex.username = usersFound.map((user) => user._id)
+        const monedaFound = await Moneda.find({ name: { $in: moneda } });
+        newMovFinFlex.moneda = monedaFound.map((md) => md._id)
+        delete newMovFinFlex.id
+
+        if (idDesen != "undefined") {
+            delete newMovFinFlex.idDesen
+        }
+
+
+        if (desen == `undefined`) {
+            let movFinActDesA = await MovimientoFinanciero.findOneAndUpdate({
+                idDesen: id,
+            },
+                newMovFinFlex);
+        } else {
+
+
+            let movFinActDes = await MovimientoFinanciero.findOneAndUpdate({
+                desen,
+                idDesen: id,
+            },
+                newMovFinFlex);
+        }
+
+        res.json(`El mov financiero por fue actualizado`);
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.put('/movimientoFinancieroDesColec', async (req, res) => {
+    try {
+        let { id, unidades, tipoPago, username, moneda, desen, idColec, idDesen, destinoColec } = req.body;
+        let keys = Object.keys(req.body);
+        let newMovFinFlex = new Object;
+
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newMovFinFlex[keys[x]] = req.body[keys[x]]
+        }
+
+        const unidadesFound = await Unidades.find({ name: { $in: unidades } });
+        newMovFinFlex.unidades = unidadesFound.map((unidad) => unidad._id)
+        const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
+        newMovFinFlex.tipoPagos = pagosFound.map((pago) => pago._id)
+        const usersFound = await User.find({ username: { $in: username } });
+        newMovFinFlex.username = usersFound.map((user) => user._id)
+        const monedaFound = await Moneda.find({ name: { $in: moneda } });
+        newMovFinFlex.moneda = monedaFound.map((md) => md._id)
+        delete newMovFinFlex.id
+
+        let movFinActDes = await MovimientoFinanciero.findOneAndUpdate({
+            idColec,
+            desen,
+            idDesen,
+            origen: destinoColec
+        },
+            newMovFinFlex);
+
+
+
+        res.json(`El mov financiero por fue actualizado`);
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.delete('/movimientoFinanciero', async (req, res) => {
+
+    let { id } = req.body;
+
+    await MovimientoFinanciero.findByIdAndDelete(id);
+    res.json('ok');
+
+});
+router.delete('/movimientoFinancieroDes', async (req, res) => {
+    try {
+        let { idDesen } = req.body;
+
+
+        const deletemov = await MovimientoFinanciero.deleteOne({ idDesen });
+        res.json('ok');
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.delete('/movimientoFinancieroColec', async (req, res) => {
+    try {
+        let { id, idColec, destinoColec } = req.body;
+
+        const deletemov = await MovimientoFinanciero.deleteOne({
+            idColec,
+            idDesen: id,
+            origen: destinoColec
+
+        });
+
+        res.json('ok');
+    } catch (error) {
+        console.error(error);
+    }
+});
+//INDICES
+//Icc
+router.get('/icc', async (req, res) => {
+
+    const icc = await Icc.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "User"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            fecha: 1,
+            tipoCambio: 1,
+            date: 1,
+            username: "$User.username"
+        }
+    }
+    ]);
+
+    res.json(icc);
+
+});
+router.get('/iccHoy', async (req, res) => {
+
+    let fechaHasta = req.query.fechaHasta
+
+
+    var ultimoIcc = await Icc.find({ fecha: { $lte: fechaHasta } }, {
+        fecha: 1,
+        tipoCambio: 1,
+        _id: 0
+
+    }).sort({ fecha: -1 }).limit(1);;
+
+    res.json(ultimoIcc);
+
+});
+router.post('/icc', async (req, res) => {
+    try {
+        let { fecha, tipoCambio, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newIcc = new Icc({
+            fecha,
+            tipoCambio,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        let icc = await newIcc.save();
+
+        res.json({
+            mensaje: `El icc de  ${fecha} fue creado con exito`,
+            posteo: icc
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.json(`error`);
+    }
+});
+router.delete('/icc', async (req, res) => {
+
+    let { id } = req.body;
+
+    await Icc.findByIdAndDelete(id);
+
+    res.json("Delete");
+
+})
+
+router.put('/icc', async (req, res) => {
+    try {
+        let { _id, fecha, tipoCambio, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newIccAct = ({
+            fecha,
+            tipoCambio,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        var iccAct = await Icc.findByIdAndUpdate(_id, newIccAct);
+        res.json(`El Icc de ${fecha} fue actualizado`);
+
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+//TipoCambio
+router.get('/tipoCambio', async (req, res) => {
+
+    const tipoCambio = await TipoCambio.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "User"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            fecha: 1,
+            tipoCambio: 1,
+            tipoCambioAlternativo: 1,
+            date: 1,
+            username: "$User.username"
+        }
+    }
+    ]);
+
+    res.json(tipoCambio);
+    con
+
+});
+router.get('/tipoCambioHoy', async (req, res) => {
+
+    let fechaHasta = req.query.fechaHasta
+
+    var tipoCambioHoy = await TipoCambio.find({ fecha: { $lte: fechaHasta } }, { fecha: 1, tipoCambio: 1, tipoCambioAlternativo: 1, _id: 0 }).sort({ fecha: -1 }).limit(1);
+
+    res.json(tipoCambioHoy);
+
+});
+router.post('/tipoCambio', async (req, res) => {
+    try {
+        let { fecha, tipoCambio, tipoCambioAlternativo, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newtc = new TipoCambio({
+            fecha,
+            tipoCambio,
+            tipoCambioAlternativo,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        let tc = await newtc.save();
+
+        res.json({
+            mensaje: `El tipo de cambio de ${fecha} fue creado con exito`,
+            posteo: tc
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.json(`error`);
+    }
+});
+router.delete('/tipoCambio', async (req, res) => {
+
+    let { id } = req.body;
+
+    await TipoCambio.findByIdAndDelete(id);
+
+    res.json("Delete");
+
+})
+router.put('/tipoCambio', async (req, res) => {
+    try {
+        let { _id, fecha, tipoCambio, tipoCambioAlternativo, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newTc = ({
+            fecha,
+            tipoCambio,
+            tipoCambioAlternativo,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        var iccAct = await TipoCambio.findByIdAndUpdate(_id, newTc);
+
+        res.json(`El Tipo de Cambio de ${fecha} fue actualizado`);
+
+
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 
 module.exports = router;

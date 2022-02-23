@@ -266,8 +266,9 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 })
             }
             editPestana = false
-        } else {
+        } else if (value.length == 1) {
             editPestana = false
+
             if (value[0].habilitado == true) {
 
                 let show = ""
@@ -280,13 +281,37 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).prop("readonly", "true");
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).attr("validado", "true");
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).val(show)
+
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).val(show)
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).addClass("validado");
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).prop("readonly", "true");
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).attr("validado", "true");
+
                 lengthUnoSelect[pestanas[indice].nombre] = show
+
 
             } else {
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).val("No hay valores habilitados");
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).prop("readonly", "true");
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).prop("disabled", "true");
+
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).val("No hay valores habilitados");
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).prop("readonly", "true");
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).prop("disabled", "true");
+
             }
+
+        } else {
+
+            $(`#formularioIndividual .form.${pestanas[indice].nombre}`).val("No hay valores predeterminados creados")
+            $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).val("No hay valores predeterminados creados")
+            $(`#formularioIndividual .form.${pestanas[indice].nombre}`).prop("readonly", "true");
+            $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).prop("readonly", "true");
+            $(`#formularioIndividual .form.${pestanas[indice].nombre}`).addClass("requerido");
+            $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).addClass("requerido");
+            $(`#formularioIndividual .form.${pestanas[indice].nombre}`).attr("validado", "false");
+            $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).attr("validado", "false");
+
 
         }
     });
@@ -850,7 +875,7 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                     }
                     select.attr("tabindex", ordenSelect)
 
-                } else {
+                } else if (data.length == 1) {
 
                     if (data[0].habilitado == true) {
                         let show = ""
@@ -859,13 +884,35 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                             show += `${data[0][val]}`;
                         })
 
-                        $(`#t${contador} .form.${pestanas.cabecera[indice].nombre}`).removeClass("requerido");
-                        $(`#t${contador} .form.${pestanas.cabecera[indice].nombre}`).prop("readOnly", true);
-                        $(`#t${contador} .${pestanas.cabecera[indice].nombre}`).val(show);
+                        $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).removeClass("requerido");
+                        $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).prop("readOnly", true);
+                        $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).val(show);
+
+                        $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).val(show)
+                        $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).prop("readOnly", true);
+                        $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).removeClass("requerido");
+
 
                         lengthUnoSelect[pestanas.cabecera[indice].nombre] = show
 
+                    } else {
+
+                        $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).prop("readOnly", true);
+                        $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).val("No hay valores habilitados");
+                        $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).val("No hay valores habilitados")
+                        $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).prop("readonly", "true");
                     }
+
+                } else {
+                    $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).val("No hay valores predeterminados creados")
+                    $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).val("No hay valores predeterminados creados")
+                    $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).prop("readonly", true);
+                    $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).prop("readonly", "true");
+                    $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).addClass("requerido");
+                    $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).addClass("requerido");
+                    $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).attr("validado", "false");
+                    $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).attr("validado", "false");
+
                 }
             },
             error: function (error) {
@@ -1218,7 +1265,7 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
 
                 $(`#t${numeroForm} label.adjunto,
                #formularioIndividual label.adjunto.${numeroForm}`).html("Adjunto")
-               $(`#t${numeroForm} div.adjunto div.descripcionAdjunto,
+                $(`#t${numeroForm} div.adjunto div.descripcionAdjunto,
                #t${numeroForm} div.adjunto div.src,
                 #formularioIndividual div.adjunto.${numeroForm} div.descripcionAdjunto,
                 #formularioIndividual div.adjunto.${numeroForm} div.src`).html("Sin Adjunto")

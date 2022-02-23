@@ -280,7 +280,6 @@ let variablesModelo = {
                 },
                 formatoFunc: {
                     primeraLetraMayuscula: [primeraLetraMayuscula, [nombre, apellido]],
-
                 }
             },
             modificar: {
@@ -475,6 +474,7 @@ let variablesModelo = {
                 },
                 formatoFunc: {
                     formatoNumeroDni: [formatoNumeroDni, [documento]],
+                    primeraLetraMayuscula: [primeraLetraMayuscula, [nombre]]
 
                 }
             },
