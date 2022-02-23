@@ -1,3 +1,16 @@
+.cartelError {
+  background-color: rgba(232, 231, 233, 0.301);
+  border: 2px solid #bbb;
+  color: rgb(156, 22, 22);
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 1%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
 .cartelErrorFront,
 .cartelErrorForm {
   background-color: rgb(232, 231, 233);
