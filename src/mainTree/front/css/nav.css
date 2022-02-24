@@ -145,7 +145,7 @@ li.homeMp a {
 .subMenuCob,
 .subMenuDir,
 .subMenuPag,
-.subMenuProceso{
+.subMenuProceso {
   font-size: 0.8em;
   display: none;
 }
@@ -161,7 +161,6 @@ li.homeMp a {
 .oculto {
   display: none;
 }
-
 
 .gesfin {
   display: flex;
@@ -248,7 +247,6 @@ div.user .men li a:hover {
   color: #ffffff;
 }
 
-
 div.user img {
   width: 2em;
   height: 2em;
@@ -302,4 +300,3 @@ ul.men li {
 ul.men-prin {
   list-style: none;
 }
-
