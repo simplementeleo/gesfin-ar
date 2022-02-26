@@ -785,7 +785,7 @@ router.get('/movimientoFinanciero', async (req, res) => {
     {
         $match: {
             "unidadesMv.name": unidFidei,
-            // fecha: { $lt: new Date(fechaHasta) },
+         
         }
     },
     {
@@ -796,9 +796,9 @@ router.get('/movimientoFinanciero', async (req, res) => {
             fecha: 1,
             unidades: "$unidadesMv.name",
             moneda: "$moneda.name",
-            importeTotal: 1,
-            importeTotalArs: 1,
-            importeTotalUsd: 1,
+            importeDesencadenado: 1,
+            importeDesencadenadoArs: 1,
+            importeDesencadenadoUsd: 1,
             tc: 1,
             tipo: "$tipoPagos.name",
             observaciones: 1,
@@ -812,16 +812,16 @@ router.get('/movimientoFinanciero', async (req, res) => {
     }
     ]);
     let movimientoFinanciero = [];
-    let MovFinanciero = function (_id, num, origen, fecha, unidades, moneda, importeTotal, importeTotalArs, importeTotalUsd, tc, tipo, observaciones, date, username, idDesen, desen, position, idColec) {
+    let MovFinanciero = function (_id, num, origen, fecha, unidades, moneda, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, tc, tipo, observaciones, date, username, idDesen, desen, position, idColec) {
         this.id = _id;
         this.num = num;
         this.origen = origen;
         this.fecha = fecha;
         this.unidades = unidades;
         this.moneda = moneda;
-        this.importeTotal = importeTotal;
-        this.importeTotalArs = importeTotalArs;
-        this.importeTotalUsd = importeTotalUsd;
+        this.importeDesencadenado = importeDesencadenado;
+        this.importeDesencadenadoArs = importeDesencadenadoArs;
+        this.importeDesencadenadoUsd = importeDesencadenadoUsd;
         this.tc = tc;
         this.tipoPago = tipo;
         this.observaciones = observaciones;
@@ -841,9 +841,9 @@ router.get('/movimientoFinanciero', async (req, res) => {
             mf[x].fecha,
             mf[x].unidades,
             mf[x].moneda,
-            mf[x].importeTotal,
-            mf[x].importeTotalArs,
-            mf[x].importeTotalUsd,
+            mf[x].importeDesencadenado,
+            mf[x].importeDesencadenadoArs,
+            mf[x].importeDesencadenadoUsd,
             mf[x].tc,
             mf[x].tipo,
             mf[x].observaciones,
@@ -908,8 +908,8 @@ router.get('/movimientoFinancieroSaldo', async (req, res) => {
             $group: {
 
                 _id: `$tipoPagos.name`,
-                totalArs: { $sum: `$importeTotalArs` },
-                totalUsd: { $sum: `$importeTotalUsd` },
+                totalArs: { $sum: `$importeDesencadenadoArs` },
+                totalUsd: { $sum: `$importeDesencadenadoUsd` },
                 tc: { $avg: `$tc` },
             }
         },

@@ -4,7 +4,7 @@ let variablesModelo = {
             names: [num, fecha, cliente, observaciones, observacionesCompleto, criticidad, adjunto, estadoProceso, fechaDos, descripcionCompleto, fechaTres, tareas, adjuntos, date, username, id, destino],
             titulos: ['Numero', `Fecha`, 'Cliente', `Asunto`, `Descripcion`, `Criticidad`, `Ajunto`, `Estado`, `Resol estimada`, `Resolucion`, `Cierre`, `Tarea`, `Estimado`, `Consumido`, `Remanente`, `Descripcion`, `adjuntos`, `Auditoria`, 'Usuario'
             ],
-            soloLectura: [num, date, username],
+            soloLectura: [num, importeDos,date, username],
             oculto: [id, destino, origen, idDesen, filename, originalname, path, adjuntos],
             importe: undefined,
             compuesto: {

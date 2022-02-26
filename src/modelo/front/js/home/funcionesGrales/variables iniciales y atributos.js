@@ -63,6 +63,10 @@ const importeDos = { nombre: `importeDos`, type: `importe`, validacion: { match:
 const importeDosArs = { nombre: `importeDosArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 const importeDosUsd = { nombre: `importeDosUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 //
+const importeTres = { nombre: `importeTres`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeTresArs = { nombre: `importeTresArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeTresUsd = { nombre: `importeTresUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+//
 const importeDesencadenado = { nombre: `importeDesencadenado`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 const importeDesencadenadoArs = { nombre: `importeDesencadenadoArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 const importeDesencadenadoUsd = { nombre: `importeDesencadenadoUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
@@ -101,6 +105,10 @@ const num = { nombre: `num`, type: `numerador`, validacion: { match: cantidadVal
 const tiempoConsumido = { nombre: `tiempoConsumido`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
 const tiempoEstimado = { nombre: `tiempoEstimado`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
 const tiempoRemanente = { nombre: `tiempoRemanente`, type: `numero`, validacion: { match: cantidadValidacion, texto: `Campo obligatorio número entero` } };
+/////// Cantidad de 2 digitos
+const cantidadDosDigitosValidacion = /^\d{1,2}$/
+const cantidadDosDigitos = { nombre: `cantidadDosDigitos`, type: `numero`, validacion: { match: cantidadDosDigitosValidacion, texto: `Campo obligatorio número entero de dos digitos` } };
+const cantidadDosDigDos = { nombre: `cantidadDosDigDos`, type: `numero`, validacion: { match: cantidadDosDigitosValidacion, texto: `Campo obligatorio número entero de dos digitos` } };
 /////// Porcentage
 const porcentage = { nombre: `porcentage`, type: `porcentage` };//Se usa en proyectado ver 
 ////// adjunto
@@ -162,7 +170,6 @@ const criticidad = { nombre: `criticidad`, type: `texto`, key: [`name`], validac
 const estadoProceso = { nombre: `estadoProceso`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
 const tarea = { nombre: `tarea`, type: `texto`, key: [`name`] }
 ///////logico
-const acopio = { nombre: `acopio`, type: `logico` };
 const logico = { nombre: `logico`, type: `logico` };
 const estado = { nombre: `estado`, type: `texto` };
 const habilitado = { nombre: `habilitado`, type: `texto` };
@@ -210,12 +217,12 @@ const compuestoCobranza = {
         importe: importe,
         importeArs: importeArs,
         importeUsd: importeUsd,
-        otrosImpuestos: impuestoUno,
-        otrosImpuestosArs: impuestoUnoArs,
-        otrosImpuestosUsd: impuestoUnoUsd,
-        total: importe,
-        totalArs: importeArs,
-        totalUsd: importeUsd
+        impuestoUno: impuestoUno,
+        impuestoUnoArs: impuestoUnoArs,
+        impuestoUnoUsd: impuestoUnoUsd,
+        importeDos: importeDos,
+        importeDosArs: importeDosArs,
+        importeDosUsd: importeDosUsd
     }
 }
 const componenteFiscal = {
@@ -228,18 +235,18 @@ const componenteFiscal = {
         rubroPagos: rubroPagos,
         subRubroPagos: subRubroPagos,
         descripcion: descripcion,
-        precioUnitario: importe,
-        precioUnitarioArs: importeArs,
-        precioUnitarioUsd: importeUsd,
-        iva: impuestoUno,
-        ivaArs: impuestoUnoArs,
-        ivaUsd: impuestoUnoUsd,
-        otrosImpuestos: impuestoDos,
-        otrosImpuestosArs: impuestoDosArs,
-        otrosImpuestosUsd: impuestoDosUsd,
-        total: importe,
-        totalArs: importeArs,
-        totalUsd: importeUsd
+        import: importe,
+        importeArs: importeArs,
+        importeUsd: importeUsd,
+        impuestoUno: impuestoUno,
+        impuestoUnoArs: impuestoUnoArs,
+        impuestoUnoUsd: impuestoUnoUsd,
+        impuestoDos: impuestoDos,
+        impuestoDosArs: impuestoDosArs,
+        impuestoDosUsd: impuestoDosUsd,
+        importeDos: importeDos,
+        importeDosArs: importeDosArs,
+        importeDosUsd: importeDosUsd
     }
 }
 const formatoNumeroFactura = function (numero) {

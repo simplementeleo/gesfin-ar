@@ -560,13 +560,13 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
                     break;
                 case "date":
                     var date = moment(Date.now()).format("L");
-                    $(`.edit.date`).val(date);
+                    $(`.edit.date`).val(date);al
                     break;
                 case "importeUsd":
                 case "tc":
                 case "importeArs":
                 case `importe`:
-                case `importeTotal`:
+                case `importeDesencadenado`:
                     let v = valor.replace(".", "");
                     let vn = v.replace(",", ".");
                     let valorNumerico = parseFloat(vn).toFixed(2);

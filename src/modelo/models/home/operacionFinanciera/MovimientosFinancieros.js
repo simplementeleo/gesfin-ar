@@ -13,9 +13,9 @@ const MovimientosFinancierosSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "moneda"
     },
-    importeTotal: { type: Number },
-    importeTotalArs: { type: Number },
-    importeTotalUsd: { type: Number },
+    importeDesencadenado: { type: Number },
+    importeDesencadenadoArs: { type: Number },
+    importeDesencadenadoUsd: { type: Number },
     tipoCambio: { type: Number },
     tipoPagos: {
         type: Schema.Types.ObjectId,
