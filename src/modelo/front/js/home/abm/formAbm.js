@@ -756,13 +756,14 @@ let desabilitarRegistroEditando = function (objeto, memoriaValoreEditados) {
 let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoSelec, objeto) {
 
     let registroEnviado = $(`#myForm${objeto.accion}${id}`).serializeArray();
-    let indiceAcopio = objeto.atributos.names.indexOf(acopio);
+   
     let indiceAdjunto = objeto.atributos.names.indexOf(adjunto);
     let adjuntoFile = $(`#t${id} label.adjunto`).html();
     let desencadenateTriger = false;
     let desencadenateModifTriger = false;
 
-    if (objeto.atributos.names.includes(acopio) && !$(`#t${id} input.acopio`).prop(`checked`)) {
+    if (objeto.atributos.names.includes(logico) && !$(`#t${id} input.logico`).prop(`checked`)) {
+        let indiceAcopio = objeto.atributos.names.indexOf(logico);
         registroEnviado.splice(indiceAcopio, 0, {
             name: `acopio`,
             value: false,

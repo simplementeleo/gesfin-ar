@@ -1,17 +1,61 @@
-$('.men-prin').click(function (e) {
-    $('.men').toggleClass("show");
+
+document.querySelector('.men-prin').addEventListener('click',
+function() {
+    document.querySelector('.men').classList.toggle("show");
+}
+)
+
+$(`body`).click(function() {
+
+$('.men').removeClass("show");
+
 })
 
-$('.menuMarket').click(function (e) {
+$('.men-prin').click(function(event) {
+event.stopPropagation();
+});
 
-    $('.nav-completa').toggleClass("show");
-    $('#tablas').toggleClass("vistaActive");
+$('.men').click(function(event) {
+event.stopPropagation();
+});
+
+
+
+//Desplegable Menu
+document.querySelector('.icon-menu').addEventListener('click',
+function() {
+    document.querySelector('.nav-completa').classList.toggle("show2");
+    //
+    document.querySelector('#tablas').classList.toggle("vistaActive");
+    //
+    document.querySelector('#principalesIndicadores').classList.toggle("vistaActive");
+
+    document.querySelector('.logoFondo').classList.add("noShow");
+ })
+
+$(`.menuSelectAbm,
+.menuFormulario, .menuDobleEntrada`).on(`click`,
+function() {
+    document.querySelector('.principalesIndicadores').classList.add("noShow");
+    //document.querySelector('#tablas').classList.add("tablaActive");
+
 })
 
-$('.desplegable').click(function () {
-    let img = $(this).attr(`img`)
-    let menu = $(this).attr(`menu`)
+$(".menuFormulario").on(`click`,
+function() {
+    document.querySelector('.principalesIndicadores').classList.add("noShow");
+    //document.querySelector('#tablas').classList.add("tablaActive");
 
-    $(`.nav-vert li img.${img}`).toggleClass(`show`)
-    $(`ul.${menu}`).toggleClass(`show`)
-})
+});
+
+$(".panel").on(`click`,
+    function() {
+        document.querySelector('.principalesIndicadores').classList.remove("noShow");
+    })
+/////////////DESPLEGABLE HOME OPCIONES
+$("#fideic h3").on(`click`,
+function() {
+
+    $(`#fideicomisosOpciones`).toggleClass(`show`)
+
+});

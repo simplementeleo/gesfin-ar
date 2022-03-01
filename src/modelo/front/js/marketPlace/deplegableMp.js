@@ -59,10 +59,10 @@ $('.fina').on('click',
 
 
 //Desplegable Sub Geografico
-$('.dir').on('click',
-    function () {
+$('.desplegableAbm').on('click', function () {
+        alert(1)
 
-        document.querySelector('.subMenuDir').classList.toggle("show");
+        $(this).siblings(`ul.subMenu`).toggleClass("show");
         document.querySelector('.nav-vert li img.taMp').classList.toggle("show");
     }
 )

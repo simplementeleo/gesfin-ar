@@ -30,7 +30,7 @@ let variablesModelo = {
                     cuatroCinco: [num],
                     cinco: [tiempoEstimado, tiempoConsumido, tiempoRemanente],
                     siete: [date, username],
-                    diez: [unidades, fecha],
+                    diez: [ fecha],
                     quince: [cliente],
                 }
             },
@@ -151,7 +151,7 @@ let variablesModelo = {
                     cuatroCinco: [num],
                     cinco: [tiempoEstimado, tiempoConsumido, tiempoRemanente],
                     siete: [date, username],
-                    diez: [unidades, fecha],
+                    diez: [fecha],
                     quince: [cliente],
                 }
             },
@@ -267,7 +267,6 @@ let variablesModelo = {
                 string: {
                     habilitado: true
                 },
-
                 select: []
             },
             configAbm: {
@@ -344,10 +343,10 @@ let variablesModelo = {
     },
     grupoSeguridad: {
         atributos: {
-            names: [id, nombre, observaciones, usuario, date],
+            names: [id, nombre, observaciones, username, date, habilitado],
             titulos: [`id`, 'Nombre', `Observaciones`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
-            oculto: [id],
+            oculto: [id, habilitado],
             importe: {
                 totalizador: [],
                 importeBase: [],
@@ -366,7 +365,9 @@ let variablesModelo = {
             },
             valoresIniciales: {
                 funcion: [],
-                string: [],
+                string: {
+                    habilitado: true
+                },
                 select: []
             },
             configAbm: {
@@ -426,7 +427,14 @@ let variablesModelo = {
             coleccion: [],
             totales: [],
         },
-        tablaDobleEntrada: false,
+        tablaDobleEntrada: {
+            abm: true,
+            type: `check`,
+            fila: [], //fila
+            tituloFila: [],
+            columna: [`visualizar`,`editar`, `eliminar`, `limite`],
+            titulosColumna: [`Visualizar`,`Editar`, `Eliminar`, `Limite`],
+        },
         desencadena: false,
         desencadenaColeccion: {
             principal: [],

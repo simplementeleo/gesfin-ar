@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/css/carteles.css">
     <link rel="stylesheet" href="/css/nav.css">
     <link rel="stylesheet" href="/css/input.css">
+    <link rel="stylesheet" href="/css/navIzquierda.css">
     <!--mainTree CSS-->
     <link rel="stylesheet" href="/css/home.css">
     <title>Gesfin</title>
@@ -105,25 +106,20 @@
                         </li>
         
                         <li class="seg">
-                            <p id="seguridad">Seguridad</p>
-                            <ul class="subMenuSeg oculto">
+                            <p class="desplegableAbm" img="cobra">Seguridad</p>
+                            <ul class="subMenu">
                                 <li>
-                                    <p>Segurdiad de usuario</p>
+                                    <p class="menuSelectAbm seguridadDoble" id="grupoSeguridad">Alta de grupos</p>
                                 </li>
                                 <li>
-                                    <p>Seguridad de dominio</p>
+                                    <p class="menuDobleEntradaSeguridad" id="configSeg">Configuracion</p>
                                 </li>
-                                <li>
-                                    <p>Grupos de seguridad</p>
-                                </li>
-                                <li>
-                                    <p>Segurdiad por reporte</p>
-                                </li>
+                                
                             </ul>
                         </li>
                         <li>
-                            <p class="cobr desplegable" menu="subMenuCob" img="proces">Clientes</p>
-                            <ul class="subMenuCob ">
+                            <p class="desplegableAbm" img="proces">Clientes</p>
+                            <ul class="subMenu">
                                 <li>
                                     <p class="menuSelectAbm" id="cliente">Cliente</p>
                                 </li>
@@ -131,8 +127,8 @@
                             </ul>
                         </li>
                          <li>
-                            <p class="proceso desplegable" menu="subMenuProceso" img="conf">Procesos</p>
-                            <ul class="subMenuProceso">
+                            <p class="desplegableAbm" img="conf">Procesos</p>
+                            <ul class="subMenu">
                                 <li>
                                     <p class="menuSelectAbm" id="estadoProceso">Estado</p>
                                 </li>
@@ -145,8 +141,8 @@
                             </ul>
                         </li>
                         <li>
-                            <p class="dir desplegable" menu="subMenuDir" img="panelControl">Direcciones<span class="icon-down-dir"></span></p>
-                            <ul class="subMenuDir">
+                            <p class="desplegableAbm" img="panelControl">Direcciones<span class="icon-down-dir"></span></p>
+                            <ul class="subMenu">
                                 <li>
                                     <p class="menuSelectAbm" id="ciudad">Ciudad</p>
                                 </li>
@@ -163,19 +159,13 @@
                 </nav>
         
             </div>
-        
-        
-        
             <div id="tablas" class="comp">
                 <div class="tabs_links" id="tabs_links"></div>
                 <div class="comandos" id="comandera"></div>
                 <div class="tabs_contents" id="tabs_contents"></div>
         
             </div>
-        
-        
         </div>
-        
         <div>
             <input id="oculto" value=<%=user.username %> >
         
@@ -191,9 +181,7 @@
         
                     <div id="comanderaIndiv">
         
-        
                     </div>
-        
         
                 </div>
                 <div class="logoForm">

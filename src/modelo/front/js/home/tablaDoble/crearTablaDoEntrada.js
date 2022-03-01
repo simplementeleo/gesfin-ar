@@ -3,13 +3,12 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
     let consulta = ""
 
     let accion = objeto.accion;
-    let nomeDobleEn = objeto.tablaDobleEntrada.nameDobleEn;
-    let tituloColumna = objeto.tablaDobleEntrada.tituloColumna;
+    let columna = objeto.tablaDobleEntrada.columna;
+    let tituloFila = objeto.tablaDobleEntrada.tituloFila;
 
     let filaContador = 0;
     let id = $(`#t${numeroForm} tr.sel td._id`).html();
     let usuario = $("#oculto").val();
-    let nameSinTot = nomeDobleEn.slice(0, nomeDobleEn.length - 1);
 
     let pantalla = $(window).height();
     let container = $(`.container`).css("height");
@@ -30,7 +29,8 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
     imagenes.appendTo('#comanderaIndiv');
 
     let nomT = $(`#t${numeroForm} tr.sel td.name`).html();
-    let dirT = $(`#t${numeroForm} tr.sel td.direccion`).html();
+    let dirT = ""
+    //let dirT = $(`#t${numeroForm} tr.sel td.direccion`).html();
 
     let encabazado = `<div class="titulos ${numeroForm}"><h2>${nomT}</h2>
                        <h3>${dirT}</h3></div>`;
@@ -40,7 +40,16 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
 
     e.appendTo(`#cabeceraForm`);
 
-    crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
+    switch (objeto.tablaDobleEntrada.type) {
+        case`regular`:
+        crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
+        break;
+        case `check`:
+            crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador)
+        break;
+
+    }
+    
     $(`#cabeceraForm #de${numeroForm} input.dobleEntrada.totales`).remove();
 
     $(`#formularioIndividual`).css("display", "flex");
@@ -55,11 +64,10 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
         function(data) {
 
             consulta = data;
-            valoresDobleEntrada(consulta, nomeDobleEn, id)
+            valoresDobleEntrada(consulta, columna, id)
             totalesFilas(numeroForm, objeto);
 
         })
-
 
     $(`#formularioIndividual .closeForm.${numeroForm}`).click(function() {
 
@@ -88,14 +96,12 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
 
 
     });
-
     $(`#formularioIndividual .okfBoton`).click(function(e) {
 
         e.preventDefault();
 
         enviarFormularioDoble(consulta, objeto, numeroForm, id, fidecomisoSelec, height, usuario, filaContador);
     });
-
     $(`#formularioIndividual .editBoton`).click(function() {
 
         editando = true;
@@ -106,7 +112,6 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
 
         eliminarRegistroFormularioDoble(objeto, numeroForm, height, usuario, id, tituloColumna, filaContador)
     });
-
     $(`#formularioIndividual .cruzBoton`).click(function() {
 
         if (editando == true) {
@@ -115,7 +120,7 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
             $(`#de${numeroForm}`).remove();
 
             $.when(crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)).done(
-                valoresDobleEntrada(consulta, nomeDobleEn, id),
+                valoresDobleEntrada(consulta, columna, id),
                 totalesFilas(numeroForm, objeto)
             )
             let fecha = moment(Date.now()).format('L');
@@ -134,6 +139,4 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
             $(`.select.form`).attr(`disabled`, false);
         }
     });
-
-
 }

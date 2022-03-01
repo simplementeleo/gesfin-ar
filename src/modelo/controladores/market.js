@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const session = require("express-session");
 const bcrypt = require("bcrypt");
-
+//Grupo de seguridad
+const GrupoSeguridad = require("../models/marketPlace/seguridad/Grupo");
 //Terceros
 const Cliente = require("../models/marketPlace/terceros/Cliente");
 const Proveedor = require("../models/marketPlace/terceros/Proveedor");
@@ -165,6 +166,125 @@ router.delete('/users', async (req, res) => {
     let criticidadAct = await User.findByIdAndUpdate(id, newUsuarioHab);
 
     res.json(`El registro ha sido deshabilitado con exito`);
+})
+//Alta grupo SEguridad
+router.get('/grupoSeguridad', async (req, res) => {
+
+    const grupo = await GrupoSeguridad.aggregate([
+
+        {
+            $lookup: {
+                from: "users",
+                localField: "usuario",
+                foreignField: "_id",
+                as: "User"
+            }
+        },
+        {
+            $project: {
+                _id: 1,
+                name: 1,
+                observaciones: 1,
+                date: 1,
+                username: "$User.username",
+                habilitado: 1
+            }
+        }
+    ]);
+    var group = [];
+    var GrupoSeg = function (id, name, observaciones, date, username, habilitado) {
+        this.id = id;
+        this.name = name;
+        this.observaciones = observaciones;
+        this.date = date;
+        this.username = username;
+        this.habilitado = habilitado;
+    }
+
+    for (var x = 0; x < grupo.length; x++) {
+
+        var gs = new GrupoSeg(
+            grupo[x]._id,
+            grupo[x].name,
+            grupo[x].observaciones,
+            grupo[x].date,
+            grupo[x].username,
+            grupo[x].habilitado)
+
+            group.push(gs);
+    }
+
+    res.json(group);
+    group
+});
+router.post('/grupoSeguridad', async (req, res) => {
+    try {
+        let { name, observaciones, username, date, habilitado } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+        const newGroup = new GrupoSeguridad({
+            name,
+            observaciones,
+            date,
+            username: usersFound.map((user) => user._id),
+            habilitado
+
+        });
+       
+        let groupNew = await newGroup.save();
+
+        res.json({
+            mensaje: `El grupo ${name}  fue creado con extito`,
+            posteo: groupNew
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.json(error);
+
+    }
+});
+router.put('/grupoSeguridad', async (req, res) => {
+    try {
+        let { id,name, observaciones, username, date, habilitado } = req.body;
+
+        let keys = Object.keys(req.body);
+
+        let newGroupFlex = new Object;
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newGroupFlex[keys[x]] = req.body[keys[x]]
+        }
+
+        const usersFound = await User.find({ username: { $in: username } });
+        newGroupFlex.username = usersFound.map((user) => user._id)
+      
+        delete newGroupFlex.id
+
+        let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, newGroupFlex);
+
+        res.json({
+            mensaje: `El usuario ${usuario}  fue actualizado con extito`,
+            posteo: groupAct
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.json(error);
+
+    }
+})
+router.delete('/grupoSeguridad', async (req, res) => {
+    let { id, habilitado } = req.body;
+
+    const newGroupHab = ({
+        habilitado
+    });
+
+    let groipAct = await GrupoSeguridad.findByIdAndUpdate(id, newGroupHab);
+
+    res.json(`El grupo ha sido deshabilitado con exito`);
 })
 //Cliente
 router.get('/cliente', async (req, res) => {
