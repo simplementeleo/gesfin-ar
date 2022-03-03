@@ -8,6 +8,7 @@ const GrupoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "usuario"
     },
+    entidades: {type: Object},
     habilitado: { type: Boolean },
 });
 

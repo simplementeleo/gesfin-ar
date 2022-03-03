@@ -7,7 +7,7 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
     let tituloFila = objeto.tablaDobleEntrada.tituloFila;
 
     let filaContador = 0;
-    let id = $(`#t${numeroForm} tr.sel td._id`).html();
+    let id = $(`#t${numeroForm} tr.sel td._id`).html() || $(`#t${numeroForm} tr.sel td.id`).html()
     let usuario = $("#oculto").val();
 
     let pantalla = $(window).height();
@@ -36,19 +36,28 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
                        <h3>${dirT}</h3></div>`;
 
     let e = $(encabazado);
-
-
+    
     e.appendTo(`#cabeceraForm`);
+
+    $.getJSON(servidor + `/${objeto.accion}?unid=${fidecomisoSelec}`,
+        function(data) {
+
+            consulta = data;
 
     switch (objeto.tablaDobleEntrada.type) {
         case`regular`:
         crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
+        valoresDobleEntrada(consulta, columna, id)
+        totalesFilas(numeroForm, objeto);
+        
         break;
-        case `check`:
-            crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador)
+        case `check`:   
+        console.log(id)
+            crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador, consulta)
         break;
 
-    }
+         }
+      })
     
     $(`#cabeceraForm #de${numeroForm} input.dobleEntrada.totales`).remove();
 
@@ -60,14 +69,7 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
 
     //  totalesDobleEntrada(nomeDobleEn, numeroForm, columna);
     //let entro = 0
-    $.getJSON(servidor + `/${objeto.accion}?unid=${fidecomisoSelec}`,
-        function(data) {
-
-            consulta = data;
-            valoresDobleEntrada(consulta, columna, id)
-            totalesFilas(numeroForm, objeto);
-
-        })
+  
 
     $(`#formularioIndividual .closeForm.${numeroForm}`).click(function() {
 
@@ -75,20 +77,12 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
 
 
         $(`.tablaDoble.active.${numeroForm}`).remove()
-
-
-
         $(`.audit.${numeroForm}`).remove();
         $(`.titulos.${numeroForm}`).remove();
-
         $(`#formulario${accion}${numeroForm}`).remove();
-
         $(`#com${accion}${numeroForm}`).remove();
-
         $(`#formularioIndividual`).css("display", "none");
-
         $(`.closeForm.${numeroForm}`).remove()
-
         $(`#t${numeroForm}`).remove()
 
         reCrearTabla(numeroForm, objeto, fidecomisoSelec)

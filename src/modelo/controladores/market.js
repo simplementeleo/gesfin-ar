@@ -187,17 +187,20 @@ router.get('/grupoSeguridad', async (req, res) => {
                 observaciones: 1,
                 date: 1,
                 username: "$User.username",
+                entidades:1,
                 habilitado: 1
             }
         }
     ]);
+
     var group = [];
-    var GrupoSeg = function (id, name, observaciones, date, username, habilitado) {
+    var GrupoSeg = function (id, name, observaciones, date, username, entidades, habilitado) {
         this.id = id;
         this.name = name;
         this.observaciones = observaciones;
         this.date = date;
         this.username = username;
+        this.entidades = entidades;
         this.habilitado = habilitado;
     }
 
@@ -208,7 +211,8 @@ router.get('/grupoSeguridad', async (req, res) => {
             grupo[x].name,
             grupo[x].observaciones,
             grupo[x].date,
-            grupo[x].username,
+            grupo[x].username,  
+            grupo[x].entidades,
             grupo[x].habilitado)
 
             group.push(gs);
@@ -247,7 +251,7 @@ router.post('/grupoSeguridad', async (req, res) => {
 router.put('/grupoSeguridad', async (req, res) => {
     try {
         let { id,name, observaciones, username, date, habilitado } = req.body;
-
+        
         let keys = Object.keys(req.body);
 
         let newGroupFlex = new Object;
@@ -265,7 +269,48 @@ router.put('/grupoSeguridad', async (req, res) => {
         let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, newGroupFlex);
 
         res.json({
-            mensaje: `El usuario ${usuario}  fue actualizado con extito`,
+            mensaje: `El grupo de seguridad ${name} fue actualizado con extito`,
+            posteo: groupAct
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.json(error);
+    }
+})
+router.put('/grupoSeguridadDoble', async (req, res) => {
+    try {
+        let { id,name, observaciones, username, date, habilitado } = req.body
+  
+        let keys = Object.keys(req.body);
+
+        let newGroupFlex = new Object;
+        let atributosNoDeclarados = new Object
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            let textoAreaDividido = keys[x].split(" ");
+            
+            if(textoAreaDividido.length > 1){
+                
+                atributosNoDeclarados
+             
+                atributosNoDeclarados[textoAreaDividido] = req.body[keys[x]]
+
+            }else{
+                newGroupFlex[keys[x]] = req.body[keys[x]]
+            }
+        }
+      
+        const usersFound = await User.find({ username: { $in: username } });
+        newGroupFlex.username = usersFound.map((user) => user._id)
+      
+        delete newGroupFlex.id
+        newGroupFlex[`entidades`] = atributosNoDeclarados
+        let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, newGroupFlex);
+        
+        res.json({
+            mensaje: `El grupo de seguridad ${name} fue actualizado con extito`,
             posteo: groupAct
         });
 
@@ -275,6 +320,7 @@ router.put('/grupoSeguridad', async (req, res) => {
 
     }
 })
+
 router.delete('/grupoSeguridad', async (req, res) => {
     let { id, habilitado } = req.body;
 

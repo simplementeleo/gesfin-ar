@@ -6,7 +6,6 @@ $('.menuDobleEntrada').on('click ',
         let numerador = "";
         let fidecomisoSelec = $(`#fideic input`).val()
 
-
         if (fidecomisoSelec == undefined) {
             fidecomisoSelec = ""
         }
@@ -65,10 +64,6 @@ $('.menuDobleEntrada').on('click ',
                     valoresTablaPestana(objeto, contador, columnasArray)
 
                 ocultarTds(objeto, contador)
-                    /*$.each(objeto.funcionesPropias.inicio, function(indice, value) {
-
-                        value(objeto, contador)
-                    })*/
                 contador++
                 numerador++
 

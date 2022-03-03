@@ -1,9 +1,13 @@
 
-document.querySelector('.men-prin').addEventListener('click',
-function() {
-    document.querySelector('.men').classList.toggle("show");
-}
-)
+$('.men-prin').click(function (e) {
+    $('.men').toggleClass("show");
+})
+
+$('.menuMarket').click(function (e) {
+
+    $('.nav-completa').toggleClass("show");
+    $('#tablas').toggleClass("vistaActive");
+})
 
 $(`body`).click(function() {
 
@@ -19,24 +23,21 @@ $('.men').click(function(event) {
 event.stopPropagation();
 });
 
-
-
 //Desplegable Menu
-document.querySelector('.icon-menu').addEventListener('click',
-function() {
-    document.querySelector('.nav-completa').classList.toggle("show2");
+$('.icon-menu, .menuMarket').on('click',function() {
+    $('.nav-completa').toggleClass("show2");
     //
-    document.querySelector('#tablas').classList.toggle("vistaActive");
+    $('#tablas').toggleClass("vistaActive");
     //
-    document.querySelector('#principalesIndicadores').classList.toggle("vistaActive");
+    $('#principalesIndicadores').toggleClass("vistaActive");
 
-    document.querySelector('.logoFondo').classList.add("noShow");
+    $('.logoFondo').addClass("noShow");
  })
 
 $(`.menuSelectAbm,
 .menuFormulario, .menuDobleEntrada`).on(`click`,
 function() {
-    document.querySelector('.principalesIndicadores').classList.add("noShow");
+    $('.principalesIndicadores').addClass("noShow");
     //document.querySelector('#tablas').classList.add("tablaActive");
 
 })
@@ -59,3 +60,20 @@ function() {
     $(`#fideicomisosOpciones`).toggleClass(`show`)
 
 });
+
+$('.desplegableAbm').on('click', function () {
+    
+    let imgBajar = $(this).attr(`img`)
+
+    $(this).siblings(`ul.subMenu`).toggleClass("show");
+
+    if($($(this).siblings(`ul.subMenu`)).hasClass(`show`)){
+     let longItem = $(`li`,$(this).siblings(`ul.subMenu`)).length
+
+     let margin = parseFloat(1.5 * parseFloat(longItem))+ parseFloat(1.5) 
+    
+     $(`.nav-vert li img.${imgBajar}`).css(`margin-top`, `${margin}em`);
+    }else{
+        $(`.nav-vert li img.${imgBajar}`).css(`margin-top`, `1em`);
+    }
+})
