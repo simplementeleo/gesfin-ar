@@ -242,8 +242,8 @@ let variablesModelo = {
     },
     users: {
         atributos: {
-            names: [id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
-            titulos: [`id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Username`, `Contraseña`, 'Auditoria', 'Usuario'],
+            names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],
+            titulos: [`id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Grupo de Seguridad`, `Observaciones`,`Username`, `Contraseña`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
             oculto: [id, habilitado],
             importe: {
@@ -252,7 +252,9 @@ let variablesModelo = {
                 importePesos: [],
                 importeUsd: [],
             },
-            compuesto: [],
+            compuesto: {
+                gruposDeSeguridad: gruposDeSeguridad
+            },
             signo: [],
             color: [],
             number: [],
@@ -282,7 +284,7 @@ let variablesModelo = {
                 }
             },
             modificar: {
-                names: [id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
+                names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],
                 pestanas: [],
                 soloLectura: [date, username],
             },
@@ -290,18 +292,18 @@ let variablesModelo = {
             deshabilitar: true
         },
         formInd: {
-            compuesto: false,
+            compuesto: true,
             titulos: [`id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Usuario`, `Contraseña`, 'Auditoria', 'Usuario'],
-            titulosCompuesto: [],
+            titulosCompuesto: [`Grupo de Seguridad`, `Observaciones`],
             oculto: [_id, habilitado],
             ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-            inputRenglones: [4, 4, 4, 4, 6],
+            inputRenglones: [4, 3,`compuesto`,3],
             soloLectura: {
                 compuesto: []
             },
             modificar: {
-                names: [id, nombre, apellido, email, logico, usuario, password, username, date, habilitado],
-                pestanas: [],
+                names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],
+                pestanas: [grupoSeguridad],
                 soloLectura: [date, username],
             },
             impresion: {
@@ -317,13 +319,13 @@ let variablesModelo = {
         },
         acumulador: [],
         numerador: [],
-        validaciones: [nombre, apellido, email, usuario, password],
+        validaciones: [nombre, apellido, grupoSeguridad, email, usuario, password],
         pest: `Usuarios`,
         accion: `users`,
         pestanas: {
             cabecera: [],
-            coleccion: [],
-            totales: [],
+            coleccion: [grupoSeguridad],
+            totales: [grupoSeguridad],
         },
         tablaDobleEntrada: false,
         desencadena: false,

@@ -971,7 +971,7 @@ const ocultarTds = function (objeto, numeroForm) {
     })
 
 }
-$('.seguridadDoble').on('click ',  function(objeto,numeroForm) {
+$(`.cargaEntidadesSeg`).on('click ',  function(objeto,numeroForm) {
 
     $.each( variablesModelo, (indice,value)=>{
         variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(indice)

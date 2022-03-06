@@ -21,7 +21,8 @@ router.get('/marketp/signup', (req, res) => {
 router.post("/users/register", async (req, res) => {
     let errors = [];
 
-    let { name, surname, username, email, password, password2 } = req.body;
+    let { name, surname, username, email, grupoSegurdiad, password, password2 } = req.body;
+
 
     if (!name || !email || !username || !surname || !password || !password2) {
         errors.push({ message: "Complete todos los campos" });
@@ -36,7 +37,7 @@ router.post("/users/register", async (req, res) => {
     }
 
     if (errors.length > 0) {
-        res.render("register", { errors, name, surname, username, email, password, password2 });
+        res.render("register", { errors, name, surname, username, grupoSegurdiad, email, password, password2 });
     } else {
         const emailUser = await User.findOne({ email: email });
         const usernameUser = await User.findOne({ username: username });
@@ -49,7 +50,7 @@ router.post("/users/register", async (req, res) => {
             res.redirect("/users/signup");
         } else {
 
-            const newUser = new User({ name, surname, username, email, password });
+            const newUser = new User({ name, surname, username, grupoSegurdiad, email, password });
             newUser.password = await newUser.encryptPassword(password);
             await newUser.save();
             req.flash('success_msg', 'Estas Registrado');

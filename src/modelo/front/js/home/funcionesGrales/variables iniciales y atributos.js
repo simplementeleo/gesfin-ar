@@ -166,7 +166,8 @@ const moneda = { nombre: `moneda`, type: `texto`, observaciones: `Referencia a l
 const agrupadorRubrosPago = { nombre: `agrupadorRubrosPago`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
 const criticidad = { nombre: `criticidad`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
 const estadoProceso = { nombre: `estadoProceso`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
-const tarea = { nombre: `tarea`, type: `texto`, key: [`name`] }
+const tarea = { nombre: `tarea`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
+const grupoSeguridad = { nombre: `grupoSeguridad`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
 ///////logico
 const logico = { nombre: `logico`, type: `logico` };
 const estado = { nombre: `estado`, type: `texto` };
@@ -247,6 +248,18 @@ const componenteFiscal = {
         importeDosUsd: importeDosUsd
     }
 }
+
+const gruposDeSeguridad = {
+    titulos: `Grupo de seguridad`,
+    nombre: `gruposDeSeguridad`,
+    type: `coleccionTotal`,
+    key: `grupoSeguridad`,
+    componentes: {
+        grupoSeguridad: grupoSeguridad,
+        descripcion: descripcion,
+    }
+}
+
 const formatoNumeroFactura = function (numero) {
     let primerosCuatro = (numero.slice(0, 4))
     let ultimosOcho = (numero.slice(4))

@@ -8,6 +8,11 @@ const UserSchema = new Schema({
     email: { type: String, unique: true },
     password: { type: String },
     logico: { type: String },
+    grupoSeguridad: {
+        type: [Schema.Types.ObjectId],
+        ref: "grupoSeguridad"
+    },
+    descripcion:{ type: [String] },
     username: { type: String, unique: true },
     date: { type: Date, default: Date.now() },
     usuario: {

@@ -52,7 +52,6 @@ const crearTablaDobleEntradaForm = function(numeroForm, objeto, fidecomisoSelec)
         
         break;
         case `check`:   
-        console.log(id)
             crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador, consulta)
         break;
 

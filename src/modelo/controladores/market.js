@@ -38,6 +38,14 @@ router.get('/users', async (req, res) => {
             }
         },
         {
+            $lookup: {
+                from: "grupos",
+                localField: "grupoSeguridad",
+                foreignField: "_id",
+                as: "GrupoSeg"
+            }
+        },
+        {
             $project: {
                 _id: 1,
                 name: 1,
@@ -45,6 +53,8 @@ router.get('/users', async (req, res) => {
                 email: 1,
                 password: 1,
                 logico: 1,
+                grupoSeguridad: "$GrupoSeg.name",
+                descripcion: 1,
                 username: 1,
                 date: 1,
                 usuario: "$User.username",
@@ -53,13 +63,17 @@ router.get('/users', async (req, res) => {
         }
     ]);
     var user = [];
-    var Usuario = function (id, name, surname, email, password, logico, username, date, usuario, habilitado) {
+    var Usuario = function (id, name, surname, email, password, logico, grupoSeguridad, descripcion, username, date, usuario, habilitado) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.logico = logico;
+        this.gruposDeSeguridad = {
+            grupoSeguridad: grupoSeguridad,
+            descripcion: descripcion
+        };
         this.usuario = username;
         this.date = date;
         this.username = usuario;
@@ -75,6 +89,8 @@ router.get('/users', async (req, res) => {
             usuario[x].email,
             usuario[x].password,
             usuario[x].logico,
+            usuario[x].grupoSeguridad,
+            usuario[x].descripcion,
             usuario[x].username,
             usuario[x].date,
             usuario[x].usuario,
@@ -88,8 +104,9 @@ router.get('/users', async (req, res) => {
 });
 router.post('/users', async (req, res) => {
     try {
-        let { name, surname, email, password, logico, usuario, date, habilitado, username } = req.body;
-
+        let { name, surname, email, password, logico, grupoSeguridad, descripcion, usuario, date, habilitado, username } = req.body;
+        
+        const grupoFound = await GrupoSeguridad.find({ name: { $in: grupoSeguridad } });
         const usersFound = await User.find({ username: { $in: username } });
         const newUser = new User({
             name,
@@ -97,6 +114,8 @@ router.post('/users', async (req, res) => {
             email,
             password,
             logico,
+            grupoSeguridad: grupoFound.map((grupo) => grupo._id), 
+            descripcion,
             username: usuario,
             date,
             usuario: usersFound.map((user) => user._id),
@@ -119,7 +138,7 @@ router.post('/users', async (req, res) => {
 });
 router.put('/users', async (req, res) => {
     try {
-        let { id, password, usuario, username } = req.body;
+        let { id, password, usuario, username, grupoSeguridad} = req.body;
 
         let keys = Object.keys(req.body);
 
@@ -132,8 +151,11 @@ router.put('/users', async (req, res) => {
 
         const usersFound = await User.find({ username: { $in: username } });
         newUsersFlex.usuario = usersFound.map((user) => user._id)
+        const grupoFound = await GrupoSeguridad.find({ name: { $in: grupoSeguridad } });
+        newUsersFlex.grupoSeguridad = grupoFound.map((grupo) => grupo._id), 
         newUsersFlex.username = usuario;
         delete newUsersFlex.id
+        console.log(newUsersFlex)
 
         if (password == "******") {
             delete newUsersFlex.password
@@ -280,17 +302,17 @@ router.put('/grupoSeguridad', async (req, res) => {
 })
 router.put('/grupoSeguridadDoble', async (req, res) => {
     try {
-        let { id,name, observaciones, username, date, habilitado } = req.body
+        let { id,name, username } = req.body
   
         let keys = Object.keys(req.body);
 
         let newGroupFlex = new Object;
         let atributosNoDeclarados = new Object
 
-        for (let x = 0; x < Object.keys(req.body).length; x++) {
+    
 
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
             let textoAreaDividido = keys[x].split(" ");
-            
             if(textoAreaDividido.length > 1){
                 
                 atributosNoDeclarados

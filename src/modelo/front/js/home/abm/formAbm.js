@@ -1620,6 +1620,7 @@ const tipoAtributo = function (consulta, objeto) {
             case "coleccionTotal":
                 $.each(value.componentes, function (ind, val) {
                     let valorColec = [];
+                    console.log(consulta)
 
                     if (consulta[value.nombre][ind] != undefined) {
                         valorColec = consulta[value.nombre][ind][0];
