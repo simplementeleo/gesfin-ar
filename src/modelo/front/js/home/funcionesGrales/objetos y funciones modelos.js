@@ -4,7 +4,7 @@ let variablesModelo = {
             names: [num, fecha, cliente, observaciones, observacionesCompleto, criticidad, adjunto, estadoProceso, fechaDos, descripcionCompleto, fechaTres, tareas, adjuntos, date, username, id, destino],
             titulos: ['Numero', `Fecha`, 'Cliente', `Asunto`, `Descripcion`, `Criticidad`, `Ajunto`, `Estado`, `Resol estimada`, `Resolucion`, `Cierre`, `Tarea`, `Estimado`, `Consumido`, `Remanente`, `Descripcion`, `adjuntos`, `Auditoria`, 'Usuario'
             ],
-            soloLectura: [num, importeDos,date, username],
+            soloLectura: [num, importeDos, date, username],
             oculto: [id, destino, origen, idDesen, filename, originalname, path, adjuntos],
             importe: undefined,
             compuesto: {
@@ -30,7 +30,7 @@ let variablesModelo = {
                     cuatroCinco: [num],
                     cinco: [tiempoEstimado, tiempoConsumido, tiempoRemanente],
                     siete: [date, username],
-                    diez: [ fecha],
+                    diez: [fecha],
                     quince: [cliente],
                 }
             },
@@ -243,7 +243,7 @@ let variablesModelo = {
     users: {
         atributos: {
             names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],
-            titulos: [`id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Grupo de Seguridad`, `Observaciones`,`Username`, `Contraseña`, 'Auditoria', 'Usuario'],
+            titulos: [`id`, 'Nombre', `Apellido`, `Email`, `Empleado`, `Grupo de Seguridad`, `Observaciones`, `Username`, `Contraseña`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
             oculto: [id, habilitado],
             importe: {
@@ -297,7 +297,7 @@ let variablesModelo = {
             titulosCompuesto: [`Grupo de Seguridad`, `Observaciones`],
             oculto: [_id, habilitado],
             ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-            inputRenglones: [4, 3,`compuesto`,3],
+            inputRenglones: [4, 3, `compuesto`, 3],
             soloLectura: {
                 compuesto: []
             },
@@ -434,8 +434,8 @@ let variablesModelo = {
             type: `check`,
             fila: [], //fila
             tituloFila: [],
-            columna: [`visualizar`,`editar`, `eliminar`, `limite`],
-            titulosColumna: [`Visualizar`,`Editar`, `Eliminar`, `Limite`],
+            columna: [`visualizar`, `editar`, `eliminar`, `limite`],
+            titulosColumna: [`Visualizar`, `Editar`, `Eliminar`, `Limite`],
         },
         desencadena: false,
         desencadenaColeccion: {

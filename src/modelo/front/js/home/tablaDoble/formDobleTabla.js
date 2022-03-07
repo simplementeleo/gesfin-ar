@@ -14,7 +14,7 @@ const enviarFormularioDoble = function (consulta, objeto, numeroForm, id, fideco
         },
         complete: function () { },
         success: function (response) {
-         
+
             $(`.cartelErrorForm p`).html(response);
             $(`.cartelErrorForm`).css("display", "block");
 
@@ -33,13 +33,13 @@ const enviarFormularioDoble = function (consulta, objeto, numeroForm, id, fideco
         success: function (data) {
 
             switch (objeto.tablaDobleEntrada.type) {
-                case`regular`:
-                crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
-                break;
-                case `check`:   
+                case `regular`:
+                    crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
+                    break;
+                case `check`:
                     crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador)
-                break;
-        
+                    break;
+
             }
 
             valoresDobleEntrada(data, columna, id);
@@ -106,7 +106,7 @@ const claseDobleEntrada = function (numeroForm, objeto) {
 
     })
 
-    if (objeto.tablaDobleEntrada.abm == true ) {
+    if (objeto.tablaDobleEntrada.abm == true) {
 
         $(`#bf${numeroForm} .dobleBoton`).addClass("show");
     }
@@ -581,21 +581,21 @@ const crearTablaDoblePestanaFecha = function (objeto, numeroForm, height, column
 
 }
 const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd, filaContador, consulta) {
-  
+
     let consult = function esCereza(consu) {
         return consu._id == idd || consu.id == idd
     }
 
-    let entidades = new Object 
+    let entidades = new Object
 
     let registro = consulta.find(consult);
-    $.each(registro.entidades, (indice,value)=>{
-            
-       let texti = indice.split(",");
-       
-       entidades[texti[0] + texti[1]] = value
+    $.each(registro.entidades, (indice, value) => {
+
+        let texti = indice.split(",");
+
+        entidades[texti[0] + texti[1]] = value
     })
- 
+
     let accion = objeto.accion;
     let columna = objeto.tablaDobleEntrada.columna;
     let tituloFila = objeto.tablaDobleEntrada.tituloFila;
@@ -606,41 +606,41 @@ const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd,
 
     tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
     tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-   //Creo las filas de 1 con todos los titulos de las columnas
-   tabla += `<tr>`; 
-   tabla += `<th class="tituloTablas vacio"></th>`;
+    //Creo las filas de 1 con todos los titulos de las columnas
+    tabla += `<tr>`;
+    tabla += `<th class="tituloTablas vacio"></th>`;
     $.each(tituloColumna, function (indice, value) {
 
         tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
     });
     tabla += `</tr>`;
-    tabla += `<tr>`; 
+    tabla += `<tr>`;
     tabla += `<td class="filtroTodo titulo">Todo</td>`;
-     $.each(tituloColumna, function (indice, value) {
- 
-         tabla += `<td class="filtroTodo ${[value]}">
+    $.each(tituloColumna, function (indice, value) {
+
+        tabla += `<td class="filtroTodo ${[value]}">
          <input type="checkbox" class="tablaDoble filtroTodo check ${columna[indice]}" filtro="${columna[indice]}"></input>`;
-       
-     });
-     tabla += `</tr>`;
-    
+
+    });
+    tabla += `</tr>`;
+
     //Empiezo valores de la columnas y filas
-    $.each(fila, (ind, val)=>{
-         tabla += `<tr>`;
+    $.each(fila, (ind, val) => {
+        tabla += `<tr>`;
 
-         tabla += `<th class ="filaNombre ${val}">${tituloFila[ind]}</th>`;
+        tabla += `<th class ="filaNombre ${val}">${tituloFila[ind]}</th>`;
 
-         $.each(columna, function (indice, value) {
+        $.each(columna, function (indice, value) {
 
             tabla += `<td class="${[value]}">
             <input type="checkbox" class="tablaDoble check" filtro="${columna[indice]}" ${entidades[val + value]}></input>
             <input class="tablaDoble valor" name="${val} ${value}" form="dobleEntrada${accion}${numeroForm}" value="${entidades[val + value]}" style="display:none"></input>  
             </td>`;
         });
-        
-         tabla += `</tr>`; 
+
+        tabla += `</tr>`;
     })
-    
+
     let user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
     <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${idd}" readonly="true">
     <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="" readonly="true"></div>`;
@@ -650,42 +650,42 @@ const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd,
     tabl.appendTo(`#cabeceraForm`);
     usern.appendTo(`#cabeceraForm`);
 
-    $(`input.filtroTodo.check`).click(function(){
-     
+    $(`input.filtroTodo.check`).click(function () {
+
         let attr = $(this).attr(`filtro`)
-    
-        if($(this).is(":checked")){
-         
+
+        if ($(this).is(":checked")) {
+
             $(`td.${attr} input.check`).attr("checked", true)
             $(`td.${attr} input.valor`).val("checked")
-        }else{
-          
+        } else {
+
             $(`td.${attr} input.check`).removeAttr("checked", true)
             $(`td.${attr} input.valor`).val(false)
         }
     })
-    
-    $(`input.check`).click(function(){
-        
+
+    $(`input.check`).click(function () {
+
         let father = $(this).parent().parent()
         let attr = $(this).attr(`filtro`)
 
-        if($(this).is(":checked")){
-      
+        if ($(this).is(":checked")) {
+
             $(`td.${attr} input.valor`, father).val(`checked`)
-        }else{
-          
+        } else {
+
             $(`td.${attr} input.valor`, father).val(`checked`)
         }
     })
 }
 const valoresDobleEntrada = function (consulta, nomeDobleEn, id) {
-    
-   $.each(consulta, function (indice, value) {
-  
 
-        if (id == value._id || id == value.id ) {
-         
+    $.each(consulta, function (indice, value) {
+
+
+        if (id == value._id || id == value.id) {
+
             for (let x = 0; x < fila.length; x++) {
 
                 let totalCol = 0;
@@ -971,17 +971,3 @@ const ocultarTds = function (objeto, numeroForm) {
     })
 
 }
-$(`.cargaEntidadesSeg`).on('click ',  function(objeto,numeroForm) {
-
-    $.each( variablesModelo, (indice,value)=>{
-        variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(indice)
-        variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(value.pest)
-        
-      })
-    
-    $.each( variablesIniciales, (indice,value)=>{
-        variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(indice)
-        variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(value.pest)
-      })
-
-    })
