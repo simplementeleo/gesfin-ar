@@ -66,6 +66,9 @@ $.ajax({
 
 $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
 
+  let variables = $(`.nav-completa `).attr(`seguridad`,`formAbm`).id()
+  console.log(variables)
+
   $.each(variablesModelo, (indice, value) => {
     variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(indice)
     variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(value.pest)
