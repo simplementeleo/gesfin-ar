@@ -1,4 +1,4 @@
-let permisos = $(`#ocultoUser`).val()
+/*let permisos = $(`#ocultoUser`).val()
 
 
 $.ajax({
@@ -8,55 +8,57 @@ $.ajax({
   complete: function () { },
   success: function (response) {
 
-    let arrayId = permisos.split(",");
-    let visualizar = []
-    let editar = []
-    let eliminar = []
-    let limite = []
+    if (permisos != undefined) {
+      let arrayId = permisos.split(",");
+      let visualizar = []
+      let editar = []
+      let eliminar = []
+      let limite = []
 
-    $.each(arrayId, (indice, value) => {
+      $.each(arrayId, (indice, value) => {
 
-      let registro = response.find(element => element.id == value);
+        let registro = response.find(element => element.id == value);
 
-      $.each(registro.entidades, (indice, value) => {
+        $.each(registro.entidades, (indice, value) => {
 
-        if (value == "checked") {
+          if (value == "checked") {
 
-          let array = indice.split(",");
+            let array = indice.split(",");
 
-          switch (array[1]) {
+            switch (array[1]) {
 
-            case `visualizar`:
+              case `visualizar`:
 
-              visualizar.push(array[0])
-              break;
-            case `editar`:
+                visualizar.push(array[0])
+                break;
+              case `editar`:
+                editar.push(array[0])
+                break;
+              case `eliminar`:
+                eliminar.push(array[0])
+                break;
+              case `limite`:
+                limite.push(array[0])
+                break;
+            }
 
-              editar.push(array[0])
-              break;
-            case `eliminar`:
-              eliminar.push(array[0])
-              break;
-            case `limite`:
-              limite.push(array[0])
-              break;
           }
-
-        }
+        })
       })
-    })
 
 
-    let visualLimpio = visualizar.filter((item, index) => {
-      return visualizar.indexOf(item) === index;
-    })
+      let visualLimpio = visualizar.filter((item, index) => {
+        return visualizar.indexOf(item) === index;
+      })
 
-    $.each(visualLimpio, (indice, value) => {
-      $(`.nav-completa p#${value}`).removeClass(`noneDisplay`)
-      $(`.nav-completa p#${value}`).parents().parents().siblings(`p`).removeClass(`noneDisplay`)
-      let id = $(`.nav-completa p#${value}`).parents().parents().siblings(`p`).attr(`id`)
-      $(`img.${id}`).removeClass(`noneDisplay`)
-    })
+      $.each(visualLimpio, (indice, value) => {
+        $(`.nav-completa p#${value}`).removeClass(`noneDisplay`)
+        $(`.nav-completa p#${value}`).parents().parents().siblings(`p`).removeClass(`noneDisplay`)
+        let id = $(`.nav-completa p#${value}`).parents().parents().siblings(`p`).attr(`id`)
+        $(`img.${id}`).removeClass(`noneDisplay`)
+      })
+
+    }
   },
   error: function (error) {
     console.log(error);
@@ -64,20 +66,4 @@ $.ajax({
 
 })
 
-$(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
-
-  let variables = $(`.nav-completa `).attr(`seguridad`,`formAbm`).id()
-  console.log(variables)
-
-  $.each(variablesModelo, (indice, value) => {
-    variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(indice)
-    variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(value.pest)
-
-  })
-
-  $.each(variablesIniciales, (indice, value) => {
-    variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(indice)
-    variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(value.pest)
-  })
-
-})
+*/

@@ -16,6 +16,8 @@ let fechaHasta = moment(Date.now()).format('YYYY-MM-DD');
 let meses = [`Ene`, `Feb`, `Mar`, `Abr`, `May`, `Jun`, `Jul`, `Ago`, `Sep`, `Oct`, `Nov`, `Dic`, `Ene`, `Feb`, `Mar`, `Abr`, `May`, `Jun`, `Jul`, `Ago`, `Sep`, `Oct`, `Nov`, `Dic`];
 let objetivoClickMenuContextual = ""
 let formIndividualPestana = false
+let entidadesHome = []
+let entidadesMarket = []
 /// valoresInciales 
 $(`#fechaTextoDe`).val(fechaDesde)
 $(`#fechaTextoHasta`).val(fechaHasta)
@@ -496,6 +498,15 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
     }
 }
 
+$(`#viewConf`).click(function () {
+
+    $(`#menu-container .nav-completa p[view="market"],
+       #menu-container .nav-vert img[view="market"]`).removeClass(`noneMarket`)
+
+    $(`#menu-container .nav-completa p[view="home"],
+       #menu-container .nav-vert img[view="home"]`).addClass(`noneHome`)
+})
+
 
 ////////////////ESCRITORIO///////////////
 ///CAJA Y BANCOS////
@@ -522,6 +533,7 @@ const numerosNegativos = function () {
         Math.sign(value)
     })
 }
+
 
 
 

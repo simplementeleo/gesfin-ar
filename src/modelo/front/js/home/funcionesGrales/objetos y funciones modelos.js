@@ -432,8 +432,14 @@ let variablesModelo = {
         tablaDobleEntrada: {
             abm: true,
             type: `check`,
-            fila: [], //fila
-            tituloFila: [],
+            fila: {
+                operacion: [],
+                market: []
+            }, //fila
+            tituloFila: {
+                Operaciones: [],
+                Configuraciones: []
+            },
             columna: [`visualizar`, `editar`, `eliminar`, `limite`],
             titulosColumna: [`Visualizar`, `Editar`, `Eliminar`, `Limite`],
         },
