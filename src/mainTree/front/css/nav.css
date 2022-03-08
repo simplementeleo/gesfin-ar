@@ -116,12 +116,13 @@ div.user .men {
   list-style: none;
   margin-right: 3em;
 }
-div.user .men li a {
+div.user .men li {
   text-decoration: none;
   color: #000000;
 }
 
-div.user .men li a:hover {
+div.user .men li:hover {
+  cursor: pointer;
   text-decoration: none;
   color: #ffffff;
 }
