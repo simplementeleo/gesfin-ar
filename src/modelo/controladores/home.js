@@ -32,9 +32,11 @@ router.post("/users/login", passport.authenticate("local", {
 router.get('/home', (req, res) => {
 
     const GrupoSeguridad = require("../models/marketPlace/seguridad/Grupo");
-    
+    console.log(req)
+    console.log(req.user)
 
-    res.render('home/homeLog', { userNombre: req.user.name, username: req.user.username, userPermisos: req.user.grupoSeguridad});
+
+    res.render('home/homeLog', { userNombre: req.user.name, username: req.user.username, userPermisos: req.user.grupoSeguridad });
 });
 
 router.get('/error', async (req, res) => {
@@ -789,7 +791,7 @@ router.get('/movimientoFinanciero', async (req, res) => {
     {
         $match: {
             "unidadesMv.name": unidFidei,
-         
+
         }
     },
     {
@@ -1000,8 +1002,7 @@ router.put('/movimientoFinancieroDes', async (req, res) => {
     try {
         let { id, unidades, tipoPago, username, moneda, desen, idDesen } =
             req.body;
-        console.log(1)
-        console.log(req.body)
+
         let keys = Object.keys(req.body);
         let newMovFinFlex = new Object;
 

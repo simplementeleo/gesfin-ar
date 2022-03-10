@@ -505,6 +505,25 @@ $(`#viewConf`).click(function () {
 
     $(`#menu-container .nav-completa p[view="home"],
        #menu-container .nav-vert img[view="home"]`).addClass(`noneHome`)
+
+    $(this).addClass(`noneHome`)
+    $(`#viewHome`).removeClass(`noneMarket`)
+
+    $('.men').removeClass("show");
+})
+
+$(`#viewHome`).click(function () {
+
+    $(`#menu-container .nav-completa p[view="market"],
+       #menu-container .nav-vert img[view="market"]`).addClass(`noneMarket`)
+
+    $(`#menu-container .nav-completa p[view="home"],
+       #menu-container .nav-vert img[view="home"]`).removeClass(`noneHome`)
+
+    $(this).addClass(`noneMarket`)
+    $(`#viewConf`).removeClass(`noneHome`)
+
+    $('.men').removeClass("show");
 })
 
 
@@ -534,6 +553,46 @@ const numerosNegativos = function () {
     })
 }
 
+
+$(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
+
+
+    let navCompleta = $(`.nav-completa p.desplegableAbm`)
+
+    $.each(navCompleta, (indice, value) => {
+
+        let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
+
+        let grupo = new Object
+        let abm = []
+
+
+        $.each(items, (indice, val) => {
+
+            let id = $(val).attr(`id`)
+            let home = $(val).attr(`view`)
+
+            abm.push(id)
+            let objeto = variablesModelo[id] || variablesIniciales[id]
+
+            if (home == `home`) {
+                variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(objeto.pest)
+            } else {
+                variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(objeto.pest)
+            }
+
+               )
+    })
+
+    grupo[$(value).html()] = abm
+    console.log(grupo)
+    variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.operacion.push(grupo)
+
+})
+console.log(variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.operacion)
+
+
+})
 
 
 

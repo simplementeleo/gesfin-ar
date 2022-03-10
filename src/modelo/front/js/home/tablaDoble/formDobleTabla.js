@@ -626,6 +626,7 @@ const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd,
 
     //Empiezo valores de la columnas y filas
     $.each(fila, (ind, val) => {
+        console.log(val)
         tabla += `<tr>`;
 
         tabla += `<th class ="filaNombre ${val}">${tituloFila[ind]}</th>`;

@@ -59,9 +59,9 @@
                             </h3>
 
                             <ul class="men">
-                                <li><a href="">Configuración de usuario</a></li>
+                                
                                 <li class="" id="viewConf">Configuracion Aplicacion</li>
-                                <li class="noneMarket">home</li>
+                                <li class="noneMarket" id="viewHome">Home</li>
                                 <li><a href="/logout ">Cerrar sesión</a></li>
                             </ul>
                         </li>
@@ -114,29 +114,29 @@
                                 <p class="menuFormulario" modelo="operacion" view="home" id="error">Ingresar Error</p>
                             </li>
                             <li>
-                                <p class="menuSelectAbm" modelo="operacion" view="home" id="error">Errores ingresados</p>
+                                <p class="menuSelectAbm" ind="true" modelo="operacion" view="home" id="error">Errores ingresados</p>
                             </li>
                         </ul>
                     </li>
 
                     <li>
-                        <p class="desplegableAbm" img="panel" view="home" id="reque">Requerimientos</p>
+                        <p class="desplegableAbm"  img="panel" view="home" id="reque">Requerimientos</p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuFormulario" modelo="operacion" view="home" id="requerimiento">Ingresar Requerimiento</p>
                             <li>
-                                <p class="menuSelectAbm" modelo="operacion" view="home" id="requerimiento">Requerimientos ingresados</p>
+                                <p class="menuSelectAbm" ind="true" modelo="operacion" view="home" id="requerimiento">Requerimientos ingresados</p>
                             </li>
                         </ul>
                     </li>
                     <li class="usur">
-                        <p class="menuSelectAbm noneMarket" view="market" id="users">Usuarios</p>
+                        <p class="menuSelectAbm noneMarket" ind="false" view="market" id="users">Usuarios</p>
                     </li>
                     <li class="seg">
                         <p class="desplegableAbm noneMarket" img="cobra" view="market">Seguridad</p>
                         <ul class="subMenu">
                             <li>
-                                <p class="menuSelectAbm noneMarket cargaEntidadesSeg" view="market" id="grupoSeguridad">Alta de grupos</p>
+                                <p class="menuSelectAbm noneMarket cargaEntidadesSeg" view="market" ind="false" id="grupoSeguridad">Alta de grupos</p>
                             </li>
                     
                         </ul>
@@ -145,7 +145,7 @@
                         <p class="desplegableAbm noneMarket" img="proces" view="market">Clientes</p>
                         <ul class="subMenu">
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" id="cliente">Cliente</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="cliente">Cliente</p>
                             </li>
                     
                         </ul>
@@ -154,13 +154,13 @@
                         <p class="desplegableAbm noneMarket" img="conf" view="market">Procesos</p>
                         <ul class="subMenu">
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" id="estadoProceso">Estado</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="estadoProceso">Estado</p>
                             </li>
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" id="criticidad">Criticidad</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="criticidad">Criticidad</p>
                             </li>
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" id="tarea">Tareas</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="tarea">Tareas</p>
                             </li>
                         </ul>
                     </li>
@@ -168,13 +168,13 @@
                         <p class="desplegableAbm noneMarket" img="panelControl" view="market">Direcciones<span class="icon-down-dir"></span></p>
                         <ul class="subMenu">
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" id="ciudad">Ciudad</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="ciudad">Ciudad</p>
                             </li>
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" id="provincia">Provincia</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="provincia">Provincia</p>
                             </li>
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" id=pais>Pais</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id=pais>Pais</p>
                             </li>
                         </ul>
                     </li>

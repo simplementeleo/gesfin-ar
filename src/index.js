@@ -11,6 +11,7 @@ const MongoStore = require(`connect-mongo`)
 
 const MONGO_URL = `mongodb://127.0.0.1:27017/mainTree`
 
+
 const app = express();
 require('./dbConfig');
 require('./modelo/lib/passportConfig');
@@ -18,6 +19,10 @@ require('./modelo/lib/passportConfig');
 
 //Settings
 const PORT = process.env.PORT || 1000;
+const NODE_ENV = process.env.NODE_ENV || `development`;
+const IN_PROD = NODE_ENV === `production `;
+const SESS_NAME = `sid`
+
 app.set("view engine", "ejs");
 app.set('views', path.join(__dirname, 'views'));
 
@@ -42,12 +47,16 @@ app.use(multer({ storage }).fields([
 
 app.use(
     session({
-        // Key we want to keep secret which will encrypt all of our information
-        secret: "secret",
-        // Should we resave our session variables if nothing has changes which we dont
-        resave: true,
-        // Save empty value if there is no vaue which we do not want to do
-        saveUninitialized: true,
+        name: SESS_NAME,
+
+        secret: "secret",// Key we want to keep secret which will encrypt all of our information
+        resave: false, // Should we resave our session variables if nothing has changes which we dont
+        saveUninitialized: false, // Save empty value if there is no vaue which we do not want to do
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24, // Un Día escrito en milisegundos
+            sameSite: true,// Estricto solo guarda cookies del mismo sitio
+            secure: IN_PROD
+        },
         store: MongoStore.create({
             mongoUrl: MONGO_URL,
             autoReconnect: true
