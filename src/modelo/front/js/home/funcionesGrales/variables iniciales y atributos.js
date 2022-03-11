@@ -561,6 +561,9 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
 
     $.each(navCompleta, (indice, value) => {
 
+        console.log(value)
+        console.log(indice)
+
         let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
 
         let grupo = new Object
@@ -575,21 +578,22 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
             abm.push(id)
             let objeto = variablesModelo[id] || variablesIniciales[id]
 
-            if (home == `home`) {
+            /*if (home == `home`) {
+
                 variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(objeto.pest)
             } else {
                 variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(objeto.pest)
-            }
+            }*/
 
-               )
+
+        })
+
+        grupo[$(value).html()] = abm
+
+        variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.operacion.push(grupo)
+
     })
 
-    grupo[$(value).html()] = abm
-    console.log(grupo)
-    variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.operacion.push(grupo)
-
-})
-console.log(variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.operacion)
 
 
 })

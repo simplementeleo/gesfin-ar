@@ -1,4 +1,4 @@
-let permisos = $(`#ocultoUser`).val()
+/*let permisos = $(`#ocultoUser`).val()
 
 
 $.ajax({
@@ -66,3 +66,4 @@ $.ajax({
 
 })
 
+*/

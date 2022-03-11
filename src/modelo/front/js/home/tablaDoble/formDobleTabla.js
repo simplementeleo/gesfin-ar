@@ -419,6 +419,7 @@ const crearTablaDoblePestanaFecha = function (objeto, numeroForm, height, column
 
     tabla += `</tr>`;
 
+    // console.log(columnasArray)
     $.each(columnasArray.agrupador, (indice, value) => {
 
         let claseName = value.name.replace(/ /g, "")
