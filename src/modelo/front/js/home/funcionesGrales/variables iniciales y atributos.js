@@ -561,9 +561,6 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
 
     $.each(navCompleta, (indice, value) => {
 
-        console.log(value)
-        console.log(indice)
-
         let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
 
         let grupo = new Object

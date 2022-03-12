@@ -560,7 +560,7 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
                     break;
                 case "date":
                     var date = moment(Date.now()).format("L");
-                    $(`.edit.date`).val(date);al
+                    $(`.edit.date`).val(date); al
                     break;
                 case "importeUsd":
                 case "tc":
@@ -756,7 +756,7 @@ let desabilitarRegistroEditando = function (objeto, memoriaValoreEditados) {
 let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoSelec, objeto) {
 
     let registroEnviado = $(`#myForm${objeto.accion}${id}`).serializeArray();
-   
+
     let indiceAdjunto = objeto.atributos.names.indexOf(adjunto);
     let adjuntoFile = $(`#t${id} label.adjunto`).html();
     let desencadenateTriger = false;
@@ -1620,7 +1620,6 @@ const tipoAtributo = function (consulta, objeto) {
             case "coleccionTotal":
                 $.each(value.componentes, function (ind, val) {
                     let valorColec = [];
-                    console.log(consulta)
 
                     if (consulta[value.nombre][ind] != undefined) {
                         valorColec = consulta[value.nombre][ind][0];
