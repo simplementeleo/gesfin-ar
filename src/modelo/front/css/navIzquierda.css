@@ -105,3 +105,12 @@ li.homeMp a {
 ul.men-prin {
   list-style: none;
 }
+
+.nav-completa li span.icon-down-dir {
+  color: rgb(0, 0, 0);
+  font-size: 1.2em;
+}
+
+li.inactivo {
+  color: rgb(85, 85, 85);
+}

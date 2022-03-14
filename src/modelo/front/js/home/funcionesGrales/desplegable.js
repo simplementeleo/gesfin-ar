@@ -2,10 +2,15 @@
 $('.men-prin').click(function (e) {
     $('.men').toggleClass("show");
 })
-$('.menuMarket').click(function (e) {
+$('.menuMarket, .icon-menu').click(function (e) {
 
     $('.nav-completa').toggleClass("show");
     $('#tablas').toggleClass("vistaActive");
+
+    $('#principalesIndicadores').toggleClass("vistaActive");
+
+    $('.logoFondo').addClass("noShow");
+
 })
 $(`body`).click(function () {
 
@@ -19,15 +24,6 @@ $('.men').click(function (event) {
     event.stopPropagation();
 });
 //Desplegable Menu
-$('.icon-menu, .menuMarket').on('click', function () {
-    $('.nav-completa').toggleClass("show2");
-    //
-    $('#tablas').toggleClass("vistaActive");
-    //
-    $('#principalesIndicadores').toggleClass("vistaActive");
-
-    $('.logoFondo').addClass("noShow");
-})
 $(`.menuSelectAbm,
 .menuFormulario, .menuDobleEntrada`).on(`click`,
     function () {

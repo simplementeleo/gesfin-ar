@@ -1,71 +1,6 @@
-#menu-container {
-  display: flex;
-  flex-wrap: nowrap;
-  max-width: calc(100% - 2em);
-}
 .navegacion {
-  display: flex;
   justify-content: space-between;
   margin-top: 0.5em;
-}
-.navegacion .login {
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-end;
-  margin-top: 1em;
-  align-items: center;
-  padding-right: 5em;
-  width: 100%;
-}
-.navegacion .login .inputMail {
-  margin-top: 1em;
-}
-
-.navegacion .login .inputMail input {
-  height: 2em;
-  border-radius: 2em;
-  width: 15em;
-  padding-left: 1em;
-}
-
-.navegacion .login .inputMail input.btnLog {
-  height: 2.5em;
-  font-weight: bold;
-  width: 7em;
-  margin-left: 1.5em;
-}
-
-.navegacion .login .olvidaste a {
-  color: white;
-  text-decoration: none;
-  margin-left: 1em;
-}
-
-.gesfin {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 3em;
-  margin-top: 1em;
-  padding-left: 0.5%;
-  width: 100%;
-  max-height: 40px;
-  color: white;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.gesfinHome {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 0em;
-
-  margin-top: 0em;
-  padding-left: 0;
-  width: 100%;
-  max-height: 40px;
-  color: white;
-  justify-content: flex-start;
-  align-items: center;
 }
 
 .gesfin .logoPrincipal {
@@ -93,72 +28,7 @@
   padding: 0;
 }
 
-div.user {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-right: 3em;
-  margin-bottom: 0;
-  padding-top: 0.8em;
-  padding-bottom: 0;
-}
-
-div.user nav {
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-div.user .men {
-  display: none;
-  list-style: none;
-  margin-right: 3em;
-}
-div.user .men li,
-div.user .men li a {
-  text-decoration: none;
-  color: #000000;
-}
-
-div.user .men li:hover,
-div.user .men li a:hover {
-  cursor: pointer;
-  text-decoration: none;
-  color: #ffffff;
-}
-
-div.user img {
-  width: 2em;
-  height: 2em;
-  margin-left: 1em;
-  margin-bottom: 0;
-}
-
-div.user nav ul {
-  display: flex;
-  flex-wrap: nowrap;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-div.user nav h3 {
-  display: flex;
-  flex-wrap: nowrap;
-  color: rgb(0, 0, 0);
-  list-style: none;
-  margin-top: 0;
-  margin-left: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  justify-self: center;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 1.8em;
-  cursor: pointer;
-}
-div.user nav h3:hover {
-  color: white;
-}
-
-div.user nav img.fechaDown {
+div.ultimaParte nav img.fechaDown {
   width: 0.7em;
   height: 0.7em;
   margin-top: 0.4em;
