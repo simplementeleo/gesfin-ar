@@ -240,6 +240,70 @@ let variablesModelo = {
             FiltroRapido: [],
         }
     },
+    /*proyeccionesCashFlow: {
+        atributos: {
+            names: [],
+            titulos: [],
+            soloLectura: [],
+            oculto: [],
+            ocultoSiempre: [porcentage],
+            compuesto: [],
+            signo: [],
+            color: [],
+            filtroRapido: {
+                referencia: estado,
+                filtros: [`Reducido`, `Completo`]
+            },
+            number: [],
+            date: []
+        },
+        modificar: {
+            names: [],
+            soloLectura: [],
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [],
+            titulosCompuesto: [],
+            oculto: [],
+            ordenFormu: [],
+            soloLectura: {
+                compuesto: []
+            },
+        },
+        formDoblePest: {
+            names: [previsto, porcentage, gastoReal, pagado, aPagar],
+            titulos: [`Rubro`, `Previsto`, `%`, `Gasto Real`, `Pagado`, `A Pagar`],
+            datos: {
+                columna: rubroPagos,
+                agrupador: [agrupadorRubrosPago]
+            },
+            valorCalculado: [porcentage]
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+            formularioIndiv: {},
+        },
+        numerador: [],
+        acumulador: [],
+        validaciones: [],
+        pest: `Proyecciones`,
+        accion: `proyeccionesCashFlow`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: [],
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+
+    },*/
     users: {
         atributos: {
             names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],

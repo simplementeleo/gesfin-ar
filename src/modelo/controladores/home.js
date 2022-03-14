@@ -32,8 +32,8 @@ router.post("/users/login", passport.authenticate("local", {
 router.get('/home', (req, res) => {
 
     const GrupoSeguridad = require("../models/marketPlace/seguridad/Grupo");
-    console.log(req)
-    console.log(req.user)
+    /*console.log(req)
+    console.log(req.user)*/
 
 
     res.render('home/homeLog', { userNombre: req.user.name, username: req.user.username, userPermisos: req.user.grupoSeguridad });
@@ -1117,6 +1117,146 @@ router.delete('/movimientoFinancieroColec', async (req, res) => {
         });
 
         res.json('ok');
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.get('/proyeccionesCashFlow', async (req, res) => {
+
+    let unidFidei = /./;
+
+    if (req.query.unid != "undefined") {
+
+        unidFidei = req.query.unid
+    }
+
+    if ((req.query.unid == "Todos") || (req.query.unid == "todos") || (req.query.unid == "")) {
+
+        unidFidei = /./;
+    }
+
+    const pcf = await ProyectadoCash.aggregate([{
+
+        $lookup: {
+            from: "unidades",
+            localField: "unidades",
+            foreignField: "_id",
+            as: "unidades"
+        }
+    },
+    {
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "user"
+        }
+    },
+    /* {
+         $match: { "unidades.name": unidFidei }
+     },*/
+    {
+        $project: {
+            _id: 1,
+            identificador: 1,
+            previsto: 1,
+            gastoReal: 1,
+            pagado: 1,
+            aPagar: 1,
+            meses: 1,
+            unidades: "$unidades.name",
+            username: "$user.username",
+        }
+    }
+    ]);
+
+    let proyectadoCah = [];
+    let ProyectadoCashF = function (_id, identificador, gastoReal, previsto, pagado, aPagar, meses, unidades, username) {
+        this.id = _id;
+        this.identificador = identificador;
+        this.gastoReal = gastoReal;
+        this.previsto = previsto;
+        this.pagado = pagado;
+        this.aPagar = aPagar;
+        this.meses = meses;
+        this.unidades = unidades;
+        this.username = username;
+
+    }
+    for (let x = 0; x < pcf.length; x++) {
+
+        let pscashFlow = new ProyectadoCashF(
+            pcf[x]._id,
+            pcf[x].identificador,
+            pcf[x].gastoReal,
+            pcf[x].previsto,
+            pcf[x].pagado,
+            pcf[x].aPagar,
+            pcf[x].meses,
+            pcf[x].unidades,
+            pcf[x].username,
+        )
+        proyectadoCah.push(pscashFlow);
+
+    }
+    res.json(proyectadoCah);
+
+});
+router.post('/proyeccionesCashFlow', async (req, res) => {
+    try {
+        let { identificador, ano, mes, previsto, gastoReal, pagado, aPagar, meses, unidades, username, date } = req.body;
+
+        if (unidades == "") {
+
+            // const usersFound = await User.find({ username: { $in: username } });
+            let newProyectadoCash = new ProyectadoCash({
+                identificador,
+                previsto,
+                gastoReal,
+                pagado,
+                aPagar,
+                meses,
+                ano,
+                mes,
+                //username: usersFound.map((user) => user._id),
+                date,
+            });
+
+            let ProyectadoCashF = await newProyectadoCash.save();
+
+            res.json({
+                mensaje: `El movimiento del ${pagado} fue registrado con exito`,
+                posteo: ProyectadoCashF
+            });
+
+        } else {
+            const unidadesFound = await Unidades.find({ name: { $in: unidades } });
+            // const usersFound = await User.find({ username: { $in: username } });
+
+
+            let newProyectadoCash = new ProyectadoCash({
+                identificador,
+                previsto,
+                gastoReal,
+                pagado,
+                aPagar,
+                meses,
+                ano,
+                mes,
+                unidades: unidadesFound.map((unidad) => unidad._id),
+                //username: usersFound.map((user) => user._id),
+                date,
+            });
+
+            let ProyectadoCashF = await newProyectadoCash.save();
+
+            res.json({
+                mensaje: `El movimiento del ${pagado} fue registrado con exito`,
+                posteo: ProyectadoCashF
+            });
+        }
+
+
     } catch (error) {
         console.error(error);
     }

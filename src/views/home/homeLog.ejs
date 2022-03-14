@@ -81,10 +81,16 @@
                     <li><img src="/img/iconos/reque.svg" alt="Requerimiento" title="Carga de requerimientos" view="home" class="reque"></li>
                 </ul>
                 <ul>
+                    <li><img src="/img/iconos/principal/cheque.svg" alt="Cheques" title="Cheques liberados" view="home" class="chLib"></li>
+                </ul>
+                <ul>
                     <li><img src="/img/iconos/usuario2.svg" alt="Usuario " title="Configuracion de usuarios" view="market" class="usur noneMarket"></li>
                 </ul>
                 <ul>
                     <li><img src="/img/iconos/candado.svg" alt="Segurdad " title="Configuración de seguridad" view="market" class="seg noneMarket"></li>
+                </ul>
+                <ul>
+                    <li><img src="/img/cobranzas.svg " alt="Cliente " title="Configuracion de cobros" view="market" class="cobra2 noneMarket"></li>
                 </ul>
                 <ul>
                     <li><img src="/img/iconos/cliente.svg" alt="Cliente " title="Configuracion de cobros" view="market" class="cobra noneMarket"></li>
@@ -119,7 +125,7 @@
                     </li>
 
                     <li>
-                        <p class="desplegableAbm"  img="panel" view="home" id="reque">Requerimientos</p>
+                        <p class="desplegableAbm"  img="chLib" view="home" id="reque">Requerimientos</p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuFormulario" modelo="operacion" view="home" id="requerimiento">Ingresar Requerimiento</p>
@@ -128,16 +134,50 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <p class="desplegableAbm" img="panel" view="home" id="operacionesFinancieras">Operaciones Financieras<span
+                                class="icon-down-dir"></span></p>
+                        <ul class="subMenu">
+                            <li>
+                                <p class="menuSelectAbm" ind="false" modelo="operacion" id="movimientoFinanciero">Movimientos Financieros</p>
+                            </li>
+                            <li>
+                                <p class="menuDobleEntrada" modelo="operacion" id="proyeccionesCashFlow">Proyecciones</p>
+                            </li>
+                            <li>
+                                <p class="menuSelectAbm" ind="false" modelo="operacion" id="prestamosFideicomisos">Prestamos fedeicomisos
+                                </p>
+                            </li>
+                            <li>
+                                <p class="menuSelectAbm" ind="false" modelo="operacion" id="liquidacionMoneda">Moneda extrangera</p>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="usur">
                         <p class="menuSelectAbm noneMarket" ind="false" view="market" id="users">Usuarios</p>
                     </li>
                     <li class="seg">
-                        <p class="desplegableAbm noneMarket" img="cobra" view="market">Seguridad</p>
+                        <p class="desplegableAbm noneMarket" img="cobra2" view="market">Seguridad</p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket cargaEntidadesSeg" view="market" ind="false" id="grupoSeguridad">Alta de grupos</p>
                             </li>
                     
+                        </ul>
+                    </li>
+                    <li>
+                        <p class="desplegableAbm noneMarket" img="cobra" view="market" id="fideicomisos">Fideicomisos<span
+                                class="icon-down-dir"></span></p>
+                        <ul class="subMenu">
+                            <li>
+                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="unidades">Obras</p>
+                            </li>
+                            <li>
+                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="tipoUnidad">Tipo de Unidad</p>
+                            </li>
+                            <li class="inactivo">
+                                <p class="menuSelect"></p>Origen de pagos</p>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -305,7 +345,9 @@
     <script src="/js/home/funcionesGrales/objetos y funciones modelos.js"></script>
     <script src="/js/home/funcionesGrales/seguridad.js"></script>
     <!--VARIABLES MAINTREE-->
+    <script src="/js/funcionesGrales/variablesInicialesMainTree.js"></script>
     <script src="/js/funcionesGrales/objetos y funciones iniciales.js"></script>
+    
     
 
 
