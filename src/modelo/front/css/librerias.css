@@ -71,3 +71,27 @@
   background-color: rgb(232, 231, 233);
   color: rgb(156, 22, 22);
 }
+
+/*//////////////////////////////////////////////*/
+.progressBar {
+  display: none;
+  position: relative;
+  width: 2.5em;
+  height: 2em;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 50px;
+}
+
+.progressBar::before {
+  content: ".";
+  color: rgba(125, 228, 122, 0);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 2em;
+  width: calc(var(--with, 0) * 1%);
+  min-width: 0.2em;
+  max-width: 4em;
+  background-color: rgb(126, 228, 122);
+  border-radius: 70px;
+}

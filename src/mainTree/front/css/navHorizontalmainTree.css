@@ -1,0 +1,13 @@
+.primeraParteNavegacion {
+  color: white;
+}
+.navegacionSupHomeLog .primeraParteNavegacion .icon-menu {
+  color: rgba(206, 200, 211);
+}
+
+.navegacionSupHomeLog .primeraParteNavegacion .logoHome {
+  background-color: rgba(206, 200, 211, 0.301);
+}
+.navegacionSupHomeLog .primeraParteNavegacion h4 {
+  border-left: 0.1em solid rgb(0, 0, 0);
+}

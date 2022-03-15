@@ -22,13 +22,6 @@
   z-index: 10;
   position: relative;
 }
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
 .tabs_links a {
   display: flex;
   width: auto;
@@ -49,7 +42,10 @@ input[type="number"]::-webkit-inner-spin-button {
   z-index: 1.2;
   margin-left: 0;
 }
-
+.tabs_links a.active {
+  background: #eee;
+  z-index: 15;
+}
 .close {
   font-size: 1.2em;
   transform: rotate(45deg);
@@ -60,24 +56,15 @@ input[type="number"]::-webkit-inner-spin-button {
   margin-left: 1em;
   align-self: flex-end;
 }
-
-.tabs_links a.active {
-  background: #eee;
-  z-index: 15;
-}
-
 /*TABLAS*/
-
 .comp {
   margin-left: 1em;
 }
-
 .tabs_contents {
   display: flex;
   flex-wrap: wrap;
   max-width: 100%;
 }
-
 .tabs_contents_item {
   border: 2px solid #bbb;
   padding: 1em 1em 1em 1em;
@@ -98,13 +85,11 @@ input[type="number"]::-webkit-inner-spin-button {
   background: #eee;
   width: 100%;
 }
-
 .tabs_contents_item tbody tr:first-child th {
   position: sticky;
   top: 0;
   background-color: rgb(175, 174, 174);
 }
-
 .comand {
   display: none;
   background: #eee;
@@ -117,11 +102,9 @@ input[type="number"]::-webkit-inner-spin-button {
   margin-right: 2em;
   overflow: visible;
 }
-
 .comand.active {
   display: flex;
 }
-
 .contError {
   display: flex;
   justify-content: center;
@@ -161,7 +144,6 @@ tr.desencadenado td {
   margin-bottom: 0.2em;
   text-align: center;
 }
-
 .cartelMovil {
   position: absolute;
   font-size: 1em;
@@ -176,20 +158,16 @@ tr.desencadenado td {
   border-radius: 5px;
   border: 3px solid rgb(94, 0, 0);
 }
-
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px rgb(235, 233, 236) inset;
   background-color: rgb(235, 233, 236);
 }
-
 /*TABLAS*/
-
 .barraForm {
   background: #eee;
   display: flex;
   margin-right: 0.8em;
 }
-
 .imgBarra {
   width: 2em;
   max-height: 2em;
@@ -197,35 +175,28 @@ input:-webkit-autofill {
   margin-top: 1%;
   cursor: pointer;
 }
-
 .imgBarra.achiq {
   width: 1.65em;
   margin-left: 3em;
   margin-right: 0em;
 }
-
 .imgBarra.achiq1 {
   width: 1.5em;
 }
-
 .imgBarra.achiq2 {
   width: 1.65em;
 }
-
 .imgBarra.achiq4 {
   width: 2.2em;
   height: 2.2em;
 }
-
 .imgBarra.achiq5 {
   width: 2em;
   height: 2em;
 }
-
 .imgBarra.agrande {
   width: 2.1em;
 }
-
 .iconoAyuda {
   justify-content: flex-end;
   align-self: flex-end;
@@ -233,17 +204,14 @@ input:-webkit-autofill {
   align-content: flex-end;
   width: 100%;
 }
-
 .imgBarra.dobleBoton {
   width: 1.8em;
   margin-left: -0.3em;
   display: none;
 }
-
 .imgBarra.dobleBoton.show {
   display: flex;
 }
-
 .imgBarra.agrande:hover,
 .imgBarra.achiq2:hover,
 .imgBarra.achiq1:hover,
@@ -252,24 +220,13 @@ input:-webkit-autofill {
   transform: scale(1.5);
   z-index: 20;
 }
-
 /*Oculto*/
-
 #ocult,
 #ocultoUser {
   display: none;
   margin: 0;
   padding: 0;
 }
-
-.oculto {
-  display: none;
-}
-
-[class*="oculto"] {
-  display: none;
-}
-
 .azul {
   background-color: rgb(141, 157, 247);
 }
@@ -334,32 +291,25 @@ td {
   margin-right: 2em;
   cursor: pointer;
 }
-
 td.doEntrada,
 input.doEntrada {
   background-color: rgb(104, 143, 107);
 }
-
 tr:hover td.celda {
   background-color: rgb(161, 159, 159);
 }
-
 .cuatroCinco {
   width: 4.5em;
 }
-
 .cinco {
   width: 5em;
 }
-
 .siete {
   width: 7em;
 }
-
 .diez {
   width: 10em;
 }
-
 .quince {
   width: 15em;
 }
@@ -372,20 +322,17 @@ input.inputR.proveedor,
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
 select.provincia,
 select.pais,
 select.cliente,
 select.proveedor {
   width: 15em;
 }
-
 .name {
   text-align: left;
   padding-right: 2em;
   padding-left: 1em;
 }
-
 .inputTd.name {
   padding: 0;
 }
@@ -400,10 +347,6 @@ td.inputTd.des.password {
 
 .celda.name {
   width: 100%;
-}
-
-input.name {
-  width: calc(100% - 3em);
 }
 
 td.dolar::before {

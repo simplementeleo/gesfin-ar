@@ -14,13 +14,11 @@
 }
 
 /* COMANDERA Y CLOSE */
-
 .cuadroForm {
   position: absolute;
   display: flex;
   flex-wrap: wrap;
   width: 80%;
-  /*height: auto;*/
   margin-top: 2%;
   padding: 2em;
   margin-bottom: 6%;
@@ -102,14 +100,12 @@
 }
 
 /*IMAGENES COMANDERA*/
-
 .imgB {
   width: 2em;
   z-index: 20;
   margin-left: 1em;
   cursor: pointer;
 }
-
 .imgB.achiq {
   width: 2em;
   margin-left: 3em;
@@ -146,20 +142,17 @@
 }
 
 /*LOGO*/
-
 .logoForm {
   display: flex;
   margin-top: -1.5em;
   height: 3em;
   width: 100%;
 }
-
 .logoForm img {
   margin: 0;
 }
 
 /*FORMULARIO*/
-
 #cabeceraForm {
   display: flex;
   flex-wrap: wrap;

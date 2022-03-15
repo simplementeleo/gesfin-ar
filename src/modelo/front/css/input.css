@@ -1,27 +1,24 @@
-.progressBar {
-  display: none;
-  position: relative;
-  width: 2.5em;
-  height: 2em;
-  background-color: rgba(0, 0, 0, 0);
-  border-radius: 50px;
+input {
+  background-color: rgb(235, 233, 236);
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  border: 2px solid rgb(0, 0, 0);
+}
+input.requerido {
+  border: 3px solid rgb(241, 0, 0);
+  border-radius: 5px;
 }
 
-.progressBar::before {
-  content: ".";
-  color: rgba(125, 228, 122, 0);
-  display: flex;
-  align-items: center;
-  position: absolute;
-  height: 2em;
-  width: calc(var(--with, 0) * 1%);
-  min-width: 0.2em;
-  max-width: 4em;
-  background-color: rgb(126, 228, 122);
-  border-radius: 70px;
+input.requerido:focus {
+  border: 3px solid rgb(241, 0, 0);
+  border-radius: 5px;
+}
+input.requerido.validado {
+  border: 3px solid rgb(0, 241, 100);
+  border-radius: 5px;
 }
 
-input.letraComprobante,
 input.letraComprobante {
   display: flex;
   box-sizing: content-box;
@@ -35,7 +32,47 @@ input.adjuntoColeccion {
   opacity: 0;
   border-radius: 5px;
 }
+.inputTd.adjunto input {
+  display: none;
+}
+input:read-only {
+  background-color: #8f8c8cab;
+  font-weight: bold;
+}
+input:read-only:focus {
+  background-color: #8f8c8cab;
+}
 
+input.ocultoSiempre {
+  display: none;
+}
+
+input.inputCeldaTabla {
+  width: 70%;
+}
+
+input.form.fecha {
+  min-width: 10em;
+}
+
+input.cantidad {
+  max-width: 5em;
+}
+input.name {
+  width: calc(100% - 3em);
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.oculto {
+  display: none;
+}
+[class*="oculto"] {
+  display: none;
+}
+/*/////////////////////////////////////////////////////////////////////////////////////*/
 label {
   display: flex;
   background-color: rgb(199, 212, 226);
@@ -81,19 +118,7 @@ label.disabled {
 .inputTd label {
   width: 100%;
 }
-
-.inputTd.adjunto input {
-  display: none;
-}
-
-input.modificado {
-  background-color: rgb(112, 250, 131);
-}
-
-input.modificadoError {
-  background-color: rgb(255, 159, 159);
-}
-
+/*///////////////////////////////////////////////////////////////////////////////////*/
 select.modificado {
   background-color: rgb(144, 202, 152);
 }
@@ -103,76 +128,21 @@ select.modificadoError,
 .renglon option.opciones.false {
   background-color: rgb(255, 159, 159);
 }
-
-input.masDeUnDepto {
-  background-color: rgb(245, 255, 159);
-}
-
 select.masDeUnDepto {
   background-color: rgb(245, 255, 159);
 }
-
 td.comp select.select.form {
   height: 2.1em;
   margin-top: -0.2em;
-}
-
-input {
-  background-color: rgb(235, 233, 236);
-  font-weight: bold;
-  text-align: center;
-  border-radius: 5px;
-  border: 2px solid rgb(0, 0, 0);
-}
-
-input.requerido {
-  border: 3px solid rgb(241, 0, 0);
-  border-radius: 5px;
-}
-
-input.requerido:focus {
-  border: 3px solid rgb(241, 0, 0);
-  border-radius: 5px;
 }
 
 select.requerido {
   border: 3px solid rgb(241, 0, 0);
   border-radius: 5px;
 }
-
-input.requerido.validado {
-  border: 3px solid rgb(0, 241, 100);
-  border-radius: 5px;
-}
-
 select.requerido.validado {
   border: 3px solid rgb(0, 241, 100);
   border-radius: 5px;
-}
-
-input:read-only:focus {
-  background-color: #8f8c8cab;
-}
-
-input:read-only {
-  background-color: #8f8c8cab;
-  font-weight: bold;
-}
-
-input.ocultoSiempre {
-  display: none;
-}
-
-input.inputCeldaTabla {
-  width: 70%;
-}
-
-input.form.fecha {
-  min-width: 10em;
-}
-
-input.cantidad {
-  max-width: 5em;
 }
 
 textarea.form {
