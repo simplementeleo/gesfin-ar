@@ -32,7 +32,6 @@
   transform: scale(1.5);
 }
 .nav-completa {
-  margin-top: -0.8em;
   background-color: rgba(206, 200, 211, 0.301);
   justify-content: flex-start;
   border-radius: 10px;
