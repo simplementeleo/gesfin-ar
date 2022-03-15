@@ -22,9 +22,9 @@
   height: 3em;
 }
 
-.navegacionSupHomeLog .primeraParteNavegacion .logoHome {
-  width: 2em;
-  padding: 0.3em;
+.navegacionSupHomeLog .primeraParteNavegacion .icon-menu {
+  width: 1.6em;
+  padding: 0.2em;
   margin-top: 1em;
   margin-right: 3em;
   margin-left: 0;
@@ -81,15 +81,38 @@
   font-size: 1.8em;
   cursor: pointer;
 }
-
 .navegacionSupHomeLog .ultimaParte .men {
-  display: none;
   list-style: none;
-  margin-right: 3em;
+  display: none;
+}
+
+.navegacionSupHomeLog .ultimaParte .men.show {
+  list-style: none;
+  display: block;
+  animation: fadeIn 0.3s forwards;
+  position: absolute;
+  padding: 0;
+  margin-left: -5em;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 10px 10px 10px 10px;
+  padding: 1em;
+  background-color: rgb(166, 162, 168);
+  z-index: 1000;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-200px) scale(0.5);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
 }
 .navegacionSupHomeLog .ultimaParte .men li,
 .navegacionSupHomeLog .ultimaParte .men li a {
   text-decoration: none;
+  font-size: 1.1em;
+  margin-bottom: 4%;
 }
 .navegacionSupHomeLog .ultimaParte .men li:hover,
 .navegacionSupHomeLog .ultimaParte .men li a:hover {

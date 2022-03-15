@@ -1,8 +1,9 @@
 
 $('.men-prin').click(function (e) {
     $('.men').toggleClass("show");
+
 })
-$('.menuMarket, .icon-menu').click(function (e) {
+$('.icon-menu').click(function (e) {
 
     $('.nav-completa').toggleClass("show");
     $('#tablas').toggleClass("vistaActive");

@@ -2,12 +2,27 @@
   color: white;
 }
 .navegacionSupHomeLog .primeraParteNavegacion .icon-menu {
-  color: rgba(206, 200, 211);
-}
-
-.navegacionSupHomeLog .primeraParteNavegacion .logoHome {
   background-color: rgba(206, 200, 211, 0.301);
 }
 .navegacionSupHomeLog .primeraParteNavegacion h4 {
   border-left: 0.1em solid rgb(0, 0, 0);
+}
+
+.navegacionSupHomeLog .ultimaParte .men-prin .men {
+  background-color: rgb(86, 100, 233);
+}
+.navegacionSupHomeLog .ultimaParte .men-prin h3 {
+  color: black;
+}
+.navegacionSupHomeLog .ultimaParte .men-prin .men li,
+.navegacionSupHomeLog .ultimaParte .men-prin .men a {
+  color: black;
+}
+
+.navegacionSupHomeLog .ultimaParte .men-prin h3:hover {
+  color: white;
+}
+.navegacionSupHomeLog .ultimaParte .men-prin .men li:hover,
+.navegacionSupHomeLog .ultimaParte .men-prin .men a:hover {
+  color: white;
 }
