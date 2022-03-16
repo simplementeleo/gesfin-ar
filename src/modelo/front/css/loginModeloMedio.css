@@ -1,0 +1,118 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+}
+
+.navegacionSupHomeLog {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+
+  width: 100%;
+  border-radius: 10px;
+}
+
+.primeraParteNavegacion {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  width: 45%;
+  padding-left: 5%;
+  align-content: center;
+  align-items: center;
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.ultimaParte {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 44%;
+  padding-right: 6%;
+}
+
+.img {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 44%;
+  padding-right: 6%;
+}
+
+.medio {
+  height: 3em;
+  width: 20%;
+  justify-content: center;
+  align-content: flex-end;
+  align-items: flex-end;
+  margin-top: 7%;
+}
+
+.cuerpoMedia {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  margin-top: 0%;
+  padding-top: 0;
+  padding-right: 8%;
+  width: 100%;
+}
+
+.cuerpoMedia .inputMail {
+  display: flex;
+  flex-flow: nowrap;
+  width: 165%;
+  align-items: center;
+  margin-left: -17%;
+}
+
+.cuerpoMedia .inputMail span {
+  width: 8%;
+  font-size: 1.9em;
+  margin-right: 2%;
+}
+
+.cuerpoMedia input {
+  margin: 3%;
+  width: 140%;
+  height: 30px;
+  border-radius: 10px;
+}
+
+.cuerpoMedia .inputMailLog {
+  display: flex;
+  flex-flow: nowrap;
+  width: 148%;
+  align-items: center;
+  margin-left: 0;
+}
+
+.cuerpoMedia .inputMailLog input {
+  height: 40px;
+  cursor: pointer;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.cuerpoMedia .btnLog {
+  width: 123%;
+  height: 35px;
+}
+
+.olvidaste {
+  margin-left: 5%;
+  margin-top: -5%;
+  font-size: 1.5em;
+  width: 100%;
+}
+
+.cuerpoMedia .olvidaste a {
+  text-decoration: none;
+}
