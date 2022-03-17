@@ -7,11 +7,18 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0;
-  width: 100%;
   max-height: 40px;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 }
+
+.medio {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-items: center;
+}
+
 .navegacionSupHomeLog .primeraParteNavegacion .icon-menu {
   font-size: 1.4em;
   cursor: pointer;
@@ -25,8 +32,6 @@
 .navegacionSupHomeLog .primeraParteNavegacion .icon-menu {
   width: 1.6em;
   padding: 0.2em;
-  margin-top: 1em;
-  margin-right: 1em;
   margin-left: 0;
   border-radius: 10px;
   cursor: pointer;
@@ -41,6 +46,69 @@
   border-left: 0.1em solid rgb(0, 0, 0);
 }
 /*////////////////////////////////////////////////////////////////////////////////*/
+.navegacionSupHomeLog .medio #tituloOpciones {
+  display: flex;
+  flex-wrap: nowrap;
+  align-self: center;
+}
+.navegacionSupHomeLog .medio #tituloOpciones {
+  margin: 0.2em;
+  margin-left: -20em;
+}
+.navegacionSupHomeLog .medio #tituloOpciones h2 {
+  margin: 0;
+  margin-right: 1em;
+  padding: 0;
+  align-self: center;
+  font-size: 1.2em;
+}
+
+.navegacionSupHomeLog .medio #tituloOpciones input {
+  display: none;
+}
+
+.navegacionSupHomeLog .medio #tituloOpciones .titulo {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navegacionSupHomeLog .medio #tituloOpciones #opciones {
+  width: 10em;
+  justify-content: center;
+  cursor: pointer;
+  align-self: center;
+}
+
+.navegacionSupHomeLog .medio #tituloOpciones #opciones h3 {
+  padding-right: 1em;
+  margin: 0;
+  padding: 0;
+  font-size: 1.1em;
+}
+
+.navegacionSupHomeLog .medio #opcionesLista {
+  display: none;
+}
+
+.navegacionSupHomeLog .medio #opciones li {
+  list-style: none;
+  cursor: pointer;
+  font-family: "Ubuntu Condensed", sans-serif;
+}
+
+.navegacionSupHomeLog .medio #opcionesLista.show {
+  display: block;
+  position: absolute;
+  font-size: 1.3em;
+  width: 7em;
+  z-index: 50;
+  margin-top: 0.7em;
+  animation: fadeIn 0.3s forwards;
+  border-radius: 10px 10px 10px 10px;
+  padding: 1em;
+}
+/*////////////////////////////////////////////////////////////////////////////////*/
 .navegacionSupHomeLog .ultimaParte {
   display: flex;
   flex-wrap: nowrap;
@@ -49,6 +117,28 @@
   padding-top: 0.8em;
   padding-bottom: 0;
 }
+
+.navegacionSupHomeLog .ultimaParte .campana {
+  width: 1.5em;
+  height: 1.5em;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  cursor: pointer;
+}
+
+.navegacionSupHomeLog .ultimaParte.campana:hover {
+  transform: scale(1.5);
+}
+.navegacionSupHomeLog .ultimaParte {
+  margin: 0;
+  padding: 0;
+}
+.navegacionSupHomeLog .ultimaParte .perfil {
+  width: 1.5em;
+  height: 1.5em;
+  margin-top: 0.5em;
+}
+
 .navegacionSupHomeLog .ultimaParte nav {
   margin-top: 0;
   margin-bottom: 0;
@@ -60,6 +150,7 @@
   margin-left: 1em;
   margin-bottom: 0;
 }
+
 .navegacionSupHomeLog .ultimaParte nav ul {
   display: flex;
   flex-wrap: nowrap;
@@ -81,7 +172,18 @@
   font-size: 1.8em;
   cursor: pointer;
 }
-.navegacionSupHomeLog .ultimaParte .men {
+.navegacionSupHomeLog .ultimaParte .men-prin {
+  cursor: pointer;
+  z-index: 1000;
+  list-style: none;
+  margin-right: 2em;
+  margin-top: 0.3em;
+}
+.navegacionSupHomeLog .ultimaParte .men-prin #usuarioDes {
+  margin: 0;
+  padding: 0;
+}
+.navegacionSupHomeLog .ultimaParte .men-prin .men {
   list-style: none;
   display: none;
 }
@@ -136,8 +238,4 @@
 .navegacionSupHomeLog .ultimaParte ul.men li {
   font-size: 1.1em;
   margin-bottom: 4%;
-}
-
-.navegacionSupHomeLog .ultimaParte ul.men-prin {
-  list-style: none;
 }
