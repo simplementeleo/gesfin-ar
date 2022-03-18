@@ -1,5 +1,5 @@
 .nav-vert {
-  margin-top: 0;
+  margin-top: 1em;
   padding: 0;
   display: flex;
   width: 2.5em;
@@ -32,6 +32,7 @@
   transform: scale(1.5);
 }
 .nav-completa {
+  margin-top: 1em;
   background-color: rgba(206, 200, 211, 0.301);
   justify-content: flex-start;
   border-radius: 10px;

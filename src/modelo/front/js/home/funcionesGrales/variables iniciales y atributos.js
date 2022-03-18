@@ -69,6 +69,10 @@ const importeTres = { nombre: `importeTres`, type: `importe`, validacion: { matc
 const importeTresArs = { nombre: `importeTresArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 const importeTresUsd = { nombre: `importeTresUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 //
+const importeCuatro = { nombre: `importeCuatro`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeCuatroArs = { nombre: `importeCuatroArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const importeCuatroUsd = { nombre: `importeCuatroUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+//
 const importeDesencadenado = { nombre: `importeDesencadenado`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 const importeDesencadenadoArs = { nombre: `importeDesencadenadoArs`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
 const importeDesencadenadoUsd = { nombre: `importeDesencadenadoUsd`, type: `importe`, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };

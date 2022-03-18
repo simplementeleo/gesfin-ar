@@ -1,7 +1,7 @@
 $('.menuDobleEntrada').on('click ',
-    function() {
+    function () {
 
-        let objeto = variablesIniciales[this.id]
+        let objeto = variablesModelo[this.id] || variablesIniciales[this.id]
 
         let numerador = "";
         let fidecomisoSelec = $(`#fideic input`).val()
@@ -32,17 +32,18 @@ $('.menuDobleEntrada').on('click ',
         pestana.appendTo('#tabs_links'); //colgamos la pestaña final
         imagenes.appendTo('#comandera');
         let columnasArray = new Object;
-
+        console.log(objeto.formDoblePest.datos)
         $.each(objeto.formDoblePest.datos, (indice, value) => {
+
             $.ajax({
                 type: "get",
                 async: false,
                 url: `/${value.nombre}`,
-                success: function(data) {
+                success: function (data) {
                     columnasArray[indice] = data;
 
                 },
-                error: function(error) {
+                error: function (error) {
                     console.log(error);
                 }
             })
@@ -54,9 +55,9 @@ $('.menuDobleEntrada').on('click ',
             type: "get",
             url: `/${objeto.accion}`,
 
-            beforeSend: function() {},
-            complete: function() {},
-            success: function(response) {
+            beforeSend: function () { },
+            complete: function () { },
+            success: function (response) {
                 crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
                     clickInput(objeto, contador, columnasArray),
                     active(contador),
@@ -68,7 +69,7 @@ $('.menuDobleEntrada').on('click ',
                 numerador++
 
             },
-            error: function(error) {
+            error: function (error) {
                 console.log(error);
             }
         });
@@ -76,7 +77,7 @@ $('.menuDobleEntrada').on('click ',
         //Funcion de asignar atributo Active asi vemos la tabla de seleccionada
         $('.pestana').on('click',
 
-            function() {
+            function () {
 
                 var i = $(this).attr("id"); //atrapo el id de la pestaña
                 var id = i.slice(1); //Le saco la "p" del Id
@@ -95,7 +96,7 @@ $('.menuDobleEntrada').on('click ',
         //Cerrar tabla y asignar atributo active a la tabla de la izquierda excepto si es la primera
         $('.close').on('click',
 
-            function() {
+            function () {
 
                 var id = $(this).attr("id"); //atrapo id de la que estoy cerrando
                 var cl = $(this).parents(); //pestaá de la que estoy cerrando

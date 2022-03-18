@@ -240,7 +240,7 @@ let variablesModelo = {
             FiltroRapido: [],
         }
     },
-    /*proyeccionesCashFlow: {
+    proyeccionesCashFlow: {
         atributos: {
             names: [],
             titulos: [],
@@ -272,7 +272,7 @@ let variablesModelo = {
             },
         },
         formDoblePest: {
-            names: [previsto, porcentage, gastoReal, pagado, aPagar],
+            names: [importe, porcentage, importeDos, importeTres, importeCuatro],
             titulos: [`Rubro`, `Previsto`, `%`, `Gasto Real`, `Pagado`, `A Pagar`],
             datos: {
                 columna: rubroPagos,
@@ -303,7 +303,7 @@ let variablesModelo = {
             desencadenaModif: []
         },
 
-    },*/
+    },
     users: {
         atributos: {
             names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],

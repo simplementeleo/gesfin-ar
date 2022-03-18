@@ -19,14 +19,10 @@
   justify-items: center;
 }
 
-.navegacionSupHomeLog .primeraParteNavegacion .icon-menu {
-  font-size: 1.4em;
-  cursor: pointer;
-}
-
 .navegacionSupHomeLog .primeraParteNavegacion .lineaLogoHome {
   width: 3em;
   height: 3em;
+  margin-left: 2em;
 }
 
 .navegacionSupHomeLog .primeraParteNavegacion .icon-menu {
@@ -35,6 +31,7 @@
   margin-left: 0;
   border-radius: 10px;
   cursor: pointer;
+  font-size: 1.4em;
 }
 .navegacionSupHomeLog .primeraParteNavegacion h4 {
   font-size: 2em;

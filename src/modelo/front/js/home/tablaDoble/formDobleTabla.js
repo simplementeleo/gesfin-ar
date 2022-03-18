@@ -1,290 +1,136 @@
-const enviarFormularioDoble = function (consulta, objeto, numeroForm, id, fidecomisoSelec, height, usuario, filaContador) {
+const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec) {
+
+    let consulta = ""
 
     let accion = objeto.accion;
     let columna = objeto.tablaDobleEntrada.columna;
+    let tituloFila = objeto.tablaDobleEntrada.tituloFila;
 
-    $.ajax({
-        type: "put",
-        url: `/${accion}Doble`,
-        data: $(`#dobleEntrada${accion}${numeroForm}`).serialize(),
+    let filaContador = 0;
+    let id = $(`#t${numeroForm} tr.sel td._id`).html() || $(`#t${numeroForm} tr.sel td.id`).html()
+    let usuario = $("#oculto").val();
 
-        beforeSend: function () {
-            $(`.audit.${numeroForm}`).remove();
-            $(`#de${numeroForm}`).remove();
-        },
-        complete: function () { },
-        success: function (response) {
+    let pantalla = $(window).height();
+    let container = $(`.container`).css("height");
 
-            $(`.cartelErrorForm p`).html(response);
-            $(`.cartelErrorForm`).css("display", "block");
+    let heightContainer = container.slice(0, 2);
+    let height = pantalla - (heightContainer * 4.3);
 
-            let fecha = moment(Date.now()).format('L');
-            $(`.d.date.${numeroForm}`).val(fecha);
+    var imgs = `<div class="com" id="com${accion}${numeroForm}">${iMailF}${iCalenF}${iExpoF}${iDeleteF}${iEditF}${iCruzF}${iOkF}
+     <div><div class="cartelErrorForm noShow">
+                <p>Revisar los campos en rojo</p>
+            </div>
+        </div>
+        </div>
+        <div class="closeForm ${numeroForm}">+</div>`;
 
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
+    var imagenes = $(imgs);
 
-    $.ajax({
-        type: "GET",
-        url: `/${accion}`,
-        success: function (data) {
+    imagenes.appendTo('#comanderaIndiv');
+
+    let nomT = $(`#t${numeroForm} tr.sel td.name`).html();
+    let dirT = ""
+    //let dirT = $(`#t${numeroForm} tr.sel td.direccion`).html();
+
+    let encabazado = `<div class="titulos ${numeroForm}"><h2>${nomT}</h2>
+                       <h3>${dirT}</h3></div>`;
+
+    let e = $(encabazado);
+
+    e.appendTo(`#cabeceraForm`);
+
+    $.getJSON(servidor + `/${objeto.accion}?unid=${fidecomisoSelec}`,
+        function (data) {
+
+            consulta = data;
 
             switch (objeto.tablaDobleEntrada.type) {
                 case `regular`:
                     crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
+                    valoresDobleEntrada(consulta, columna, id)
+                    totalesFilas(numeroForm, objeto);
+
                     break;
                 case `check`:
-                    crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador)
+                    crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador, consulta)
                     break;
 
             }
+        })
 
-            valoresDobleEntrada(data, columna, id);
-            totalesFilas(numeroForm, objeto)
+    $(`#cabeceraForm #de${numeroForm} input.dobleEntrada.totales`).remove();
 
-        },
-        error: function (error) {
-            console.log(error);
-        }
+    $(`#formularioIndividual`).css("display", "flex");
+    $(`#formularioIndividual2`).css("display", "flex");
+
+    let fecha = moment(Date.now()).format('L');
+    $(`.d.date.${numeroForm}`).val(fecha);
+
+    //  totalesDobleEntrada(nomeDobleEn, numeroForm, columna);
+    //let entro = 0
+
+
+    $(`#formularioIndividual .closeForm.${numeroForm}`).click(function () {
+
+        editando = false;
+
+
+        $(`.tablaDoble.active.${numeroForm}`).remove()
+        $(`.audit.${numeroForm}`).remove();
+        $(`.titulos.${numeroForm}`).remove();
+        $(`#formulario${accion}${numeroForm}`).remove();
+        $(`#com${accion}${numeroForm}`).remove();
+        $(`#formularioIndividual`).css("display", "none");
+        $(`.closeForm.${numeroForm}`).remove()
+        $(`#t${numeroForm}`).remove()
+
+        reCrearTabla(numeroForm, objeto, fidecomisoSelec)
+
+
+
     });
+    $(`#formularioIndividual .okfBoton`).click(function (e) {
 
-}
-const eliminarRegistroFormularioDoble = function (objeto, numeroForm, height, usuario, id, filaContador) {
+        e.preventDefault();
 
-    let accion = objeto.accion;
-    let fila = objeto.tablaDobleEntrada.fila;
-    let tituloFila = objeto.tablaDobleEntrada.tituloFila;
-    let columna = objeto.tablaDobleEntrada.columna;
-    let tituloColumna = objeto.tablaDobleEntrada.tituloColumna;
+        enviarFormularioDoble(consulta, objeto, numeroForm, id, fidecomisoSelec, height, usuario, filaContador);
+    });
+    $(`#formularioIndividual .editBoton`).click(function () {
 
-    $.ajax({
-        type: "put",
-        url: `/${accion}DobleEliminar`,
-        data: $(`#dobleEntrada${accion}${numeroForm}`).serialize(),
-        beforeSend: function () {
+        editando = true;
+
+        editarDobleEntrada(objeto, numeroForm);
+    });
+    $(`#formularioIndividual .deleteBoton`).click(function () {
+
+        eliminarRegistroFormularioDoble(objeto, numeroForm, height, usuario, id, tituloColumna, filaContador)
+    });
+    $(`#formularioIndividual .cruzBoton`).click(function () {
+
+        if (editando == true) {
+
             $(`.audit.${numeroForm}`).remove();
             $(`#de${numeroForm}`).remove();
-        },
-        complete: function () { },
-        success: function (response) {
-            crearTablaDoble(numeroForm, accion, height, columna, titulosDobleEn, nomeDobleEn, usuario, id, tituloColumna, filaContador)
 
+            $.when(crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)).done(
+                valoresDobleEntrada(consulta, columna, id),
+                totalesFilas(numeroForm, objeto)
+            )
             let fecha = moment(Date.now()).format('L');
             $(`.d.date.${numeroForm}`).val(fecha);
+            editando = false
+        } else {
+            $(`input.form`).val("");
+            $(`.select.form`).val("");
 
-            $(`.cartelErrorForm p`).html(response);
-            $(`.cartelErrorForm`).css("display", "block");
-        },
-        error: function (error) {
-            console.log(error);
+            $(`.form.username`).val(usu);
+            let fecha = moment(Date.now()).format('L');
+            $(`.form.date`).prop("readonly", "true");
+            $(`.form.date`).val(fecha);
+
+            $(`input.form`).attr(`disabled`, false);
+            $(`.select.form`).attr(`disabled`, false);
         }
-    });
-
-    $.ajax({
-        type: "GET",
-        url: `/${accion}`,
-        success: function (data) {
-
-            valoresDobleEntrada(data, columna, id);
-            totalesFilas(numeroForm, fila)
-
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-
-}
-const claseDobleEntrada = function (numeroForm, objeto) {
-
-    $.each(objeto.tablaDobleEntrada.columna, function (indice, value) {
-
-        $(`#t${numeroForm} .celda.${value.nombre}`).addClass(`doEntrada`);
-
-    })
-
-    if (objeto.tablaDobleEntrada.abm == true) {
-
-        $(`#bf${numeroForm} .dobleBoton`).addClass("show");
-    }
-}
-const editarDobleEntrada = function (objeto, numeroForm) {
-
-    let accion = objeto.accion;
-    let columna = objeto.tablaDobleEntrada.columna;
-    let nameDobleEn = objeto.tablaDobleEntrada.nameDobleEn;
-    let nameSinTot = nameDobleEn.slice(0, nameDobleEn.length - 1);
-
-    $.when($.each(columna, function (indice, value) {
-
-        let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
-        let clas = value.nombre;
-
-        for (let m = 1; m <= fila; m++) {
-
-            $.each(nameSinTot, function (indice, valueS) {
-
-                let clasSeg = valueS.nombre;
-
-                let valor = parseInt($(`#de${numeroForm} td.de.${clas}.${m}.${clasSeg}`).html());
-
-                var inp = "";
-
-                if (isNaN(valor)) {
-
-
-                    inp += `<input class="dobleEntrada ${clas} ${clasSeg}" name="${clasSeg}" form="dobleEntrada${accion}${numeroForm}" ></input>`;
-
-                } else {
-
-                    inp += `<input class="dobleEntrada ${clas} ${clasSeg}" name="${clasSeg}" form="dobleEntrada${accion}${numeroForm}"value=${valor}></input>`;
-                }
-
-                let input = $(inp);
-                $(`#de${numeroForm} td.de.${clas}.${m}.${clasSeg}`).html("");
-
-                input.appendTo(`td.de.${clas}.${m}.${clasSeg}`);
-
-            })
-        }
-
-    })).then(
-        totalesDobleEn(numeroForm, objeto)
-    )
-
-    $(`#cabeceraForm #de${numeroForm} input.dobleEntrada`).addClass(`show`);
-
-}
-const calcularTotalCol = function () {
-    let numFil = 0;
-
-    $.each(columna, function (indice, value) {
-
-        let fila = parseInt($(`#t${numeroForm} tr.sel td.${value}`).html());
-
-        for (let x = 0; x < fila; x++) {
-            let xfila = x + 1;
-
-            let inputTabla = $(`#cabeceraForm #de${numeroForm} input.${value}.${numFil}`);
-            numFil++;
-
-            let total = 0;
-
-            $.each(inputTabla, function (indice, value) {
-
-                let valor = parseInt($(value).val());
-
-
-                if (!isNaN(valor)) {
-                    total += valor;
-                }
-            });
-
-            $(`.${value}.${xfila}.totales`).html(total);
-        }
-    })
-}
-const totalesFilas = function (numeroForm, objeto) {
-
-    let columna = objeto.tablaDobleEntrada.columna;
-
-    $.each(columna, function (indice, value) {
-
-        let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
-
-        for (let f = 1; f <= fila; f++) {
-            let valorTotal = 0;
-
-            const tds = $(`#de${numeroForm} td.${value.nombre}.${f}`)
-
-            const calcularTol = function (td) {
-                let valorCelda = parseInt($(td).html());
-                if (!isNaN(valorCelda)) {
-                    valorTotal += valorCelda;
-                }
-            }
-
-            $.each(tds, function (indice, value) {
-
-                calcularTol(value)
-
-            });
-
-            $(`td.${value.nombre}.${f}.totales`).html(valorTotal);
-        }
-    })
-
-}
-const totalesDobleEn = function (numeroForm, objeto) {
-
-    let columna = objeto.tablaDobleEntrada.columna;
-    let nameDobleEn = objeto.tablaDobleEntrada.nameDobleEn;
-
-    const inputsDoble = document.querySelectorAll(`#de${numeroForm} input.dobleEntrada`);
-
-    inputsDoble.forEach((input) => {
-
-        const totalesFilasInput = function () {
-
-            $.each(columna, function (indice, value) {
-
-                let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
-
-                for (let f = 1; f <= fila; f++) {
-                    let valorTotal = 0;
-
-                    const tds = $(`#de${numeroForm} td.${value.nombre}.${f} input`)
-
-                    const calcularTol = function (td) {
-                        let valorCelda = parseInt($(td).val());
-                        if (!isNaN(valorCelda)) {
-                            valorTotal += valorCelda;
-                        }
-                    }
-
-                    $.each(tds, function (indice, value) {
-
-                        calcularTol(value)
-
-                    });
-
-                    $(`td.${value.nombre}.${f}.totales`).html(valorTotal);
-                }
-            })
-
-        }
-        const totalesColInput = function () {
-
-            $.each(nameDobleEn, function (indice, value) {
-                let valorTotalCol = 0;
-
-                const tds = $(`#de${numeroForm} td.${value.nombre} input`)
-
-
-
-                const calcularTolCol = function (td) {
-                    let valorCeldaCol = parseInt($(td).val());
-
-                    if (!isNaN(valorCeldaCol)) {
-                        valorTotalCol += valorCeldaCol;
-                    }
-                }
-
-                $.each(tds, function (indice, value) {
-
-                    calcularTolCol(value)
-                });
-                $(`td.det.total.${value.nombre}`).html(valorTotalCol);
-            })
-
-        }
-
-        input.addEventListener('keyup', totalesFilasInput);
-        input.addEventListener('keyup', totalesColInput);
-
     });
 }
 const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaContador) {
@@ -680,6 +526,295 @@ const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd,
             $(`td.${attr} input.valor`, father).val(`checked`)
         }
     })
+}
+const enviarFormularioDoble = function (consulta, objeto, numeroForm, id, fidecomisoSelec, height, usuario, filaContador) {
+
+    let accion = objeto.accion;
+    let columna = objeto.tablaDobleEntrada.columna;
+
+    $.ajax({
+        type: "put",
+        url: `/${accion}Doble`,
+        data: $(`#dobleEntrada${accion}${numeroForm}`).serialize(),
+
+        beforeSend: function () {
+            $(`.audit.${numeroForm}`).remove();
+            $(`#de${numeroForm}`).remove();
+        },
+        complete: function () { },
+        success: function (response) {
+
+            $(`.cartelErrorForm p`).html(response);
+            $(`.cartelErrorForm`).css("display", "block");
+
+            let fecha = moment(Date.now()).format('L');
+            $(`.d.date.${numeroForm}`).val(fecha);
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: `/${accion}`,
+        success: function (data) {
+
+            switch (objeto.tablaDobleEntrada.type) {
+                case `regular`:
+                    crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
+                    break;
+                case `check`:
+                    crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador)
+                    break;
+
+            }
+
+            valoresDobleEntrada(data, columna, id);
+            totalesFilas(numeroForm, objeto)
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+}
+const eliminarRegistroFormularioDoble = function (objeto, numeroForm, height, usuario, id, filaContador) {
+
+    let accion = objeto.accion;
+    let fila = objeto.tablaDobleEntrada.fila;
+    let tituloFila = objeto.tablaDobleEntrada.tituloFila;
+    let columna = objeto.tablaDobleEntrada.columna;
+    let tituloColumna = objeto.tablaDobleEntrada.tituloColumna;
+
+    $.ajax({
+        type: "put",
+        url: `/${accion}DobleEliminar`,
+        data: $(`#dobleEntrada${accion}${numeroForm}`).serialize(),
+        beforeSend: function () {
+            $(`.audit.${numeroForm}`).remove();
+            $(`#de${numeroForm}`).remove();
+        },
+        complete: function () { },
+        success: function (response) {
+            crearTablaDoble(numeroForm, accion, height, columna, titulosDobleEn, nomeDobleEn, usuario, id, tituloColumna, filaContador)
+
+            let fecha = moment(Date.now()).format('L');
+            $(`.d.date.${numeroForm}`).val(fecha);
+
+            $(`.cartelErrorForm p`).html(response);
+            $(`.cartelErrorForm`).css("display", "block");
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: `/${accion}`,
+        success: function (data) {
+
+            valoresDobleEntrada(data, columna, id);
+            totalesFilas(numeroForm, fila)
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+
+}
+const claseDobleEntrada = function (numeroForm, objeto) {
+
+    $.each(objeto.tablaDobleEntrada.columna, function (indice, value) {
+
+        $(`#t${numeroForm} .celda.${value.nombre}`).addClass(`doEntrada`);
+
+    })
+
+    if (objeto.tablaDobleEntrada.abm == true) {
+
+        $(`#bf${numeroForm} .dobleBoton`).addClass("show");
+    }
+}
+const editarDobleEntrada = function (objeto, numeroForm) {
+
+    let accion = objeto.accion;
+    let columna = objeto.tablaDobleEntrada.columna;
+    let nameDobleEn = objeto.tablaDobleEntrada.nameDobleEn;
+    let nameSinTot = nameDobleEn.slice(0, nameDobleEn.length - 1);
+
+    $.when($.each(columna, function (indice, value) {
+
+        let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
+        let clas = value.nombre;
+
+        for (let m = 1; m <= fila; m++) {
+
+            $.each(nameSinTot, function (indice, valueS) {
+
+                let clasSeg = valueS.nombre;
+
+                let valor = parseInt($(`#de${numeroForm} td.de.${clas}.${m}.${clasSeg}`).html());
+
+                var inp = "";
+
+                if (isNaN(valor)) {
+
+
+                    inp += `<input class="dobleEntrada ${clas} ${clasSeg}" name="${clasSeg}" form="dobleEntrada${accion}${numeroForm}" ></input>`;
+
+                } else {
+
+                    inp += `<input class="dobleEntrada ${clas} ${clasSeg}" name="${clasSeg}" form="dobleEntrada${accion}${numeroForm}"value=${valor}></input>`;
+                }
+
+                let input = $(inp);
+                $(`#de${numeroForm} td.de.${clas}.${m}.${clasSeg}`).html("");
+
+                input.appendTo(`td.de.${clas}.${m}.${clasSeg}`);
+
+            })
+        }
+
+    })).then(
+        totalesDobleEn(numeroForm, objeto)
+    )
+
+    $(`#cabeceraForm #de${numeroForm} input.dobleEntrada`).addClass(`show`);
+
+}
+const calcularTotalCol = function () {
+    let numFil = 0;
+
+    $.each(columna, function (indice, value) {
+
+        let fila = parseInt($(`#t${numeroForm} tr.sel td.${value}`).html());
+
+        for (let x = 0; x < fila; x++) {
+            let xfila = x + 1;
+
+            let inputTabla = $(`#cabeceraForm #de${numeroForm} input.${value}.${numFil}`);
+            numFil++;
+
+            let total = 0;
+
+            $.each(inputTabla, function (indice, value) {
+
+                let valor = parseInt($(value).val());
+
+
+                if (!isNaN(valor)) {
+                    total += valor;
+                }
+            });
+
+            $(`.${value}.${xfila}.totales`).html(total);
+        }
+    })
+}
+const totalesFilas = function (numeroForm, objeto) {
+
+    let columna = objeto.tablaDobleEntrada.columna;
+
+    $.each(columna, function (indice, value) {
+
+        let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
+
+        for (let f = 1; f <= fila; f++) {
+            let valorTotal = 0;
+
+            const tds = $(`#de${numeroForm} td.${value.nombre}.${f}`)
+
+            const calcularTol = function (td) {
+                let valorCelda = parseInt($(td).html());
+                if (!isNaN(valorCelda)) {
+                    valorTotal += valorCelda;
+                }
+            }
+
+            $.each(tds, function (indice, value) {
+
+                calcularTol(value)
+
+            });
+
+            $(`td.${value.nombre}.${f}.totales`).html(valorTotal);
+        }
+    })
+
+}
+const totalesDobleEn = function (numeroForm, objeto) {
+
+    let columna = objeto.tablaDobleEntrada.columna;
+    let nameDobleEn = objeto.tablaDobleEntrada.nameDobleEn;
+
+    const inputsDoble = document.querySelectorAll(`#de${numeroForm} input.dobleEntrada`);
+
+    inputsDoble.forEach((input) => {
+
+        const totalesFilasInput = function () {
+
+            $.each(columna, function (indice, value) {
+
+                let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
+
+                for (let f = 1; f <= fila; f++) {
+                    let valorTotal = 0;
+
+                    const tds = $(`#de${numeroForm} td.${value.nombre}.${f} input`)
+
+                    const calcularTol = function (td) {
+                        let valorCelda = parseInt($(td).val());
+                        if (!isNaN(valorCelda)) {
+                            valorTotal += valorCelda;
+                        }
+                    }
+
+                    $.each(tds, function (indice, value) {
+
+                        calcularTol(value)
+
+                    });
+
+                    $(`td.${value.nombre}.${f}.totales`).html(valorTotal);
+                }
+            })
+
+        }
+        const totalesColInput = function () {
+
+            $.each(nameDobleEn, function (indice, value) {
+                let valorTotalCol = 0;
+
+                const tds = $(`#de${numeroForm} td.${value.nombre} input`)
+
+
+
+                const calcularTolCol = function (td) {
+                    let valorCeldaCol = parseInt($(td).val());
+
+                    if (!isNaN(valorCeldaCol)) {
+                        valorTotalCol += valorCeldaCol;
+                    }
+                }
+
+                $.each(tds, function (indice, value) {
+
+                    calcularTolCol(value)
+                });
+                $(`td.det.total.${value.nombre}`).html(valorTotalCol);
+            })
+
+        }
+
+        input.addEventListener('keyup', totalesFilasInput);
+        input.addEventListener('keyup', totalesColInput);
+
+    });
 }
 const valoresDobleEntrada = function (consulta, nomeDobleEn, id) {
 

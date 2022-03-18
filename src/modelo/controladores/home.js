@@ -18,6 +18,7 @@ const Cliente = require("../models/marketPlace/terceros/Cliente");
 
 //financiero
 const MovimientoFinanciero = require("../models/home/operacionFinanciera/MovimientosFinancieros");
+const ProyectadoCash = require("../models/home/operacionFinanciera/MovimientosFinancieros");
 
 //Indices
 const Icc = require("../models/home/indices/Icc");
