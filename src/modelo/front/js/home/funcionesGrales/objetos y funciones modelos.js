@@ -276,7 +276,7 @@ let variablesModelo = {
             titulos: [`Rubro`, `Previsto`, `%`, `Gasto Real`, `Pagado`, `A Pagar`],
             datos: {
                 columna: rubroPagos,
-                agrupador: [agrupadorRubrosPago]
+                agrupador: []
             },
             valorCalculado: [porcentage]
         },

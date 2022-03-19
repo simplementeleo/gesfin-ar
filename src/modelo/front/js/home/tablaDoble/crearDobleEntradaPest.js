@@ -32,7 +32,7 @@ $('.menuDobleEntrada').on('click ',
         pestana.appendTo('#tabs_links'); //colgamos la pestaña final
         imagenes.appendTo('#comandera');
         let columnasArray = new Object;
-        console.log(objeto.formDoblePest.datos)
+
         $.each(objeto.formDoblePest.datos, (indice, value) => {
 
             $.ajax({
