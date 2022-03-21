@@ -146,6 +146,7 @@ const validarPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\
 const password = { nombre: `password`, type: `password`, validacion: { match: validarPassword, texto: `Debe contener 6 a 15 caractere, al menos una mayuscula, un numero y un caracter complejo ` } };
 //Solo valida que completa 
 const validacionTextoStandar = /.{1,500}$/
+const texto = { nombre: `texto`, type: `texto`, validacion: { match: validacionTextoStandar, texto: `Campo obligatorio` } };
 const descripcion = { nombre: `descripcion`, type: `texto`, validacion: { match: validacionTextoStandar, texto: `Campo obligatorio` } };
 const direccion = { nombre: `direccion`, type: `texto`, validacion: { match: validacionTextoStandar, texto: `Campo obligatorio` } };
 const documento = { nombre: `documento`, type: `texto`, validacion: { match: validacionTextoStandar, texto: `Campo obligatorio` } };
@@ -501,34 +502,6 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
         })
     }
 }
-
-$(`#viewConf`).click(function () {
-
-    $(`#menu-container .nav-completa p[view="market"],
-       #menu-container .nav-vert img[view="market"]`).removeClass(`noneMarket`)
-
-    $(`#menu-container .nav-completa p[view="home"],
-       #menu-container .nav-vert img[view="home"]`).addClass(`noneHome`)
-
-    $(this).addClass(`noneHome`)
-    $(`#viewHome`).removeClass(`noneMarket`)
-
-    $('.men').removeClass("show");
-})
-
-$(`#viewHome`).click(function () {
-
-    $(`#menu-container .nav-completa p[view="market"],
-       #menu-container .nav-vert img[view="market"]`).addClass(`noneMarket`)
-
-    $(`#menu-container .nav-completa p[view="home"],
-       #menu-container .nav-vert img[view="home"]`).removeClass(`noneHome`)
-
-    $(this).addClass(`noneMarket`)
-    $(`#viewConf`).removeClass(`noneHome`)
-
-    $('.men').removeClass("show");
-})
 
 
 ////////////////ESCRITORIO///////////////

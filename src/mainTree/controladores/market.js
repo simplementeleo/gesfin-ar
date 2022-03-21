@@ -1,5 +1,16 @@
-router.get('/unidades', async (req, res) => {
+const express = require('express');
+const router = express.Router();
+const session = require("express-session");
+const passport = require("passport");
+const morgan = require(`morgan`);
+const path = require('path');
+const multer = require(`multer`)
+const { unlink } = require(`fs-extra`)
 
+const Unidades = require("../../models/marketPlace/cliente/Unidades");
+const User = require("../../modelo/models/marketPlace/User");
+
+router.get('/unidades', async (req, res) => {
     let unidFidei = /./;
 
 
@@ -81,7 +92,7 @@ router.get('/unidadesDestino', async (req, res) => {
 });
 router.post('/unidades', async (req, res) => {
     try {
-        let { name, direccion, pisos, deptos, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, oficinaTotal, cochera, cocheraTotal, localesTotal, locales, plantaBaja, subsuelo, torres, maxHab, date, username, habilitado } = req.body;
+        let { name, direccion, pisos, deptos, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, oficinaTotal, cochera, cocheraTotal, localesTotal, locales, date, username, habilitado } = req.body;
 
         const usersFound = await User.find({ username: { $in: username } });
 
@@ -93,9 +104,6 @@ router.post('/unidades', async (req, res) => {
             oficinaTotal,
             cocheraTotal,
             localesTotal,
-            plantaBaja,
-            subsuelo,
-            torres,
             mono,
             unaHab,
             dosHab,
@@ -256,3 +264,5 @@ router.put('/unidades', async (req, res) => {
         console.error(error);
     }
 });
+
+module.exports = router;

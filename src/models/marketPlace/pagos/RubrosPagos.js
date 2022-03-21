@@ -17,4 +17,4 @@ const RubrosPagosSchema = new Schema({
 
 });
 
-module.exports = model("RubrosPagos", RubrosPagosSchema); s
+module.exports = model("RubrosPagos", RubrosPagosSchema);

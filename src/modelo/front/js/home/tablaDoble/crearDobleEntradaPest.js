@@ -58,6 +58,7 @@ $('.menuDobleEntrada').on('click ',
             beforeSend: function () { },
             complete: function () { },
             success: function (response) {
+
                 crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
                     clickInput(objeto, contador, columnasArray),
                     active(contador),

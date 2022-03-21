@@ -1,10 +1,13 @@
+const crearTrablaDoblepestana = function () {
+
+}
+
 const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec) {
 
     let consulta = ""
 
     let accion = objeto.accion;
     let columna = objeto.tablaDobleEntrada.columna;
-    let tituloFila = objeto.tablaDobleEntrada.tituloFila;
 
     let filaContador = 0;
     let id = $(`#t${numeroForm} tr.sel td._id`).html() || $(`#t${numeroForm} tr.sel td.id`).html()
@@ -30,7 +33,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
 
     let nomT = $(`#t${numeroForm} tr.sel td.name`).html();
     let dirT = ""
-    //let dirT = $(`#t${numeroForm} tr.sel td.direccion`).html();
 
     let encabazado = `<div class="titulos ${numeroForm}"><h2>${nomT}</h2>
                        <h3>${dirT}</h3></div>`;
@@ -133,13 +135,15 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         }
     });
 }
+
 const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaContador) {
 
     let accion = objeto.accion;
     let fila = objeto.tablaDobleEntrada.fila;
     let tituloFila = objeto.tablaDobleEntrada.tituloFila;
     let columna = objeto.tablaDobleEntrada.columna;
-    let tituloColumna = objeto.tablaDobleEntrada.tituloColumna;
+    let titulosColumna = objeto.tablaDobleEntrada.titulosColumna;
+
 
     let tabla = "";
 
@@ -151,16 +155,16 @@ const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaC
         if (i < 0) {
             tabla += `<th class="tituloTablas vacio"></th>`;
 
-            $.each(tituloFila, function (indice, value) {
+            $.each(titulosColumna, function (indice, value) {
 
                 tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
             });
 
         } else if ((i > -1) && (i < fila.length)) {
 
-            let fila = parseInt($(`#t${numeroForm} tr.sel td.${fila[i].nombre}`).html());
+            let filaAbm = parseInt($(`#t${numeroForm} tr.sel td.${fila[i].nombre}`).html());
 
-            for (let x = 0; x < fila; x++) {
+            for (let x = 0; x < filaAbm; x++) {
                 let nombreFil;
 
                 switch (x) {
@@ -191,7 +195,7 @@ const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaC
                 }
 
                 tabla += `<tr>
-                <th class ="filaNombre ${fila[i].nombre} ${x + 1}">${titulofila[i]} ${nombreFil}<input class="doEn ${fila[i]}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${fila[i].nombre}" fila="${filaContador}" display="none">
+                <th class ="filaNombre ${fila[i].nombre} ${x + 1}">${tituloFila[i]} ${nombreFil}<input class="doEn ${fila[i]}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${fila[i].nombre}" fila="${filaContador}" display="none">
                 <input class="doEn ${fila[i].nombre} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" value="${x + 1}" fila="${filaContador}" display="none"></th>`;
 
                 for (let t = 0; t < columna.length; t++) {

@@ -1,20 +1,24 @@
 let variablesIniciales = {
     unidades: {
         atributos: {
-            names: [_id, nombre, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, plantaBaja, subsuelo, torres, date, username, habilitado],
-            titulos: [`_id`, 'Nombre', `Direccion`, `Pisos`, `Deptos`, `Oficinas`, `Cocheras`, `Local`, `mono`, `unaHab`, `dosHab`, `tresHab`, `cuatroHab`, `Plantas Bajas`, `Subsuelos`, `Torres`, 'Auditoria', 'Usuario'],
+            names: [_id, nombre, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, unidadesTorres, date, username, habilitado],
+            titulos: [`_id`, 'Nombre', `Direccion`, `Pisos`, `Deptos`, `Oficinas`, `Cocheras`, `Local`, `mono`, `unaHab`, `dosHab`, `tresHab`, `cuatroHab`, `Torres`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
-            oculto: [_id, mono, unaHab, dosHab, tresHab, cuatroHab, habilitado],
+            oculto: [_id, mono, unaHab, dosHab, tresHab, cuatroHab, descripcion, habilitado],
             importe: {
                 totalizador: [],
                 importeBase: [],
                 importePesos: [],
                 importeUsd: [],
             },
-            compuesto: [],
+            compuesto: {
+                unidadesTorres: unidadesTorres,
+
+            },
             signo: [],
             color: {
-                verde: [plantaBaja, subsuelo, torres]
+                verde: [texto, descripcion
+                ]
             },
             number: [],
             date: [],
@@ -48,9 +52,9 @@ let variablesIniciales = {
             deshabilitar: true
         },
         formInd: {
-            compuesto: false,
+            compuesto: true,
             titulos: [`_id`, 'Nombre', `Direccion`, `Pisos`, `Deptos`, `Oficinas`, `Cocheras`, `Locales`, `mono`, `unaHab`, `dosHab`, `tresHab`, `cuatroHab`, `Plantas Bajas`, `Subsuelos`, `Torres`, 'Auditoria', 'Usuario'],
-            titulosCompuesto: [],
+            titulosCompuesto: [`Nombre`, `Descrpción`],
             oculto: [_id, mono, unaHab, dosHab, tresHab, cuatroHab, habilitado],
             ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
             inputRenglones: [4, 4, 4, 4, 6],
@@ -88,10 +92,14 @@ let variablesIniciales = {
             totales: [],
         },
         tablaDobleEntrada: {
-            columna: [plantaBaja, subsuelo, torres], //fila
-            tituloColumna: [`Planta Baja`, `Subsuelo`, `Torre`],
-            nameDobleEn: [mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, totales],
-            titulosDobleEn: ['Mono', `Una Hab`, `Dos Hab`, `Tres Hab`, `Cuatro Hab`, `Oficinas`, `Cocheras`, `Loc Com`, `Total`],
+            abm: true,
+            type: `regular`,
+            filaType: `baseInterna`,
+            fila: [plantaBaja, subsuelo, torres], //fila
+            tituloFila: [``],
+            columnaType: `fija`,
+            columna: [mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, totales],
+            titulosColumna: ['Mono', `Una Hab`, `Dos Hab`, `Tres Hab`, `Cuatro Hab`, `Oficinas`, `Cocheras`, `Loc Com`, `Total`],
         },
         desencadena: false,
         desencadenaColeccion: {

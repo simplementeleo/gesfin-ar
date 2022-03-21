@@ -7,7 +7,7 @@ const path = require('path');
 const multer = require(`multer`)
 const { unlink } = require(`fs-extra`)
 
-const RubrosPagos = require("../models/marketPlace/pagos/RubrosPagos");
+const RubrosPagos = require("../../models/marketPlace/pagos/RubrosPagos");
 
 router.get('/rubroPagos', async (req, res) => {
 

@@ -21,3 +21,15 @@ const unaHab = { nombre: `unaHab`, type: `texto`, observaciones: `Cantidad de de
 const dosHab = { nombre: `dosHab`, type: `texto`, observaciones: `Cantidad de departamentos dos habitaciones que posee un edificio`, maxCaract: 100 };
 const oficina = { nombre: `oficina`, type: `texto`, observaciones: `Importe en Pesos` };
 const oficinaTotal = { nombre: `oficinaTotal`, type: `texto`, observaciones: `Cantidad de oficinas que contiene el fideicomiso` };
+
+const unidadesTorres = {
+    titulos: `Torres`,
+    nombre: `unidadesTorres`,
+    type: `coleccionTotal`,
+    key: `rubro`,
+    componentes: {
+        texto: texto,
+        descripcion: descripcion,
+
+    }
+}

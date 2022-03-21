@@ -29,13 +29,11 @@ $(`.menuSelectAbm,
 .menuFormulario, .menuDobleEntrada`).on(`click`,
     function () {
         $('.principalesIndicadores').addClass("noShow");
-        //document.querySelector('#tablas').classList.add("tablaActive");
 
     })
 $(".menuFormulario").on(`click`,
     function () {
         document.querySelector('.principalesIndicadores').classList.add("noShow");
-        //document.querySelector('#tablas').classList.add("tablaActive");
 
     });
 $(".panel").on(`click`,
@@ -64,4 +62,36 @@ $('.desplegableAbm').on('click', function () {
     } else {
         $(`.nav-vert li img.${imgBajar}`).css(`margin-top`, `1em`);
     }
+})
+
+$(`#viewConf`).click(function () {
+
+    $(`#menu-container .nav-completa p[view="market"],
+       #menu-container .nav-vert img[view="market"]`).removeClass(`noneMarket`)
+
+    $(`#menu-container .nav-completa p[view="home"],
+       #menu-container .nav-vert img[view="home"]`).addClass(`noneHome`)
+
+    $(`#menu-container .nav-completa p[view="home"] ul.subMenu`).addClass(`noneHome`)
+
+    $(this).addClass(`noneHome`)
+    $(`#viewHome`).removeClass(`noneMarket`)
+
+    $('.men').removeClass("show");
+})
+
+$(`#viewHome`).click(function () {
+
+    $(`#menu-container .nav-completa p[view="market"],
+       #menu-container .nav-vert img[view="market"]`).addClass(`noneMarket`)
+
+    $(`#menu-container .nav-completa p[view="home"],
+       #menu-container .nav-vert img[view="home"]`).removeClass(`noneHome`)
+
+    $(`#menu-container .nav-completa p[view="market"] ul.subMenu`).addClass(`noneMarket`)
+
+    $(this).addClass(`noneMarket`)
+    $(`#viewConf`).removeClass(`noneHome`)
+
+    $('.men').removeClass("show");
 })
