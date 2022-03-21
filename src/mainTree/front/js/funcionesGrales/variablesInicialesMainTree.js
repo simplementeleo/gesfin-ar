@@ -26,7 +26,7 @@ const unidadesTorres = {
     titulos: `Torres`,
     nombre: `unidadesTorres`,
     type: `coleccionTotal`,
-    key: `rubro`,
+    key: `texto`,
     componentes: {
         texto: texto,
         descripcion: descripcion,

@@ -643,8 +643,10 @@ $('.menuSelectAbm').on('click ', this.id, function () {
 
         if (botonEditar == false) {
             if (sel.length > 0) {
+             
+                let fidei = consulta.find(element => element.id == $(`td.id`,sel).html());
 
-                crearTablaDobleEntradaForm(numeroForm, objeto, fidecomisoSelec);
+                crearTablaDobleEntradaForm(numeroForm, objeto, fidei, fidecomisoSelec);
             } else {
                 $(`#bf${numeroForm} .cartelErrorFront p`).html("Seleccione un registro")
                 $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");

@@ -1720,13 +1720,15 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                     colec += `<th class="tituloTablasIndividual ${val}">${val}</th>`;
                 })
                 colec += `</tr>`;
-
+                 console.log(valor)
                 if (valor.id != undefined) {
 
                     $.each(consulta, function (ind, val) {
-
+                        console.log(val)
+                        console.log(valor)
                         if ((valor.id == val.id)) {
 
+                          
                             if (val[value.nombre][objeto.atributos.compuesto[value.nombre].key] != "") {
                                 $.each(val[value.nombre][objeto.atributos.compuesto[value.nombre].key], (x, y) => { //////// voy a buscar la key del atributo compuesto para ver la longitud de la coleccion
 

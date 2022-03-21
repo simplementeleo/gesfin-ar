@@ -2,7 +2,7 @@ const crearTrablaDoblepestana = function () {
 
 }
 
-const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec) {
+const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomisoSelec) {
 
     let consulta = ""
 
@@ -48,7 +48,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
 
             switch (objeto.tablaDobleEntrada.type) {
                 case `regular`:
-                    crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
+                    crearTablaDoble(numeroForm, objeto, fidei, height, usuario, id, filaContador)
                     valoresDobleEntrada(consulta, columna, id)
                     totalesFilas(numeroForm, objeto);
 
@@ -136,15 +136,37 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
     });
 }
 
-const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaContador) {
+const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id, filaContad) {
 
+    let filaContador = filaContad || 0
     let accion = objeto.accion;
-    let fila = objeto.tablaDobleEntrada.fila;
-    let tituloFila = objeto.tablaDobleEntrada.tituloFila;
-    let columna = objeto.tablaDobleEntrada.columna;
-    let titulosColumna = objeto.tablaDobleEntrada.titulosColumna;
+    let fila = [];
+    let tituloFila = [];
+    let columna = [];
+    let titulosColumna = [];
+/////////////////////tipo de fila
+    switch (objeto.tablaDobleEntrada.filaType) {
+        case `baseInterna`:
 
+        $.each(objeto.tablaDobleEntrada.fila, (indice, value)=>{
+            fila.push(fidei[indice][value])
+            tituloFila.push(fidei[indice][value])
+        })
+            break;
+    }
 
+ /////////////////////tipo de Columna
+
+ switch (objeto.tablaDobleEntrada.columnaType) {
+    case `fija`:
+
+        $.each(objeto.tablaDobleEntrada.columna, (indice, value)=>{
+            columna.push(value.nombre)  
+        })
+        titulosColumna = objeto.tablaDobleEntrada.titulosColumna
+
+        break;
+}
     let tabla = "";
 
     tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
@@ -162,45 +184,15 @@ const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaC
 
         } else if ((i > -1) && (i < fila.length)) {
 
-            let filaAbm = parseInt($(`#t${numeroForm} tr.sel td.${fila[i].nombre}`).html());
-
-            for (let x = 0; x < filaAbm; x++) {
-                let nombreFil;
-
-                switch (x) {
-                    case 0:
-                        nombreFil = "I";
-                        break;
-                    case 1:
-                        nombreFil = "II";
-                        break;
-                    case 2:
-                        nombreFil = "III";
-                        break;
-                    case 3:
-                        nombreFil = "VI";
-                        break;
-                    case 4:
-                        nombreFil = "V";
-                        break;
-                    case 5:
-                        nombreFil = "VI";
-                        break;
-                    case 6:
-                        nombreFil = "VI";
-                        break;
-                    default:
-                        nombreFil = x + 1;
-                        break;
-                }
+            for (let x = 0; x < fila.length; x++) {
 
                 tabla += `<tr>
-                <th class ="filaNombre ${fila[i].nombre} ${x + 1}">${tituloFila[i]} ${nombreFil}<input class="doEn ${fila[i]}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${fila[i].nombre}" fila="${filaContador}" display="none">
-                <input class="doEn ${fila[i].nombre} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" value="${x + 1}" fila="${filaContador}" display="none"></th>`;
+                <th class ="filaNombre ${fila[i]} ${x + 1}">${tituloFila[i]}<input class="doEn ${fila[i]}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${fila[i]}" fila="${filaContador}" display="none">
+                <input class="doEn ${fila[i]} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" value="${x + 1}" fila="${filaContador}" display="none"></th>`;
 
                 for (let t = 0; t < columna.length; t++) {
 
-                    tabla += `<td class = "de ${fila[i].nombre} ${x + 1} ${columna[t].nombre}"></td>`;
+                    tabla += `<td class = "de ${fila[i]} ${x + 1} ${columna[t]}"></td>`;
                 }
                 tabla += `</tr>`;
                 filaContador++
@@ -210,7 +202,7 @@ const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaC
             tabla += `<tr><th class = "filaNombre Total"> Total:</th> `;
 
             for (let t = 0; t < columna.length; t++) {
-                tabla += `<td class = "det total ${columna[t].nombre}"></td>`;
+                tabla += `<td class = "det total ${columna[t]}"></td>`;
             }
             tabla += `</tr>`;
 
@@ -220,7 +212,7 @@ const crearTablaDoble = function (numeroForm, objeto, height, usuario, id, filaC
 
     let user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
                      <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${id}" readonly="true">
-                     <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="" readonly="true"></div>`;
+                     <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="${moment(fidei.date).format("DD/MM/YYYY")}" readonly="true"></div>`;
 
     let tabl = $(tabla);
     let usern = $(user);

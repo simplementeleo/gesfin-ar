@@ -1619,7 +1619,7 @@ const tipoAtributo = function (consulta, objeto) {
                 break;
             case "coleccionTotal":
                 $.each(value.componentes, function (ind, val) {
-                    console.log(consulta)
+                  
                     let valorColec = [];
 
                     if (consulta[value.nombre][ind] != undefined) {

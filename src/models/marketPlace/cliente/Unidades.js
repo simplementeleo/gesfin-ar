@@ -9,9 +9,6 @@ const UnidadesSchema = new Schema({
     oficinaTotal: { type: String },
     cocheraTotal: { type: String },
     localesTotal: { type: String },
-    plantaBaja: { type: String },
-    subsuelo: { type: String },
-    torres: { type: String },
     mono: { type: Object },
     unaHab: { type: Object },
     dosHab: { type: Object },
@@ -20,6 +17,8 @@ const UnidadesSchema = new Schema({
     oficina: { type: Object },
     cochera: { type: Object },
     locales: { type: Object },
+    texto: { type: [String] },
+    descripcion: { type: [String] },
     date: { type: Date },
     username: {
         type: Schema.Types.ObjectId,

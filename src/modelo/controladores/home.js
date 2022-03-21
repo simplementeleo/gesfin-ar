@@ -112,44 +112,7 @@ router.get('/error', async (req, res) => {
     }
     ]);
 
-    let errors = [];
-    let ErroresCargados = function (num, fecha, cliente, observaciones, observacionesCompleto, criticidad, filename, path, originalname, estadoProceso, fechaDos, descripcionCompleto, fechaTres, tarea, tiempoEstimado, tiempoConsumido, tiempoRemanente, observacionesColec, descripcionAdjunto, filenameColec, pathColec, originalnameColec, username, id, date) {
-
-        this.num = num;
-        this.fecha = fecha;
-        this.cliente = cliente;
-        this.observaciones = observaciones;
-        this.observacionesCompleto = observacionesCompleto;
-        this.criticidad = criticidad;
-        this.adjunto = {
-            filename: filename,
-            path: path,
-            originalname: originalname,
-        };
-        this.estadoProceso = estadoProceso;
-        this.fechaDos = fechaDos;
-        this.descripcionCompleto = descripcionCompleto;
-        this.fechaTres = fechaTres;
-        this.tareas = {
-            tarea: tarea,
-            tiempoEstimado: tiempoEstimado,
-            tiempoConsumido: tiempoConsumido,
-            tiempoRemanente: tiempoRemanente,
-            observacionesColec: observacionesColec
-        };
-        this.adjuntos = {
-            descripcionAdjunto: descripcionAdjunto,
-            filenamecolecCount: filenameColec,
-            adjuntoColeccion: {
-                filenameColec: filenameColec,
-                pathColec: pathColec,
-                originalnameColec: originalnameColec
-            },
-        };
-        this.username = username;
-        this.id = id;
-        this.date = date;
-    }
+  
 
     for (let x = 0; x < errores.length; x++) {
 
