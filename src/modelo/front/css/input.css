@@ -61,6 +61,12 @@ input.cantidad {
 input.name {
   width: calc(100% - 3em);
 }
+/*Tabla doble*/
+
+input.tablaDobleNumber {
+  width: 5em;
+  border: transparent;
+}
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;

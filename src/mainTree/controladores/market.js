@@ -48,17 +48,17 @@ router.get('/unidades', async (req, res) => {
             oficina: 1,
             cochera: 1,
             locales: 1,
-            texto:1,
-            descripcion:1,
+            texto: 1,
+            descripcion: 1,
             date: 1,
             username: "$unidadesUser.username",
             habilitado: 1
         }
-       }
+    }
     ]);
 
     let unid = [];
-    let UnidadesFidei = function ( _id, name, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, texto, descripcion, date, username, habilitado) {
+    let UnidadesFidei = function (_id, name, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, texto, descripcion, date, username, habilitado) {
 
         this.name = name;
         this.direccion = direccion;
@@ -109,7 +109,7 @@ router.get('/unidades', async (req, res) => {
             unidades[x].username,
             unidades[x].habilitado)
 
-            unid.push(un);
+        unid.push(un);
     }
 
     res.json(unid);
@@ -197,56 +197,21 @@ router.delete('/unidades', async (req, res) => {
 })
 router.put('/unidadesDoble', async (req, res) => {
     try {
-        let monoamb = [];
-        let uh = []
-        let dh = []
-        let th = []
-        let ch = []
-        let of = []
-        let co = []
-        let lo = []
-
-        let { id, nombreCol, fila, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, username, date } = req.body;
+        let { name, value, id, username } = req.body;
 
         const usersFound = await User.find({ username: { $in: username } });
 
-        for (x = 0; x < unaHab.length; x++) {
+        const newUnidadesAct = new Object
 
-            let monoa = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: mono[x] }];
-            let uha = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: unaHab[x] }];
-            let dha = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: dosHab[x] }];
-            let tha = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: tresHab[x] }];
-            let cha = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: cuatroHab[x] }];
-            let ofi = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: oficina[x] }];
-            let coc = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: cochera[x] }];
-            let loc = [{ nombreCol: nombreCol[x] }, { fila: fila[x] }, { cantidad: locales[x] }];
+        let textoAreaDividido = name.split(" ");
 
-            monoamb.push(monoa);
-            uh.push(uha);
-            dh.push(dha);
-            th.push(tha);
-            ch.push(cha);
-            of.push(ofi);
-            co.push(coc);
-            lo.push(loc)
+        newUnidadesAct[textoAreaDividido[0]] = new Object
 
-        }
+        newUnidadesAct[textoAreaDividido[0]][textoAreaDividido[1]] = value
 
+        newUnidadesAct[textoAreaDividido[0]] = new Object
 
-        const newUnidadesAct = ({
-            mono: monoamb,
-            unaHab: uh,
-            dosHab: dh,
-            tresHab: th,
-            cuatroHab: ch,
-            oficina: of,
-            cochera: co,
-            locales: lo,
-            date,
-            username: usersFound.map((user) => user._id),
-
-
-        });
+        newUnidadesAct.username = usersFound.map((user) => user._id)
 
         let unidades = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
 

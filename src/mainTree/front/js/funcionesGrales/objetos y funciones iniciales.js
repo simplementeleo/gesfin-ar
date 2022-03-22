@@ -2,7 +2,7 @@ let variablesIniciales = {
     unidades: {
         atributos: {
             names: [id, nombre, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, unidadesTorres, date, username, habilitado],
-            titulos: [`_id`, 'Nombre', `Direccion`, `Pisos`, `Deptos`, `Oficinas`, `Cocheras`, `Local`, `mono`, `unaHab`, `dosHab`, `tresHab`, `cuatroHab`, `Torres`, `descripcion`,'Auditoria', 'Usuario'],
+            titulos: [`_id`, 'Nombre', `Direccion`, `Pisos`, `Deptos`, `Oficinas`, `Cocheras`, `Local`, `mono`, `unaHab`, `dosHab`, `tresHab`, `cuatroHab`, `Torres`, `descripcion`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
             oculto: [id, mono, unaHab, dosHab, tresHab, cuatroHab, descripcion, habilitado],
             importe: {
@@ -93,9 +93,9 @@ let variablesIniciales = {
         },
         tablaDobleEntrada: {
             abm: true,
-            type: `regular`,
+            type: `text`,
             filaType: `baseInterna`,
-            fila: {unidadesTorres: `texto`}, //fila
+            fila: { unidadesTorres: `texto` }, //fila
             tituloFila: [``],
             columnaType: `fija`,
             columna: [mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, totales],

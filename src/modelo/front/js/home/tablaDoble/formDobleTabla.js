@@ -47,7 +47,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
             consulta = data;
 
             switch (objeto.tablaDobleEntrada.type) {
-                case `regular`:
+                case `text`:
                     crearTablaDoble(numeroForm, objeto, fidei, height, usuario, id, filaContador)
                     valoresDobleEntrada(consulta, columna, id)
                     totalesFilas(numeroForm, objeto);
@@ -56,7 +56,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
                 case `check`:
                     crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador, consulta)
                     break;
-
             }
         })
 
@@ -67,10 +66,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
 
     let fecha = moment(Date.now()).format('L');
     $(`.d.date.${numeroForm}`).val(fecha);
-
-    //  totalesDobleEntrada(nomeDobleEn, numeroForm, columna);
-    //let entro = 0
-
 
     $(`#formularioIndividual .closeForm.${numeroForm}`).click(function () {
 
@@ -96,12 +91,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
         e.preventDefault();
 
         enviarFormularioDoble(consulta, objeto, numeroForm, id, fidecomisoSelec, height, usuario, filaContador);
-    });
-    $(`#formularioIndividual .editBoton`).click(function () {
-
-        editando = true;
-
-        editarDobleEntrada(objeto, numeroForm);
     });
     $(`#formularioIndividual .deleteBoton`).click(function () {
 
@@ -134,6 +123,32 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
             $(`.select.form`).attr(`disabled`, false);
         }
     });
+    $(`#formularioIndividual`).on(`blur`, `input`, function () {
+
+        let valor = $(this).val()
+        let atrib = $(this).attr(`name`)
+        let idv = $(`#formularioIndividual input.id`).val()
+
+        let enviarData = { name: atrib, value: valor, id: idv, username: usu }
+
+        $.ajax({
+            type: "put",
+            url: `/${accion}Doble`,
+            data: enviarData,
+            beforeSend: function () { },
+            complete: function () { },
+            success: function (response) {
+
+                let fecha = moment(Date.now()).format('L');
+                $(`.d.date.${numeroForm}`).val(fecha);
+                $(`#formularioIndividual input.username`).val(usu)
+
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    })
 }
 
 const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id, filaContad) {
@@ -144,29 +159,30 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
     let tituloFila = [];
     let columna = [];
     let titulosColumna = [];
-/////////////////////tipo de fila
+    let inputType = objeto.tablaDobleEntrada.type
+    /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`:
 
-        $.each(objeto.tablaDobleEntrada.fila, (indice, value)=>{
-            fila.push(fidei[indice][value])
-            tituloFila.push(fidei[indice][value])
-        })
+            $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
+                fila.push(fidei[indice][value])
+                tituloFila.push(fidei[indice][value])
+            })
+
+            break;
+    }
+    /////////////////////tipo de Columna
+    switch (objeto.tablaDobleEntrada.columnaType) {
+        case `fija`:
+
+            $.each(objeto.tablaDobleEntrada.columna, (indice, value) => {
+                columna.push(value.nombre)
+            })
+            titulosColumna = objeto.tablaDobleEntrada.titulosColumna
+
             break;
     }
 
- /////////////////////tipo de Columna
-
- switch (objeto.tablaDobleEntrada.columnaType) {
-    case `fija`:
-
-        $.each(objeto.tablaDobleEntrada.columna, (indice, value)=>{
-            columna.push(value.nombre)  
-        })
-        titulosColumna = objeto.tablaDobleEntrada.titulosColumna
-
-        break;
-}
     let tabla = "";
 
     tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
@@ -191,8 +207,11 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 <input class="doEn ${fila[i]} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" value="${x + 1}" fila="${filaContador}" display="none"></th>`;
 
                 for (let t = 0; t < columna.length; t++) {
+                    console.log(columna[t])
+                    console.log(fila[i])
+                    console.log(fidei[columna[t]][fila[i][0]])
 
-                    tabla += `<td class = "de ${fila[i]} ${x + 1} ${columna[t]}"></td>`;
+                    tabla += `<td class="de ${fila[i]} ${x + 1} ${columna[t]}"><input type"${inputType}" class="tablaDobleNumber ${columna[t]}" name="${columna[t]} ${fila[i]}"></td>`;
                 }
                 tabla += `</tr>`;
                 filaContador++
@@ -813,33 +832,33 @@ const totalesDobleEn = function (numeroForm, objeto) {
     });
 }
 const valoresDobleEntrada = function (consulta, nomeDobleEn, id) {
-
-    $.each(consulta, function (indice, value) {
-
-
-        if (id == value._id || id == value.id) {
-
-            for (let x = 0; x < fila.length; x++) {
-
-                let totalCol = 0;
-
-                if ((value[fila[x].nombre] != null) && (value[fila[x].nombre] != undefined) && (value[fila[x].nombre] != "")) {
-
-                    for (let y = 0; y < value[fila[x].nombre].length; y++) {
-
-                        $(`td.de.${value[fila[x].nombre][y][0].nombreCol}.${value[fila[x].nombre][y][1].fila}.${fila[x].nombre}`).html(value[fila[x].nombre][y][2].cantidad);
-
-                        if (!isNaN(parseInt((value[fila[x].nombre][y][2].cantidad)))) {
-
-                            totalCol += parseInt((value[fila[x].nombre][y][2].cantidad))
+    /*
+        $.each(consulta, function (indice, value) {
+    
+    
+            if (id == value._id || id == value.id) {
+    
+                for (let x = 0; x < fila.length; x++) {
+    
+                    let totalCol = 0;
+    
+                    if ((value[fila[x].nombre] != null) && (value[fila[x].nombre] != undefined) && (value[fila[x].nombre] != "")) {
+    
+                        for (let y = 0; y < value[fila[x].nombre].length; y++) {
+    
+                            $(`td.de.${value[fila[x].nombre][y][0].nombreCol}.${value[fila[x].nombre][y][1].fila}.${fila[x].nombre}`).html(value[fila[x].nombre][y][2].cantidad);
+    
+                            if (!isNaN(parseInt((value[fila[x].nombre][y][2].cantidad)))) {
+    
+                                totalCol += parseInt((value[fila[x].nombre][y][2].cantidad))
+                            }
                         }
                     }
+                    $(`td.det.total.${fila[x].nombre}`).html(totalCol)
+    
                 }
-                $(`td.det.total.${fila[x].nombre}`).html(totalCol)
-
             }
-        }
-    })
+        })*/
 }
 const clickInput = function (objeto, numeroForm, consulta) {
     let inputActive = false
