@@ -17,6 +17,7 @@ const UnidadesSchema = new Schema({
     oficina: { type: Object },
     cochera: { type: Object },
     locales: { type: Object },
+    totales: { type: Object },
     texto: { type: [String] },
     descripcion: { type: [String] },
     date: { type: Date },

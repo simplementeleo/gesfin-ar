@@ -160,13 +160,19 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
     let columna = [];
     let titulosColumna = [];
     let inputType = objeto.tablaDobleEntrada.type
+    let totales = objeto.tablaDobleEntrada.totales
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`:
-
+         
+        console.log(fidei)
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
-                fila.push(fidei[indice][value])
-                tituloFila.push(fidei[indice][value])
+                
+                $.each(fidei[indice][value], (ind, val)=>{
+                  console.log(val)
+                    fila.push(val)
+                    tituloFila.push(val)
+                })  
             })
 
             break;
@@ -199,24 +205,23 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             });
 
         } else if ((i > -1) && (i < fila.length)) {
-
-            for (let x = 0; x < fila.length; x++) {
+       
 
                 tabla += `<tr>
-                <th class ="filaNombre ${fila[i]} ${x + 1}">${tituloFila[i]}<input class="doEn ${fila[i]}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${fila[i]}" fila="${filaContador}" display="none">
-                <input class="doEn ${fila[i]} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" value="${x + 1}" fila="${filaContador}" display="none"></th>`;
+                <th class ="filaNombre ${fila[i]}">${tituloFila[i]}<input class="doEn ${fila[i]}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${fila[i]}" fila="${filaContador}" display="none">
+                <input class="doEn ${fila[i]} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" fila="${filaContador}" display="none"></th>`;
 
                 for (let t = 0; t < columna.length; t++) {
-                    console.log(columna[t])
-                    console.log(fila[i])
-                    console.log(fidei[columna[t]][fila[i][0]])
+                  
+                    let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] ||""
 
-                    tabla += `<td class="de ${fila[i]} ${x + 1} ${columna[t]}"><input type"${inputType}" class="tablaDobleNumber ${columna[t]}" name="${columna[t]} ${fila[i]}"></td>`;
+                    tabla += `<td class="de ${fila[i]} ${columna[t]}"><input type"${inputType}" value="${valueCampo}" class="tablaDobleNumber ${columna[t]}" name="${columna[t]} ${fila[i]}"></input></td>`;
                 }
+                
                 tabla += `</tr>`;
                 filaContador++
-            }
-        } else if (i == fila.length) {
+            
+        } else if (i == fila.length && totales == true) {
 
             tabla += `<tr><th class = "filaNombre Total"> Total:</th> `;
 

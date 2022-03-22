@@ -48,6 +48,7 @@ router.get('/unidades', async (req, res) => {
             oficina: 1,
             cochera: 1,
             locales: 1,
+            totales:1,
             texto: 1,
             descripcion: 1,
             date: 1,
@@ -58,7 +59,7 @@ router.get('/unidades', async (req, res) => {
     ]);
 
     let unid = [];
-    let UnidadesFidei = function (_id, name, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, texto, descripcion, date, username, habilitado) {
+    let UnidadesFidei = function (_id, name, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, totales,texto, descripcion, date, username, habilitado) {
 
         this.name = name;
         this.direccion = direccion;
@@ -75,6 +76,7 @@ router.get('/unidades', async (req, res) => {
         this.oficina = oficina;
         this.cochera = cochera;
         this.locales = locales;
+        this.totales = totales;
         this.unidadesTorres = {
             texto: texto,
             descripcion: descripcion,
@@ -103,6 +105,7 @@ router.get('/unidades', async (req, res) => {
             unidades[x].oficina,
             unidades[x].cochera,
             unidades[x].locales,
+            unidades[x].totales,
             unidades[x].texto,
             unidades[x].descripcion,
             unidades[x].date,
@@ -145,7 +148,7 @@ router.get('/unidadesDestino', async (req, res) => {
 });
 router.post('/unidades', async (req, res) => {
     try {
-        let { name, direccion, pisos, deptos, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, oficinaTotal, cochera, cocheraTotal, localesTotal, locales, texto, descripcion, date, username, habilitado } = req.body;
+        let { name, direccion, pisos, deptos, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, oficinaTotal, cochera, cocheraTotal, localesTotal, locales, totales, texto, descripcion, date, username, habilitado } = req.body;
 
         const usersFound = await User.find({ username: { $in: username } });
 
@@ -165,6 +168,7 @@ router.post('/unidades', async (req, res) => {
             oficina,
             cochera,
             locales,
+            totales,
             texto,
             descripcion,
             date,
@@ -209,14 +213,11 @@ router.put('/unidadesDoble', async (req, res) => {
 
         newUnidadesAct[textoAreaDividido[0]][textoAreaDividido[1]] = value
 
-        newUnidadesAct[textoAreaDividido[0]] = new Object
-
         newUnidadesAct.username = usersFound.map((user) => user._id)
-
+       
         let unidades = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
-
+    
         res.json(`El detalle del fideicomiso fue actualizado`);
-
 
     } catch (error) {
         console.error(error);
@@ -256,31 +257,31 @@ router.put('/unidadesDobleEliminar', async (req, res) => {
 });
 router.put('/unidades', async (req, res) => {
     try {
-        let { _id, name, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, plantaBaja, subsuelo, torres, date, username } = req.body;
+        let { id, username } = req.body;
+
+        let keys = Object.keys(req.body);
+        let newUnidadesAct = new Object;
+
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newUnidadesAct[keys[x]] = req.body[keys[x]]
+        }
 
         const usersFound = await User.find({ username: { $in: username } });
+        newUnidadesAct.username = usersFound.map((user) => user._id)
+        delete newUnidadesAct.id
 
-        const newUnidadesAct = ({
-            name,
-            direccion,
-            pisos,
-            deptos,
-            oficinaTotal,
-            cocheraTotal,
-            localesTotal,
-            plantaBaja,
-            subsuelo,
-            torres,
-            date,
-            username: usersFound.map((user) => user._id),
+        var unids = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
+        res.json(`La unidad  fue actualizada`);
 
+        res.json({
+            mensaje: `La unidad  fue actualizada`,
+            posteo: unids
         });
-
-        var subRubro = await Unidades.findByIdAndUpdate(_id, newUnidadesAct);
-        res.json(`EL sub Rubro ${name} fue actualizado`);
 
 
     } catch (error) {
+        res.json(error)
         console.error(error);
     }
 });

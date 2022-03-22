@@ -1526,6 +1526,8 @@ const enviarRegistroEditadoForm = (objeto, numeroForm, lengthUnoSelect, eliminar
                 $(`#bf${numeroForm} .botonesPest .imgB`).css(`cursor`, `pointer`)
                 clearInterval(barraCargar);
             } else {
+
+                console.log(response)
                 let key = Object.keys(response.keyValue)
 
                 $(`#formularioIndividual .cartelErrorForm p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
