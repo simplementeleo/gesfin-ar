@@ -201,29 +201,37 @@ router.delete('/unidades', async (req, res) => {
 })
 router.put('/unidadesDoble', async (req, res) => {
     try {
-        let { name, value, id, username } = req.body;
+        let { id, username } = req.body;
+        let keys = Object.keys(req.body);
 
         const usersFound = await User.find({ username: { $in: username } });
-
+        
         const newUnidadesAct = new Object
 
         for (let x = 0; x < Object.keys(req.body).length; x++) {
 
-            newUnidadesAct[keys[x]] = req.body[keys[x]]
+            let nameSplit = keys[x].split(" ");
+
+            if(nameSplit.length>1){
+                if(newUnidadesAct[nameSplit[0]] == undefined){
+               
+                    newUnidadesAct[nameSplit[0]] = new Object
+                    newUnidadesAct[nameSplit[0]][nameSplit[1]] = []
+                    newUnidadesAct[nameSplit[0]][nameSplit[1]].push(req.body[keys[x]])
+
+                }else{
+                    newUnidadesAct[nameSplit[0]][nameSplit[1]] = []
+                    newUnidadesAct[nameSplit[0]][nameSplit[1]].push(req.body[keys[x]])
+                }
+            
+            }else{
+
+                newUnidadesAct[keys[x]] = req.body[keys[x]]
+            }
         }
-
-        let textoAreaDividido = name.split(" ");
-
-        newUnidadesAct[textoAreaDividido[0]] = new Object
-        newUnidadesAct[textoAreaDividido[0]][textoAreaDividido[1]] = value
-
         newUnidadesAct.username = usersFound.map((user) => user._id)
 
-        console.log(newUnidadesAct)
-
-        let unidades = await Unidades.findByIdAndUpdate(id, {
-            $set: newUnidadesAct
-        });
+      let unidades = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
 
         console.log(unidades)
 

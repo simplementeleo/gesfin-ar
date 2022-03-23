@@ -52,7 +52,7 @@ let iCruzF = `<div><img src="/img/abm/cancell2.png" class="imgB cruzBoton" alt="
 let iCalenF = `<div><img src="/img/abm/calen.svg" class="imgB achiq2" alt="Eliminar registro" title="Marcar un evento en el calendario"></div>`;
 let iCheckF = `<div><img src="/img/abm/check.svg" class="imgB achiq1" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
 let iSaveF = `<div><img src="/img/abm/save.svg" class="imgB achiq4 save" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
-let undoF = `<div><img src="/img/abm/undo.svg" class="imgB achiq4 save" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
+let undoF = `<div><img src="/img/abm/undo.svg" class="imgB achiq4 undo" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
 let progressBar = `<div class="progressBar" style="--with: 10"></div>`;
 let logoFormIndividual = `<div class="logoIndividual"><img alt=""></img></div>`
 
