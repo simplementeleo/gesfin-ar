@@ -2,7 +2,7 @@ const crearTrablaDoblepestana = function () {
 
 }
 
-const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomisoSelec) {
+const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec) {
 
     let consulta = ""
 
@@ -19,7 +19,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
     let heightContainer = container.slice(0, 2);
     let height = pantalla - (heightContainer * 4.3);
 
-    var imgs = `<div class="com" id="com${accion}${numeroForm}">${iMailF}${iCalenF}${iExpoF}${iDeleteF}${iEditF}${iCruzF}${iOkF}
+    var imgs = `<div class="com" id="com${accion}${numeroForm}">${iMailF}${iCalenF}${iExpoF}${iDeleteF}${iEditF}${undoF}${iCruzF}${iSaveF}
      <div><div class="cartelErrorForm noShow">
                 <p>Revisar los campos en rojo</p>
             </div>
@@ -44,7 +44,9 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
     $.getJSON(servidor + `/${objeto.accion}?unid=${fidecomisoSelec}`,
         function (data) {
 
+            let sel = $(`#t${numeroForm} tr.sel`);
             consulta = data;
+            let fidei = consulta.find(element => element.id == $(`td.id`, sel).html());
 
             switch (objeto.tablaDobleEntrada.type) {
                 case `text`:
@@ -86,11 +88,11 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
 
 
     });
-    $(`#formularioIndividual .okfBoton`).click(function (e) {
+    $(`#formularioIndividual .save`).click(function (e) {
 
         e.preventDefault();
 
-        enviarFormularioDoble(consulta, objeto, numeroForm, id, fidecomisoSelec, height, usuario, filaContador);
+        enviarFormularioDoble(objeto, numeroForm);
     });
     $(`#formularioIndividual .deleteBoton`).click(function () {
 
@@ -123,7 +125,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
             $(`.select.form`).attr(`disabled`, false);
         }
     });
-    $(`#formularioIndividual`).on(`blur`, `input`, function () {
+    /*$(`#formularioIndividual`).on(`blur`, `input`, function () {
 
         let valor = $(this).val()
         let atrib = $(this).attr(`name`)
@@ -148,7 +150,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidei, fidecomi
                 console.log(error);
             }
         });
-    })
+    })*/
 }
 
 const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id, filaContad) {
@@ -164,15 +166,15 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`:
-         
-        console.log(fidei)
+
+            console.log(fidei)
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
-                
-                $.each(fidei[indice][value], (ind, val)=>{
-                  console.log(val)
+
+                $.each(fidei[indice][value], (ind, val) => {
+                    console.log(val)
                     fila.push(val)
                     tituloFila.push(val)
-                })  
+                })
             })
 
             break;
@@ -188,7 +190,6 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
             break;
     }
-
     let tabla = "";
 
     tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
@@ -205,22 +206,21 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             });
 
         } else if ((i > -1) && (i < fila.length)) {
-       
 
-                tabla += `<tr>
+            tabla += `<tr>
                 <th class ="filaNombre ${fila[i]}">${tituloFila[i]}<input class="doEn ${fila[i]}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${fila[i]}" fila="${filaContador}" display="none">
                 <input class="doEn ${fila[i]} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" fila="${filaContador}" display="none"></th>`;
 
-                for (let t = 0; t < columna.length; t++) {
-                  
-                    let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] ||""
+            for (let t = 0; t < columna.length; t++) {
 
-                    tabla += `<td class="de ${fila[i]} ${columna[t]}"><input type"${inputType}" value="${valueCampo}" class="tablaDobleNumber ${columna[t]}" name="${columna[t]} ${fila[i]}"></input></td>`;
-                }
-                
-                tabla += `</tr>`;
-                filaContador++
-            
+                let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] || ""
+
+                tabla += `<td class="de ${fila[i]} ${columna[t]}"><input type"${inputType}" value="${valueCampo}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" name="${columna[t]} ${fila[i]}"></input></td>`;
+            }
+
+            tabla += `</tr>`;
+            filaContador++
+
         } else if (i == fila.length && totales == true) {
 
             tabla += `<tr><th class = "filaNombre Total"> Total:</th> `;
@@ -547,25 +547,23 @@ const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd,
         }
     })
 }
-const enviarFormularioDoble = function (consulta, objeto, numeroForm, id, fidecomisoSelec, height, usuario, filaContador) {
+const enviarFormularioDoble = function (objeto, numeroForm) {
 
     let accion = objeto.accion;
-    let columna = objeto.tablaDobleEntrada.columna;
 
     $.ajax({
         type: "put",
         url: `/${accion}Doble`,
         data: $(`#dobleEntrada${accion}${numeroForm}`).serialize(),
 
-        beforeSend: function () {
-            $(`.audit.${numeroForm}`).remove();
-            $(`#de${numeroForm}`).remove();
-        },
+        beforeSend: function () { },
         complete: function () { },
         success: function (response) {
 
             $(`.cartelErrorForm p`).html(response);
             $(`.cartelErrorForm`).css("display", "block");
+
+            $(`.audit.${numeroForm}`).val(usu);
 
             let fecha = moment(Date.now()).format('L');
             $(`.d.date.${numeroForm}`).val(fecha);
@@ -575,31 +573,6 @@ const enviarFormularioDoble = function (consulta, objeto, numeroForm, id, fideco
             console.log(error);
         }
     });
-
-    $.ajax({
-        type: "GET",
-        url: `/${accion}`,
-        success: function (data) {
-
-            switch (objeto.tablaDobleEntrada.type) {
-                case `regular`:
-                    crearTablaDoble(numeroForm, objeto, height, usuario, id, filaContador)
-                    break;
-                case `check`:
-                    crearTablaDobleInput(numeroForm, objeto, height, usuario, id, filaContador)
-                    break;
-
-            }
-
-            valoresDobleEntrada(data, columna, id);
-            totalesFilas(numeroForm, objeto)
-
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-
 }
 const eliminarRegistroFormularioDoble = function (objeto, numeroForm, height, usuario, id, filaContador) {
 
@@ -836,35 +809,6 @@ const totalesDobleEn = function (numeroForm, objeto) {
 
     });
 }
-const valoresDobleEntrada = function (consulta, nomeDobleEn, id) {
-    /*
-        $.each(consulta, function (indice, value) {
-    
-    
-            if (id == value._id || id == value.id) {
-    
-                for (let x = 0; x < fila.length; x++) {
-    
-                    let totalCol = 0;
-    
-                    if ((value[fila[x].nombre] != null) && (value[fila[x].nombre] != undefined) && (value[fila[x].nombre] != "")) {
-    
-                        for (let y = 0; y < value[fila[x].nombre].length; y++) {
-    
-                            $(`td.de.${value[fila[x].nombre][y][0].nombreCol}.${value[fila[x].nombre][y][1].fila}.${fila[x].nombre}`).html(value[fila[x].nombre][y][2].cantidad);
-    
-                            if (!isNaN(parseInt((value[fila[x].nombre][y][2].cantidad)))) {
-    
-                                totalCol += parseInt((value[fila[x].nombre][y][2].cantidad))
-                            }
-                        }
-                    }
-                    $(`td.det.total.${fila[x].nombre}`).html(totalCol)
-    
-                }
-            }
-        })*/
-}
 const clickInput = function (objeto, numeroForm, consulta) {
     let inputActive = false
     let ultimoClick = "";
@@ -1086,6 +1030,59 @@ const valoresTablaPestana = function (objeto, numeroForm, consulta) {
         }
     })
 
+
+}
+const volverValoresGrabados = function (objeto, numeroForm, fidei) {
+
+    let filaContador = filaContad || 0
+    let accion = objeto.accion;
+    let fila = [];
+    let tituloFila = [];
+    let columna = [];
+    let titulosColumna = [];
+    let inputType = objeto.tablaDobleEntrada.type
+    let totales = objeto.tablaDobleEntrada.totales
+    /////////////////////tipo de fila
+    switch (objeto.tablaDobleEntrada.filaType) {
+        case `baseInterna`:
+
+            console.log(fidei)
+            $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
+
+                $.each(fidei[indice][value], (ind, val) => {
+                    console.log(val)
+                    fila.push(val)
+                    tituloFila.push(val)
+                })
+            })
+
+            break;
+    }
+    /////////////////////tipo de Columna
+    switch (objeto.tablaDobleEntrada.columnaType) {
+        case `fija`:
+
+            $.each(objeto.tablaDobleEntrada.columna, (indice, value) => {
+                columna.push(value.nombre)
+            })
+            titulosColumna = objeto.tablaDobleEntrada.titulosColumna
+
+            break;
+    }
+    let tabla = "";
+
+
+    $.each(fila, (indice, value) => {
+
+        $.each(columna, (ind, val))
+
+        let valueCampo = fidei[val][value[0]] || fidei[val][value] || ""
+        $(`#de${numeroForm} .tablaDobleN`).val(valueCampo)
+
+    })
+
+    $(`#de${numeroForm} input.username`).val(fidei.username)
+    $(`#de${numeroForm} input.username`).val(fidei.date)
 
 }
 const ocultarTds = function (objeto, numeroForm) {

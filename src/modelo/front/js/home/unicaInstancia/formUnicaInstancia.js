@@ -1145,7 +1145,7 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
     let fileEnviar = $(`#f${accion}${numeroForm}`);
     let enviarRegistroNuevo = $(`#f${accion}${numeroForm}`).serializeArray();
     let enviarRegistroTabla = $(`#tablaCol${accion}${numeroForm} tr`);
-    let indiceAcopio = objeto.atributos.names.indexOf(acopio)
+    let indiceAcopio = objeto.atributos.names.indexOf(logico)
     let indiceAdjunto = objeto.atributos.names.indexOf(adjunto)
 
     let desencadenateTriger = false
@@ -1153,9 +1153,9 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
     let desencadenateColecTriger = false
 
 
-    if (objeto.atributos.names.includes(acopio) && (!$(`#formularioIndividual input.acopio.${numeroForm}`).prop(`checked`))) {
+    if (objeto.atributos.names.includes(logico) && (!$(`#formularioIndividual input.logico.${numeroForm}`).prop(`checked`))) {
 
-        enviarRegistroNuevo.splice(indiceAcopio, 0, { name: `acopio`, value: false })
+        enviarRegistroNuevo.splice(indiceAcopio, 0, { name: `logico`, value: false })
     }
 
     if (objeto.atributos.names.includes(adjunto)) {
@@ -1722,7 +1722,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                     colec += `<th class="tituloTablasIndividual ${val}">${val}</th>`;
                 })
                 colec += `</tr>`;
-                 console.log(valor)
+                console.log(valor)
                 if (valor.id != undefined) {
 
                     $.each(consulta, function (ind, val) {
@@ -1730,7 +1730,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                         console.log(valor)
                         if ((valor.id == val.id)) {
 
-                          
+
                             if (val[value.nombre][objeto.atributos.compuesto[value.nombre].key] != "") {
                                 $.each(val[value.nombre][objeto.atributos.compuesto[value.nombre].key], (x, y) => { //////// voy a buscar la key del atributo compuesto para ver la longitud de la coleccion
 

@@ -48,7 +48,7 @@ router.get('/unidades', async (req, res) => {
             oficina: 1,
             cochera: 1,
             locales: 1,
-            totales:1,
+            totales: 1,
             texto: 1,
             descripcion: 1,
             date: 1,
@@ -59,7 +59,7 @@ router.get('/unidades', async (req, res) => {
     ]);
 
     let unid = [];
-    let UnidadesFidei = function (_id, name, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, totales,texto, descripcion, date, username, habilitado) {
+    let UnidadesFidei = function (_id, name, direccion, pisos, deptos, oficinaTotal, cocheraTotal, localesTotal, mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, totales, texto, descripcion, date, username, habilitado) {
 
         this.name = name;
         this.direccion = direccion;
@@ -207,16 +207,27 @@ router.put('/unidadesDoble', async (req, res) => {
 
         const newUnidadesAct = new Object
 
+        for (let x = 0; x < Object.keys(req.body).length; x++) {
+
+            newUnidadesAct[keys[x]] = req.body[keys[x]]
+        }
+
         let textoAreaDividido = name.split(" ");
 
         newUnidadesAct[textoAreaDividido[0]] = new Object
-
         newUnidadesAct[textoAreaDividido[0]][textoAreaDividido[1]] = value
 
         newUnidadesAct.username = usersFound.map((user) => user._id)
-       
-        let unidades = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
-    
+
+        console.log(newUnidadesAct)
+
+        let unidades = await Unidades.findByIdAndUpdate(id, {
+            $set: newUnidadesAct
+        });
+
+        console.log(unidades)
+
+
         res.json(`El detalle del fideicomiso fue actualizado`);
 
     } catch (error) {
@@ -271,8 +282,9 @@ router.put('/unidades', async (req, res) => {
         newUnidadesAct.username = usersFound.map((user) => user._id)
         delete newUnidadesAct.id
 
+
+
         var unids = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
-        res.json(`La unidad  fue actualizada`);
 
         res.json({
             mensaje: `La unidad  fue actualizada`,
