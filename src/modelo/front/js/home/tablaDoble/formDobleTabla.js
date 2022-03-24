@@ -7,15 +7,12 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
     let consulta = ""
     let fidei = ""
     let accion = objeto.accion;
-    let columna = objeto.tablaDobleEntrada.columna;
-
+    let columna = [];
     let filaContador = 0;
     let id = $(`#t${numeroForm} tr.sel td._id`).html() || $(`#t${numeroForm} tr.sel td.id`).html()
     let usuario = $("#oculto").val();
-
     let pantalla = $(window).height();
     let container = $(`.container`).css("height");
-
     let heightContainer = container.slice(0, 2);
     let height = pantalla - (heightContainer * 4.3);
 
@@ -46,7 +43,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
 
             let sel = $(`#t${numeroForm} tr.sel`);
             consulta = data;
-             fidei = consulta.find(element => element.id == $(`td.id`, sel).html());
+            fidei = consulta.find(element => element.id == $(`td.id`, sel).html());
 
             switch (objeto.tablaDobleEntrada.type) {
                 case `text`:
@@ -122,11 +119,10 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
             $(`.select.form`).attr(`disabled`, false);
         }
     });
-
     $(`#formularioIndividual .undo`).click(function () {
 
         volverValoresGrabados(objeto, numeroForm, fidei)
-    
+
     });
 }
 
@@ -140,6 +136,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
     let titulosColumna = [];
     let inputType = objeto.tablaDobleEntrada.type
     let totales = objeto.tablaDobleEntrada.totales
+    let totalesColumna = new Object
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`:
@@ -148,6 +145,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 $.each(fidei[indice][value], (ind, val) => {
                     fila.push(val)
                     tituloFila.push(val)
+
                 })
             })
 
@@ -159,6 +157,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
             $.each(objeto.tablaDobleEntrada.columna, (indice, value) => {
                 columna.push(value.nombre)
+                totalesColumna[value] = 0
             })
             titulosColumna = objeto.tablaDobleEntrada.titulosColumna
 
@@ -176,6 +175,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
             $.each(titulosColumna, function (indice, value) {
 
+
                 tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
             });
 
@@ -189,6 +189,8 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
                 let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] || ""
 
+                totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
+
                 tabla += `<td class="de ${fila[i]} ${columna[t]}"><input type"${inputType}" value="${valueCampo}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" name="${columna[t]} ${fila[i]}"></input></td>`;
             }
 
@@ -200,7 +202,8 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             tabla += `<tr><th class = "filaNombre Total"> Total:</th> `;
 
             for (let t = 0; t < columna.length; t++) {
-                tabla += `<td class = "det total ${columna[t]}"></td>`;
+
+                tabla += `<td class = "det total ${columna[t]}">${totalesColumna[columna[t]]}</td>`;
             }
             tabla += `</tr>`;
 
@@ -208,7 +211,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
         tabla += "</tr>";
     }
 
-  
+
     let user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
                      <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${id}" readonly="true">
                      <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="${moment(fidei.date).format("L")}" readonly="true"></div>`;
@@ -218,6 +221,10 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
     tabl.appendTo(`#cabeceraForm`);
     usern.appendTo(`#cabeceraForm`);
+
+    if (totales) {
+        totalesDobleEn(numeroForm, objeto)
+    }
 
 }
 const crearTablaDoblePestanaFecha = function (objeto, numeroForm, height, columnasArray, fidecomisoSelec, consulta) {
@@ -560,11 +567,11 @@ const eliminarRegistroFormularioDoble = function (objeto, numeroForm) {
         type: "put",
         url: `/${accion}DobleEliminar`,
         data: $(`#dobleEntrada${accion}${numeroForm}`).serialize(),
-        beforeSend: function () {},
-        complete: function () {},
+        beforeSend: function () { },
+        complete: function () { },
         success: function (response) {
-         
-        $(`#de${numeroForm} input`).val("")
+
+            $(`#de${numeroForm} input`).val("")
 
             let fecha = moment(Date.now()).format('L');
             $(`.d.date.${numeroForm}`).val(fecha);
@@ -667,7 +674,7 @@ const calcularTotalCol = function () {
 }
 const totalesFilas = function (numeroForm, objeto) {
 
-    let columna = objeto.tablaDobleEntrada.columna;
+    let columna = objeto.tablaDobleEntrada.columna; a
 
     $.each(columna, function (indice, value) {
 
@@ -696,74 +703,67 @@ const totalesFilas = function (numeroForm, objeto) {
     })
 
 }
-const totalesDobleEn = function (numeroForm, objeto) {
+const totalesDobleEn = function (numeroForm, objeto, fila, columna) {
+    console.log(fila)
 
-    let columna = objeto.tablaDobleEntrada.columna;
-    let nameDobleEn = objeto.tablaDobleEntrada.nameDobleEn;
+    const totalesFilasInput = function () {
 
-    const inputsDoble = document.querySelectorAll(`#de${numeroForm} input.dobleEntrada`);
+        $.each(columna, function (indice, value) {
 
-    inputsDoble.forEach((input) => {
+            //let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
 
-        const totalesFilasInput = function () {
+            for (let f = 1; f <= fila; f++) {
+                let valorTotal = 0;
 
-            $.each(columna, function (indice, value) {
+                const tds = $(`#de${numeroForm} td.${fila[t]}.${value.nombre} input`)
+                c
 
-                let fila = parseInt($(`#t${numeroForm} tr.sel td.${value.nombre}`).html());
-
-                for (let f = 1; f <= fila; f++) {
-                    let valorTotal = 0;
-
-                    const tds = $(`#de${numeroForm} td.${value.nombre}.${f} input`)
-
-                    const calcularTol = function (td) {
-                        let valorCelda = parseInt($(td).val());
-                        if (!isNaN(valorCelda)) {
-                            valorTotal += valorCelda;
-                        }
-                    }
-
-                    $.each(tds, function (indice, value) {
-
-                        calcularTol(value)
-
-                    });
-
-                    $(`td.${value.nombre}.${f}.totales`).html(valorTotal);
-                }
-            })
-
-        }
-        const totalesColInput = function () {
-
-            $.each(nameDobleEn, function (indice, value) {
-                let valorTotalCol = 0;
-
-                const tds = $(`#de${numeroForm} td.${value.nombre} input`)
-
-
-
-                const calcularTolCol = function (td) {
-                    let valorCeldaCol = parseInt($(td).val());
-
-                    if (!isNaN(valorCeldaCol)) {
-                        valorTotalCol += valorCeldaCol;
+                const calcularTol = function (td) {
+                    let valorCelda = parseInt($(td).val());
+                    if (!isNaN(valorCelda)) {
+                        valorTotal += valorCelda;
+                        console.log(valorTotal)
                     }
                 }
 
                 $.each(tds, function (indice, value) {
 
-                    calcularTolCol(value)
+                    calcularTol(value)
+
                 });
-                $(`td.det.total.${value.nombre}`).html(valorTotalCol);
-            })
+                console.log(valorTotal)
+                $(`td.total.${value.nombre}`).html(valorTotal);
+            }
+        })
 
-        }
+    }
+    /*const totalesColInput = function () {
 
-        input.addEventListener('keyup', totalesFilasInput);
-        input.addEventListener('keyup', totalesColInput);
+        $.each(fila, function (indice, value) {
+            let valorTotalCol = 0;
 
-    });
+            const tds = $(`#de${numeroForm} td.${value.nombre} input`)
+
+            const calcularTolCol = function (td) {
+                let valorCeldaCol = parseInt($(td).val());
+
+                if (!isNaN(valorCeldaCol)) {
+                    valorTotalCol += valorCeldaCol;
+                }
+            }
+
+            $.each(tds, function (indice, value) {
+
+                calcularTolCol(value)
+            });
+            $(`td.det.total.${value.nombre}`).html(valorTotalCol);
+        })
+
+    }*/
+
+    $(`#de${numeroForm} input.tablaDobleN`).keyup(totalesFilasInput)
+    // $(`#de${numeroForm} input.tablaDobleN`).keyup(totalesColInput)
+
 }
 const clickInput = function (objeto, numeroForm, consulta) {
     let inputActive = false
@@ -990,21 +990,18 @@ const valoresTablaPestana = function (objeto, numeroForm, consulta) {
 }
 const volverValoresGrabados = function (objeto, numeroForm, fidei) {
 
+    console.log(fidei)
     let fila = [];
     let tituloFila = [];
     let columna = [];
-    let titulosColumna = [];
-    let inputType = objeto.tablaDobleEntrada.type
-    let totales = objeto.tablaDobleEntrada.totales
+
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`:
 
-            console.log(fidei)
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
-
                 $.each(fidei[indice][value], (ind, val) => {
-                    console.log(val)
+
                     fila.push(val)
                     tituloFila.push(val)
                 })
@@ -1025,13 +1022,15 @@ const volverValoresGrabados = function (objeto, numeroForm, fidei) {
     }
     let tabla = "";
 
-
     $.each(fila, (indice, value) => {
 
-        $.each(columna, (ind, val)=>{
+        $.each(columna, (ind, val) => {
 
-            let valueCampo = fidei[val][value[0]] || fidei[val][value] || ""
-            $(`#de${numeroForm} .tablaDobleN`).val(valueCampo)
+            console.log(fidei[val][value][0])
+
+            let valueCampo = fidei[val][value[0]] || fidei[val][value][0] || ""
+            $(`#de${numeroForm} input[name="${val} ${value}"]`).val(valueCampo)
+            $(`#de${numeroForm} input[name="${val} ${value[0]}"]`).val(valueCampo)
         })
     })
 
