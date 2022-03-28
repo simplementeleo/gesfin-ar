@@ -40,11 +40,11 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
             let sel = $(`#t${numeroForm} tr.sel`);
             consulta = data;
             fidei = consulta.find(element => element.id == $(`td.id`, sel).html());
-     
-           crearTablaDoble(numeroForm, objeto, fidei, height, usuario, id, filaContador);
-           // crearTablaDobleInput(numeroForm, objeto,fidei, height, usuario, id )
-                   
-            
+
+            crearTablaDoble(numeroForm, objeto, fidei, height, usuario, id, filaContador);
+            // crearTablaDobleInput(numeroForm, objeto,fidei, height, usuario, id )
+
+
         })
 
     $(`#cabeceraForm #de${numeroForm} input.dobleEntrada.totales`).remove();
@@ -114,7 +114,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
 
     });
 }
-
 const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id, filaContad) {
 
     let filaContador = filaContad || 0
@@ -126,15 +125,15 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
     let inputType = objeto.tablaDobleEntrada.inputType
     let totalesColumna = new Object
     let totalesFila = new Object
-    let total = 0 
+    let total = 0
     let tabla = "";//creo table por afuera del switch de la tabla, porque los diferentes case los toma como el mismo ambiente
     let user = ""; //creo usuario por afuera del switch de la tabla, porque los diferentes case los toma como el mismo ambiente    
-    
+
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`:
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
-             
+
                 $.each(fidei[indice][value], (ind, val) => {
                     totalesFila[val] = 0
                     fila.push(val)
@@ -146,21 +145,21 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
                 fila.push(value)
                 tituloFila.push(value)
-                
+
             })
             break;
-         case `agrupado`:
+        case `agrupado`:
             fila = objeto.tablaDobleEntrada.fila
             tituloFila = objeto.tablaDobleEntrada.fila
-                                
-           break;
-            
+
+            break;
+
     }
     /////////////////////tipo de Columna
     switch (objeto.tablaDobleEntrada.columnaType) {
         case `fija`:
             let col = objeto.tablaDobleEntrada.columna
-        
+
             $.each(col, (indice, value) => {
                 columna.push(value.nombre)
                 totalesColumna[value.nombre] = 0
@@ -175,172 +174,170 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
             tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
             tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-    
-                // definicion de cabecera de la tabla
-                tabla += `<th class="tituloTablas vacio"></th>`;
+
+            // definicion de cabecera de la tabla
+            tabla += `<th class="tituloTablas vacio"></th>`;
             $.each(titulosColumna, function (indice, value) {
 
-                  // definicion de cabecera de la tabla
-                      tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
-           
+                // definicion de cabecera de la tabla
+                tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
 
-               })
-               $.each(fila, (ind, val)=>{
+
+            })
+            $.each(fila, (ind, val) => {
                 tabla += `<tr>
                 <th class ="filaNombre ${val}">${tituloFila[ind]}<input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${val}" fila="${filaContador}" display="none">
                 <input class="doEn ${val} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" display="none"></th>`;
-                       
-                    for (let t = 0; t < columna.length; t++) {
-        
-                        let valueCampo = fidei[columna[t]][val[0]] || fidei[columna[t]][val] || ""
-        
-                        totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
-                        totalesFila[val] += (parseFloat(valueCampo) || 0)
-                        total += (parseFloat(valueCampo) || 0)
-        
-                        tabla += `<td class="de ${val} ${columna[t]}"><input type="${inputType}" value="${valueCampo}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" name="${columna[t]} ${val}"></input></td>`;
-                    
-                    }
-                    
-                    tabla += `<td class="de ${val} totales"><input type"${inputType}" value="${totalesFila[val]}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN totales" name="totales ${val}"></input></td>`;
-                    
-                    tabla += `</tr>`;
-                    filaContador++
-        
-                }) 
-           
-        
-                    tabla += `<tr><th class = "filaNombre Total"> Total:</th> `;
-        
-                    for (let t = 0; t < columna.length; t++) {
-        
-                        tabla += `<td class = "det total ${columna[t]}">${totalesColumna[columna[t]]}</td>`;
-                    }
-                    tabla += `<td class = "det total totales">${total}</td>`;
-                    tabla += `</tr>`;
-        
-               
-                tabla += "</tr>";
-        
+
+                for (let t = 0; t < columna.length; t++) {
+
+                    let valueCampo = fidei[columna[t]][val[0]] || fidei[columna[t]][val] || ""
+
+                    totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
+                    totalesFila[val] += (parseFloat(valueCampo) || 0)
+                    total += (parseFloat(valueCampo) || 0)
+
+                    tabla += `<td class="de ${val} ${columna[t]}"><input type="${inputType}" value="${valueCampo}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" name="${columna[t]} ${val}"></input></td>`;
+
+                }
+
+                tabla += `<td class="de ${val} totales"><input type"${inputType}" value="${totalesFila[val]}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN totales" name="totales ${val}"></input></td>`;
+
+                tabla += `</tr>`;
+                filaContador++
+
+            })
+
+
+            tabla += `<tr><th class = "filaNombre Total"> Total:</th> `;
+
+            for (let t = 0; t < columna.length; t++) {
+
+                tabla += `<td class = "det total ${columna[t]}">${totalesColumna[columna[t]]}</td>`;
+            }
+            tabla += `<td class = "det total totales">${total}</td>`;
+            tabla += `</tr>`;
+
+
+            tabla += "</tr>";
+
             user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
                              <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${id}" readonly="true">
                              <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="${moment(fidei.date).format("L")}" readonly="true"></div>`;
-        
+
             let tabl = $(tabla);
             let usern = $(user);
-        
+
             tabl.appendTo(`#cabeceraForm`);
             usern.appendTo(`#cabeceraForm`);
 
             totalesDobleEn(numeroForm, objeto, fila, columna)
-        break;
+            break;
         case `regularSinTotales`:
-                
+
             tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
             tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-        
-           // for (var i = -1; i <= columna.length; i++) {
+
+            // for (var i = -1; i <= columna.length; i++) {
             tabla += `<th class="tituloTablas vacio"></th>`;
             $.each(titulosColumna, function (indice, value) {
 
-                  // definicion de cabecera de la tabla
-                      tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
-           
-               })
+                // definicion de cabecera de la tabla
+                tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
 
-               $.each(fila, (ind, val)=>{
+            })
+
+            $.each(fila, (ind, val) => {
                 tabla += `<tr>
                 <th class ="filaNombre ${val}">${tituloFila[ind]}<input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${val}" fila="${filaContador}" display="none">
                 <input class="doEn ${val} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" display="none"></th>`;
                 for (let t = 0; t < columna.length; t++) {
-        
+
                     /*let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] || ""
     
                     totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
                     totalesFila[fila[i]] += (parseFloat(valueCampo) || 0)
                     total += (parseFloat(valueCampo) || 0)*/
-    
+
                     tabla += `<td class="de ${val} ${columna[t]}"><input type="${inputType}" value="" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" name="${columna[t]} ${val}"></input></td>`;
-                
+
                 }
                 tabla += `</tr>`;
             })
-        
+
             user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
                              <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${id}" readonly="true">
                              <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="${moment(fidei.date).format("L")}" readonly="true"></div>`;
-        
+
             let tableSinTot = $(tabla);
             let userSinTot = $(user);
-        
+
             tableSinTot.appendTo(`#cabeceraForm`);
             userSinTot.appendTo(`#cabeceraForm`);
 
-        break;
+            break;
         case `agrupar`:
-         
-      tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
-      tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-  
-     // for (var i = -1; i <= columna.length; i++) {
-      tabla += `<th class="tituloTablas vacio"></th>`;
-      $.each(titulosColumna, function (indice, value) {
 
-            // definicion de cabecera de la tabla
+            tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
+            tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
+
+            // for (var i = -1; i <= columna.length; i++) {
+            tabla += `<th class="tituloTablas vacio"></th>`;
+            $.each(titulosColumna, function (indice, value) {
+
+                // definicion de cabecera de la tabla
                 tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
 
-         })
-       console.log(fila)
-         $.each(fila, function (indice, v) {
-             let agrupador = Object.keys(v)
-             console.log()
-   
-            tabla +=`<tr>`
-            tabla += `<th class="tituloTablas filtro ${agrupador[0]}">${agrupador[0]}</th>`;
-            
-                $.each(columna, (ind, val)=>{
-
-                    tabla += `<th class="tituloTablas ${agrupador[0]} ${val}">
-                    <input type=${inputType} class="agrupador ${agrupador[0]}"></th>`;
-                })
-            
-            tabla +=`</tr>`
-            $.each(v[agrupador],(ind,val)=>{
-              
-                console.log(val)
-
-                tabla += `<tr>
-                <th class ="filaNombre ${val}">${tituloFila[ind]}<input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${val}" fila="${filaContador}" display="none">
-                <input class="doEn ${val} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" display="none"></th>`;
-                for (let t = 0; t < columna.length; t++) {
-        
-                    /*let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] || ""
-      
-                    totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
-                    totalesFila[fila[i]] += (parseFloat(valueCampo) || 0)
-                    total += (parseFloat(valueCampo) || 0)*/
-      
-                   tabla += `<td class="de ${val} ${columna[t]}"><input type="${inputType}" value="" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" name="${columna[t]} ${val}"></input></td>`;
-                
-                }
-                tabla += `</tr>`;
-               
             })
-         })
-  
-      user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
+
+            $.each(fila, function (indice, v) {
+                let agrupador = Object.keys(v)
+
+                tabla += `<tr>`
+                tabla += `<th class="tituloTablas filtro ${agrupador}">${agrupador}</th>`;
+
+                $.each(columna, (ind, val) => {
+
+                    tabla += `<th class="tituloTablas ${agrupador}">
+                    <input type="${inputType}" class="agrupador ${agrupador[0]}"></input></th>`;
+                })
+
+                tabla += `</tr>`
+                $.each(v[agrupador], (ind, val) => {
+
+                    tabla += `<tr>
+                    <th class ="filaNombre ${val}">${val}
+                    <input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${val}" fila="${filaContador}" display="none">
+                    <input class="doEn ${val}" fila" name="fila" form="dobleEntrada${accion}${numeroForm}" display="none"></th>`;
+
+                    for (let t = 0; t < columna.length; t++) {
+
+                        /*let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] || ""          
+                        totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
+                        totalesFila[fila[i]] += (parseFloat(valueCampo) || 0)
+                        total += (parseFloat(valueCampo) || 0)*/
+
+                        tabla += `<td class="de ${val} ${columna[t]}"><input type="${inputType}" value="" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" name="${columna[t]} ${val}"></input></td>`;
+
+                    }
+                    tabla += `</tr>`;
+
+                })
+            })
+
+            user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
                        <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${id}" readonly="true">
                        <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="${moment(fidei.date).format("L")}" readonly="true"></div>`;
-  
-      let tableAgrup = $(tabla);
-      let userAgrup = $(user);
-  
-      tableAgrup.appendTo(`#cabeceraForm`);
-      userAgrup.appendTo(`#cabeceraForm`);
-        
-  break;
-        
-        }
+
+            let tableAgrup = $(tabla);
+            let userAgrup = $(user);
+
+            tableAgrup.appendTo(`#cabeceraForm`);
+            userAgrup.appendTo(`#cabeceraForm`);
+
+            break;
+
+    }
 
 }
 const crearTablaDoblePestanaFecha = function (objeto, numeroForm, height, columnasArray, fidecomisoSelec, consulta) {
@@ -591,7 +588,7 @@ const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd,
 
     //Empiezo valores de la columnas y filas
     $.each(fila, (ind, val) => {
-      
+
         tabla += `<tr>`;
 
         tabla += `<th class ="filaNombre ${val}">${tituloFila[ind]}</th>`;
@@ -717,15 +714,15 @@ const totalesDobleEn = function (numeroForm, objeto, fila, columna) {
     columna.pop()
 
     const totalesFilasInput = function () {
-        let total = 0 
-    
+        let total = 0
+
         $.each(columna, function (indice, value) {
             let valorTotal = 0;
             for (let f = 0; f < fila.length; f++) {
-          
-                
+
+
                 const tds = $(`#de${numeroForm} td.${fila[f]}.${value} input`)
-              
+
                 const calcularTol = function (td) {
 
                     let valorCelda = parseInt($(td).val());
@@ -739,10 +736,10 @@ const totalesDobleEn = function (numeroForm, objeto, fila, columna) {
 
                     calcularTol(value)
                 });
-               
+
                 $(`td.total.${value}`).html(valorTotal);
-             
-                
+
+
             }
         })
         $(`td.total.totales`).html(total);
@@ -753,8 +750,8 @@ const totalesDobleEn = function (numeroForm, objeto, fila, columna) {
             let valorTotalCol = 0;
 
             const tds = $(`#de${numeroForm} td.${value} input`)
-            
-           
+
+
             const calcularTolCol = function (td) {
                 let valorCeldaCol = parseInt($($(`#de${numeroForm} td.${value}.${td} input`)).val());
 
@@ -766,7 +763,7 @@ const totalesDobleEn = function (numeroForm, objeto, fila, columna) {
             $.each(columna, function (indice, value) {
                 calcularTolCol(value)
             });
-           
+
             $(`td.totales.${value} input`).val(valorTotalCol);
         })
 

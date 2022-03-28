@@ -541,29 +541,36 @@ const numerosNegativos = function () {
 $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
 
     let navCompleta = $(`.nav-completa p.desplegableAbm`)
-   
+
     $.each(navCompleta, (indice, value) => {
-       
+
 
         let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
 
         let grupo = new Object
-        grupo[$(value).html()] = []
+        let titulo = ""
+        let ind = $(value).html().indexOf(`<`)
+
+        if (ind > 0) {
+            titulo = $(value).html().slice(0, ind)
+        } else {
+            titulo = $(value).html()
+        }
+
+        grupo[titulo] = []
 
         $.each(items, (indice, val) => {
 
             let id = $(val).attr(`id`)
             let home = $(val).attr(`view`)
 
-            grupo[$(value).html()].push(id)
+            grupo[titulo].push(id)
         })
 
-       // grupo[$(value).html()] = abm
+        console.log(grupo)
         variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(grupo)
-     
 
     })
-   
 })
 
 
