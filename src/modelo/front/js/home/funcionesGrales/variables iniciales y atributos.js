@@ -189,6 +189,11 @@ const path = { nombre: `path`, type: `texto` }
 const modficarTodo = `Se puede modificar todo desde el formulario Abm o del formulario de unica instancia`;
 const modficarInd = `Se puede modifcar algunos atributos del fomulario ABM y todos los atributos desde el formulario
 de unica instancia`;
+///////Atributo tabla doble 
+const visualizar = { nombre: `visualizar`, type: `logico` };
+const editar = { nombre: `editar`, type: `logico` };
+const eliminar = { nombre: `eliminar`, type: `logico` };
+const limite = { nombre: `limite`, type: `logico` };
 
 ///////////atributo compuesto/////
 const tareas = {
@@ -535,43 +540,30 @@ const numerosNegativos = function () {
 
 $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
 
-
     let navCompleta = $(`.nav-completa p.desplegableAbm`)
-
+   
     $.each(navCompleta, (indice, value) => {
+       
 
         let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
 
         let grupo = new Object
-        let abm = []
-
+        grupo[$(value).html()] = []
 
         $.each(items, (indice, val) => {
 
             let id = $(val).attr(`id`)
             let home = $(val).attr(`view`)
 
-            abm.push(id)
-            let objeto = variablesModelo[id] || variablesIniciales[id]
-
-            /*if (home == `home`) {
-
-                variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(objeto.pest)
-            } else {
-                variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(objeto.pest)
-            }*/
-
-
+            grupo[$(value).html()].push(id)
         })
 
-        grupo[$(value).html()] = abm
-
-        variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.operacion.push(grupo)
+       // grupo[$(value).html()] = abm
+        variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(grupo)
+     
 
     })
-
-
-
+   
 })
 
 

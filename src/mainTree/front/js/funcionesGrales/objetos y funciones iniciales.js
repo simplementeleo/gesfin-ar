@@ -93,13 +93,14 @@ let variablesIniciales = {
         },
         tablaDobleEntrada: {
             abm: true,
-            type: `text`,
+            type: `regularConTotales`,
+            inputType: `text`,
             totales: true,
             filaType: `baseInterna`,
             fila: { unidadesTorres: `texto` }, //fila
             tituloFila: [``],
             columnaType: `fija`,
-            columna: [mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales, totales],
+            columna: [mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales],
             titulosColumna: ['Mono', `Una Hab`, `Dos Hab`, `Tres Hab`, `Cuatro Hab`, `Oficinas`, `Cocheras`, `Loc Com`, `Total`],
         },
         desencadena: false,

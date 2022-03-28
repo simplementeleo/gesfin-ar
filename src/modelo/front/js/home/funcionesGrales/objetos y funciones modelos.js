@@ -495,16 +495,14 @@ let variablesModelo = {
         },
         tablaDobleEntrada: {
             abm: true,
-            type: `check`,
-            fila: {
-                operacion: [],
-                market: []
-            }, //fila
-            tituloFila: {
-                Operaciones: [],
-                Configuraciones: []
-            },
-            columna: [`visualizar`, `editar`, `eliminar`, `limite`],
+            type: `agrupar`,
+            inputType: `checkbox`,
+            totales: false,
+            filaType: `fija`,
+            fila: [], //fila
+            tituloFila: [],
+            columnaType: `fija`,
+            columna: [visualizar, editar, eliminar, limite],
             titulosColumna: [`Visualizar`, `Editar`, `Eliminar`, `Limite`],
         },
         desencadena: false,
