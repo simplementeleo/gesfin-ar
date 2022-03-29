@@ -70,8 +70,20 @@ td.celdaTab.fijo p {
   width: 5em;
 }
 
-.tablaDoble th.filaNombre {
+.tablaDoble th.filaNombre,
+.tablaDoble th.filtro.tituloTablas {
   text-align: left;
+}
+.tablaDoble th.filtro.tituloTablas {
+  padding-right: 2em;
+  padding-left: 0.5em;
+  font-weight: 650;
+}
+.tablaDoble th.filaNombre {
+  background-color: rgb(231, 230, 230);
+  font-size: 0.9em;
+  font-weight: 100;
+  padding-left: 1em;
 }
 
 .tablaDoble .total,

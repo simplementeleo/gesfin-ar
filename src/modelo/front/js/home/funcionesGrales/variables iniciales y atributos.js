@@ -548,28 +548,34 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
         let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
 
         let grupo = new Object
-        let titulo = ""
+        let titulos = new Object
+        let agrup = ""
         let ind = $(value).html().indexOf(`<`)
 
         if (ind > 0) {
-            titulo = $(value).html().slice(0, ind)
+            agrup = $(value).html().slice(0, ind)
         } else {
-            titulo = $(value).html()
+            agrup = $(value).html()
         }
 
-        grupo[titulo] = []
+        grupo[agrup] = []
+        titulos[agrup] = []
 
         $.each(items, (indice, val) => {
 
             let id = $(val).attr(`id`)
-            let home = $(val).attr(`view`)
+            let indi = $(val).html().indexOf(`<`)
 
-            grupo[titulo].push(id)
+            if (indi > 0) {
+                agrupTit = $(val).html().slice(0, indi)
+            } else {
+                agrupTit = $(val).html()
+            }
+            grupo[agrup].push(id)
+            titulos[agrup].push(agrupTit)
         })
-
-        console.log(grupo)
         variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(grupo)
-
+        variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(titulos)
     })
 })
 

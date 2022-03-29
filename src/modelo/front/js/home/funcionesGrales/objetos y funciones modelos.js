@@ -498,7 +498,7 @@ let variablesModelo = {
             type: `agrupar`,
             inputType: `checkbox`,
             totales: false,
-            filaType: `fija`,
+            filaType: `agrupado`,
             fila: [], //fila
             tituloFila: [],
             columnaType: `fija`,
