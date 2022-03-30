@@ -207,12 +207,11 @@ router.get('/grupoSeguridad', async (req, res) => {
                 _id: 1,
                 name: 1,
                 observaciones: 1,
-                date: 1,
-                habilitado: 1,
                 visualizar: 1,
                 editar: 1,
                 eliminar: 1,
                 limite: 1,
+                date: 1,
                 username: "$User.username",
 
             }
@@ -220,14 +219,16 @@ router.get('/grupoSeguridad', async (req, res) => {
     ]);
 
     var group = [];
-    var GrupoSeg = function (id, name, observaciones, date, username, entidades, habilitado) {
+    var GrupoSeg = function (id, name, observaciones,  visualizar, editar, eliminar, limite, date, username,) {
         this.id = id;
         this.name = name;
         this.observaciones = observaciones;
+        this.visualizar = visualizar;
+        this.editar = editar;
+        this.eliminar = eliminar;
+        this.limite = limite;
         this.date = date;
         this.username = username;
-        this.entidades = entidades;
-        this.habilitado = habilitado;
     }
 
     for (var x = 0; x < grupo.length; x++) {
@@ -236,10 +237,12 @@ router.get('/grupoSeguridad', async (req, res) => {
             grupo[x]._id,
             grupo[x].name,
             grupo[x].observaciones,
+            grupo[x].visualizar,
+            grupo[x].editar,
+            grupo[x].eliminar,
+            grupo[x].limite,
             grupo[x].date,
-            grupo[x].username,
-            grupo[x].entidades,
-            grupo[x].habilitado)
+            grupo[x].username)
 
         group.push(gs);
     }

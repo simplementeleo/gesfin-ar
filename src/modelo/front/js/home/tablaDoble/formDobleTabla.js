@@ -320,15 +320,17 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                     <th class ="filaNombre ${val}" filtro="${agrupador}">${tituloFila[indice][agrupador][ind]}`;
 
                     for (let t = 0; t < columna.length; t++) {
+                        console.log(fidei)
+                        console.log(columna[t])
+                        console.log(val)
+                        console.log(fidei[columna[t]][val])
+                      //  console.log(fidei[columna[t]][val][0])
 
-                        /*let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] || ""          
-                        totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
-                        totalesFila[fila[i]] += (parseFloat(valueCampo) || 0)
-                        total += (parseFloat(valueCampo) || 0)*/
-
+                        let valueCampo =  fidei[columna[t]][val] || ""          
+                       
                         tabla += `<td class="de ${val} ${columna[t]}" filtro="${agrupador}">
-                        <input type="${inputType}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" filtro="${columna[t]}" subFiltro="${agrupador[0]}"></input>
-                       <input type="text" class="tablaDoble valor ${columna[t]}" name="${columna[t]} ${val}" form="dobleEntrada${accion}${numeroForm}" style="display:none"></input></td>`;
+                        <input type="${inputType}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" ${valueCampo} filtro="${columna[t]}" subFiltro="${agrupador[0]}"></input>
+                        <input type="text" class="tablaDoble valor ${columna[t]}" value="${valueCampo}" name="${columna[t]} ${val}" form="dobleEntrada${accion}${numeroForm}" style="display:none"></input></td>`;
 
                     }
                     tabla += `</tr>`;
@@ -362,7 +364,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
             $(`#de${numeroForm} td.${attr} input[type="checkbox"]`).prop('checked', false)
             $(`#de${numeroForm} th.${attr} input[type="checkbox"]`).prop('checked', false)
-            $(`#de${numeroForm} td.${attr} input.valor`).val(false)
+            $(`#de${numeroForm} td.${attr} input.valor`).val("")
         }
     })
     $(`#de${numeroForm} input.agrupador`).click(function () {
@@ -384,7 +386,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             $(`#de${numeroForm} input.valor.${filtro}[subfiltro~=${subFiltro}]`).val('checked')
         } else {
             $(`#de${numeroForm} input.${filtro}[subfiltro~=${subFiltro}]`).prop('checked', false)
-            $(`#de${numeroForm} input.valor.${filtro}[subfiltro~=${subFiltro}]`).val(false)
+            $(`#de${numeroForm} input.valor.${filtro}[subfiltro~=${subFiltro}]`).val("")
             $(`#de${numeroForm} th.${filtro} input.filtroTodo[type="checkbox"]`).prop('checked', false)
 
         }
@@ -413,7 +415,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
         } else {
 
-            $(`#de${numeroForm} td.${attr} input.valor`, father).val(false)
+            $(`#de${numeroForm} td.${attr} input.valor`, father).val("")
             $(`#de${numeroForm} th.${attr} input.filtroTodo[type="checkbox"]`).prop('checked', false)
             $(`#de${numeroForm} input.${subFiltro}.agrupador[filtro~=${attr}]`).prop('checked', false)
 
