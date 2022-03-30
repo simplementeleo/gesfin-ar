@@ -112,7 +112,7 @@ router.get('/error', async (req, res) => {
     }
     ]);
 
-  
+
 
     for (let x = 0; x < errores.length; x++) {
 
@@ -1301,7 +1301,6 @@ router.delete('/icc', async (req, res) => {
     res.json("Delete");
 
 })
-
 router.put('/icc', async (req, res) => {
     try {
         let { _id, fecha, tipoCambio, date, username } = req.body;

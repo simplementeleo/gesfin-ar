@@ -105,7 +105,7 @@ router.get('/users', async (req, res) => {
 router.post('/users', async (req, res) => {
     try {
         let { name, surname, email, password, logico, grupoSeguridad, descripcion, usuario, date, habilitado, username } = req.body;
-        
+
         const grupoFound = await GrupoSeguridad.find({ name: { $in: grupoSeguridad } });
         const usersFound = await User.find({ username: { $in: username } });
         const newUser = new User({
@@ -114,7 +114,7 @@ router.post('/users', async (req, res) => {
             email,
             password,
             logico,
-            grupoSeguridad: grupoFound.map((grupo) => grupo._id), 
+            grupoSeguridad: grupoFound.map((grupo) => grupo._id),
             descripcion,
             username: usuario,
             date,
@@ -138,7 +138,7 @@ router.post('/users', async (req, res) => {
 });
 router.put('/users', async (req, res) => {
     try {
-        let { id, password, usuario, username, grupoSeguridad} = req.body;
+        let { id, password, usuario, username, grupoSeguridad } = req.body;
 
         let keys = Object.keys(req.body);
 
@@ -152,8 +152,8 @@ router.put('/users', async (req, res) => {
         const usersFound = await User.find({ username: { $in: username } });
         newUsersFlex.usuario = usersFound.map((user) => user._id)
         const grupoFound = await GrupoSeguridad.find({ name: { $in: grupoSeguridad } });
-        newUsersFlex.grupoSeguridad = grupoFound.map((grupo) => grupo._id), 
-        newUsersFlex.username = usuario;
+        newUsersFlex.grupoSeguridad = grupoFound.map((grupo) => grupo._id),
+            newUsersFlex.username = usuario;
         delete newUsersFlex.id
         console.log(newUsersFlex)
 
@@ -208,9 +208,13 @@ router.get('/grupoSeguridad', async (req, res) => {
                 name: 1,
                 observaciones: 1,
                 date: 1,
+                habilitado: 1,
+                visualizar: 1,
+                editar: 1,
+                eliminar: 1,
+                limite: 1,
                 username: "$User.username",
-                entidades:1,
-                habilitado: 1
+
             }
         }
     ]);
@@ -233,11 +237,11 @@ router.get('/grupoSeguridad', async (req, res) => {
             grupo[x].name,
             grupo[x].observaciones,
             grupo[x].date,
-            grupo[x].username,  
+            grupo[x].username,
             grupo[x].entidades,
             grupo[x].habilitado)
 
-            group.push(gs);
+        group.push(gs);
     }
 
     res.json(group);
@@ -256,7 +260,7 @@ router.post('/grupoSeguridad', async (req, res) => {
             habilitado
 
         });
-       
+
         let groupNew = await newGroup.save();
 
         res.json({
@@ -272,8 +276,8 @@ router.post('/grupoSeguridad', async (req, res) => {
 });
 router.put('/grupoSeguridad', async (req, res) => {
     try {
-        let { id,name, observaciones, username, date, habilitado } = req.body;
-        
+        let { id, name, observaciones, username, date, habilitado } = req.body;
+
         let keys = Object.keys(req.body);
 
         let newGroupFlex = new Object;
@@ -285,7 +289,7 @@ router.put('/grupoSeguridad', async (req, res) => {
 
         const usersFound = await User.find({ username: { $in: username } });
         newGroupFlex.username = usersFound.map((user) => user._id)
-      
+
         delete newGroupFlex.id
 
         let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, newGroupFlex);
@@ -302,35 +306,42 @@ router.put('/grupoSeguridad', async (req, res) => {
 })
 router.put('/grupoSeguridadDoble', async (req, res) => {
     try {
-        let { id,name, username } = req.body
-  
+        let { id, name, username } = req.body
+        console.log(req.body)
+
         let keys = Object.keys(req.body);
 
-        let newGroupFlex = new Object;
-        let atributosNoDeclarados = new Object
-
-    
+        const usersFound = await User.find({ username: { $in: username } });
+        let grupoDeSeguridad = new Object
 
         for (let x = 0; x < Object.keys(req.body).length; x++) {
-            let textoAreaDividido = keys[x].split(" ");
-            if(textoAreaDividido.length > 1){
-                
-                atributosNoDeclarados
-             
-                atributosNoDeclarados[textoAreaDividido] = req.body[keys[x]]
 
-            }else{
-                newGroupFlex[keys[x]] = req.body[keys[x]]
+            let nameSplit = keys[x].split(" ");
+
+            if (nameSplit.length > 1) {
+                if (grupoDeSeguridad[nameSplit[0]] == undefined) {
+
+                    grupoDeSeguridad[nameSplit[0]] = new Object
+                    grupoDeSeguridad[nameSplit[0]][nameSplit[1]] = []
+                    grupoDeSeguridad[nameSplit[0]][nameSplit[1]].push(req.body[keys[x]])
+
+                } else {
+                    grupoDeSeguridad[nameSplit[0]][nameSplit[1]] = []
+                    grupoDeSeguridad[nameSplit[0]][nameSplit[1]].push(req.body[keys[x]])
+                }
+
+            } else {
+
+                grupoDeSeguridad[keys[x]] = req.body[keys[x]]
             }
         }
-      
-        const usersFound = await User.find({ username: { $in: username } });
-        newGroupFlex.username = usersFound.map((user) => user._id)
-      
-        delete newGroupFlex.id
-        newGroupFlex[`entidades`] = atributosNoDeclarados
-        let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, newGroupFlex);
-        
+
+
+        grupoDeSeguridad.username = usersFound.map((user) => user._id)
+
+
+        let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, grupoDeSeguridad);
+
         res.json({
             mensaje: `El grupo de seguridad ${name} fue actualizado con extito`,
             posteo: groupAct

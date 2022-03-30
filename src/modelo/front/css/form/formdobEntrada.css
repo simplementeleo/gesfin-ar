@@ -79,6 +79,14 @@ td.celdaTab.fijo p {
   padding-left: 0.5em;
   font-weight: 650;
 }
+.tablaDoble th.agrupador:hover {
+  cursor: pointer;
+  background-color: rgb(99, 125, 165);
+}
+.tablaDoble tr.acordeon,
+.tablaDoble td.acordeon {
+  background-color: rgb(99, 125, 165);
+}
 .tablaDoble th.filaNombre {
   background-color: rgb(231, 230, 230);
   font-size: 0.9em;

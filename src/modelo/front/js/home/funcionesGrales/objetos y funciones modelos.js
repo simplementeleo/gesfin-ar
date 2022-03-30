@@ -503,7 +503,7 @@ let variablesModelo = {
             tituloFila: [],
             columnaType: `fija`,
             columna: [visualizar, editar, eliminar, limite],
-            titulosColumna: [`Visualizar`, `Editar`, `Eliminar`, `Limite`],
+            titulosColumna: [`Consultar`, `Editar`, `Eliminar`, `Limite`],
         },
         desencadena: false,
         desencadenaColeccion: {

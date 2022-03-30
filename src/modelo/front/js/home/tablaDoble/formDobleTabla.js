@@ -294,8 +294,8 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             $.each(columna, function (indice, value) {
 
                 // definicion de cabecera de la tabla
-                tabla += `<th class="tituloTablas ${value} filtroTodo">
-                <input type="${inputType}" class="agrupador filtroTodo ${inputType}" filtro="${value}"></input>
+                tabla += `<th class="tituloTablas ${value}">
+                <input type="${inputType}" class="filtroTodo ${inputType}" filtro="${value}"></input>
                 </th>`;
 
             })
@@ -304,24 +304,20 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             $.each(fila, function (indice, v) {
                 let agrupador = Object.keys(v)
 
-
                 tabla += `<tr>`
-                tabla += `<th class="tituloTablas filtro ${agrupador}">${agrupador}</th>`;
+                tabla += `<th class="tituloTablas filtro agrupador ${agrupador}" filtro="${agrupador}">${agrupador}</th>`;
 
                 $.each(columna, (ind, val) => {
 
                     tabla += `<th class="tituloTablas ${val} ${agrupador}">
-                    <input type="${inputType}" class="agrupador ${agrupador[0]}"></input></th>`;
+                    <input type="${inputType}" class="agrupador ${agrupador[0]}" filtro="${val}" subFiltro="${agrupador[0]}"></input></th>`;
                 })
 
                 tabla += `</tr>`
                 $.each(v[agrupador], (ind, val) => {
 
-
                     tabla += `<tr>
-                    <th class ="filaNombre ${val}">${tituloFila[indice][agrupador][ind]}
-                    <input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}"  value="${tituloFila[indice][agrupador][ind]}" fila="${filaContador}" display="none">
-                    <input class="doEn ${val}" fila" name="fila" form="dobleEntrada${accion}${numeroForm}" display="none"></th>`;
+                    <th class ="filaNombre ${val}" filtro="${agrupador}">${tituloFila[indice][agrupador][ind]}`;
 
                     for (let t = 0; t < columna.length; t++) {
 
@@ -330,8 +326,9 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                         totalesFila[fila[i]] += (parseFloat(valueCampo) || 0)
                         total += (parseFloat(valueCampo) || 0)*/
 
-                        tabla += `<td class="de ${val} ${columna[t]}">
-                        <input type="${inputType}" value="" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}"filtro="${columna[t]}" name="${columna[t]} ${val}"></input></td>`;
+                        tabla += `<td class="de ${val} ${columna[t]}" filtro="${agrupador}">
+                        <input type="${inputType}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" filtro="${columna[t]}" subFiltro="${agrupador[0]}"></input>
+                       <input type="text" class="tablaDoble valor ${columna[t]}" name="${columna[t]} ${val}" form="dobleEntrada${accion}${numeroForm}" style="display:none"></input></td>`;
 
                     }
                     tabla += `</tr>`;
@@ -350,13 +347,11 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             userAgrup.appendTo(`#cabeceraForm`);
 
             break;
-
     }
 
     $(`#de${numeroForm} input.filtroTodo.checkbox`).click(function () {
 
         let attr = $(this).attr(`filtro`)
-
 
         if ($(this).is(":checked")) {
 
@@ -370,9 +365,44 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             $(`#de${numeroForm} td.${attr} input.valor`).val(false)
         }
     })
+    $(`#de${numeroForm} input.agrupador`).click(function () {
 
-    $(`#de${numeroForm} input[type="checkbox"]`).click(function (e) {
+        let indi = $(this).attr(`subfiltro`).indexOf(` `)
+        let subFiltro = ""
+        if (indi > 0) {
+            let subFilt = $(this).attr(`subfiltro`).split(` `)
+            subFiltro = subFilt[0]
+        } else {
+            subFiltro = $(this).attr(`subfiltro`)
 
+        }
+        let filtro = $(this).attr(`filtro`)
+
+        if ($(this).is(":checked")) {
+
+            $(`#de${numeroForm} input.${filtro}[subfiltro~=${subFiltro}]`).prop('checked', true)
+            $(`#de${numeroForm} input.valor.${filtro}[subfiltro~=${subFiltro}]`).val('checked')
+        } else {
+            $(`#de${numeroForm} input.${filtro}[subfiltro~=${subFiltro}]`).prop('checked', false)
+            $(`#de${numeroForm} input.valor.${filtro}[subfiltro~=${subFiltro}]`).val(false)
+            $(`#de${numeroForm} th.${filtro} input.filtroTodo[type="checkbox"]`).prop('checked', false)
+
+        }
+
+        chequeTodo(filtro)
+    })
+    $(`#de${numeroForm} input.tablaDobleN[type="checkbox"]`).click(function (e) {
+
+        let indi = $(this).attr(`subFiltro`).indexOf(` `)
+        let subFiltro = ""
+
+        if (indi > 0) {
+            let subFilt = $(this).attr(`subFiltro`).split(` `)
+            subFiltro = subFilt[0]
+        } else {
+            subFiltro = $(this).attr(`subFiltro`)
+
+        }
 
         let father = $(this).parent().parent()
         let attr = $(this).attr(`filtro`)
@@ -383,13 +413,49 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
         } else {
 
-            $(`#de${numeroForm} td.${attr} input.valor`, father).val(`checked`)
-            $(`#de${numeroForm} th.${attr}.filtroTodo input[type="checkbox"]`).prop('checked', false)
+            $(`#de${numeroForm} td.${attr} input.valor`, father).val(false)
+            $(`#de${numeroForm} th.${attr} input.filtroTodo[type="checkbox"]`).prop('checked', false)
+            $(`#de${numeroForm} input.${subFiltro}.agrupador[filtro~=${attr}]`).prop('checked', false)
 
         }
-    })
-}
 
+        chequeTodo(attr)
+    })
+    $(`#de${numeroForm} th.agrupador`).click(function (e) {
+
+        let indi = $(this).attr(`filtro`).indexOf(` `)
+        let filtro = ""
+        if (indi > 0) {
+            let filt = $(this).attr(`filtro`).split(` `)
+            filtro = filt[0]
+        } else {
+            filtro = $(this).attr(`filtro`)
+        }
+
+        let parent = $(this).parent()
+        $(`#de${numeroForm} td[filtro~="${filtro}"],
+           #de${numeroForm} th.filaNombre[filtro~=${filtro}]`).toggleClass(`oculto`)
+
+        parent.toggleClass(`acordeon`)
+
+    })
+    let chequeTodo = function (filtro) {
+        let input = $(`#de${numeroForm} input.${filtro}`)
+        let checked = []
+        $.each(input, (indice, value) => {
+
+            checked.push($(value).is(":checked"))
+
+        })
+
+        if (!checked.includes(false)) {
+
+            $(`#de${numeroForm} th.${filtro} input.filtroTodo[type="checkbox"]`).prop('checked', true)
+            $(`#de${numeroForm} input.agrupador[filtro~=${filtro}]`).prop('checked', true)
+
+        }
+    }
+}
 const crearTablaDoblePestanaFecha = function (objeto, numeroForm, height, columnasArray, fidecomisoSelec, consulta) {
 
     let accion = objeto.accion;

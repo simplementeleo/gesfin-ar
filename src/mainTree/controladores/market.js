@@ -205,36 +205,33 @@ router.put('/unidadesDoble', async (req, res) => {
         let keys = Object.keys(req.body);
 
         const usersFound = await User.find({ username: { $in: username } });
-        
+
         const newUnidadesAct = new Object
 
         for (let x = 0; x < Object.keys(req.body).length; x++) {
 
             let nameSplit = keys[x].split(" ");
 
-            if(nameSplit.length>1){
-                if(newUnidadesAct[nameSplit[0]] == undefined){
-               
+            if (nameSplit.length > 1) {
+                if (newUnidadesAct[nameSplit[0]] == undefined) {
+
                     newUnidadesAct[nameSplit[0]] = new Object
                     newUnidadesAct[nameSplit[0]][nameSplit[1]] = []
                     newUnidadesAct[nameSplit[0]][nameSplit[1]].push(req.body[keys[x]])
 
-                }else{
+                } else {
                     newUnidadesAct[nameSplit[0]][nameSplit[1]] = []
                     newUnidadesAct[nameSplit[0]][nameSplit[1]].push(req.body[keys[x]])
                 }
-            
-            }else{
+
+            } else {
 
                 newUnidadesAct[keys[x]] = req.body[keys[x]]
             }
         }
         newUnidadesAct.username = usersFound.map((user) => user._id)
 
-      let unidades = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
-
-        console.log(unidades)
-
+        let unidades = await Unidades.findByIdAndUpdate(id, newUnidadesAct);
 
         res.json(`El detalle del fideicomiso fue actualizado`);
 
