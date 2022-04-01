@@ -348,8 +348,8 @@ let variablesModelo = {
                 }
             },
             modificar: {
-                names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],
-                pestanas: [],
+                names: [id, nombre, apellido, email, logico, grupoSeguridad, usuario, password, username, date, habilitado],
+                pestanas: [grupoSeguridad],
                 soloLectura: [date, username],
             },
             eliminar: false,
@@ -409,10 +409,10 @@ let variablesModelo = {
     },
     grupoSeguridad: {
         atributos: {
-            names: [id, nombre, observaciones, username, date, habilitado],
-            titulos: [`id`, 'Nombre', `Observaciones`, 'Auditoria', 'Usuario'],
+            names: [id, nombre, observaciones, visualizar, editar, eliminar, limite, username, date, habilitado],
+            titulos: [`id`, 'Nombre', `Observaciones`, `visualizar`, `editar`, `eliminar`, `limite`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
-            oculto: [id, habilitado],
+            oculto: [id, habilitado, visualizar, editar, eliminar, limite],
             importe: {
                 totalizador: [],
                 importeBase: [],
@@ -432,7 +432,11 @@ let variablesModelo = {
             valoresIniciales: {
                 funcion: [],
                 string: {
-                    habilitado: true
+                    habilitado: true,
+                    visualizar: [],
+                    editar: [],
+                    eliminar: [],
+                    limite: []
                 },
                 select: []
             },

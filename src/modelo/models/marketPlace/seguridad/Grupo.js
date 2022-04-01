@@ -13,6 +13,7 @@ const GrupoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "usuario"
     },
+    habilitado: { type: Boolean }
 
 });
 

@@ -560,7 +560,7 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
                     break;
                 case "date":
                     var date = moment(Date.now()).format("L");
-                    $(`.edit.date`).val(date); al
+                    $(`.edit.date`).val(date);
                     break;
                 case "importeUsd":
                 case "tc":
@@ -652,7 +652,9 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
 
         if (objeto.atributos.modificar.pestanas.includes(objeto.pestanas.totales[indice])
         ) {
+
             if (value.length > 1) {
+
                 $(`.edit.${objeto.pestanas.totales[indice].nombre}.${numeroForm}`).attr(
                     "disabled",
                     "true"
@@ -721,7 +723,6 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
     $.each(objeto.funcionesPropias.cargarDosAtributo, function (indice, value) {
         value[0](objeto, numeroForm, value[1], value[2]);
     });
-
     $.each(soloLectura, function (indice, value) {
         $(`.edit.${value.nombre}.${numeroForm}`).prop("readonly", "true");
         $(`select.${value.nombre}.${numeroForm}`).attr("disabled", "true");
@@ -1619,7 +1620,7 @@ const tipoAtributo = function (consulta, objeto) {
                 break;
             case "coleccionTotal":
                 $.each(value.componentes, function (ind, val) {
-                  
+
                     let valorColec = [];
 
                     if (consulta[value.nombre][ind] != undefined) {

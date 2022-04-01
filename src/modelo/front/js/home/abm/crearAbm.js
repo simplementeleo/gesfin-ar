@@ -66,12 +66,12 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             consulta = data;
 
             for (var l = 0; l < objeto.pestanas.totales.length; l++) {
-
                 $.ajax({
                     type: "get",
                     async: false,
                     url: `/${objeto.pestanas.totales[l].nombre}`,
                     success: function (data) {
+
                         consultaArray.push(data);
                     },
                     error: function (error) {
@@ -128,7 +128,6 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             $(`#de${numeroForm}`).siblings().removeClass('active');
         }
     );
-
     //Cerrar tabla y asignar atributo active a la tabla de la izquierda excepto si es la primera
     $('.close').on('click',
 
@@ -178,7 +177,6 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         }
 
     );
-
     $(`#bf${numeroForm} .crearBoton,
     .menuCrear.${numeroForm}`).click(function (e) {
 
@@ -796,7 +794,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
 
         $.each(consultaArray, function (indice, value) {
 
-            var selectRemove = $(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`).children("select");
+            $(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`).children("select");
 
             if (value.length > 1) {
 

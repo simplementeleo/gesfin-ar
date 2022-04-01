@@ -1,9 +1,8 @@
-/*let permisos = $(`#ocultoUser`).val()
-
+let permisos = $(`#ocultoUser`).val()
 
 $.ajax({
   type: "get",
-  url: `/grupoSeguridad`,
+  url: `/grupoSeguridad?grupoF`,
   beforeSend: function () { },
   complete: function () { },
   success: function (response) {
@@ -18,6 +17,7 @@ $.ajax({
       $.each(arrayId, (indice, value) => {
 
         let registro = response.find(element => element.id == value);
+        console.log(registro)
 
         $.each(registro.entidades, (indice, value) => {
 
@@ -65,5 +65,3 @@ $.ajax({
   },
 
 })
-
-*/

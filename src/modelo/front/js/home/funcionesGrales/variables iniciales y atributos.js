@@ -349,18 +349,18 @@ $(`body`).on(`click`, `img.ojoPassword`, function (e) {
 
 })
 $(`body`).on(`click`, `input[type=checkbox]`, function (e) {
-
-    let target = e.target
-    let parent = $(e.target).parent()
-    if ($(e.target).is(':checked')) {
-
-        $(`input[type=text]`, parent).attr(`disabled`, `disabled`)
-    } else {
-
-        $(`input[type=text]`, parent).removeAttr(`disabled`)
-    }
-
-
+    /*
+        let target = e.target
+        let parent = $(e.target).parent()
+        if ($(e.target).is(':checked')) {
+    
+            $(`input[type=text]`, parent).attr(`disabled`, `disabled`)
+        } else {
+    
+            $(`input[type=text]`, parent).removeAttr(`disabled`)
+        }
+    
+    */
 })
 $(document).click(function (e) {
     if (e.button == 0) {
