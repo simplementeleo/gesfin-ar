@@ -44,6 +44,9 @@ let crearTabla = function (contador, objeto, consulta) {
             tabla += tipoAtributo(consulta[i], objeto);
         } else {
             //Creaciòn de campos input
+            console.log($(`#${objeto.accion}.menuSelectAbm`).attr(`crear`))
+            if($(`#${objeto.accion}.menuSelectAbm`).attr(`crear`)){
+                alert(1)
             $.each(objeto.atributos.names, function (indice, value) {
                 switch (value.type) {
                     case "coleccion":
@@ -80,6 +83,7 @@ let crearTabla = function (contador, objeto, consulta) {
                           <input class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" maxlength="${value.maxCaract}"></td>`;
                 }
             });
+         }
         }
 
         tabla += "</tr>";

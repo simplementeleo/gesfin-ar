@@ -343,6 +343,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
             tableAgrup.appendTo(`#cabeceraForm`);
             userAgrup.appendTo(`#cabeceraForm`);
+
             $(`#de${numeroForm} input.filtroTodo.checkbox`).click(function () {
 
                 let attr = $(this).attr(`filtro`)
@@ -356,6 +357,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 } else {
 
                     $(`#de${numeroForm} td.${attr} input[type="checkbox"]`).prop('checked', false)
+                    $(`#de${numeroForm} th.${attr} input[type="checkbox"]`).prop('checked', false)
                     $(`#de${numeroForm} td.${attr} input.valor`).val("")
                     $(`#de${numeroForm} td.${attr} input.valor`).attr(`disabled`, true)
                 }

@@ -6,6 +6,7 @@ const GrupoSchema = new Schema({
     date: { type: Date, default: Date.now() },
     habilitado: { type: Boolean },
     visualizar: { type: Object },
+    crear: { type: Object },
     editar: { type: Object },
     eliminar: { type: Object },
     limite: { type: Object },

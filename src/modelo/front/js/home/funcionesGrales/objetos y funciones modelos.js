@@ -409,10 +409,10 @@ let variablesModelo = {
     },
     grupoSeguridad: {
         atributos: {
-            names: [id, nombre, observaciones, visualizar, editar, eliminar, limite, username, date, habilitado],
-            titulos: [`id`, 'Nombre', `Observaciones`, `visualizar`, `editar`, `eliminar`, `limite`, 'Auditoria', 'Usuario'],
+            names: [id, nombre, observaciones, visualizar, crear, editar, eliminar, limite, username, date, habilitado],
+            titulos: [`id`, 'Nombre', `Observaciones`, `visualizar`, `crear`, `editar`, `eliminar`, `limite`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
-            oculto: [id, habilitado, visualizar, editar, eliminar, limite],
+            oculto: [id, habilitado, visualizar,crear, editar, eliminar, limite],
             importe: {
                 totalizador: [],
                 importeBase: [],
@@ -434,6 +434,7 @@ let variablesModelo = {
                 string: {
                     habilitado: true,
                     visualizar: [],
+                    crear: [],
                     editar: [],
                     eliminar: [],
                     limite: []
@@ -506,8 +507,8 @@ let variablesModelo = {
             fila: [], //fila
             tituloFila: [],
             columnaType: `fija`,
-            columna: [visualizar, editar, eliminar, limite],
-            titulosColumna: [`Consultar`, `Editar`, `Eliminar`, `Limite`],
+            columna: [visualizar, crear, editar, eliminar, limite],
+            titulosColumna: [`Consultar`, `Crear`,`Editar`, `Eliminar`, `Limite`],
         },
         desencadena: false,
         desencadenaColeccion: {

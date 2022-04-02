@@ -191,6 +191,7 @@ const modficarInd = `Se puede modifcar algunos atributos del fomulario ABM y tod
 de unica instancia`;
 ///////Atributo tabla doble 
 const visualizar = { nombre: `visualizar`, type: `logico` };
+const crear = { nombre: `crear`, type: `logico` };
 const editar = { nombre: `editar`, type: `logico` };
 const eliminar = { nombre: `eliminar`, type: `logico` };
 const limite = { nombre: `limite`, type: `logico` };

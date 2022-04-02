@@ -21,10 +21,17 @@ $.ajax({
         $.each(variablesModelo.grupoSeguridad.tablaDobleEntrada.columna, (indice, value) => {
 
           $.each(registro[value.nombre], (ind, val) => {
-            let parent = $(`#${ind}`).parent()
-            $(`#${ind}`).removeAttr(`visualizar`)
-            $(parent).siblings(`p`).removeAttr(`visualizar`)
-            let id = $(parent).siblings(`p`).id()
+           
+            let parent = $(`#${ind}.menuFormulario`).parent().parent()
+
+            console.log(ind)
+            console.log(value.nombre)
+           
+            $(`#${ind}.menuSelectAbm`).attr(`${value.nombre}`, true)
+            $(`#${ind}.menuFormulario`).attr(`${value.nombre}`, true)
+            $(parent).siblings(`p`).attr(`${value.nombre}`, true)
+            let id = $(parent).siblings(`p`).attr(`id`)
+            $(`img.${id}`).attr(`${value.nombre}`, true)
 
           })
         })

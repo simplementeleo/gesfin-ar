@@ -209,6 +209,7 @@ router.get('/grupoSeguridad', async (req, res) => {
                 name: 1,
                 observaciones: 1,
                 visualizar: 1,
+                crear:1,
                 editar: 1,
                 eliminar: 1,
                 limite: 1,
@@ -221,11 +222,12 @@ router.get('/grupoSeguridad', async (req, res) => {
     ]);
 
     var group = [];
-    var GrupoSeg = function (id, name, observaciones, visualizar, editar, eliminar, limite, date, username, habilitado) {
+    var GrupoSeg = function (id, name, observaciones, visualizar, crear, editar, eliminar, limite, date, username, habilitado) {
         this.id = id;
         this.name = name;
         this.observaciones = observaciones;
         this.visualizar = visualizar;
+        this.crear = crear;
         this.editar = editar;
         this.eliminar = eliminar;
         this.limite = limite;
@@ -241,6 +243,7 @@ router.get('/grupoSeguridad', async (req, res) => {
             grupo[x].name,
             grupo[x].observaciones,
             grupo[x].visualizar,
+            grupo[x].crear,
             grupo[x].editar,
             grupo[x].eliminar,
             grupo[x].limite,
@@ -256,13 +259,14 @@ router.get('/grupoSeguridad', async (req, res) => {
 });
 router.post('/grupoSeguridad', async (req, res) => {
     try {
-        let { name, observaciones, visualizar, editar, username, eliminar, limite, date, habilitado } = req.body;
+        let { name, observaciones, visualizar, crear, editar, username, eliminar, limite, date, habilitado } = req.body;
 
         const usersFound = await User.find({ username: { $in: username } });
         const newGroup = new GrupoSeguridad({
             name,
             observaciones,
             visualizar,
+            crear,
             editar,
             eliminar,
             limite,
