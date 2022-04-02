@@ -326,7 +326,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
                         tabla += `<td class="de ${val} ${columna[t]}" filtro="${agrupador}">
                         <input type="${inputType}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" ${valueCampo} filtro="${columna[t]}" subFiltro="${agrupador[0]}"></input>
-                        <input type="text" class="tablaDoble valor ${columna[t]}" value="${valueCampo}" name="${columna[t]} ${val}" form="dobleEntrada${accion}${numeroForm}" ${disabled} style="display:none"></input></td>`;
+                        <input type="text" class="tablaDoble valor ${columna[t]}" value="${valueCampo}" name="${columna[t]} ${val}" form="dobleEntrada${accion}${numeroForm}" disabled="${disabled}" style="display:none"></input></td>`;
 
                     }
                     tabla += `</tr>`;
@@ -357,7 +357,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
                     $(`#de${numeroForm} td.${attr} input[type="checkbox"]`).prop('checked', false)
                     $(`#de${numeroForm} td.${attr} input.valor`).val("")
-                    $(`#de${numeroForm} td.${attr} input.valor`).attr(`disabled`)
+                    $(`#de${numeroForm} td.${attr} input.valor`).attr(`disabled`, true)
                 }
             })
             $(`#de${numeroForm} input.agrupador`).click(function () {
@@ -369,21 +369,19 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                     subFiltro = subFilt[0]
                 } else {
                     subFiltro = $(this).attr(`subfiltro`)
-
                 }
                 let filtro = $(this).attr(`filtro`)
 
                 if ($(this).is(":checked")) {
 
                     $(`#de${numeroForm} input.${filtro}[subfiltro~=${subFiltro}]`).prop('checked', true)
-                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}]input.valor`).removeAttr(`disabled`)
-                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}]input.valor`).val('checked')
+                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}] input.valor`).removeAttr(`disabled`)
+                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}] input.valor`).val('checked')
                 } else {
                     $(`#de${numeroForm} input.${filtro}[subfiltro~=${subFiltro}]`).prop('checked', false)
-                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}]input.valor`).val('')
-                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}]input.valor`).attr(`disabled`)
+                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}] input.valor`).val('')
+                    $(`#de${numeroForm} td.${filtro}[filtro~=${subFiltro}] input.valor`).attr(`disabled`, true)
                     $(`#de${numeroForm} th.${filtro} input.filtroTodo[type = "checkbox"]`).prop('checked', false)
-
                 }
 
                 chequeTodo(filtro)
@@ -413,7 +411,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 } else {
 
                     $(`input.valor`, father).val("")
-                    $(`input.valor`, father).attr(`disabled`)
+                    $(`input.valor`, father).attr(`disabled`, true)
                     $(`#de${numeroForm} th.${attr} input.filtroTodo[type = "checkbox"]`).prop('checked', false)
                     $(`#de${numeroForm} input.${subFiltro}.agrupador[filtro~=${attr}]`).prop('checked', false)
 
@@ -459,9 +457,9 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             }
             let chequefiltrar = function (filtro, subFiltro) {
 
-
-                let input = $(`#de${numeroForm} td[filtro~=${subFiltro}]input.tablaDobleN.${filtro}`)
+                let input = $(`#de${numeroForm} td[filtro~=${subFiltro}] input.tablaDobleN.${filtro}`)
                 let checked = []
+
                 $.each(input, (indice, value) => {
 
                     checked.push($(value).is(":checked"))

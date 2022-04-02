@@ -98,7 +98,7 @@ router.get('/users', async (req, res) => {
 
         user.push(us);
     }
-
+    console.log(user)
     res.json(user);
 
 });
@@ -141,6 +141,7 @@ router.put('/users', async (req, res) => {
         let { id, password, usuario, username, grupoSeguridad } = req.body;
 
         let keys = Object.keys(req.body);
+        console.log(keys)
 
         let newUsersFlex = new Object;
 
@@ -164,7 +165,7 @@ router.put('/users', async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             newUsersFlex.password = await bcrypt.hash(password, salt);
         }
-
+        console.log(newUsersFlex)
         let usersAct = await User.findByIdAndUpdate(id, newUsersFlex);
 
         res.json({

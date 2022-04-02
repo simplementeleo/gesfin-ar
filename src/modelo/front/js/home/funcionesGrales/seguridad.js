@@ -17,32 +17,16 @@ $.ajax({
       $.each(arrayId, (indice, value) => {
 
         let registro = response.find(element => element.id == value);
-        console.log(registro)
 
-        $.each(registro.entidades, (indice, value) => {
+        $.each(variablesModelo.grupoSeguridad.tablaDobleEntrada.columna, (indice, value) => {
 
-          if (value == "checked") {
+          $.each(registro[value.nombre], (ind, val) => {
+            let parent = $(`#${ind}`).parent()
+            $(`#${ind}`).removeAttr(`visualizar`)
+            $(parent).siblings(`p`).removeAttr(`visualizar`)
+            let id = $(parent).siblings(`p`).id()
 
-            let array = indice.split(",");
-
-            switch (array[1]) {
-
-              case `visualizar`:
-
-                visualizar.push(array[0])
-                break;
-              case `editar`:
-                editar.push(array[0])
-                break;
-              case `eliminar`:
-                eliminar.push(array[0])
-                break;
-              case `limite`:
-                limite.push(array[0])
-                break;
-            }
-
-          }
+          })
         })
       })
 

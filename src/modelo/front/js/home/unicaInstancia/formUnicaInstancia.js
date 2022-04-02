@@ -1726,8 +1726,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                 if (valor.id != undefined) {
 
                     $.each(consulta, function (ind, val) {
-                        console.log(val)
-                        console.log(valor)
+
                         if ((valor.id == val.id)) {
 
 
@@ -1738,11 +1737,16 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                                     colec += `<tr class="${value.nombre} ${x}" comp=${value.nombre} q="${x}">`;
 
                                     $.each(value.componentes, function (i, v) {
+                                        console.log(i)
 
                                         let originalname = ""
                                         let path = ""
                                         let filename = ""
-
+                                        console.log(consulta)
+                                        console.log([ind])
+                                        console.log(value.nombre)
+                                        console.log(i)
+                                        console.log(consulta[ind][value.nombre][i])
                                         if (consulta[ind][value.nombre][i][x] != undefined) {
                                             valorColec = consulta[ind][value.nombre][i][x]
                                         } else {
