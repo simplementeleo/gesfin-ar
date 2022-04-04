@@ -13,9 +13,10 @@ $.ajax({
       $.each(arrayId, (indice, value) => {
 
         let registro = response.find(element => element.id == value);
+        console.log(registro)
 
         $.each(variablesModelo.grupoSeguridad.tablaDobleEntrada.columna, (indice, value) => {
-
+          console.log(registro[value.nombre])
           $.each(registro[value.nombre], (ind, val) => {
 
             let parent = $(`#${ind}.menuSelectAbm`).parent().parent()
