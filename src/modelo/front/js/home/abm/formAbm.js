@@ -44,46 +44,45 @@ let crearTabla = function (contador, objeto, consulta) {
             tabla += tipoAtributo(consulta[i], objeto);
         } else {
             //Creaciòn de campos input
-            console.log($(`#${objeto.accion}.menuSelectAbm`).attr(`crear`))
-            if($(`#${objeto.accion}.menuSelectAbm`).attr(`crear`)){
-                alert(1)
-            $.each(objeto.atributos.names, function (indice, value) {
-                switch (value.type) {
-                    case "coleccion":
-                        $.each(value.componentes, function (ind, val) {
-                            tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
+            if ($(`#${objeto.accion}.menuSelectAbm`).attr(`crear`)) {
+
+                $.each(objeto.atributos.names, function (indice, value) {
+                    switch (value.type) {
+                        case "coleccion":
+                            $.each(value.componentes, function (ind, val) {
+                                tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
                              <input class="inputR ${val.nombre} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
-                        });
+                            });
 
-                        break;
-                    case "coleccionTotal":
-                        $.each(value.componentes, function (ind, val) {
-                            tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
+                            break;
+                        case "coleccionTotal":
+                            $.each(value.componentes, function (ind, val) {
+                                tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
                  <input class="inputR ${ind} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
-                        });
+                            });
 
-                        break;
-                    case "logico":
-                        tabla += `<td class="inputTd ${value.nombre}">
+                            break;
+                        case "logico":
+                            tabla += `<td class="inputTd ${value.nombre}">
                             <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony>
                             <input type="text" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" value="false" style="display:none"></td>`;
-                        break;
-                    case "password":
-                        tabla += `<td class="inputTd ${value.nombre}">
+                            break;
+                        case "password":
+                            tabla += `<td class="inputTd ${value.nombre}">
                                 <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword tachado" src="/img/abm/ojoTachado.png"></td>`;
-                        break;
-                    case "adjunto":
-                        tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
+                            break;
+                        case "adjunto":
+                            tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
                         <label for="in${value.nombre}${contador}" class="inputR ${value.nombre} ${contador}">Adjunto</label>
                          <input type="file" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}">
                         </td>`;
-                        break;
-                    default:
-                        tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador} >
+                            break;
+                        default:
+                            tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador} >
                           <input class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" maxlength="${value.maxCaract}"></td>`;
-                }
-            });
-         }
+                    }
+                });
+            }
         }
 
         tabla += "</tr>";

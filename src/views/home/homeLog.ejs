@@ -93,28 +93,28 @@
                     <li><img src="/img/iconos/reque.svg" alt="Requerimiento" title="Carga de requerimientos" view="home" class="reque" visualizar="none"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/iconos/principal/cheque.svg" alt="Cheques" title="Cheques liberados" view="home" class="chLib" visualizar="none"></li>
+                    <li><img src="/img/iconos/principal/cheque.svg" alt="Cheques" title="Cheques liberados" view="home" class="chLib operacionesFinancieras" visualizar="none"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/iconos/usuario2.svg" alt="Usuario" title="Configuracion de usuarios" view="market" class="usur noneMarket"></li>
+                    <li><img src="/img/iconos/usuario2.svg" alt="Usuario" title="Configuracion de usuarios" view="market" class="usur usuarios noneMarket"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/iconos/candado.svg" alt="Segurdad" title="Configuración de seguridad" view="market" class="seg noneMarket"   ></li>
+                    <li><img src="/img/iconos/candado.svg" alt="Segurdad" title="Configuración de seguridad" view="market" class="seguridad noneMarket"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/cobranzas.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="cobra2 noneMarket" visualizar="none"></li>
+                    <li><img src="/img/cobranzas.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="fideicomisos noneMarket" visualizar="none"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/iconos/cliente.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="cobra noneMarket" visualizar="none"></li>
+                    <li><img src="/img/iconos/cliente.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="clientes noneMarket" visualizar="none"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/iconos/prov.svg" alt="Proveedores" title="Configuracion de pagos" view="market" class="pagMarket noneMarket" visualizar="none"></li>
+                    <li><img src="/img/iconos/prov.svg" alt="Proveedores" title="Configuracion de pagos" view="market" class="proveedores noneMarket" visualizar="none"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/iconos/configGral.svg" alt="Procesos " title="Configuracion de procesos" view="market" class="proces noneMarket" visualizar="none"></li>
+                    <li><img src="/img/iconos/configGral.svg" alt="Procesos " title="Configuracion de procesos" view="market" class="procesos noneMarket" visualizar="none"></li>
                 </ul>
                 <ul>
-                    <li><img src="/img/iconos/mundo.svg" alt="Pagos" title="Configuraciones generales" view="market" class="conf noneMarket" visualizar="none"></li>
+                    <li><img src="/img/iconos/mundo.svg" alt="Pagos" title="Configuraciones generales" view="market" class="direcciones noneMarket" visualizar="none"></li>
                 </ul>    
                 <ul>
                     <li><img src="/img/iconos/menu.png" alt="Menu" title="Panel de control" class="panel"></li>
@@ -138,7 +138,6 @@
                             </li>
                         </ul>
                     </li>
-
                     <li>
                         <p class="desplegableAbm"  img="chLib" view="home" id="reque" visualizar="none" visualizar="none">Requerimientos</p>
                         <ul class="subMenu">
@@ -152,6 +151,7 @@
                     <li>
                         <p class="desplegableAbm" img="panel" view="home" id="operacionesFinancieras" visualizar="none">Operaciones Financieras<span
                                 class="icon-down-dir"></span></p>
+                                
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm" ind="false" modelo="operacion" id="movimientoFinanciero" visualizar="none">Movimientos Financieros</p>
@@ -168,20 +168,25 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="usur">
-                        <p class="menuSelectAbm noneMarket" ind="false" view="market" id="users">Usuarios</p>
-                    </li>
-                    <li class="seg">
-                        <p class="desplegableAbm noneMarket" img="cobra2" view="market">Seguridad</p>
+                    <li>
+                        <p class="desplegableAbm" img="seguridad" view="market" id="usuarios">Usuarios</span></p>
                         <ul class="subMenu">
                             <li>
-                                <p class="menuSelectAbm noneMarket cargaEntidadesSeg" view="market" ind="false" id="grupoSeguridad">Alta de grupos</p>
+                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="users">Usuarios</p>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p class="desplegableAbm noneMarket" img="fideicomisos" view="market" id="seguridad">Seguridad</p>
+                        <ul class="subMenu">
+                            <li>
+                                <p class="menuSelectAbm noneMarket cargaEntidadesSeg" view="market" ind="false" id="grupoSeguridad" crear="true">Alta de grupos</p>
                             </li>
                     
                         </ul>
                     </li>
                     <li>
-                        <p class="desplegableAbm noneMarket" img="cobra" view="market" id="fideicomisos" visualizar="none">Fideicomisos<span
+                        <p class="desplegableAbm noneMarket" img="clientes" view="market" id="fideicomisos" visualizar="none">Fideicomisos<span
                                 class="icon-down-dir"></span></p>
                         <ul class="subMenu">
                             <li>
@@ -193,7 +198,7 @@
                         </ul>
                     </li>
                     <li>
-                        <p class="desplegableAbm noneMarket" img="pagMarket" view="market" visualizar="none">Clientes</p>
+                        <p class="desplegableAbm noneMarket" img="proveedores" id="clientes" view="market" visualizar="none">Clientes</p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id="cliente" visualizar="none">Cliente</p>
@@ -201,7 +206,7 @@
                         </ul>
                     </li>
                     <li>
-                        <p class="desplegableAbm noneMarket" img="proces" view="market" visualizar="none">Proveedores<span class="icon-down-dir"></span></p>
+                        <p class="desplegableAbm noneMarket" img="procesos" view="market" id="proveedores" visualizar="none">Proveedores<span class="icon-down-dir"></span></p>
                         <ul class="subMenu ">
                             <li>
                                 <p class="menuSelectAbm noneMarket" view="market" ind="false" id="proveedor" visualizar="none">Proveeedor</p>
@@ -218,7 +223,7 @@
                         </ul>
                     </li>
                     <li>
-                        <p class="desplegableAbm noneMarket" img="conf" view="market" visualizar="none">Procesos</p>
+                        <p class="desplegableAbm noneMarket" img="direcciones" id="procesos" view="market" visualizar="none">Procesos</p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id="estadoProceso" visualizar="none">Estado</p>
@@ -232,7 +237,7 @@
                         </ul>
                     </li>
                     <li>
-                        <p class="desplegableAbm noneMarket" img="panelControl" view="market" visualizar="none">Direcciones<span class="icon-down-dir"></span></p>
+                        <p class="desplegableAbm noneMarket" img="panelControl" id="direcciones" view="market" visualizar="none">Direcciones<span class="icon-down-dir"></span></p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id="ciudad" visualizar="none">Ciudad</p>
@@ -259,6 +264,7 @@
             </div>
 
         </div>
+        <div id="principalesIndicadores" class="principalesIndicadores"></div>
 
     </div>
     <div class="logoFondo">

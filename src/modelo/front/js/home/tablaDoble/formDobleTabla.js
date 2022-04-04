@@ -42,9 +42,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
             fidei = consulta.find(element => element.id == $(`td.id`, sel).html());
 
             crearTablaDoble(numeroForm, objeto, fidei, height, usuario, id, filaContador);
-            // crearTablaDobleInput(numeroForm, objeto,fidei, height, usuario, id )
-
-
         })
 
     $(`#cabeceraForm #de${numeroForm} input.dobleEntrada.totales`).remove();
@@ -296,6 +293,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 // definicion de cabecera de la tabla
                 tabla += `<th class="tituloTablas ${value}">
                 <input type="${inputType}" class="filtroTodo ${inputType}" filtro="${value}"></input>
+                <input type="text" class="tablaDobleNada ocultoSiempre  ${value}" value="" name="${value}" form="dobleEntrada${accion}${numeroForm}" disabled="disabled"></input>
                 </th>`;
 
             })
@@ -310,7 +308,9 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 $.each(columna, (ind, val) => {
 
                     tabla += `<th class="tituloTablas ${val} ${agrupador}">
-                    <input type="${inputType}" class="agrupador ${agrupador[0]}" filtro="${val}" subFiltro="${agrupador[0]}"></input></th>`;
+                    <input type="${inputType}" class="agrupador ${agrupador[0]}" filtro="${val}" subFiltro="${agrupador[0]}"></input>
+                     
+                    </th>`;
                 })
 
                 tabla += `</tr>`
@@ -322,11 +322,11 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                     for (let t = 0; t < columna.length; t++) {
 
                         let valueCampo = fidei[columna[t]][val] || ""
-                        let disabled = fidei[columna[t]][val] || `disabled`
+                        let disabled = fidei[columna[t]][val] || `disabled="disabled"`
 
                         tabla += `<td class="de ${val} ${columna[t]}" filtro="${agrupador}">
-                        <input type="${inputType}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN ${columna[t]}" ${valueCampo} filtro="${columna[t]}" subFiltro="${agrupador[0]}"></input>
-                        <input type="text" class="tablaDoble valor ${columna[t]}" value="${valueCampo}" name="${columna[t]} ${val}" form="dobleEntrada${accion}${numeroForm}" disabled="${disabled}" style="display:none"></input></td>`;
+                        <input type="${inputType}"  class="tablaDobleN ${columna[t]}" ${valueCampo} filtro="${columna[t]}" subFiltro="${agrupador[0]}"></input>
+                        <input type="text" class="tablaDoble valor ${columna[t]}" value="${valueCampo}" name="${columna[t]} ${val}" form="dobleEntrada${accion}${numeroForm}" ${disabled} display="none"></input></td>`;
 
                     }
                     tabla += `</tr>`;
@@ -347,6 +347,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             $(`#de${numeroForm} input.filtroTodo.checkbox`).click(function () {
 
                 let attr = $(this).attr(`filtro`)
+                console.log(attr)
 
                 if ($(this).is(":checked")) {
 
@@ -354,12 +355,15 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                     $(`#de${numeroForm} th.${attr} input[type="checkbox"]`).prop('checked', true)
                     $(`#de${numeroForm} td.${attr} input.valor`).removeAttr(`disabled`)
                     $(`#de${numeroForm} td.${attr} input.valor`).val("checked")
+                    $(`#de${numeroForm} input.tablaDobleNada.${attr}`).attr(`disabled`, true)
                 } else {
 
                     $(`#de${numeroForm} td.${attr} input[type="checkbox"]`).prop('checked', false)
                     $(`#de${numeroForm} th.${attr} input[type="checkbox"]`).prop('checked', false)
                     $(`#de${numeroForm} td.${attr} input.valor`).val("")
                     $(`#de${numeroForm} td.${attr} input.valor`).attr(`disabled`, true)
+                    $(`#de${numeroForm} input.tablaDobleNada.${attr}`).attr(`disabled`, false)
+
                 }
             })
             $(`#de${numeroForm} input.agrupador`).click(function () {
@@ -454,6 +458,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
                     $(`#de${numeroForm} th.${filtro} input.filtroTodo[type = "checkbox"]`).prop('checked', true)
                     $(`#de${numeroForm} input.agrupador[filtro~=${filtro}]`).prop('checked', true)
+                    $(`#de${numeroForm} input.tablaDobleNada.${filtro}`).attr(`disabled`, true)
 
                 }
             }
@@ -700,76 +705,6 @@ const crearTablaDoblePestanaFecha = function (objeto, numeroForm, height, column
     })
 
     let registrosTabla = $(`#t${numeroForm} tbody tr input.id`).val();
-
-}
-const crearTablaDobleInput = function (numeroForm, objeto, height, usuario, idd, consulta) {
-
-    let entidades = new Object
-
-    let registro = consulta.find(consult);
-    $.each(registro.entidades, (indice, value) => {
-
-        let texti = indice.split(",");
-
-        entidades[texti[0] + texti[1]] = value
-    })
-
-    //let accion = objeto.accion;
-    let columna = objeto.tablaDobleEntrada.columna;
-    let tituloFila = objeto.tablaDobleEntrada.tituloFila;
-    let fila = objeto.tablaDobleEntrada.fila;
-    let tituloColumna = objeto.tablaDobleEntrada.titulosColumna;
-
-    let tabla = "";
-
-    tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
-    tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-    //Creo las filas de 1 con todos los titulos de las columnas
-    tabla += `<tr>`;
-    tabla += `<th class="tituloTablas vacio"></th>`;
-    $.each(tituloColumna, function (indice, value) {
-
-        tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
-    });
-    tabla += `</tr>`;
-    tabla += `<tr>`;
-    tabla += `<td class="filtroTodo titulo">Todo</td>`;
-    $.each(tituloColumna, function (indice, value) {
-
-        tabla += `<td class="filtroTodo ${[value]}">
-         <input type="checkbox" class="tablaDoble filtroTodo check ${columna[indice]}" filtro="${columna[indice]}"></input>`;
-
-    });
-    tabla += `</tr>`;
-
-    //Empiezo valores de la columnas y filas
-    $.each(fila, (ind, val) => {
-
-        tabla += `<tr>`;
-
-        tabla += `<th class ="filaNombre ${val}">${tituloFila[ind]}</th>`;
-
-        $.each(columna, function (indice, value) {
-
-            tabla += `<td class="${[value]}">
-            <input type="checkbox" class="tablaDoble check" filtro="${columna[indice]}" ${entidades[val + value]}></input>
-            <input class="tablaDoble valor" name="${val} ${value}" form="dobleEntrada${accion}${numeroForm}" value="${entidades[val + value]}" style="display:none"></input>  
-            </td>`;
-        });
-
-        tabla += `</tr>`;
-    })
-
-    let user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
-    <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${idd}" readonly="true">
-    <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="" readonly="true"></div>`;
-
-    let tabl = $(tabla);
-    let usern = $(user);
-    tabl.appendTo(`#cabeceraForm`);
-    usern.appendTo(`#cabeceraForm`);
-
-
 
 }
 const enviarFormularioDoble = function (objeto, numeroForm) {

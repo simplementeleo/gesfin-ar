@@ -209,7 +209,7 @@ router.get('/grupoSeguridad', async (req, res) => {
                 name: 1,
                 observaciones: 1,
                 visualizar: 1,
-                crear:1,
+                crear: 1,
                 editar: 1,
                 eliminar: 1,
                 limite: 1,
@@ -321,6 +321,7 @@ router.put('/grupoSeguridad', async (req, res) => {
 router.put('/grupoSeguridadDoble', async (req, res) => {
     try {
         let { id, name, username } = req.body
+        console.log(req.body)
 
         let keys = Object.keys(req.body);
 
@@ -330,6 +331,7 @@ router.put('/grupoSeguridadDoble', async (req, res) => {
         for (let x = 0; x < Object.keys(req.body).length; x++) {
 
             let nameSplit = keys[x].split(" ");
+            console.log(nameSplit)
 
             if (nameSplit.length > 1) {
                 if (grupoDeSeguridad[nameSplit[0]] == undefined) {
@@ -350,6 +352,7 @@ router.put('/grupoSeguridadDoble', async (req, res) => {
         }
 
         grupoDeSeguridad.username = usersFound.map((user) => user._id)
+        console.log(grupoDeSeguridad)
 
         let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, grupoDeSeguridad);
 

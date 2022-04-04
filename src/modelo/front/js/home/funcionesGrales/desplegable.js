@@ -54,7 +54,7 @@ $('.desplegableAbm').on('click', function () {
     $(this).siblings(`ul.subMenu`).toggleClass("show");
 
     if ($($(this).siblings(`ul.subMenu`)).hasClass(`show`)) {
-        let longItem = $(`li`, $(this).siblings(`ul.subMenu`)).length
+        let longItem = $(`li p[visualizar="true"]`, $(this).siblings(`ul.subMenu`)).length
 
         let margin = parseFloat(1.5 * parseFloat(longItem)) + parseFloat(1.5)
 

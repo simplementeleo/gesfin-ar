@@ -1147,6 +1147,7 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
     let enviarRegistroTabla = $(`#tablaCol${accion}${numeroForm} tr`);
     let indiceAcopio = objeto.atributos.names.indexOf(logico)
     let indiceAdjunto = objeto.atributos.names.indexOf(adjunto)
+    let adjuntoFile = $(`#formularioIndividual label.form.adjunto.${numeroForm}`).html()
 
     let desencadenateTriger = false
     let desencadenateModifTriger = false
@@ -1157,7 +1158,7 @@ const enviarRegistroNuevoForm = function (numeroForm, objeto, lengthUnoSelect, p
 
         enviarRegistroNuevo.splice(indiceAcopio, 0, { name: `logico`, value: false })
     }
-
+    console.log(adjuntoFile)
     if (objeto.atributos.names.includes(adjunto)) {
         enviarRegistroNuevo.splice(indiceAdjunto, 0, { name: `adjunto`, value: adjuntoFile })
     }
@@ -1722,7 +1723,6 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                     colec += `<th class="tituloTablasIndividual ${val}">${val}</th>`;
                 })
                 colec += `</tr>`;
-                console.log(valor)
                 if (valor.id != undefined) {
 
                     $.each(consulta, function (ind, val) {
@@ -1742,11 +1742,7 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
                                         let originalname = ""
                                         let path = ""
                                         let filename = ""
-                                        console.log(consulta)
-                                        console.log([ind])
-                                        console.log(value.nombre)
-                                        console.log(i)
-                                        console.log(consulta[ind][value.nombre][i])
+
                                         if (consulta[ind][value.nombre][i][x] != undefined) {
                                             valorColec = consulta[ind][value.nombre][i][x]
                                         } else {
@@ -2337,7 +2333,6 @@ const deleteCompuesto = function (objeto, numeroForm, self) {
 
         }
     })
-    console.log(adjunto)
     if (tablaLength > 3) {
 
         filaEliminar.remove()

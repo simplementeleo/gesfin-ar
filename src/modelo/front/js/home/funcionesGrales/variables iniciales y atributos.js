@@ -349,20 +349,7 @@ $(`body`).on(`click`, `img.ojoPassword`, function (e) {
     }
 
 })
-$(`body`).on(`click`, `input[type=checkbox]`, function (e) {
-    /*
-        let target = e.target
-        let parent = $(e.target).parent()
-        if ($(e.target).is(':checked')) {
-    
-            $(`input[type=text]`, parent).attr(`disabled`, `disabled`)
-        } else {
-    
-            $(`input[type=text]`, parent).removeAttr(`disabled`)
-        }
-    
-    */
-})
+
 $(document).click(function (e) {
     if (e.button == 0) {
         $(`#menuContextualTitulo,
@@ -411,8 +398,12 @@ const formatoNumeroDni = function (objeto, numeroForm, atributos) {
     const doc = function (e) {
 
         let numero = parseFloat(e.target.value.replaceAll(".", ""));
+        let dni = ""
 
-        let dni = new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0, }).format(numero)
+        if (!isNaN(numero)) {
+            dni = new Intl.NumberFormat("de-DE").format(numero) || ""
+        }
+
 
         $(e.target).val(dni)
     }
