@@ -26,6 +26,10 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
 
     imagenes.appendTo('#comanderaIndiv');
 
+    if (!permisObject.eliminar.includes(`${accion}`)) {
+        $(`#com${accion}${numeroForm} .imgB.deleteBoton`).attr(`segAtributo`, `none`)
+    }
+
     let formularioPrimer = "";
     formularioPrimer += `<div id="formulario${accion}${numeroForm}" class="formulario">`;
     formularioPrimer += `<form method="post" action="/${accion}" id="f${accion}${numeroForm}" enctype="multipart/form-data"></form></div>`;

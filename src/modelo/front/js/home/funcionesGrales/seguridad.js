@@ -1,4 +1,5 @@
 let permisos = $(`#ocultoUser`).val()
+let permisObject = new Object
 
 $.ajax({
   type: "get",
@@ -13,20 +14,39 @@ $.ajax({
       $.each(arrayId, (indice, value) => {
 
         let registro = response.find(element => element.id == value);
-        console.log(registro)
 
         $.each(variablesModelo.grupoSeguridad.tablaDobleEntrada.columna, (indice, value) => {
-          console.log(registro[value.nombre])
+          permisObject[value.nombre] = []
+
           $.each(registro[value.nombre], (ind, val) => {
-
             let parent = $(`#${ind}.menuSelectAbm`).parent().parent()
-
-            $(`#${ind}.menuSelectAbm`).attr(`${value.nombre}`, true)
-            $(`#${ind}.menuFormulario`).attr(`${value.nombre}`, true)
-            $(parent).siblings(`p`).attr(`${value.nombre}`, true)
             let id = $(parent).siblings(`p`).attr(`id`)
-            $(`img.${id}`).attr(`${value.nombre}`, true)
 
+            switch (value.nombre) {
+              case "visualizar":
+
+                $(`#${ind}.menuSelectAbm`).attr(`${value.nombre}`, true)
+                $(parent).siblings(`p`).attr(`${value.nombre}`, true)
+                $(`img.${id}`).attr(`${value.nombre}`, true)
+                break;
+              case "crear":
+
+                $(`#${ind}.menuFormulario`).attr(`visualizar`, true)
+                $(parent).siblings(`p`).attr(`visualizar`, true)
+                $(`img.${id}`).attr(`visualizar`, true)
+
+                permisObject[value.nombre].push(ind)
+
+                break;
+              case "editar":
+                permisObject[value.nombre].push(ind)
+
+                break;
+              case "eliminar":
+                permisObject[value.nombre].push(ind)
+
+                break;
+            }
           })
         })
       })
@@ -37,3 +57,5 @@ $.ajax({
   },
 
 })
+
+console.log(permisObject)

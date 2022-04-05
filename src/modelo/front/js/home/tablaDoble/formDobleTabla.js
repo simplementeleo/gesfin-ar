@@ -393,7 +393,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 chequeTodo(filtro)
                 chequefiltrar(filtro, subFiltro)
             })
-            $(`#de${numeroForm} input.tablaDobleN[type = "checkbox"]`).click(function (e) {
+            $(`#de${numeroForm} input.tablaDobleN[type="checkbox"]`).click(function (e) {
 
                 let indi = $(this).attr(`subFiltro`).indexOf(` `)
                 let subFiltro = ""
@@ -406,7 +406,8 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
                 }
 
-                let father = $(this).parent().parent()
+                let father = $(this).parent()
+
                 let attr = $(this).attr(`filtro`)
 
                 if ($(this).is(":checked")) {
@@ -1062,7 +1063,6 @@ const valoresTablaPestana = function (objeto, numeroForm, consulta) {
 }
 const volverValoresGrabados = function (objeto, numeroForm, fidei) {
 
-    console.log(fidei)
     let fila = [];
     let tituloFila = [];
     let columna = [];

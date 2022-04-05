@@ -412,7 +412,7 @@ let variablesModelo = {
             names: [id, nombre, observaciones, visualizar, crear, editar, eliminar, limite, username, date, habilitado],
             titulos: [`id`, 'Nombre', `Observaciones`, `visualizar`, `crear`, `editar`, `eliminar`, `limite`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
-            oculto: [id, habilitado, visualizar,crear, editar, eliminar, limite],
+            oculto: [id, habilitado, visualizar, crear, editar, eliminar, limite],
             importe: {
                 totalizador: [],
                 importeBase: [],
@@ -451,7 +451,6 @@ let variablesModelo = {
                 },
                 formatoFunc: {
                     primeraLetraMayuscula: [primeraLetraMayuscula, [nombre]],
-
                 }
             },
             modificar: {
@@ -508,7 +507,7 @@ let variablesModelo = {
             tituloFila: [],
             columnaType: `fija`,
             columna: [visualizar, crear, editar, eliminar, limite],
-            titulosColumna: [`Consultar`, `Crear`,`Editar`, `Eliminar`, `Limite`],
+            titulosColumna: [`Consultar`, `Crear`, `Editar`, `Eliminar`, `Limite`],
         },
         desencadena: false,
         desencadenaColeccion: {
