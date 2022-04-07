@@ -1,5 +1,6 @@
 let permisos = $(`#ocultoUser`).val()
 let permisObject = new Object
+let limitePermiso = new Array
 
 $.ajax({
   type: "get",
@@ -15,8 +16,11 @@ $.ajax({
 
         let registro = response.find(element => element.id == value);
 
+        limitePermiso.push(parseFloat(registro.cantidad))
+
         $.each(variablesModelo.grupoSeguridad.tablaDobleEntrada.columna, (indice, value) => {
           permisObject[value.nombre] = []
+
 
           $.each(registro[value.nombre], (ind, val) => {
             let parent = $(`#${ind}.menuSelectAbm`).parent().parent()
@@ -28,6 +32,8 @@ $.ajax({
                 $(`#${ind}.menuSelectAbm`).attr(`${value.nombre}`, true)
                 $(parent).siblings(`p`).attr(`${value.nombre}`, true)
                 $(`img.${id}`).attr(`${value.nombre}`, true)
+
+                permisObject[value.nombre].push(ind)
                 break;
               case "crear":
 
@@ -54,8 +60,9 @@ $.ajax({
   },
   error: function (error) {
     console.log(error);
+
   },
 
 })
 
-console.log(permisObject)
+Math.min(limitePermiso)

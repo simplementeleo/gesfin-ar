@@ -29,6 +29,12 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     if (!permisObject.eliminar.includes(`${accion}`)) {
         $(`#com${accion}${numeroForm} .imgB.deleteBoton`).attr(`segAtributo`, `none`)
     }
+    if (!permisObject.editar.includes(`${accion}`)) {
+        $(`#com${accion}${numeroForm} .imgB.editBoton`).attr(`segAtributo`, `none`)
+    }
+    if (!permisObject.imprimir.includes(`${accion}`)) {
+        $(`#com${accion}${numeroForm} .imgB.editBoton`).attr(`segAtributo`, `none`)
+    }
 
     let formularioPrimer = "";
     formularioPrimer += `<div id="formulario${accion}${numeroForm}" class="formulario">`;
@@ -480,12 +486,23 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     });
     $(`#formularioIndividual .editBoton`).click(function () {
 
-        $(`#formularioIndividual input.unidades`).val()
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-        editFormulario(objeto, numeroForm)
+        if (fechaDos > fecha) {
+            editFormulario(objeto, numeroForm)
+            editando = true;
+            console.log(editando)
+        } else {
+            let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
 
-        editando = true;
-        console.log(editando)
+            let texto = $(p);
+
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
+        }
+
 
     });
     $(`#formularioIndividual #formulario${accion}${numeroForm}`).on(`dblclick`, `input.form, select.form`, function (e) {
@@ -497,45 +514,59 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     });
     $(`#formularioIndividual .deleteBoton`).click(function () {
 
-        let esForm = true;
-        let idRegistro = "";
-        let idRegist = $(`#formularioIndividual input.form._id`).val();
-        let idRegistr = $(`#formularioIndividual input.form.id`).val();
-        let numDes = $(`#formularioIndividual .fo.numFidei P`).html();
-        let unidDes = $(`#t${numeroForm} tr.sel td.unidades`).html();
-        let unidDesModif = $(`#t${numeroForm} tr.sel td.unidadesDestino`).html();
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-        let pregunta = $(`tr.sel td.${key.atributo.nombre}`).html();
+        if (fechaDos > fecha) {
 
-        if ((idRegist == undefined || idRegist == "")) {
-            if (idRegistr == undefined || idRegistr == "") {
-                $(`.cartelErrorForm p`).html("No se encuentra registro a eliminar")
-                $(`.cartelErrorForm`).css("display", "block")
+            let esForm = true;
+            let idRegistro = "";
+            let idRegist = $(`#formularioIndividual input.form._id`).val();
+            let idRegistr = $(`#formularioIndividual input.form.id`).val();
+            let numDes = $(`#formularioIndividual .fo.numFidei P`).html();
+            let unidDes = $(`#t${numeroForm} tr.sel td.unidades`).html();
+            let unidDesModif = $(`#t${numeroForm} tr.sel td.unidadesDestino`).html();
+
+            let pregunta = $(`tr.sel td.${key.atributo.nombre}`).html();
+
+            if ((idRegist == undefined || idRegist == "")) {
+                if (idRegistr == undefined || idRegistr == "") {
+                    $(`.cartelErrorForm p`).html("No se encuentra registro a eliminar")
+                    $(`.cartelErrorForm`).css("display", "block")
+                } else {
+                    idRegistro = idRegistr;
+
+                    filaSeleccionada = [];
+
+                    $.each(objeto.atributos.names, (indice, value) => {
+
+                        filaSeleccionada[value.nombre] = $(`#t${numeroForm} tr.sel td.${value.nombre}`).html()
+                    })
+
+                    $.each(objeto.atributos.number, (indice, value) => {
+
+                        let valor = ($(`#t${numeroForm} tr.sel td.${value.nombre}`).html())
+
+                        let val = valor.replace(`.`, ``)
+
+                        filaSeleccionada[value] = val
+                    })
+                    popUpEliminacion(pregunta, numeroForm, idRegistro, objeto, esForm, fidecomisoSelec, filaSeleccionada)
+                }
+
             } else {
-                idRegistro = idRegistr;
+                idRegistro = idRegist;
+                popUpEliminacion(pregunta, numeroForm, idRegistro, objeto, esForm, numDes, unidDes, unidDesModif, fidecomisoSelec)
 
-                filaSeleccionada = [];
-
-                $.each(objeto.atributos.names, (indice, value) => {
-
-                    filaSeleccionada[value.nombre] = $(`#t${numeroForm} tr.sel td.${value.nombre}`).html()
-                })
-
-                $.each(objeto.atributos.number, (indice, value) => {
-
-                    let valor = ($(`#t${numeroForm} tr.sel td.${value.nombre}`).html())
-
-                    let val = valor.replace(`.`, ``)
-
-                    filaSeleccionada[value] = val
-                })
-                popUpEliminacion(pregunta, numeroForm, idRegistro, objeto, esForm, fidecomisoSelec, filaSeleccionada)
             }
-
         } else {
-            idRegistro = idRegist;
-            popUpEliminacion(pregunta, numeroForm, idRegistro, objeto, esForm, numDes, unidDes, unidDesModif, fidecomisoSelec)
+            let p = `<div class="contError"><p>No tiene permisos para eliminar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
 
+            let texto = $(p);
+
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
         }
 
     });
@@ -595,96 +626,184 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
 
         e.stopPropagation();
 
-        if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-            editFormulario(objeto, numeroForm)
-            editando = true
+        if (fechaDos > fecha) {
+
+            if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
+
+                editFormulario(objeto, numeroForm)
+                editando = true
+            }
+
+            let filaPadre = $(e.target).parent().parent()
+            let elemento = this.parentNode.parentNode.parentNode
+            let id = elemento.id.slice(2)
+            let ord = parseFloat($(e.target).attr(`ord`))
+
+            editarCompuestoFormInd(objeto, numeroForm, id, filaPadre, this, ord)
+        } else {
+            let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
+
+            let texto = $(p);
+
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
         }
-
-        let filaPadre = $(e.target).parent().parent()
-        let elemento = this.parentNode.parentNode.parentNode
-        let id = elemento.id.slice(2)
-        let ord = parseFloat($(e.target).attr(`ord`))
-
-        editarCompuestoFormInd(objeto, numeroForm, id, filaPadre, this, ord)
     })
     $(`#formularioIndividual div.tableCol.${numeroForm}`).on(`dblclick`, $(`tr`).eq(1), function (e) {
 
         e.stopPropagation();
 
-        if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-            editFormulario(objeto, numeroForm)
-            editando = true
+        if (fechaDos > fecha) {
+
+            if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
+
+                editFormulario(objeto, numeroForm)
+                editando = true
+            }
+        } else {
+            let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
+
+            let texto = $(p);
+
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
         }
     })
     $(`#formularioIndividual div.tableCol.${numeroForm}`).on(`dblclick`, `td.comp`, function (e) {
 
         e.stopPropagation();
 
-        if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-            editFormulario(objeto, numeroForm)
-            editando = true
+        if (fechaDos > fecha) {
+
+            if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
+
+                editFormulario(objeto, numeroForm)
+                editando = true
+            }
+        } else {
+            let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
+
+            let texto = $(p);
+
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
         }
     })
     $(`#formularioIndividual div.tableCol.${numeroForm}`).on(`click`, `td.delete`, function (e) {
 
         e.stopPropagation();
 
-        if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
-            editFormulario(objeto, numeroForm)
-            editando = true
-        }
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-        if (objeto.desencadenaModif != []) {
+        if (fechaDos > fecha) {
 
-            let objetoEliminar = deleteCompuesto(objeto, numeroForm, this)
-            eliminarDesenColc.push(objetoEliminar.objetoColeccionEliminar)
-            eliminarAdjuntos.push(objetoEliminar.adjunto)
+            if ($(`#formularioIndividual input.id.${numeroForm}`).attr(`disabled`)) {
+                editFormulario(objeto, numeroForm)
+                editando = true
+            }
+
+            if (objeto.desencadenaModif != []) {
+
+                let objetoEliminar = deleteCompuesto(objeto, numeroForm, this)
+                eliminarDesenColc.push(objetoEliminar.objetoColeccionEliminar)
+                eliminarAdjuntos.push(objetoEliminar.adjunto)
+            } else {
+                deleteCompuesto(objeto, numeroForm, this)
+            }
         } else {
-            deleteCompuesto(objeto, numeroForm, this)
-        }
+            let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
 
+            let texto = $(p);
+
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
+        }
     })
     $(`#formularioIndividual div.fo.adjunto img.eliminarAdj`).click(function () {
 
-        let father = $(this).parent().parent().parent()
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-        let adjunto = $(`div.src`, father).attr(`src`)
+        if (fechaDos > fecha) {
 
-        if (adjunto != "") {
-            eliminarAdjuntos.push(adjunto)
+            let father = $(this).parent().parent().parent()
 
-        }
+            let adjunto = $(`div.src`, father).attr(`src`)
 
-        $(`div.src`, father).html(`Sin Adjunto`);
-        $(`div.src`, father).attr(`src`, "");
-        $(`label`, father).removeClass("validado");
-        $(`label`, father).attr("validado", false);
-    })
-    $(`#formularioIndividual div.fo input.adjunto,
-       #formularioIndividual input.adjuntoColeccion`).change(function () {
+            if (adjunto != "") {
+                eliminarAdjuntos.push(adjunto)
 
-        let valorAdjunto = $(this).val();
-        let father = $(this).parent();
-        let adjunto = $(`div.src`, father).attr(`src`)
+            }
 
-        if (valorAdjunto == "") {
             $(`div.src`, father).html(`Sin Adjunto`);
             $(`div.src`, father).attr(`src`, "");
             $(`label`, father).removeClass("validado");
             $(`label`, father).attr("validado", false);
 
         } else {
+            let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
 
-            $(`div.src`, father).html(valorAdjunto);
-            $(`div.src`, father).attr(`src`, "");
-            $(`label`, father).addClass("validado");
-            $(`label`, father).attr("validado", true);
+            let texto = $(p);
 
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
         }
-        eliminarAdjuntos.push(adjunto)
+
+
+    })
+    $(`#formularioIndividual div.fo input.adjunto,
+       #formularioIndividual input.adjuntoColeccion`).change(function () {
+
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
+
+        if (fechaDos > fecha) {
+
+            let valorAdjunto = $(this).val();
+            let father = $(this).parent();
+            let adjunto = $(`div.src`, father).attr(`src`)
+
+            if (valorAdjunto == "") {
+                $(`div.src`, father).html(`Sin Adjunto`);
+                $(`div.src`, father).attr(`src`, "");
+                $(`label`, father).removeClass("validado");
+                $(`label`, father).attr("validado", false);
+
+            } else {
+
+                $(`div.src`, father).html(valorAdjunto);
+                $(`div.src`, father).attr(`src`, "");
+                $(`label`, father).addClass("validado");
+                $(`label`, father).attr("validado", true);
+
+            }
+            eliminarAdjuntos.push(adjunto)
+
+        } else {
+            let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
+
+            let texto = $(p);
+
+            texto.appendTo(`#form${value.nombre}${numeroForm}`);
+        }
+
     });
 
     validarFormulario(objeto, numeroForm);
@@ -1594,7 +1713,6 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
 
     $.each(objeto.atributos.names, function (indice, value) {
 
-
         switch (value.type) {
             case "numerador":
             case "num":
@@ -1723,7 +1841,6 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
 
                 $.each(titulosCompuesto[value.nombre], function (ind, val) {
 
-
                     colec += `<th class="tituloTablasIndividual ${val}">${val}</th>`;
                 })
                 colec += `</tr>`;
@@ -1733,20 +1850,19 @@ const tipoAtributoForm = function (valor, objeto, numeroForm, formIndividualPest
 
                         if ((valor.id == val.id)) {
 
-
                             if (val[value.nombre][objeto.atributos.compuesto[value.nombre].key] != "") {
                                 $.each(val[value.nombre][objeto.atributos.compuesto[value.nombre].key], (x, y) => { //////// voy a buscar la key del atributo compuesto para ver la longitud de la coleccion
 
                                     ord = x
                                     colec += `<tr class="${value.nombre} ${x}" comp=${value.nombre} q="${x}">`;
-
+                                    console.log(value)
                                     $.each(value.componentes, function (i, v) {
                                         console.log(i)
 
                                         let originalname = ""
                                         let path = ""
                                         let filename = ""
-
+                                        console.log(consulta[ind][value.nombre])
                                         if (consulta[ind][value.nombre][i][x] != undefined) {
                                             valorColec = consulta[ind][value.nombre][i][x]
                                         } else {

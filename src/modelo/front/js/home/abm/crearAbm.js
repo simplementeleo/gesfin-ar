@@ -427,124 +427,147 @@ $('.menuSelectAbm').on('click ', this.id, function () {
     $(`#bf${numeroForm} .deleteBoton,
        .menuEliminar.${numeroForm}`).click(function (e) {
 
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-        let sel = $(`#t${numeroForm} tr.sel`);
-        if (editando == true) {
-            $(`.cartelErrorFront p`).html("No se puede eliminar un registro en edición")
-            $(`.cartelErrorFront`).css("display", "block");
+        if (fechaDos > fecha) {
 
-        } else if ($(sel).hasClass(`desencadenado`)) {
-            let desencadenado = $(`tr.sel td.origen`).html()
-            $(`.cartelErrorFront`).addClass(`fijo`)
-            $(`.cartelErrorFront p`).html(`No se puede eliminar un registro desencadenado,
-                                          eliminar en ${desencadenado}`)
-            $(`.cartelErrorFront`).css("display", "block");
-        } else {
-            e.preventDefault();
+            let sel = $(`#t${numeroForm} tr.sel`);
+            if (editando == true) {
+                $(`.cartelErrorFront p`).html("No se puede eliminar un registro en edición")
+                $(`.cartelErrorFront`).css("display", "block");
 
-            let esForm = false;
-            let seleccion = false;
-            let pregunta = $(`tr.sel td.${objeto.key.atributo.nombre}`).html();
+            } else if ($(sel).hasClass(`desencadenado`)) {
+                let desencadenado = $(`tr.sel td.origen`).html()
+                $(`.cartelErrorFront`).addClass(`fijo`)
+                $(`.cartelErrorFront p`).html(`No se puede eliminar un registro desencadenado,
+                                                      eliminar en ${desencadenado}`)
+                $(`.cartelErrorFront`).css("display", "block");
+            } else {
+                e.preventDefault();
 
-            let idRegistro = $(`tr.sel td.id`).html();
+                let esForm = false;
+                let seleccion = false;
+                let pregunta = $(`tr.sel td.${objeto.key.atributo.nombre}`).html();
+
+                let idRegistro = $(`tr.sel td.id`).html();
 
 
-            if (idRegistro == null) {
-                idRegistro = $(`tr.sel td._id`).html();
+                if (idRegistro == null) {
+                    idRegistro = $(`tr.sel td._id`).html();
+                }
+
+                const trs = document.querySelectorAll(`#t${numeroForm} tr`);
+
+                trs.forEach((tr) => {
+                    if (tr.classList.contains('sel')) {
+
+                        filaSeleccionada = [];
+
+                        $.each(objeto.atributos.names, (indice, value) => {
+                            filaSeleccionada[value.nombre] = $(`#t${numeroForm} tr.sel td.${value.nombre}`).html()
+                        })
+
+                        popUpEliminacion(pregunta, numeroForm, idRegistro, objeto, numeroInterno, esForm, fidecomisoSelec)
+                        seleccion = true;
+                    }
+                });
+
+                if (seleccion == false) {
+                    $(`.cartelErrorFront p`).html("Seleccione un elemento a eliminar")
+                    $(`.cartelErrorFront`).css("display", "block");
+                } else {
+                    seleccion = false
+                }
             }
+        } else {
+            $(`#bf${numeroForm} .cartelErrorFront p`).html(`No tiene permisos para eliminar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}`)
+            $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
 
-            const trs = document.querySelectorAll(`#t${numeroForm} tr`);
+        }
+    });
+    $(`#bf${numeroForm} .editBoton,
+       .menuEditar.${numeroForm}`).click(function (e) {
 
-            trs.forEach((tr) => {
-                if (tr.classList.contains('sel')) {
 
+        e.preventDefault();
+
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
+
+        if (fechaDos > fecha) {
+
+            let sel = $(`#t${numeroForm} tr.sel`);
+
+            if ($(sel).hasClass(`desencadenado`)) {
+                let desencadenado = $(`tr.sel td.origen`).html()
+
+                $(`.cartelErrorFront p`).html(`No se puede editar un registro en desencadenado,
+                                          editar en ${desencadenado}`)
+                $(`.cartelErrorFront`).css("display", "block");
+            } else if (botonEditar == false) {
+                if (sel.length > 0) {
+
+                    $.each(objeto.atributos.names, function (indice, v) {
+                        var valor = $(`tr.sel td.${v.nombre}`).html();
+                        memoriaValoreEditados.push(valor)
+                    })
                     filaSeleccionada = [];
 
                     $.each(objeto.atributos.names, (indice, value) => {
                         filaSeleccionada[value.nombre] = $(`#t${numeroForm} tr.sel td.${value.nombre}`).html()
                     })
 
-                    popUpEliminacion(pregunta, numeroForm, idRegistro, objeto, numeroInterno, esForm, fidecomisoSelec)
-                    seleccion = true;
+                    $.each(objeto.atributos.number, (indice, value) => {
+
+                        let valor = ($(`#t${numeroForm} tr.sel td.${value.nombre}`).html())
+                        let val = valor.replace(`.`, ``)
+
+                        filaSeleccionada[value] = val
+
+                    })
+
+                    /////////////////////desabilitar registro input de ingreso nuevo
+                    $(`input.inputR.${numeroForm}`).val("");
+                    $(`select.select`).val("");
+                    $(`input.inputR.${numeroForm}`).removeClass("validado");
+                    $(`input.inputR.${numeroForm}`).removeClass("requerido");
+                    $(`input.inputR.${numeroForm}`).attr("validado", false);
+                    $(`select.select`).removeClass("validado");
+                    $(`select.select`).attr("validado", false);
+                    $(`input.inputR.${numeroForm}`).prop("readOnly", true);
+                    $(`select.select`).remove();
+                    $(`#t${numeroForm} .inputTd`).addClass("des");
+                    $(`input.inputR.${numeroForm}`).css("display", "block");
+                    $(`input.inputR.${numeroForm}.adjunto`).removeAttr("style");
+
+                    $(`#bf${numeroForm} .cartelErrorFront`).css("display", "none");
+                    $(`#t${numeroForm} td.inputTd div.contError`).remove()
+                    /////////////////////////////////////////////
+                    let adjuntoElim = editarRegistro(objeto, consultaArray, numeroForm, consulta);
+
+                    botonEditar = true;
+                    editando = true;
+
+
+                } else {
+                    $(`#bf${numeroForm} .cartelErrorFront p`).html("Seleccione un registro")
+                    $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
                 }
-            });
-
-            if (seleccion == false) {
-                $(`.cartelErrorFront p`).html("Seleccione un elemento a eliminar")
-                $(`.cartelErrorFront`).css("display", "block");
             } else {
-                seleccion = false
-            }
-        }
-    });
-    $(`#bf${numeroForm} .editBoton,
-       .menuEditar.${numeroForm}`).click(function (e) {
-
-        e.preventDefault();
-
-        let sel = $(`#t${numeroForm} tr.sel`);
-
-        if ($(sel).hasClass(`desencadenado`)) {
-            let desencadenado = $(`tr.sel td.origen`).html()
-
-            $(`.cartelErrorFront p`).html(`No se puede editar un registro en desencadenado,
-                                          editar en ${desencadenado}`)
-            $(`.cartelErrorFront`).css("display", "block");
-        } else if (botonEditar == false) {
-            if (sel.length > 0) {
-
-                $.each(objeto.atributos.names, function (indice, v) {
-                    var valor = $(`tr.sel td.${v.nombre}`).html();
-                    memoriaValoreEditados.push(valor)
-                })
-                filaSeleccionada = [];
-
-                $.each(objeto.atributos.names, (indice, value) => {
-                    filaSeleccionada[value.nombre] = $(`#t${numeroForm} tr.sel td.${value.nombre}`).html()
-                })
-
-                $.each(objeto.atributos.number, (indice, value) => {
-
-                    let valor = ($(`#t${numeroForm} tr.sel td.${value.nombre}`).html())
-                    let val = valor.replace(`.`, ``)
-
-                    filaSeleccionada[value] = val
-
-                })
-
-                /////////////////////desabilitar registro input de ingreso nuevo
-                $(`input.inputR.${numeroForm}`).val("");
-                $(`select.select`).val("");
-                $(`input.inputR.${numeroForm}`).removeClass("validado");
-                $(`input.inputR.${numeroForm}`).removeClass("requerido");
-                $(`input.inputR.${numeroForm}`).attr("validado", false);
-                $(`select.select`).removeClass("validado");
-                $(`select.select`).attr("validado", false);
-                $(`input.inputR.${numeroForm}`).prop("readOnly", true);
-                $(`select.select`).remove();
-                $(`#t${numeroForm} .inputTd`).addClass("des");
-                $(`input.inputR.${numeroForm}`).css("display", "block");
-                $(`input.inputR.${numeroForm}.adjunto`).removeAttr("style");
-
-                $(`#bf${numeroForm} .cartelErrorFront`).css("display", "none");
-                $(`#t${numeroForm} td.inputTd div.contError`).remove()
-                /////////////////////////////////////////////
-                let adjuntoElim = editarRegistro(objeto, consultaArray, numeroForm, consulta);
-
-                botonEditar = true;
-                editando = true;
-
-
-            } else {
-                $(`#bf${numeroForm} .cartelErrorFront p`).html("Seleccione un registro")
+                $(`#bf${numeroForm} .cartelErrorFront p`).html("Hay un registo en edición")
                 $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
+
+                $(`#bf${numeroForm} .cartelErrorFront`).fadeOut(5000)
+
             }
         } else {
-            $(`#bf${numeroForm} .cartelErrorFront p`).html("Hay un registo en edición")
+            $(`#bf${numeroForm} .cartelErrorFront p`).html(`No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}`)
             $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
-
-            $(`#bf${numeroForm} .cartelErrorFront`).fadeOut(5000)
-
         }
 
     });
@@ -676,7 +699,6 @@ $('.menuSelectAbm').on('click ', this.id, function () {
     });
     $(`#bf${numeroForm} .video`).click(function () {
 
-
         let src = objeto.atributos.videoTutorial;
 
         $(`#videoTutorialDiv`).addClass(`show`)
@@ -713,218 +735,231 @@ $('.menuSelectAbm').on('click ', this.id, function () {
     })
     $("body").on('dblclick', `#t${numeroForm} .inputTd.des`, function (e) {
 
-        losInput = true;
-        formularioIndAbm = false;
-        var usu = $("#oculto").val();
-        var cont = $(this).attr("cont");
+        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
+        var m = Math.min.apply(null, limitePermiso)
+        let fecha = new Date()
+        fecha.setDate(fecha.getDate() - m)
 
-        $.each(objeto.numerador.global, (indice, value) => {
-
-            consultaNumer(value.name, value.filtro, numeroForm);
-        })
-
-        e.stopPropagation();
-
-        $(`td.inputTd p`).remove()
+        if (fechaDos > fecha) {
 
 
-        $(this).removeClass("des");
-        $(this).siblings("td").removeClass("des");
+            losInput = true;
+            formularioIndAbm = false;
+            var usu = $("#oculto").val();
+            var cont = $(this).attr("cont");
 
-        //Valores iniciales de input tras doble click
-        $(`.inputR.${cont}`).removeAttr("readonly");
-        $(`.inputR.username.${cont}`).val(usu);
-        $(`.inputR.destino.${cont}`).attr("name", `origen`);
+            $.each(objeto.numerador.global, (indice, value) => {
+
+                consultaNumer(value.name, value.filtro, numeroForm);
+            })
+
+            e.stopPropagation();
+
+            $(`td.inputTd p`).remove()
 
 
-        let fecha = moment(Date.now()).format('L');
-        $(`.inputR.date.${cont}`).val(fecha);
+            $(this).removeClass("des");
+            $(this).siblings("td").removeClass("des");
 
-        $.each(objeto.atributos.number, function (indice, value) {
+            //Valores iniciales de input tras doble click
+            $(`.inputR.${cont}`).removeAttr("readonly");
+            $(`.inputR.username.${cont}`).val(usu);
+            $(`.inputR.destino.${cont}`).attr("name", `origen`);
 
-            $(`.inputR.${value.nombre}.${cont}`).prop("type", "number");
-        })
-        $.each(objeto.atributos.date, function (indice, value) {
 
-            $(`.inputR.${value.nombre}.${cont}`).prop("type", "date");
-        })
-        $.each(objeto.atributos.soloLectura, function (indice, value) {
+            let fecha = moment(Date.now()).format('L');
+            $(`.inputR.date.${cont}`).val(fecha);
 
-            $(`.inputR.${value.nombre}.${cont}`).prop("readonly", "true");
-        })
-        $.each(objeto.atributos.oculto, function (indice, value) {
+            $.each(objeto.atributos.number, function (indice, value) {
 
-            $(`.inputR.${value.nombre}.${cont}`).addClass("oculto");
-        })
-        $.each(objeto.atributos.signo, function (indice, value) {
+                $(`.inputR.${value.nombre}.${cont}`).prop("type", "number");
+            })
+            $.each(objeto.atributos.date, function (indice, value) {
 
-            if (indice == `signoPesos`) {
-                $.each(value, function (i, v) {
+                $(`.inputR.${value.nombre}.${cont}`).prop("type", "date");
+            })
+            $.each(objeto.atributos.soloLectura, function (indice, value) {
 
-                    $(`#t${cont} td.${value.nombre}`).addClass("signoPesos");
-                    $(`#t${cont} th.${value.nombre}`).addClass("signoPesos");
-                    $(`#t${cont} td.${value.nombre} input.${value.nombre}`).addClass("signoPesos");
-                })
-            } else if (indice == `signoUsd`) {
+                $(`.inputR.${value.nombre}.${cont}`).prop("readonly", "true");
+            })
+            $.each(objeto.atributos.oculto, function (indice, value) {
 
-                $.each(value, function (i, v) {
+                $(`.inputR.${value.nombre}.${cont}`).addClass("oculto");
+            })
+            $.each(objeto.atributos.signo, function (indice, value) {
 
-                    $(`#t${cont} td.${value.nombre}`).addClass("signoUsd");
-                    $(`#t${cont} th.${value.nombre}`).addClass("signoUsd");
-                    $(`#t${cont} td.${value.nombre} input.${value.nombre}`).addClass("signoUsd");
-                })
-            }
-        })
-        $.each(objeto.atributos.color, function (indice, value) {
-
-            switch (indice) {
-                case `azul`:
+                if (indice == `signoPesos`) {
                     $.each(value, function (i, v) {
-                        $(`.inputR.${v.nombre}.${cont}`).addClass("azul");
+
+                        $(`#t${cont} td.${value.nombre}`).addClass("signoPesos");
+                        $(`#t${cont} th.${value.nombre}`).addClass("signoPesos");
+                        $(`#t${cont} td.${value.nombre} input.${value.nombre}`).addClass("signoPesos");
                     })
-                    break
-                case `amarillo`:
-                    $.each(value, function (i, v) {
-                        $(`.inputR.${v.nombre}.${cont}`).addClass("amarillo");
-                    })
-                    break
-                case `verde`:
+                } else if (indice == `signoUsd`) {
 
                     $.each(value, function (i, v) {
-                        $(`.inputR.${v.nombre}.${cont}`).addClass("verde");
+
+                        $(`#t${cont} td.${value.nombre}`).addClass("signoUsd");
+                        $(`#t${cont} th.${value.nombre}`).addClass("signoUsd");
+                        $(`#t${cont} td.${value.nombre} input.${value.nombre}`).addClass("signoUsd");
                     })
-                    break
-            }
-        })
-        //Agregar validacion si lo erequire
-        $.each(objeto.validaciones, function (indice, value) {
+                }
+            })
+            $.each(objeto.atributos.color, function (indice, value) {
 
-            $(`.inputR.${value.nombre}.${cont}`).addClass("requerido");
-            $(`.inputR.${value.nombre}.${cont}`).attr("validado", "false");
-        })
-        $.each(objeto.columna, function (indice, value) {
+                switch (indice) {
+                    case `azul`:
+                        $.each(value, function (i, v) {
+                            $(`.inputR.${v.nombre}.${cont}`).addClass("azul");
+                        })
+                        break
+                    case `amarillo`:
+                        $.each(value, function (i, v) {
+                            $(`.inputR.${v.nombre}.${cont}`).addClass("amarillo");
+                        })
+                        break
+                    case `verde`:
 
-            $(`.inputR.${value.nombre}.${cont}`).addClass("doEntrada");
-        })
+                        $.each(value, function (i, v) {
+                            $(`.inputR.${v.nombre}.${cont}`).addClass("verde");
+                        })
+                        break
+                }
+            })
+            //Agregar validacion si lo erequire
+            $.each(objeto.validaciones, function (indice, value) {
 
-        $.each(consultaArray, function (indice, value) {
+                $(`.inputR.${value.nombre}.${cont}`).addClass("requerido");
+                $(`.inputR.${value.nombre}.${cont}`).attr("validado", "false");
+            })
+            $.each(objeto.columna, function (indice, value) {
 
-            $(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`).children("select");
+                $(`.inputR.${value.nombre}.${cont}`).addClass("doEntrada");
+            })
 
-            if (value.length > 1) {
+            $.each(consultaArray, function (indice, value) {
 
-                $(`.inputR.${objeto.pestanas.totales[indice].nombre}`).removeClass("requerido");
-                $(`.inputR.${objeto.pestanas.totales[indice].nombre}`).attr("disabled", "true");
-                var s = `<select class="select ${objeto.pestanas.totales[indice].nombre} requerido"  id = "select${objeto.pestanas.totales[indice].nombre}${cont}" name="${objeto.pestanas.totales[indice].nombre}" form="myForm${objeto.accion}${cont}"  validado=false >`;
-                s += `<option class="opciones" value=""></option>`;
+                $(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`).children("select");
 
-                for (var i = 0; i < value.length; i++) {
+                if (value.length > 1) {
 
-                    if (value[i].habilitado == true) {
+                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}`).removeClass("requerido");
+                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}`).attr("disabled", "true");
+                    var s = `<select class="select ${objeto.pestanas.totales[indice].nombre} requerido"  id = "select${objeto.pestanas.totales[indice].nombre}${cont}" name="${objeto.pestanas.totales[indice].nombre}" form="myForm${objeto.accion}${cont}"  validado=false >`;
+                    s += `<option class="opciones" value=""></option>`;
+
+                    for (var i = 0; i < value.length; i++) {
+
+                        if (value[i].habilitado == true) {
+
+                            let show = ""
+                            $.each(objeto.pestanas.totales[indice].key, (ind, val) => {
+
+                                show += `${value[i][val]}`
+                            })
+
+                            s += `<option class="opciones" value="${value[i].name}">${show}</option>`;
+                        }
+                    }
+
+                    s += `</select>`;
+
+                    var clase = $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`);
+
+                    var select = $(s);
+
+                    clase.css("display", "none");
+
+                    select.appendTo(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`);
+
+                } else if (value.length == 0) {
+
+                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).val("Cargar valor referencia");
+                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("readonly", "true");
+                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("disabled", "true");
+                } else {
+                    if (value[0].habilitado == true) {
 
                         let show = ""
                         $.each(objeto.pestanas.totales[indice].key, (ind, val) => {
 
-                            show += `${value[i][val]}`
+                            show += `${value[0][val]}`
                         })
 
-                        s += `<option class="opciones" value="${value[i].name}">${show}</option>`;
+                        lengthUnoSelect[objeto.pestanas.totales[indice].nombre] = show
+
+                        $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).val(show);
+                        $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("readonly", "true");
+                        $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).attr("validado", "true");
+                        $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).addClass("validado");
+                    } else {
+                        $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).val("No hay valores habilitados");
+                        $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("readonly", "true");
+                        $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("disabled", "true");
                     }
                 }
+            });
 
-                s += `</select>`;
+            validarFormulario(objeto, cont);
 
-                var clase = $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`);
+            $.each(objeto.atributos.deshabilitado, function (indice, value) {
 
-                var select = $(s);
+                $(`.inputR.${value.nombre}.${cont}`).attr(`disabled`, "true");
+                $(`#t${cont} .select.${value.nombre}`).attr(`disabled`, "true");
 
-                clase.css("display", "none");
-
-                select.appendTo(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`);
-
-            } else if (value.length == 0) {
-
-                $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).val("Cargar valor referencia");
-                $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("readonly", "true");
-                $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("disabled", "true");
-            } else {
-                if (value[0].habilitado == true) {
-
-                    let show = ""
-                    $.each(objeto.pestanas.totales[indice].key, (ind, val) => {
-
-                        show += `${value[0][val]}`
-                    })
-
-                    lengthUnoSelect[objeto.pestanas.totales[indice].nombre] = show
-
-                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).val(show);
-                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("readonly", "true");
-                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).attr("validado", "true");
-                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).addClass("validado");
-                } else {
-                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).val("No hay valores habilitados");
-                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("readonly", "true");
-                    $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("disabled", "true");
-                }
-            }
-        });
-
-        validarFormulario(objeto, cont);
-
-        $.each(objeto.atributos.deshabilitado, function (indice, value) {
-
-            $(`.inputR.${value.nombre}.${cont}`).attr(`disabled`, "true");
-            $(`#t${cont} .select.${value.nombre}`).attr(`disabled`, "true");
-
-            $(`.inputR.${value.nombre}.${cont}`).removeClass("requerido");
-            $(`#t${cont} .select.${value.nombre}`).removeClass("requerido");
-        })
-
-        $.each(objeto.funcionesPropias.cargar, function (indice, value) {
-            value(objeto, cont)
-        })
-
-        $.each(objeto.funcionesPropias.consultaArr, function (indice, value) {
-
-            value(objeto, numeroForm, consultaArray)
-        })
-        $.each(objeto.funcionesPropias.cargarDosAtributo, function (indice, value) {
-
-            value[0](objeto, numeroForm, value[1], value[2])
-        })
-        $.each(objeto.funcionesPropias.cargarTresAtributo, function (indice, value) {
-
-            value[0](objeto, numeroForm, value[1], value[2], value[3])
-        })
-        $.each(objeto.atributos.valoresIniciales.string, function (indice, value) {
-
-            $(`#t${numeroForm} input.${indice}`).val(value)
-            $(`#t${numeroForm} input.${indice}`).attr(`validado`, true)
-            $(`#t${numeroForm} input.${indice}`).addClass(`validado`)
-
-        })
-        $.each(objeto.atributos.valoresIniciales.select, function (indice, value) {
-
-            $(`#t${numeroForm} select.${indice} option[value="${value}"]`).attr(`selected`, true)
-            $(`#t${numeroForm} select.${indice}`).attr(`validado`, true)
-            $(`#t${numeroForm} select.${indice}`).addClass(`validado`)
-
-        })
-        $.each(objeto.atributos.valoresIniciales.funcion, function (indice, value) {
-
-            value(objeto, numeroForm)
-        })
-        if (editando == true) {
-
-            $.each(objeto.atributos.names, function (indice, v) {
-                var valor = $(`tr.sel td.${v.nombre}`).html();
-                memoriaValoreEditados.push(valor)
+                $(`.inputR.${value.nombre}.${cont}`).removeClass("requerido");
+                $(`#t${cont} .select.${value.nombre}`).removeClass("requerido");
             })
 
-            desabilitarRegistroEditando(objeto, memoriaValoreEditados)
+            $.each(objeto.funcionesPropias.cargar, function (indice, value) {
+                value(objeto, cont)
+            })
 
-            editando = false;
+            $.each(objeto.funcionesPropias.consultaArr, function (indice, value) {
+
+                value(objeto, numeroForm, consultaArray)
+            })
+            $.each(objeto.funcionesPropias.cargarDosAtributo, function (indice, value) {
+
+                value[0](objeto, numeroForm, value[1], value[2])
+            })
+            $.each(objeto.funcionesPropias.cargarTresAtributo, function (indice, value) {
+
+                value[0](objeto, numeroForm, value[1], value[2], value[3])
+            })
+            $.each(objeto.atributos.valoresIniciales.string, function (indice, value) {
+
+                $(`#t${numeroForm} input.${indice}`).val(value)
+                $(`#t${numeroForm} input.${indice}`).attr(`validado`, true)
+                $(`#t${numeroForm} input.${indice}`).addClass(`validado`)
+
+            })
+            $.each(objeto.atributos.valoresIniciales.select, function (indice, value) {
+
+                $(`#t${numeroForm} select.${indice} option[value="${value}"]`).attr(`selected`, true)
+                $(`#t${numeroForm} select.${indice}`).attr(`validado`, true)
+                $(`#t${numeroForm} select.${indice}`).addClass(`validado`)
+
+            })
+            $.each(objeto.atributos.valoresIniciales.funcion, function (indice, value) {
+
+                value(objeto, numeroForm)
+            })
+            if (editando == true) {
+
+                $.each(objeto.atributos.names, function (indice, v) {
+                    var valor = $(`tr.sel td.${v.nombre}`).html();
+                    memoriaValoreEditados.push(valor)
+                })
+
+                desabilitarRegistroEditando(objeto, memoriaValoreEditados)
+
+                editando = false;
+            }
+        }
+        else {
+            $(`#bf${numeroForm} .cartelErrorFront p`).html(`No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}`)
+            $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
         }
     });
     $("#tabs_contents").on('click', `#t${numeroForm} td.celda`, function () {
@@ -947,12 +982,13 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                 padre.toggleClass("sel");
                 padre.siblings().removeClass("sel");
 
-                if (permisObject.editar.includes(`${objeto.accion}`)) {
+                if (padre.hasClass("sel")) {
 
-                    if ($(`#bf${numeroForm} .imgBarra.crearBoton`).attr(`segAtributo`) == `none`) {
-                        $(`#bf${numeroForm} .imgBarra.crearBoton`).removeAttr(`segAtributo`)
-                    } else {
+                    $(`#bf${numeroForm} .imgBarra.crearBoton`).removeAttr(`segAtributo`)
 
+                } else {
+
+                    if (!permisObject.crear.includes(`${objeto.accion}`)) {
                         $(`#bf${numeroForm} .imgBarra.crearBoton`).attr(`segAtributo`, `none`)
                     }
                 }

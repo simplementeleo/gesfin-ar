@@ -44,7 +44,7 @@ let crearTabla = function (contador, objeto, consulta) {
             tabla += tipoAtributo(consulta[i], objeto);
         } else {
             //Creaciòn de campos input
-            if ($(`#${objeto.accion}.menuSelectAbm`).attr(`crear`)) {
+            if (permisObject.crear.includes(`${objeto.accion}`)) {
 
                 $.each(objeto.atributos.names, function (indice, value) {
                     switch (value.type) {
@@ -2427,6 +2427,10 @@ const lecturaLengthBooleano = function (objeto, numeroForm, logico, atrDos) {
     } else {
         $(`#formularioIndividual input.${logico.nombre}`).change(lecturaCondicionalBooleano);
     }
+}
+const limiteEjercicio = function (objeto, numeroForm) {
+
+
 }
 
 

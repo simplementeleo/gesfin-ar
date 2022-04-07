@@ -409,10 +409,10 @@ let variablesModelo = {
     },
     grupoSeguridad: {
         atributos: {
-            names: [id, nombre, observaciones, visualizar, crear, editar, eliminar, limite, username, date, habilitado],
-            titulos: [`id`, 'Nombre', `Observaciones`, `visualizar`, `crear`, `editar`, `eliminar`, `limite`, 'Auditoria', 'Usuario'],
+            names: [id, nombre, cantidad, observaciones, visualizar, crear, editar, eliminar, imprimir, limite, username, date, habilitado],
+            titulos: [`id`, 'Nombre', `Dias de permiso`, `Limite `, `Observaciones`, `visualizar`, `crear`, `editar`, `eliminar`, `imprimir`, `limite`, 'Auditoria', 'Usuario'],
             soloLectura: [date, username],
-            oculto: [id, habilitado, visualizar, crear, editar, eliminar, limite],
+            oculto: [id, habilitado, visualizar, crear, editar, eliminar, imprimir, limite],
             importe: {
                 totalizador: [],
                 importeBase: [],
@@ -436,6 +436,125 @@ let variablesModelo = {
                     visualizar: [],
                     crear: [],
                     editar: [],
+                    imprimir: [],
+                    eliminar: [],
+                    limite: []
+                },
+                select: []
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [],
+                    cinco: [],
+                    siete: [],
+                    diez: [],
+                    quince: [],
+                },
+                formatoFunc: {
+                    primeraLetraMayuscula: [primeraLetraMayuscula, [nombre]],
+                }
+            },
+            modificar: {
+                names: [id, nombre, cantidad, observaciones, username, date],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            eliminar: false,
+            deshabilitar: true
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`id`, 'Nombre', `Dias de permiso`, `Observaciones`, 'Auditoria', 'Usuario'],
+            titulosCompuesto: [],
+            oculto: [_id, habilitado],
+            ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+            inputRenglones: [4, 4, 4, 4, 6],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [id, nombre, cantidad, observaciones, username, date],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            impresion: {
+                tituloFormulario: `Usuarios`,
+                ocultoImpresion: [_id, id, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        acumulador: [],
+        numerador: [],
+        validaciones: [nombre],
+        pest: `Grupo de seguridad`,
+        accion: `grupoSeguridad`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: [],
+        },
+        tablaDobleEntrada: {
+            abm: true,
+            type: `agrupar`,
+            inputType: `checkbox`,
+            totales: false,
+            filaType: `agrupado`,
+            fila: [], //fila
+            tituloFila: [],
+            columnaType: `fija`,
+            columna: [visualizar, crear, editar, eliminar, imprimir, limite],
+            titulosColumna: [`Consultar`, `Crear`, `Editar`, `Eliminar`, `Imprimir`, `Limite`],
+        },
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran los grupo de seguridad .`,
+            modificar: modficarTodo,
+            entidades: [],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
+    operacionesPermitidas: {
+        atributos: {
+            names: [id, nombre, fecha, date, habilitado],
+            titulos: [`id`, 'Nombre', `Dias de permiso`, `Limite `, `Observaciones`, `visualizar`, `crear`, `editar`, `eliminar`, `imprimir`, `limite`, 'Auditoria', 'Usuario'],
+            soloLectura: [date, username],
+            oculto: [id, habilitado, visualizar, crear, editar, eliminar, imprimir, limite],
+            importe: {
+                totalizador: [],
+                importeBase: [],
+                importePesos: [],
+                importeUsd: [],
+            },
+            compuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: {
+                    habilitado: true,
+                    visualizar: [],
+                    crear: [],
+                    editar: [],
+                    imprimir: [],
                     eliminar: [],
                     limite: []
                 },
@@ -489,33 +608,22 @@ let variablesModelo = {
         },
         acumulador: [],
         numerador: [],
-        validaciones: [nombre, apellido, email, usuario, password],
-        pest: `Grupo de seguridad`,
-        accion: `grupoSeguridad`,
+        validaciones: [],
+        pest: `Fecha Permitidas`,
+        accion: `operacionesPermitidas`,
         pestanas: {
             cabecera: [],
             coleccion: [],
             totales: [],
         },
-        tablaDobleEntrada: {
-            abm: true,
-            type: `agrupar`,
-            inputType: `checkbox`,
-            totales: false,
-            filaType: `agrupado`,
-            fila: [], //fila
-            tituloFila: [],
-            columnaType: `fija`,
-            columna: [visualizar, crear, editar, eliminar, limite],
-            titulosColumna: [`Consultar`, `Crear`, `Editar`, `Eliminar`, `Limite`],
-        },
+        tablaDobleEntrada: false,
         desencadena: false,
         desencadenaColeccion: {
             principal: [],
             desencadenaModif: []
         },
         ayuda: {
-            introduccion: `En esta entidad se registran los grupo de seguridad .`,
+            introduccion: `En esta entidad se registran las fechas pemitidas para ingresar operaciones`,
             modificar: modficarTodo,
             entidades: [],
             desencadena: [],

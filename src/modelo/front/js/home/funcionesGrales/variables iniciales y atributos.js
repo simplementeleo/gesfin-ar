@@ -10,7 +10,7 @@ let tc = "";
 let formularioIndAbm = false;
 let fideicomiso = "";
 let fechaD = new Date();
-fechaD.setDate(fechaD.getDate() - 30)
+fechaD.setDate(fechaD - 30)
 let fechaDesde = moment(fechaD).format('YYYY-MM-DD');
 let fechaHasta = moment(Date.now()).format('YYYY-MM-DD');
 let meses = [`Ene`, `Feb`, `Mar`, `Abr`, `May`, `Jun`, `Jul`, `Ago`, `Sep`, `Oct`, `Nov`, `Dic`, `Ene`, `Feb`, `Mar`, `Abr`, `May`, `Jun`, `Jul`, `Ago`, `Sep`, `Oct`, `Nov`, `Dic`];
@@ -195,6 +195,7 @@ const crear = { nombre: `crear`, type: `logico` };
 const editar = { nombre: `editar`, type: `logico` };
 const eliminar = { nombre: `eliminar`, type: `logico` };
 const limite = { nombre: `limite`, type: `logico` };
+const imprimir = { nombre: `imprimir`, type: `logico` };
 
 ///////////atributo compuesto/////
 const tareas = {
@@ -566,6 +567,7 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
             grupo[agrup].push(id)
             titulos[agrup].push(agrupTit)
         })
+
         variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(grupo)
         variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(titulos)
     })

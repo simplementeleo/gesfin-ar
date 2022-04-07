@@ -207,11 +207,13 @@ router.get('/grupoSeguridad', async (req, res) => {
             $project: {
                 _id: 1,
                 name: 1,
+                cantidad: 1,
                 observaciones: 1,
                 visualizar: 1,
                 crear: 1,
                 editar: 1,
                 eliminar: 1,
+                imprimir: 1,
                 limite: 1,
                 date: 1,
                 username: "$User.username",
@@ -222,14 +224,16 @@ router.get('/grupoSeguridad', async (req, res) => {
     ]);
 
     var group = [];
-    var GrupoSeg = function (id, name, observaciones, visualizar, crear, editar, eliminar, limite, date, username, habilitado) {
+    var GrupoSeg = function (id, name, cantidad, observaciones, visualizar, crear, editar, eliminar, imprimir, limite, date, username, habilitado) {
         this.id = id;
         this.name = name;
+        this.cantidad = cantidad;
         this.observaciones = observaciones;
         this.visualizar = visualizar;
         this.crear = crear;
         this.editar = editar;
         this.eliminar = eliminar;
+        this.imprimir = imprimir;
         this.limite = limite;
         this.date = date;
         this.username = username;
@@ -241,11 +245,13 @@ router.get('/grupoSeguridad', async (req, res) => {
         var gs = new GrupoSeg(
             grupo[x]._id,
             grupo[x].name,
+            grupo[x].cantidad,
             grupo[x].observaciones,
             grupo[x].visualizar,
             grupo[x].crear,
             grupo[x].editar,
             grupo[x].eliminar,
+            grupo[x].imprimir,
             grupo[x].limite,
             grupo[x].date,
             grupo[x].username,
@@ -259,16 +265,18 @@ router.get('/grupoSeguridad', async (req, res) => {
 });
 router.post('/grupoSeguridad', async (req, res) => {
     try {
-        let { name, observaciones, visualizar, crear, editar, username, eliminar, limite, date, habilitado } = req.body;
+        let { name, cantidad, observaciones, visualizar, crear, editar, username, eliminar, imprimir, limite, date, habilitado } = req.body;
 
         const usersFound = await User.find({ username: { $in: username } });
         const newGroup = new GrupoSeguridad({
             name,
+            cantidad,
             observaciones,
             visualizar,
             crear,
             editar,
             eliminar,
+            imprimir,
             limite,
             date,
             username: usersFound.map((user) => user._id),
@@ -321,7 +329,6 @@ router.put('/grupoSeguridad', async (req, res) => {
 router.put('/grupoSeguridadDoble', async (req, res) => {
     try {
         let { id, name, username } = req.body
-        console.log(req.body)
 
         let keys = Object.keys(req.body);
 
