@@ -341,7 +341,6 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     $(`#formularioIndividual .okfBoton,
        #formularioIndividual .okfImprimirBoton`).click(function (e) {
 
-
         if (this.title == "Confirmar e imprimir instancia") {
             confirmarImprimir = true
         }

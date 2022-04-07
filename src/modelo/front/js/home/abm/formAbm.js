@@ -2432,6 +2432,10 @@ const limiteEjercicio = function (objeto, numeroForm) {
 
 
 }
+const limitePermiso = function(objeto, numeroForm){
+    
+}
+
 
 
 
