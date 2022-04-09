@@ -11,6 +11,9 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     let eliminarDesenColc = []
     let eliminarAdjuntos = []
     let lengthUnoSelect = new Object
+    var m = Math.min.apply(null, limitePermiso)
+    let fecha = new Date()
+    fecha.setDate(fecha.getDate() - m)
 
     formularioIndAbm = true;
 
@@ -92,9 +95,9 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
         $(`#formularioIndividual .form.username`).val(usu);
     }
 
-    var fecha = moment(Date.now()).format('L');
+    var fechaNow = moment(Date.now()).format('L');
     $(`.form.date`).prop("readonly", "true");
-    $(`.form.date`).val(fecha);
+    $(`.form.date`).val(fechaNow);
 
     $(`.form.destino`).val(objeto.pest);
     $(`.form.destino`).attr("name", `origen`);
@@ -485,15 +488,15 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
     });
     $(`#formularioIndividual .editBoton`).click(function () {
 
-        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
-        var m = Math.min.apply(null, limitePermiso)
-        let fecha = new Date()
-        fecha.setDate(fecha.getDate() - m)
+        let fechaDos = ""
 
-        if (fechaDos > fecha) {
+        if (objeto.permisolimite != undefined) {
+            fechaDos = new Date($(`#t${numeroForm} tr.sel td.${objeto.permisolimite.nombre}`).html())
+        }
+        if ((fechaDos > fecha) || objeto.permisolimite == undefined) {
             editFormulario(objeto, numeroForm)
             editando = true;
-            console.log(editando)
+
         } else {
             let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
 
@@ -502,24 +505,36 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
             texto.appendTo(`#form${value.nombre}${numeroForm}`);
         }
 
-
     });
     $(`#formularioIndividual #formulario${accion}${numeroForm}`).on(`dblclick`, `input.form, select.form`, function (e) {
 
         if (editando == true) {
-            editFormulario(objeto, numeroForm)
-            editando = true
+
+            let fechaDos = ""
+
+            if (objeto.permisolimite != undefined) {
+                fechaDos = new Date($(`#t${numeroForm} tr.sel td.${objeto.permisolimite.nombre}`).html())
+            }
+            if ((fechaDos > fecha) || objeto.permisolimite == undefined) {
+                editFormulario(objeto, numeroForm)
+                editando = true
+            } else {
+                let p = `<div class="contError"><p>No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}</p></div>`;
+
+                let texto = $(p);
+
+                texto.appendTo(`#form${value.nombre}${numeroForm}`);
+            }
         }
     });
     $(`#formularioIndividual .deleteBoton`).click(function () {
 
-        let fechaDos = new Date($(`#t${numeroForm} tr.sel td.fecha`).html())
-        var m = Math.min.apply(null, limitePermiso)
-        let fecha = new Date()
-        fecha.setDate(fecha.getDate() - m)
+        let fechaDos = ""
 
-        if (fechaDos > fecha) {
-
+        if (objeto.permisolimite != undefined) {
+            fechaDos = new Date($(`#t${numeroForm} tr.sel td.${objeto.permisolimite.nombre}`).html())
+        }
+        if ((fechaDos > fecha) || objeto.permisolimite == undefined) {
             let esForm = true;
             let idRegistro = "";
             let idRegist = $(`#formularioIndividual input.form._id`).val();

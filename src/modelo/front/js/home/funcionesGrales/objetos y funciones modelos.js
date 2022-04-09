@@ -102,11 +102,13 @@ let variablesModelo = {
 
         },
         tablaDobleEntrada: false,
+        permisolimite: fecha,
         desencadena: false,
         desencadenaColeccion: {
             principal: [],
             desencadenaModif: []
         },
+
         ayuda: {
             introduccion: `En esta entidad se registran los errores de los clientes que utilizan GesFin`,
             modificar: modficarInd,

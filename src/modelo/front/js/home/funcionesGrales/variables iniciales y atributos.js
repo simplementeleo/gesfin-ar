@@ -503,7 +503,6 @@ const primeraLetraMayuscula = function (objeto, numeroForm, atributos) {
     }
 }
 
-
 ////////////////ESCRITORIO///////////////
 ///CAJA Y BANCOS////
 
@@ -531,47 +530,7 @@ const numerosNegativos = function () {
 }
 
 
-$(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
 
-    let navCompleta = $(`.nav-completa p.desplegableAbm`)
-
-    $.each(navCompleta, (indice, value) => {
-
-
-        let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
-
-        let grupo = new Object
-        let titulos = new Object
-        let agrup = ""
-        let ind = $(value).html().indexOf(`<`)
-
-        if (ind > 0) {
-            agrup = $(value).html().slice(0, ind)
-        } else {
-            agrup = $(value).html()
-        }
-
-        grupo[agrup] = []
-        titulos[agrup] = []
-
-        $.each(items, (indice, val) => {
-
-            let id = $(val).attr(`id`)
-            let indi = $(val).html().indexOf(`<`)
-
-            if (indi > 0) {
-                agrupTit = $(val).html().slice(0, indi)
-            } else {
-                agrupTit = $(val).html()
-            }
-            grupo[agrup].push(id)
-            titulos[agrup].push(agrupTit)
-        })
-
-        variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(grupo)
-        variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(titulos)
-    })
-})
 
 
 

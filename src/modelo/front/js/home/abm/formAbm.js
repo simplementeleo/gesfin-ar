@@ -211,6 +211,82 @@ let reCrearTabla = function (id, objeto, fidecomisoSelec) {
         },
     });
 };
+
+let editRegistro = function (objeto, numeroForm, consultaArray, botonEditar, consulta) {
+
+    let memoriaValoreEditados = []
+    let filaSeleccionada = new Object
+
+    let sel = $(`#t${numeroForm} tr.sel`);
+
+    if ($(sel).hasClass(`desencadenado`)) {
+        let desencadenado = $(`tr.sel td.origen`).html()
+
+        $(`.cartelErrorFront p`).html(`No se puede editar un registro en desencadenado,
+                                          editar en ${desencadenado}`)
+        $(`.cartelErrorFront`).css("display", "block");
+    } else if (botonEditar == false) {
+        if (sel.length > 0) {
+
+            $.each(objeto.atributos.names, function (indice, v) {
+                var valor = $(`tr.sel td.${v.nombre}`).html();
+                memoriaValoreEditados.push(valor)
+            })
+            filaSeleccionada = [];
+
+            $.each(objeto.atributos.names, (indice, value) => {
+                filaSeleccionada[value.nombre] = $(`#t${numeroForm} tr.sel td.${value.nombre}`).html()
+            })
+
+            $.each(objeto.atributos.number, (indice, value) => {
+
+                let valor = ($(`#t${numeroForm} tr.sel td.${value.nombre}`).html())
+                let val = valor.replace(`.`, ``)
+
+                filaSeleccionada[value] = val
+
+            })
+
+            /////////////////////desabilitar registro input de ingreso nuevo
+            $(`input.inputR.${numeroForm}`).val("");
+            $(`select.select`).val("");
+            $(`input.inputR.${numeroForm}`).removeClass("validado");
+            $(`input.inputR.${numeroForm}`).removeClass("requerido");
+            $(`input.inputR.${numeroForm}`).attr("validado", false);
+            $(`select.select`).removeClass("validado");
+            $(`select.select`).attr("validado", false);
+            $(`input.inputR.${numeroForm}`).prop("readOnly", true);
+            $(`select.select`).remove();
+            $(`#t${numeroForm} .inputTd`).addClass("des");
+            $(`input.inputR.${numeroForm}`).css("display", "block");
+            $(`input.inputR.${numeroForm}.adjunto`).removeAttr("style");
+
+            $(`#bf${numeroForm} .cartelErrorFront`).css("display", "none");
+            $(`#t${numeroForm} td.inputTd div.contError`).remove()
+            /////////////////////////////////////////////
+            let adjuntoElim = editarRegistro(objeto, consultaArray, numeroForm, consulta);
+
+            botonEditar = true;
+            editando = true;
+
+
+        } else {
+            $(`#bf${numeroForm} .cartelErrorFront p`).html("Seleccione un registro")
+            $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
+        }
+    } else {
+        $(`#bf${numeroForm} .cartelErrorFront p`).html("Hay un registo en edición")
+        $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
+
+        $(`#bf${numeroForm} .cartelErrorFront`).fadeOut(5000)
+
+    }
+    let objetoEditar = new Object
+    objetoEditar[`filaSeleccionada`] = filaSeleccionada
+    objetoEditar[`memoriaValoreEditados`] = memoriaValoreEditados
+
+    return objetoEditar
+}
 //////Agregar, eliminar, editar registros, son los registro enviados pero agregados en el front end/////////////////////////
 let agregarRegistro = function (id, lengthUnoSelect, objeto, fidecomisoSelec, enviarRegistroNuevo, posteo) {
 
@@ -2432,8 +2508,8 @@ const limiteEjercicio = function (objeto, numeroForm) {
 
 
 }
-const limitePermiso = function(objeto, numeroForm){
-    
+const limitesDePermiso = function (objeto, numeroForm) {
+
 }
 
 

@@ -86,159 +86,144 @@
     <div id="menu-container" class="menu-container">
         <div class="nav-vert">
             <nav>
-                <ul>
-                    <li><img src="/img/iconos/bug.svg" alt="Error" title="Carga de errores" view="home" class="errores" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/reque.svg" alt="Requerimiento" title="Carga de requerimientos" view="home" class="reque" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/principal/cheque.svg" alt="Cheques" title="Cheques liberados" view="home" class="chLib operacionesFinancieras" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/reportes.svg" alt="Reportes" title="Reportes internos" view="home" class="reportes" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/usuario2.svg" alt="Usuario" title="Configuracion de usuarios" view="market" class="usur usuarios noneMarket"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/candado.svg" alt="Segurdad" title="Configuración de seguridad" view="market" class="seguridad noneMarket"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/cobranzas.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="fideicomisos noneMarket" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/cliente.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="clientes noneMarket" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/prov.svg" alt="Proveedores" title="Configuracion de pagos" view="market" class="proveedores noneMarket" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/configGral.svg" alt="Procesos " title="Configuracion de procesos" view="market" class="procesos noneMarket" visualizar="none"></li>
-                </ul>
-                <ul>
-                    <li><img src="/img/iconos/mundo.svg" alt="Pagos" title="Configuraciones generales" view="market" class="direcciones noneMarket" visualizar="none"></li>
-                </ul>    
-                <ul>
-                    <li><img src="/img/iconos/menu.png" alt="Menu" title="Panel de control" class="panel"></li>
-                </ul>
-                
+                <ul class="menuVert">
+                    <li class="itemMenu">
+                        <div><img src="/img/iconos/bug.svg" alt="Error" title="Carga de errores" view="home"></div>
+               
+                    <div>
+                        <p class="desplegableAbm oculto" view="home" id="errores" visualizar="none">Errores</span></p>
+                        <ul class="subMenu">
+                            <li><p class="menuFormulario" modelo="operacion" view="home" id="error" crear="none" visualizar="none">Ingresar error</p></li>
+                            <li><p class="menuSelectAbm" ind="true" modelo="operacion" view="home" id="error" visualizar="none">Errores ingresados</p></li>
+                        </ul>
+                    </div>
+                    </li>
+                    <li>
+                        <div><img src="/img/iconos/reque.svg" alt="Requerimiento" title="Carga de requerimientos" view="home" visualizar="none"></div>
+                        <div>
+                            <p class="desplegableAbm oculto" view="home" id="reque" visualizar="none">Requerimientos</p>
+                            <ul class="subMenu">
+                                <li>
+                                    <p class="menuFormulario" modelo="operacion" view="home" id="requerimiento" visualizar="none">Ingresar requerimiento</p>
+                                <li>
+                                    <p class="menuSelectAbm" ind="true" modelo="operacion" view="home" id="requerimiento" visualizar="none">Requerimientos ingresados</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div><img src="/img/iconos/principal/cheque.svg" alt="Cheques" title="Operaciones Financieras" view="home"  visualizar="none"></div>
+                        <div>
+                            <p class="desplegableAbm oculto" view="home" id="operacionesFinancieras" visualizar="none">Operaciones financieras<span class="icon-down-dir"></span></p>
+                            
+                            <ul class="subMenu">
+                                <li>
+                                    <p class="menuSelectAbm" ind="false" modelo="operacion" id="movimientoFinanciero" visualizar="none">Movimientos financieros</p>
+                                </li>
+                                <li>
+                                    <p class="menuDobleEntrada" modelo="operacion" id="proyeccionesCashFlow" visualizar="none">Proyecciones</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm" ind="false" modelo="operacion" id="prestamosFideicomisos" visualizar="none">Prestamos fedeicomisos</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm" ind="false" modelo="operacion" id="liquidacionMoneda" visualizar="none">Moneda extrangera</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+               
+                    <li>
+                        <div><img src="/img/iconos/reportes.svg" alt="Reportes" title="Reportes internos" view="home" visualizar="none"></div>
+                        <div>
+                            <p class="desplegableAbm oculto" img="panel" view="home" id="reportes" visualizar="none">Reportes<span
+                                    class="icon-down-dir"></span></p>
 
-            </nav>
+                            <ul class="subMenu">
+                                <li>
+                                    <p class="menuSelectAbm" ind="false" modelo="operacion" id="resultadoFinanciero" visualizar="none">Resultado
+                                        Financiero</p>
+                                </li>
 
-        </div>
-        <div class="nav-completa">
-            <nav>
-                <ul>
-                    <li>
-                        <p class="desplegableAbm" img="reque" view="home" id="errores" visualizar="none">Errores</span></p>
-                        <ul class="subMenu">
-                            <li>
-                                <p class="menuFormulario" modelo="operacion" view="home" id="error" crear="none" visualizar="none">Ingresar Error</p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm" ind="true" modelo="operacion" view="home" id="error" visualizar="none">Errores ingresados</p>
-                            </li>
-                        </ul>
+                            </ul>
+                        </div>
                     </li>
                     <li>
-                        <p class="desplegableAbm"  img="chLib" view="home" id="reque" visualizar="none" visualizar="none">Requerimientos</p>
-                        <ul class="subMenu">
-                            <li>
-                                <p class="menuFormulario" modelo="operacion" view="home" id="requerimiento" visualizar="none">Ingresar Requerimiento</p>
-                            <li>
-                                <p class="menuSelectAbm" ind="true" modelo="operacion" view="home" id="requerimiento" visualizar="none">Requerimientos ingresados</p>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p class="desplegableAbm" img="panel" view="home" id="operacionesFinancieras" visualizar="none">Operaciones Financieras<span
-                                class="icon-down-dir"></span></p>
-                                
-                        <ul class="subMenu">
-                            <li>
-                                <p class="menuSelectAbm" ind="false" modelo="operacion" id="movimientoFinanciero" visualizar="none">Movimientos Financieros</p>
-                            </li>
-                            <li>
-                                <p class="menuDobleEntrada" modelo="operacion" id="proyeccionesCashFlow" visualizar="none">Proyecciones</p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm" ind="false" modelo="operacion" id="prestamosFideicomisos" visualizar="none">Prestamos fedeicomisos
-                                </p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm" ind="false" modelo="operacion" id="liquidacionMoneda" visualizar="none">Moneda extrangera</p>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p class="desplegableAbm" img="panel" view="home" id="reportes" visualizar="none">Reportes<span class="icon-down-dir"></span></p>
-                    
-                        <ul class="subMenu">
-                            <li>
-                                <p class="menuSelectAbm" ind="false" modelo="operacion" id="resultadoFinanciero" visualizar="none">Resultado Financiero</p>
-                            </li>
-                           
-                        </ul>
-                    </li>
-                    <li>
-                        <p class="desplegableAbm noneMarket" img="seguridad" view="market" id="usuarios">Usuarios</span></p>
+                        <div><img src="/img/iconos/usuario2.svg" alt="Usuario" title="Configuracion de usuarios" view="market" class="usur usuarios noneMarket"></div>
+                        <div>
+                        <p class="desplegableAbm oculto noneMarket" img="seguridad" view="market" id="usuarios">Usuarios</span></p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id="users">Usuarios</p>
                             </li>
                         </ul>
+                        </div>
                     </li>
-                    <li>
-                        <p class="desplegableAbm noneMarket" img="fideicomisos" view="market" id="seguridad">Seguridad</p>
-                        <ul class="subMenu">
-                            <li>
-                                <p class="menuSelectAbm noneMarket cargaEntidadesSeg" view="market" ind="false" id="grupoSeguridad" crear="true">Alta de grupos</p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="operacionesPermitidas" crear="true">Fecha Permitidas</p>
-                            </li>
-                        </ul>
+                    <li><div><img src="/img/iconos/candado.svg" alt="Segurdad" title="Configuración de seguridad" view="market" class="noneMarket"></div>
+                        <div>
+                            <p class="desplegableAbm oculto noneMarket" img="fideicomisos" view="market" id="seguridad">Seguridad</p>
+                            <ul class="subMenu">
+                                <li>
+                                    <p class="menuSelectAbm noneMarket cargaEntidadesSeg" view="market" ind="false" id="grupoSeguridad" crear="true">Alta de grupos</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm noneMarket" view="market" ind="false" id="operacionesPermitidas" crear="true">Fecha Permitidas</p>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
-                    <li>
-                        <p class="desplegableAbm noneMarket" img="clientes" view="market" id="fideicomisos" visualizar="none">Fideicomisos<span
+                    <li><div><img src="/img/cobranzas.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="fideicomisos noneMarket" visualizar="none"></div>
+                        <div>
+                        <p class="desplegableAbm oculto noneMarket" img="clientes" view="market" id="fideicomisos" visualizar="none">Fideicomisos<span
                                 class="icon-down-dir"></span></p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket" view="market" ind="false" id="unidades" visualizar="none">Obras</p>
                             </li>
                             <li>
-                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="tipoUnidad" visualizar="none">Tipo de Unidad</p>
+                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="tipoUnidad" visualizar="none">Tipo de Unidad
+                                </p>
                             </li>
                         </ul>
+                        </div>
                     </li>
-                    <li>
-                        <p class="desplegableAbm noneMarket" img="proveedores" id="clientes" view="market" visualizar="none">Clientes</p>
-                        <ul class="subMenu">
-                            <li>
-                                <p class="menuSelectAbm noneMarket" ind="false" view="market" id="cliente" visualizar="none">Cliente</p>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p class="desplegableAbm noneMarket" img="procesos" view="market" id="proveedores" visualizar="none">Proveedores<span class="icon-down-dir"></span></p>
-                        <ul class="subMenu ">
-                            <li>
-                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="proveedor" visualizar="none">Proveeedor</p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="rubroPagos" visualizar="none">Rubro Egresos</p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="agrupadorRubrosPago" visualizar="none">Agrupador Egresos</p>
-                            </li>
-                            <li>
-                                <p class="menuSelectAbm noneMarket" view="market" ind="false" id="subRubroPagos" visualizar="none">Sub Rubro Egresos</p>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <p class="desplegableAbm noneMarket" img="direcciones" id="procesos" view="market" visualizar="none">Procesos</p>
+                    <li><div><img src="/img/iconos/cliente.svg" alt="Cliente" title="Configuracion de cobros" view="market" class="clientes noneMarket" visualizar="none"></div>
+                        <div>
+                            <p class="desplegableAbm oculto noneMarket" img="proveedores" id="clientes" view="market" visualizar="none">Clientes</p>
+                            <ul class="subMenu">
+                                <li>
+                                    <p class="menuSelectAbm noneMarket" ind="false" view="market" id="cliente" visualizar="none">Cliente</p>
+                                </li>
+                            </ul>
+                        </div>
+                        </li>
+             
+                    <li><div><img src="/img/iconos/prov.svg" alt="Proveedores" title="Configuracion de pagos" view="market" class="proveedores noneMarket" visualizar="none"></div>
+                        <div>
+                            <p class="desplegableAbm oculto noneMarket" img="procesos" view="market" id="proveedores" visualizar="none">Proveedores<span
+                                    class="icon-down-dir"></span></p>
+                            <ul class="subMenu ">
+                                <li>
+                                    <p class="menuSelectAbm noneMarket" view="market" ind="false" id="proveedor" visualizar="none">Proveeedor</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm noneMarket" view="market" ind="false" id="rubroPagos" visualizar="none">Rubro Egresos
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm noneMarket" view="market" ind="false" id="agrupadorRubrosPago" visualizar="none">
+                                        Agrupador Egresos</p>
+                                </li>
+                                <li>
+                                    <p class="menuSelectAbm noneMarket" view="market" ind="false" id="subRubroPagos" visualizar="none">Sub Rubro
+                                        Egresos</p>
+                                </li>
+                            </ul>
+                        </div>
+                        </li>
+                    <li><div><img src="/img/iconos/configGral.svg" alt="Procesos " title="Configuracion de procesos" view="market" class="procesos noneMarket" visualizar="none"></div>
+                        <div>
+                        <p class="desplegableAbm oculto noneMarket" img="direcciones" id="procesos" view="market" visualizar="none">Procesos</p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id="estadoProceso" visualizar="none">Estado</p>
@@ -250,9 +235,13 @@
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id="tarea" visualizar="none">Tareas</p>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <p class="desplegableAbm noneMarket" img="panelControl" id="direcciones" view="market" visualizar="none">Direcciones<span class="icon-down-dir"></span></p>
+                        </div>
+                        </li>
+               
+                    <li><div><img src="/img/iconos/mundo.svg" alt="Pagos" title="Configuraciones generales" view="market" class="direcciones noneMarket" visualizar="none"></div>
+                        <div>
+                        <p class="desplegableAbm oculto noneMarket" img="panelControl" id="direcciones" view="market" visualizar="none">
+                            Direcciones<span class="icon-down-dir"></span></p>
                         <ul class="subMenu">
                             <li>
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id="ciudad" visualizar="none">Ciudad</p>
@@ -264,12 +253,17 @@
                                 <p class="menuSelectAbm noneMarket" ind="false" view="market" id=pais visualizar="none">Pais</p>
                             </li>
                         </ul>
+                        </div>
+                        </li>
+                   
+                        <li>
+                            <div><img src="/img/iconos/menu.png" alt="Menu" title="Panel de control" class="panel"></div>
+                            <div><p class="panelControl oculto">Panel de control</p></div>
+                  
                     </li>
-
-                    <li class="panel">Panel de control</li>
                 </ul>
+            
             </nav>
-
         </div>
 
         <div id="tablas" class="comp">

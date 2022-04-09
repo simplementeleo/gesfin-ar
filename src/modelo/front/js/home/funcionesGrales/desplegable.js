@@ -5,7 +5,10 @@ $('.men-prin').click(function (e) {
 })
 $('.icon-menu').click(function (e) {
 
-    $('.nav-completa').toggleClass("show");
+    $(`.desplegableAbm`).toggleClass(`oculto`)
+    $(`.panelControl`).toggleClass(`oculto`)
+    $(`ul.subMenu`).removeClass("show");
+
     $('#tablas').toggleClass("vistaActive");
 
     $('#principalesIndicadores').toggleClass("vistaActive");
@@ -13,6 +16,7 @@ $('.icon-menu').click(function (e) {
     $('.logoFondo').addClass("noShow");
 
 })
+
 $(`body`).click(function () {
 
     $('.men').removeClass("show");
@@ -49,30 +53,19 @@ $("#fideic h3").on(`click`,
     });
 $('.desplegableAbm').on('click', function () {
 
-    let imgBajar = $(this).attr(`img`)
-
     $(this).siblings(`ul.subMenu`).toggleClass("show");
 
-    if ($($(this).siblings(`ul.subMenu`)).hasClass(`show`)) {
-        let longItem = $(`li p[visualizar="true"]`, $(this).siblings(`ul.subMenu`)).length
-
-        let margin = parseFloat(1.5 * parseFloat(longItem)) + parseFloat(1.5)
-
-        $(`.nav-vert li img.${imgBajar}`).css(`margin-top`, `${margin}em`);
-    } else {
-        $(`.nav-vert li img.${imgBajar}`).css(`margin-top`, `1em`);
-    }
 })
 
 $(`#viewConf`).click(function () {
 
-    $(`#menu-container .nav-completa p[view="market"],
+    $(`#menu-container .nav-vert p[view="market"],
        #menu-container .nav-vert img[view="market"]`).removeClass(`noneMarket`)
 
-    $(`#menu-container .nav-completa p[view="home"],
+    $(`#menu-container .nav-vert p[view="home"],
        #menu-container .nav-vert img[view="home"]`).addClass(`noneHome`)
 
-    $(`#menu-container .nav-completa p[view="home"] ul.subMenu`).addClass(`noneHome`)
+    $(`#menu-container .nav-vert p[view="home"] ul.subMenu`).addClass(`noneHome`)
 
     $(this).addClass(`noneHome`)
     $(`#viewHome`).removeClass(`noneMarket`)
@@ -82,10 +75,10 @@ $(`#viewConf`).click(function () {
 
 $(`#viewHome`).click(function () {
 
-    $(`#menu-container .nav-completa p[view="market"],
+    $(`#menu-container .nav-vert p[view="market"],
        #menu-container .nav-vert img[view="market"]`).addClass(`noneMarket`)
 
-    $(`#menu-container .nav-completa p[view="home"],
+    $(`#menu-container .nav-vert p[view="home"],
        #menu-container .nav-vert img[view="home"]`).removeClass(`noneHome`)
 
     $(`#menu-container .nav-completa p[view="market"] ul.subMenu`).addClass(`noneMarket`)
