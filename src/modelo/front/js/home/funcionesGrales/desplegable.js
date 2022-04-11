@@ -77,6 +77,7 @@ $(`#viewConf`).click(function () {
     $(`#viewHome`).removeClass(`noneMarket`)
 
     $('.men').removeClass("show");
+    $(`#principalesIndicadores`).addClass(`oculto`)
 })
 
 $(`#viewHome`).click(function () {
@@ -93,4 +94,5 @@ $(`#viewHome`).click(function () {
     $(`#viewConf`).removeClass(`noneHome`)
 
     $('.men').removeClass("show");
+    $(`#principalesIndicadores`).removeClass(`oculto`)
 })

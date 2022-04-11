@@ -8,7 +8,8 @@ let crearTabla = function (contador, objeto, consulta) {
 
     var tabla = "";
 
-    tabla += `<table class="tabs_contents_item active ${contador}" id="t${contador}" style = "max-height: ${height}px;>`;
+    tabla += `<table class="tabs_contents_item active ${contador}" id="t${contador}" style="max-height: ${height}px">`;
+
     tabla += `<form method="POST" action="/${objeto.accion}" id="myForm${objeto.accion}${contador}" enctype="multipart/form-data"></form>`;
 
     for (let i = -1; i <= consulta.length; i++) {

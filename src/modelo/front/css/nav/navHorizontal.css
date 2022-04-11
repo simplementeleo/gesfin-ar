@@ -3,6 +3,7 @@
   justify-content: space-between;
   margin-top: 0.5em;
 }
+
 .primeraParteNavegacion {
   display: flex;
   flex-wrap: wrap;
@@ -17,6 +18,12 @@
   padding: 0;
   align-items: center;
   justify-items: center;
+}
+
+.navegacionSupHomeLog .primeraParteNavegacion .logoPrincipal {
+
+  height: 2.5em;
+
 }
 
 .navegacionSupHomeLog .primeraParteNavegacion .lineaLogoHome {
@@ -34,6 +41,7 @@
   cursor: pointer;
   font-size: 1.4em;
 }
+
 .navegacionSupHomeLog .primeraParteNavegacion h4 {
   font-size: 2em;
   margin: 0;
@@ -43,19 +51,24 @@
   padding-left: 0.2em;
   border-left: 0.1em solid rgb(0, 0, 0);
 }
+
 /*////////////////////////////////////////////////////////////////////////////////*/
 .navegacionSupHomeLog .medio #tituloOpciones {
   display: flex;
   flex-wrap: nowrap;
   align-self: center;
 }
+
 .navegacionSupHomeLog .medio #tituloOpciones {
   margin: 0.2em;
+  margin-top: 0.5em;
   margin-left: -20em;
 }
+
 .navegacionSupHomeLog .medio #tituloOpciones h2 {
   margin: 0;
   margin-right: 1em;
+
   padding: 0;
   align-self: center;
   font-size: 1.2em;
@@ -106,6 +119,7 @@
   border-radius: 10px 10px 10px 10px;
   padding: 1em;
 }
+
 /*////////////////////////////////////////////////////////////////////////////////*/
 .navegacionSupHomeLog .ultimaParte {
   display: flex;
@@ -119,7 +133,7 @@
 .navegacionSupHomeLog .ultimaParte .campana {
   width: 1.5em;
   height: 1.5em;
-  margin-top: 0.5em;
+  margin-top: 0.7em;
   margin-right: 0.5em;
   cursor: pointer;
 }
@@ -127,14 +141,16 @@
 .navegacionSupHomeLog .ultimaParte.campana:hover {
   transform: scale(1.5);
 }
+
 .navegacionSupHomeLog .ultimaParte {
   margin: 0;
   padding: 0;
 }
+
 .navegacionSupHomeLog .ultimaParte .perfil {
   width: 1.5em;
   height: 1.5em;
-  margin-top: 0.5em;
+  margin-top: 0.7em;
 }
 
 .navegacionSupHomeLog .ultimaParte nav {
@@ -142,6 +158,7 @@
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
 .navegacionSupHomeLog .ultimaParte img {
   width: 2em;
   height: 2em;
@@ -170,6 +187,7 @@
   font-size: 1.8em;
   cursor: pointer;
 }
+
 .navegacionSupHomeLog .ultimaParte .men-prin {
   cursor: pointer;
   z-index: 1000;
@@ -177,10 +195,14 @@
   margin-right: 2em;
   margin-top: 0.3em;
 }
+
 .navegacionSupHomeLog .ultimaParte .men-prin #usuarioDes {
-  margin: 0;
+  margin-top: 0em;
+  margin-bottom: 0em;
   padding: 0;
+
 }
+
 .navegacionSupHomeLog .ultimaParte .men-prin .men {
   list-style: none;
   display: none;
@@ -204,16 +226,24 @@
   from {
     transform: translateY(-200px) scale(0.5);
   }
+
   to {
     transform: translateY(0) scale(1);
   }
 }
+
+.navegacionSupHomeLog .ultimaParte nav {
+  margin: 0;
+  padding-bottom: 0.3em;
+}
+
 .navegacionSupHomeLog .ultimaParte .men li,
 .navegacionSupHomeLog .ultimaParte .men li a {
   text-decoration: none;
   font-size: 1.1em;
   margin-bottom: 4%;
 }
+
 .navegacionSupHomeLog .ultimaParte .men li:hover,
 .navegacionSupHomeLog .ultimaParte .men li a:hover {
   cursor: pointer;
@@ -233,6 +263,7 @@
   margin-right: 5%;
   margin-bottom: 0%;
 }
+
 .navegacionSupHomeLog .ultimaParte ul.men li {
   font-size: 1.1em;
   margin-bottom: 4%;

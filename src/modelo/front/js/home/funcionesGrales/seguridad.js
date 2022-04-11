@@ -68,6 +68,7 @@ $.ajax({
 })
 
 $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
+  alert(1)
 
   let navCompleta = $(`.nav-vert p.desplegableAbm`)
 
@@ -104,7 +105,7 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
       grupo[agrup].push(id)
       titulos[agrup].push(agrupTit)
     })
-
+    console.log(grupo)
     variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(grupo)
     variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(titulos)
   })

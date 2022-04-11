@@ -1,201 +1,206 @@
 .principalesIndicadores {
-    width: 100%;
-    display: block;
-    flex-wrap: wrap;
-    margin-top: 1%;
-  }
-  
-  #principalesIndicadores {
-    position: absolute;
-    left: 4em;
-    max-width: calc(100% - 5em);
-  }
-  #principalesIndicadores td {
-    background-color: rgb(255, 255, 255);
-    transition: 3s;
-  }
-  
-  #principalesIndicadores td.modif {
-    background-color: rgb(171, 200, 238);
-    transition: 3s;
-  }
-  
-  #principalesIndicadores.vistaActive {
-    position: absolute;
-    left: 20em;
-    max-width: calc(100% - 5em);
-  }
-  
-  .principalesIndicadores.noShow {
-    display: none;
-  }
-  
-  #principalesIndicadores h2 {
-    color: rgb(255, 255, 255);
-  }
-  
-  #primerRenglon {
-    width: 100%;
-    display: flex;
-  }
-  
-  #segundoRenglon {
-    width: 100%;
-    margin-top: 3em;
-    display: flex;
-    border-top: 2px solid #bbb;
-  }
-  
-  #segundoRenglon div {
-    margin-right: 4em;
-    margin-top: 2em;
-  }
-  
-  #tercerRenglon {
-    width: 100%;
-    margin-top: 1em;
-    margin-bottom: 3em;
-    display: flex;
-    border-top: 2px solid #bbb;
-  }
-  
-  #tercerRenglon div {
-    margin-right: 4em;
-    margin-top: 2em;
-  }
-  
-  .tituloTabla {
-    background-color: rgb(184, 184, 184);
-    font-weight: bold;
-    border-radius: 5px 5px 0 0;
-    width: 5em;
-  }
-  
-  .tituloTabla.descripcionTabla {
-    width: 10em;
-  }
-  
-  .descripcionTabla {
-    text-align: left;
-    padding-left: 1em;
-  }
-  
-  .fondoTabla {
-    border-radius: 0px 0px 5px 5px;
-  }
-  
-  #tcHome,
-  #iccHome {
-    margin-right: 4em;
-  }
-  
-  #tcHome th,
-  #tcHome td {
-    padding: 0em 1em 0em 1em;
-  }
-  
-  #iccHome th,
-  #iccHome td {
-    padding: 0em 1em 0em 1em;
-  }
-  
-  #iccHome th,
-  #tcHome th {
-    background-color: rgba(206, 200, 211, 0.301);
-  }
-  
-  #cajaBancos .thDer,
-  #cobroRubro table th.thDer,
-  #pagoRubro table th.thDer,
-  #prestamos table th.thDer {
-    text-align: left;
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-  
-  /*FECHA*/
-  
-  #fecha {
-    margin-right: 2em;
-  }
-  
-  #fechaTexto {
-    display: flex;
-    align-items: flex-end;
-  }
-  
-  #fechaTexto {
-    display: flex;
-    align-content: flex-end;
-  }
-  
-  #fechaTexto div p {
-    margin: auto;
-    margin-left: 3em;
-    margin-bottom: 0.5em;
-    font-weight: bold;
-    font-family: "Ubuntu Condensed", sans-serif;
-  }
-  
-  /*IMPORTE*/
-  
-  .arsHome::before {
-    content: "$ ";
-  }
-  
-  .usdHome::before {
-    content: "USD ";
-  }
-  
-  .arsHome.signo-1 {
-    color: red;
-  }
-  
-  /*TABLAS*/
-  
-  #cajaBancos table td {
-    padding: 0 1em 0 1em;
-  }
-  
-  #cajaBancos table th,
-  #cobroRubro table th,
-  #pagoRubro table th,
-  #prestamos table th {
-    font-size: 1.1em;
-    padding: 0.2em 0 0.2em 0;
-  }
-  
-  #cajaBancos table td,
-  #cobroRubro table td,
-  #pagoRubro table td,
-  #prestamos table td {
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-  
-  #cajaBancos table td:first-child {
-    text-align: left;
-    font-size: 1.2em;
-  }
-  
-  .logoFondo {
-    margin-top: 10em;
-    margin-left: -8em;
-  }
-  
-  .logoFondo.noShow {
-    display: none;
-  }
-  
-  #oculto {
-    display: none;
-  }
-  
-  .thDer.cuerpo {
-    background-color: rgb(230, 230, 230);
-  }
-  
-  .thDer.total,
-  th.total {
-    background-color: rgb(135, 151, 136);
-  }
+  width: 100%;
+  display: block;
+  flex-wrap: wrap;
+  margin-top: 1%;
+}
+
+#principalesIndicadores.oculto {
+  display: none;
+}
+
+#principalesIndicadores {
+  position: absolute;
+  left: 4em;
+  max-width: calc(100% - 5em);
+}
+
+#principalesIndicadores td {
+  background-color: rgb(255, 255, 255);
+  transition: 3s;
+}
+
+#principalesIndicadores td.modif {
+  background-color: rgb(171, 200, 238);
+  transition: 3s;
+}
+
+#principalesIndicadores.vistaActive {
+  position: absolute;
+  left: 20em;
+  max-width: calc(100% - 5em);
+}
+
+.principalesIndicadores.noShow {
+  display: none;
+}
+
+#principalesIndicadores h2 {
+  color: rgb(255, 255, 255);
+}
+
+#primerRenglon {
+  width: 100%;
+  display: flex;
+}
+
+#segundoRenglon {
+  width: 100%;
+  margin-top: 3em;
+  display: flex;
+  border-top: 2px solid #bbb;
+}
+
+#segundoRenglon div {
+  margin-right: 4em;
+  margin-top: 2em;
+}
+
+#tercerRenglon {
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 3em;
+  display: flex;
+  border-top: 2px solid #bbb;
+}
+
+#tercerRenglon div {
+  margin-right: 4em;
+  margin-top: 2em;
+}
+
+.tituloTabla {
+  background-color: rgb(184, 184, 184);
+  font-weight: bold;
+  border-radius: 5px 5px 0 0;
+  width: 5em;
+}
+
+.tituloTabla.descripcionTabla {
+  width: 10em;
+}
+
+.descripcionTabla {
+  text-align: left;
+  padding-left: 1em;
+}
+
+.fondoTabla {
+  border-radius: 0px 0px 5px 5px;
+}
+
+#tcHome,
+#iccHome {
+  margin-right: 4em;
+}
+
+#tcHome th,
+#tcHome td {
+  padding: 0em 1em 0em 1em;
+}
+
+#iccHome th,
+#iccHome td {
+  padding: 0em 1em 0em 1em;
+}
+
+#iccHome th,
+#tcHome th {
+  background-color: rgba(206, 200, 211, 0.301);
+}
+
+#cajaBancos .thDer,
+#cobroRubro table th.thDer,
+#pagoRubro table th.thDer,
+#prestamos table th.thDer {
+  text-align: left;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+/*FECHA*/
+
+#fecha {
+  margin-right: 2em;
+}
+
+#fechaTexto {
+  display: flex;
+  align-items: flex-end;
+}
+
+#fechaTexto {
+  display: flex;
+  align-content: flex-end;
+}
+
+#fechaTexto div p {
+  margin: auto;
+  margin-left: 3em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-family: "Ubuntu Condensed", sans-serif;
+}
+
+/*IMPORTE*/
+
+.arsHome::before {
+  content: "$ ";
+}
+
+.usdHome::before {
+  content: "USD ";
+}
+
+.arsHome.signo-1 {
+  color: red;
+}
+
+/*TABLAS*/
+
+#cajaBancos table td {
+  padding: 0 1em 0 1em;
+}
+
+#cajaBancos table th,
+#cobroRubro table th,
+#pagoRubro table th,
+#prestamos table th {
+  font-size: 1.1em;
+  padding: 0.2em 0 0.2em 0;
+}
+
+#cajaBancos table td,
+#cobroRubro table td,
+#pagoRubro table td,
+#prestamos table td {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#cajaBancos table td:first-child {
+  text-align: left;
+  font-size: 1.2em;
+}
+
+.logoFondo {
+  margin-top: 10em;
+  margin-left: -8em;
+}
+
+.logoFondo.noShow {
+  display: none;
+}
+
+#oculto {
+  display: none;
+}
+
+.thDer.cuerpo {
+  background-color: rgb(230, 230, 230);
+}
+
+.thDer.total,
+th.total {
+  background-color: rgb(135, 151, 136);
+}
