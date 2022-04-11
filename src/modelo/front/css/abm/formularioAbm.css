@@ -8,20 +8,21 @@
 
 #tablas {
   display: block;
-  width: calc(100% - 2em);
+  /* width: calc(100% - 2em);*/
 }
 
 #tablas.vistaActive {
   display: block;
-  width: calc(100% - 17em);
+  /* width: calc(100% - 17em);*/
 }
 
 .tabs_links {
   display: flex;
-  margin-top: 0.5%;   
+  margin-top: 0.5%;
   z-index: 10;
   position: relative;
 }
+
 .tabs_links a {
   display: flex;
   width: auto;

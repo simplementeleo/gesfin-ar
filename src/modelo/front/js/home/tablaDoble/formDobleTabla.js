@@ -491,12 +491,14 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
 
                     if (indi > 0) {
 
+
                         let subFilt = (Object.keys(val)[0]).split(` `)
                         subFiltro = subFilt[0]
                     } else {
                         subFiltro = (Object.keys(val)[0])
 
                     }
+
                     chequefiltrar(value, subFiltro)
                 })
             })

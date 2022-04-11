@@ -503,6 +503,8 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         if ((fechaDos > fecha) || objeto.permisolimite == undefined) {
 
             let resulEdit = editRegistro(objeto, numeroForm, consultaArray, botonEditar, consulta)
+            botonEditar = true;
+            editando = true;
             filaSeleccionada = resulEdit[filaSeleccionada]
             memoriaValoreEditados = resulEdit[memoriaValoreEditados]
 
@@ -527,6 +529,8 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             if ((fechaDos > fecha) || objeto.permisolimite == undefined) {
 
                 let resulEdit = editRegistro(objeto, numeroForm, consultaArray, botonEditar, consulta)
+                botonEditar = true;
+                editando = true;
                 filaSeleccionada = resulEdit[filaSeleccionada]
                 memoriaValoreEditados = resulEdit[memoriaValoreEditados]
 

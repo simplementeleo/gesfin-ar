@@ -1,4 +1,5 @@
 let permisos = $(`#ocultoUser`).val()
+console.log(permisos)
 let permisObject = new Object
 let limitePermiso = new Array
 
@@ -8,8 +9,9 @@ $.ajax({
   beforeSend: function () { },
   complete: function () { },
   success: function (response) {
-
+    console.log(permisos)
     if (permisos != undefined) {
+
       let arrayId = permisos.split(",");
 
       $.each(arrayId, (indice, value) => {
@@ -25,8 +27,6 @@ $.ajax({
           $.each(registro[value.nombre], (ind, val) => {
             let parent = $(`#${ind}.menuSelectAbm`).parent().parent()
             let granPa = $(parent).parent().parent()
-            console.log(granPa)
-
 
             switch (value.nombre) {
               case "visualizar":
@@ -69,7 +69,7 @@ $.ajax({
 
 $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
 
-  let navCompleta = $(`.nav-completa p.desplegableAbm`)
+  let navCompleta = $(`.nav-vert p.desplegableAbm`)
 
   $.each(navCompleta, (indice, value) => {
 
@@ -100,6 +100,7 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
       } else {
         agrupTit = $(val).html()
       }
+
       grupo[agrup].push(id)
       titulos[agrup].push(agrupTit)
     })
@@ -108,3 +109,4 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
     variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(titulos)
   })
 })
+

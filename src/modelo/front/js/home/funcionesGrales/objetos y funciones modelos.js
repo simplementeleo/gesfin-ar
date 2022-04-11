@@ -227,6 +227,7 @@ let variablesModelo = {
 
         },
         tablaDobleEntrada: false,
+        permisolimite: fecha,
         desencadena: false,
         desencadenaColeccion: {
             principal: [],
