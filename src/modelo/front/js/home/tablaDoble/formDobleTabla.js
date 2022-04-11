@@ -163,6 +163,9 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             titulosColumna = objeto.tablaDobleEntrada.titulosColumna
 
             break;
+        case `mes`:
+
+            break;
     }
 
     switch (objeto.tablaDobleEntrada.type) {
@@ -522,15 +525,13 @@ const crearTablaDoblePestanaFecha = function (objeto, numeroForm, height, column
         fidecomisoSelec = ""
     }
 
-    tabla += `< table class= "tablaDoble active ${numeroForm}" id = "t${numeroForm}" style = "max-height: ${height}px" > `;
+    tabla += `<table class= "tablaDoble active ${numeroForm}" id = "t${numeroForm}" style = "max-height: ${height}px"> `;
 
-    tabla += `< form method = "PUT" action = "/${accion}Doble" id = "dobleEntrada${accion}${numeroForm}" ></form > `;
-    tabla += `< tr > `
-
+    tabla += `<form method = "PUT" action = "/${accion}Doble" id = "dobleEntrada${accion}${numeroForm}" ></form> `;
+    tabla += `<tr> `
 
     $.each(objeto.formDoblePest.titulos, (indice, value) => {
         tabla += `< th class= titulosDoble ${value}">${value}</th>`
-
     })
 
     let y = 0;

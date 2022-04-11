@@ -1,5 +1,4 @@
 let permisos = $(`#ocultoUser`).val()
-console.log(permisos)
 let permisObject = new Object
 let limitePermiso = new Array
 
@@ -9,7 +8,7 @@ $.ajax({
   beforeSend: function () { },
   complete: function () { },
   success: function (response) {
-    console.log(permisos)
+
     if (permisos != undefined) {
 
       let arrayId = permisos.split(",");
@@ -22,7 +21,6 @@ $.ajax({
 
         $.each(variablesModelo.grupoSeguridad.tablaDobleEntrada.columna, (indice, value) => {
           permisObject[value.nombre] = []
-
 
           $.each(registro[value.nombre], (ind, val) => {
             let parent = $(`#${ind}.menuSelectAbm`).parent().parent()

@@ -307,6 +307,123 @@ let variablesModelo = {
         },
 
     },
+    resultadoFinanciero: {
+            atributos: {
+                names: [],
+                titulos: [],
+                soloLectura: [],
+                oculto: [],
+                importe: undefined,
+                compuesto: {
+                    tareas: [],
+                    adjuntos:[] 
+                },
+                signo: [],
+                color: [],
+                vistaPrevia: [adjunto, adjuntoColeccion],
+                number: [],
+                date: [fecha, fechaDos, fechaTres],
+                valoresIniciales: {
+                    funcion: {
+                        fecha: fechaInicialHoy
+                    },
+                    string: {
+                        tipoCambio: ``
+                    },
+                    select: []
+                },
+                configAbm: {
+                    with: {
+                        cuatroCinco: [num],
+                        cinco: [],
+                        siete: [],
+                        diez: [],
+                        quince: [],
+                    }
+                },
+                modificar: {
+                    names: [],
+                    pestanas: [],
+                    soloLectura: [],
+                },
+                eliminar: true,
+                deshabilitar: false,
+            },
+            formInd: {
+                compuesto: false,
+                titulos: [],
+                titulosCompuesto: {
+                    tareas: [],
+                    adjuntos: []
+                },
+                oculto: [],
+                ordenFormu: [],
+                soloLectura: [],
+                inputRenglones: [],
+                modificar: {
+                    names: [],
+                    pestanas: [],
+                    soloLectura: [],
+                },
+                impresion: {
+                    tituloFormulario: `Resultado financiero`,
+                    names: [],
+                    titulos: [],
+                }
+            },
+            funcionesPropias: {
+                cargar: [],
+                cargarDosAtributo: [],
+                formularioIndiv: [],
+                coleccionFormIndividual: [],
+            },
+            numerador: { /// buscar el numerador en funciones propias
+                global: [],
+            },
+            acumulador: [],
+            validaciones: [],
+            key: {
+                atributo: [],
+                nombre: [],
+            },
+            pest: `Resultado financiero`,
+            pestIndividual: ``,
+            accion: `resultadoFinanciero`,
+            pestanas: {
+                cabecera: [],
+                coleccion: [],
+                totales: [],
+    
+            },
+            tablaDobleEntrada: {
+                abm: false,
+                type: `agrupar`,
+                inputType: `text`,
+                totales: false,
+                filaType: `agrupado`,
+                fila: [], //fila
+                tituloFila: [],
+                columnaType: `mes`,
+                columna: [mes],
+                titulosColumna: [],
+            },
+            permisolimite: fecha,
+            desencadena: false,
+            desencadenaColeccion: {
+                principal: [],
+                desencadenaModif: []
+            },
+    
+            ayuda: {
+                introduccion: `En esta entidad se muestra los resultados financieros de los clientes que utilizan GesFin`,
+                modificar: modficarInd,
+                entidades: [],
+                desencadena: [],
+                eliminar: true,
+                deshabilitar: false,
+                FiltroRapido: [],
+            }
+    },
     users: {
         atributos: {
             names: [id, nombre, apellido, email, logico, gruposDeSeguridad, usuario, password, username, date, habilitado],
