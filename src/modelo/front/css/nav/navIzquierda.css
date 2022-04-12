@@ -4,7 +4,6 @@
   display: flex;
   border-radius: 10px;
 }
-
 .nav-vert ul {
   margin: 0;
   padding: 0;
@@ -20,7 +19,6 @@
   padding-left: 0.2em;
 
 }
-
 .nav-vert ul.menuVert li {
   list-style: none;
   display: flex;
@@ -28,18 +26,15 @@
   font-size: 1em;
   font-weight: bold;
   font-family: "Noto Sans JP",  sans-serif;
-
-
 }
-
 .nav-vert ul.menuVert li p {
+  margin-top: 0.8em;
   margin-left: 0.5em;
   padding-right: 1em;
   font-size: 1em;
-  margin-top: 1em;
- align-content: center;
+  align-content: center;
+  white-space: nowrap;  
 }
-
 .nav-vert ul.menuVert div li:hover,
 .nav-vert ul.menuVert div p:hover {
   color: cornsilk;
@@ -56,6 +51,7 @@
 
 .nav-vert li img {
   width: 2em;
+  height: 2em;
   padding: 0.3em;
 
 

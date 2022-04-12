@@ -33,7 +33,9 @@ $('.menuDobleEntrada').on('click ',
         imagenes.appendTo('#comandera');
         let columnasArray = new Object;
 
-        $.each(objeto.formDoblePest.datos, (indice, value) => {
+        $.each(objeto.tablaDobleEntrada.datos, (indice, value) => {
+            console.log(indice)
+            console.log(value)
 
             $.ajax({
                 type: "get",
@@ -60,10 +62,10 @@ $('.menuDobleEntrada').on('click ',
             success: function (response) {
 
                 crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
-                   // clickInput(objeto, contador, columnasArray),
+                    // clickInput(objeto, contador, columnasArray),
                     active(contador),
 
-                   valoresTablaPestana(objeto, contador, columnasArray)
+                    valoresTablaPestana(objeto, contador, columnasArray)
 
                 ocultarTds(objeto, contador)
                 contador++

@@ -274,15 +274,7 @@ let variablesModelo = {
                 compuesto: []
             },
         },
-        formDoblePest: {
-            names: [importe, porcentage, importeDos, importeTres, importeCuatro],
-            titulos: [`Rubro`, `Previsto`, `%`, `Gasto Real`, `Pagado`, `A Pagar`],
-            datos: {
-                columna: rubroPagos,
-                agrupador: []
-            },
-            valorCalculado: [porcentage]
-        },
+        formDoblePest: [],
         funcionesPropias: {
             inicio: {
                 filtroRapido: filtroRapido
@@ -299,7 +291,15 @@ let variablesModelo = {
             coleccion: [],
             totales: [],
         },
-        tablaDobleEntrada: false,
+        tablaDobleEntrada: {
+            names: [importe, porcentage, importeDos, importeTres, importeCuatro],
+            titulos: [`Rubro`, `Previsto`, `%`, `Gasto Real`, `Pagado`, `A Pagar`],
+            datos: {
+                columna: rubroPagos,
+                agrupador: []
+            },
+            valorCalculado: [porcentage]
+        },
         desencadena: false,
         desencadenaColeccion: {
             principal: [],
@@ -308,121 +308,125 @@ let variablesModelo = {
 
     },
     resultadoFinanciero: {
-            atributos: {
-                names: [],
-                titulos: [],
-                soloLectura: [],
-                oculto: [],
-                importe: undefined,
-                compuesto: {
-                    tareas: [],
-                    adjuntos:[] 
-                },
-                signo: [],
-                color: [],
-                vistaPrevia: [adjunto, adjuntoColeccion],
-                number: [],
-                date: [fecha, fechaDos, fechaTres],
-                valoresIniciales: {
-                    funcion: {
-                        fecha: fechaInicialHoy
-                    },
-                    string: {
-                        tipoCambio: ``
-                    },
-                    select: []
-                },
-                configAbm: {
-                    with: {
-                        cuatroCinco: [num],
-                        cinco: [],
-                        siete: [],
-                        diez: [],
-                        quince: [],
-                    }
-                },
-                modificar: {
-                    names: [],
-                    pestanas: [],
-                    soloLectura: [],
-                },
-                eliminar: true,
-                deshabilitar: false,
+        atributos: {
+            names: [],
+            titulos: [],
+            soloLectura: [],
+            oculto: [],
+            importe: undefined,
+            compuesto: {
+                tareas: [],
+                adjuntos: []
             },
-            formInd: {
-                compuesto: false,
-                titulos: [],
-                titulosCompuesto: {
-                    tareas: [],
-                    adjuntos: []
+            signo: [],
+            color: [],
+            vistaPrevia: [adjunto, adjuntoColeccion],
+            number: [],
+            date: [fecha, fechaDos, fechaTres],
+            valoresIniciales: {
+                funcion: {
+                    fecha: fechaInicialHoy
                 },
-                oculto: [],
-                ordenFormu: [],
-                soloLectura: [],
-                inputRenglones: [],
-                modificar: {
-                    names: [],
-                    pestanas: [],
-                    soloLectura: [],
+                string: {
+                    tipoCambio: ``
                 },
-                impresion: {
-                    tituloFormulario: `Resultado financiero`,
-                    names: [],
-                    titulos: [],
+                select: []
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [num],
+                    cinco: [],
+                    siete: [],
+                    diez: [],
+                    quince: [],
                 }
             },
-            funcionesPropias: {
-                cargar: [],
-                cargarDosAtributo: [],
-                formularioIndiv: [],
-                coleccionFormIndividual: [],
+            modificar: {
+                names: [],
+                pestanas: [],
+                soloLectura: [],
             },
-            numerador: { /// buscar el numerador en funciones propias
-                global: [],
+            eliminar: true,
+            deshabilitar: false,
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [],
+            titulosCompuesto: {
+                tareas: [],
+                adjuntos: []
             },
-            acumulador: [],
-            validaciones: [],
-            key: {
-                atributo: [],
-                nombre: [],
+            oculto: [],
+            ordenFormu: [],
+            soloLectura: [],
+            inputRenglones: [],
+            modificar: {
+                names: [],
+                pestanas: [],
+                soloLectura: [],
             },
-            pest: `Resultado financiero`,
-            pestIndividual: ``,
-            accion: `resultadoFinanciero`,
-            pestanas: {
-                cabecera: [],
-                coleccion: [],
-                totales: [],
-    
-            },
-            tablaDobleEntrada: {
-                abm: false,
-                type: `agrupar`,
-                inputType: `text`,
-                totales: false,
-                filaType: `agrupado`,
-                fila: [], //fila
-                tituloFila: [],
-                columnaType: `mes`,
-                columna: [mes],
-                titulosColumna: [],
-            },
-            permisolimite: fecha,
-            desencadena: false,
-            desencadenaColeccion: {
-                principal: [],
-                desencadenaModif: []
-            },
-    
-            ayuda: {
-                introduccion: `En esta entidad se muestra los resultados financieros de los clientes que utilizan GesFin`,
-                modificar: modficarInd,
-                entidades: [],
-                desencadena: [],
-                eliminar: true,
-                deshabilitar: false,
-                FiltroRapido: [],
+            impresion: {
+                tituloFormulario: `Resultado financiero`,
+                names: [],
+                titulos: [],
             }
+        },
+        funcionesPropias: {
+            cargar: [],
+            cargarDosAtributo: [],
+            formularioIndiv: [],
+            coleccionFormIndividual: [],
+        },
+        numerador: { /// buscar el numerador en funciones propias
+            global: [],
+        },
+        acumulador: [],
+        validaciones: [],
+        key: {
+            atributo: [],
+            nombre: [],
+        },
+        pest: `Resultado financiero`,
+        pestIndividual: ``,
+        accion: `resultadoFinanciero`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: [],
+
+        },
+        tablaDobleEntrada: {
+            abm: false,
+            type: `regularConTotales`,
+            inputType: `text`,
+            totales: false,
+            filaType: `agrupado`,
+            fila: [], //fila
+            tituloFila: [],
+            columnaType: `mes`,
+            columna: [`mes`],
+            titulosColumna: [],
+            datos: {
+                columna: rubroPagos,
+                agrupador: []
+            },
+        },
+        permisolimite: fecha,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+
+        ayuda: {
+            introduccion: `En esta entidad se muestra los resultados financieros de los clientes que utilizan GesFin`,
+            modificar: ``,
+            entidades: [],
+            desencadena: [],
+            eliminar: true,
+            deshabilitar: false,
+            FiltroRapido: [],
+        }
     },
     users: {
         atributos: {

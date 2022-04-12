@@ -125,7 +125,9 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
     let total = 0
     let tabla = "";//creo table por afuera del switch de la tabla, porque los diferentes case los toma como el mismo ambiente
     let user = ""; //creo usuario por afuera del switch de la tabla, porque los diferentes case los toma como el mismo ambiente    
-
+    let hoy = new Date(Date.now());
+    let mesActual = ""
+    let ano = ""
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`:
@@ -142,12 +144,19 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
                 fila.push(value)
                 tituloFila.push(value)
-
             })
             break;
         case `agrupado`:
             fila = objeto.tablaDobleEntrada.fila
             tituloFila = objeto.tablaDobleEntrada.tituloFila
+
+            break;
+        case `mes`:
+            mesActual = (hoy.getMonth() - 1);
+            console.log(mesActual)
+            ano = hoy.getFullYear()
+            let anoCort = parseFloat(ano.toString().slice(2, 4));
+
 
             break;
     }
@@ -253,7 +262,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 for (let t = 0; t < columna.length; t++) {
 
                     /*let valueCampo = fidei[columna[t]][fila[i][0]] || fidei[columna[t]][fila[i]] || ""
-    
+     
                     totalesColumna[columna[t]] += (parseFloat(valueCampo) || 0)
                     totalesFila[fila[i]] += (parseFloat(valueCampo) || 0)
                     total += (parseFloat(valueCampo) || 0)*/

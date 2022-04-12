@@ -23,13 +23,14 @@ $.ajax({
           permisObject[value.nombre] = []
 
           $.each(registro[value.nombre], (ind, val) => {
-            let parent = $(`#${ind}.menuSelectAbm`).parent().parent()
+            let parent = $(`#${ind}`).parent().parent()
             let granPa = $(parent).parent().parent()
 
             switch (value.nombre) {
               case "visualizar":
 
                 $(`#${ind}.menuSelectAbm`).attr(`${value.nombre}`, true)
+                $(`#${ind}.menuDobleEntrada`).attr(`${value.nombre}`, true)
                 $(parent).siblings(`p`).attr(`${value.nombre}`, true)
                 $(`img`, granPa).attr(`${value.nombre}`, true)
 
@@ -66,14 +67,13 @@ $.ajax({
 })
 
 $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
-  alert(1)
 
   let navCompleta = $(`.nav-vert p.desplegableAbm`)
 
+
   $.each(navCompleta, (indice, value) => {
 
-
-    let items = $(`p.menuSelectAbm`, $(value).siblings(`ul.subMenu`))
+    let items = $(`p.menuSelectAbm, p.menuDobleEntrada`, $(value).siblings(`ul.subMenu`))
 
     let grupo = new Object
     let titulos = new Object
@@ -103,7 +103,7 @@ $(`.cargaEntidadesSeg`).on('click ', function (objeto, numeroForm) {
       grupo[agrup].push(id)
       titulos[agrup].push(agrupTit)
     })
-    console.log(grupo)
+
     variablesModelo.grupoSeguridad.tablaDobleEntrada.fila.push(grupo)
     variablesModelo.grupoSeguridad.tablaDobleEntrada.tituloFila.push(titulos)
   })

@@ -98,9 +98,7 @@ router.get('/users', async (req, res) => {
 
         user.push(us);
     }
-    console.log(user)
     res.json(user);
-
 });
 router.post('/users', async (req, res) => {
     try {
@@ -141,7 +139,6 @@ router.put('/users', async (req, res) => {
         let { id, password, usuario, username, grupoSeguridad } = req.body;
 
         let keys = Object.keys(req.body);
-        console.log(keys)
 
         let newUsersFlex = new Object;
 
@@ -156,7 +153,6 @@ router.put('/users', async (req, res) => {
         newUsersFlex.grupoSeguridad = grupoFound.map((grupo) => grupo._id),
             newUsersFlex.username = usuario;
         delete newUsersFlex.id
-        console.log(newUsersFlex)
 
         if (password == "******") {
             delete newUsersFlex.password
@@ -165,7 +161,7 @@ router.put('/users', async (req, res) => {
             const salt = await bcrypt.genSalt(10);
             newUsersFlex.password = await bcrypt.hash(password, salt);
         }
-        console.log(newUsersFlex)
+
         let usersAct = await User.findByIdAndUpdate(id, newUsersFlex);
 
         res.json({
@@ -338,7 +334,6 @@ router.put('/grupoSeguridadDoble', async (req, res) => {
         for (let x = 0; x < Object.keys(req.body).length; x++) {
 
             let nameSplit = keys[x].split(" ");
-            console.log(nameSplit)
 
             if (nameSplit.length > 1) {
                 if (grupoDeSeguridad[nameSplit[0]] == undefined) {
@@ -359,7 +354,6 @@ router.put('/grupoSeguridadDoble', async (req, res) => {
         }
 
         grupoDeSeguridad.username = usersFound.map((user) => user._id)
-        console.log(grupoDeSeguridad)
 
         let groupAct = await GrupoSeguridad.findByIdAndUpdate(id, grupoDeSeguridad);
 
