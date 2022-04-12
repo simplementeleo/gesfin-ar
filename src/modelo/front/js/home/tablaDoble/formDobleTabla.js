@@ -11,6 +11,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
     let container = $(`.container`).css("height");
     let heightContainer = container.slice(0, 2);
     let height = pantalla - (heightContainer * 4.3);
+    let filasMongo = ""
 
     var imgs = `<div class="com" id="com${accion}${numeroForm}">${iMailF}${iCalenF}${iExpoF}${iDeleteF}${iEditF}${undoF}${iCruzF}${iSaveF}
      <div><div class="cartelErrorForm noShow">
@@ -41,7 +42,8 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
             consulta = data;
             fidei = consulta.find(element => element.id == $(`td.id`, sel).html());
 
-            crearTablaDoble(numeroForm, objeto, fidei, height, usuario, id, filaContador);
+            crearTablaDoble(numeroForm, objeto, fidei, height, usuario, filasMongo, id, filaContador);
+
         })
 
     $(`#cabeceraForm #de${numeroForm} input.dobleEntrada.totales`).remove();
@@ -150,7 +152,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             tituloFila = objeto.tablaDobleEntrada.tituloFila
             break;
         case `baseExterna`:
-            
+
             break;
     }
     /////////////////////tipo de Columna
@@ -171,7 +173,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             console.log(mesActual)
             ano = hoy.getFullYear()
             let anoCort = parseFloat(ano.toString().slice(2, 4))
-    
+
             break;
     }
 

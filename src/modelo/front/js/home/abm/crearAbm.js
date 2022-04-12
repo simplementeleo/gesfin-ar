@@ -79,6 +79,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             consulta = data;
 
             for (var l = 0; l < objeto.pestanas.totales.length; l++) {
+
                 $.ajax({
                     type: "get",
                     async: false,

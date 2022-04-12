@@ -407,8 +407,8 @@ let variablesModelo = {
             columna: [`mes`],
             titulosColumna: [],
             datos: {
-                filas: rubroPagos,
-               
+                ingresos: `cobranzas`,
+                egresos: `pagos`
             },
         },
         permisolimite: fecha,
@@ -871,6 +871,201 @@ let variablesModelo = {
             introduccion: `En esta entidad se registran los clientes que utiliza In-inversiones.`,
             modificar: modficarTodo,
             entidades: [`Cobros recibidos`, `Proyecciones Cash Flow`],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
+    moneda: {
+        atributos: {
+            names: [_id, nombre, abrev, date, username, habilitado],
+            titulos: [`_id`, `Nombre`, `$`, 'Auditoria', 'Usuario'],
+            soloLectura: [date, username],
+            oculto: [_id, habilitado],
+            compuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: {
+                    habilitado: true
+                },
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [abrev],
+                    cinco: [],
+                    siete: [username, date],
+                    diez: [nombre],
+                    quince: [],
+                }
+            },
+            modificar: {
+                names: [_id, nombre, abrev, date, username],
+                pestanas: [],
+                soloLectura: [date, username]
+            },
+            eliminar: false,
+            deshabilitar: true
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`_id`, `Nombre`, `$`, 'Auditoria', 'Usuario'],
+            oculto: [_id, habilitado],
+            ordenFormu: [0, 1, 2, 3, 4],
+            inputRenglones: [5, 5],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [_id, nombre, abrev, date, username],
+                pestanas: [],
+                soloLectura: [date, username]
+            },
+            impresion: {
+                tituloFormulario: `Moneda`,
+                ocultoImpresion: [_id, id, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        numerador: [],
+        acumulador: [],
+        validaciones: [nombre, abrev],
+        key: {
+            atributo: nombre,
+            nombre: `nombre`,
+        },
+        pest: `Moneda`,
+        accion: `moneda`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: []
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran las monedas que utiliza In-inversiones.`,
+            modificar: modficarTodo,
+            entidades: [`Cobros recibidos`, `Pagos realizados`, `Movimientos financieros`, `Prestamos Fideicomisos`, `Devolucion de Pestamos`],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
+    tipoPago: {
+        atributos: {
+            names: [_id, nombre, date, username, habilitado],
+            titulos: [`_id`, `Nombre`, 'Auditoria', 'Usuario'],
+            soloLectura: [date, username],
+            oculto: [_id, habilitado],
+            importe: {
+                totalizador: [],
+                importeBase: [],
+                importePesos: [],
+                importeUsd: [],
+            },
+            compuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: {
+                    habilitado: true
+                },
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [],
+                    cinco: [],
+                    siete: [username, date],
+                    diez: [nombre],
+                    quince: [],
+                    inputRenglones: [5, 5]
+                }
+            },
+            modificar: {
+                names: [_id, nombre, date, username],
+                pestanas: [],
+                soloLectura: [date, username]
+            },
+            eliminar: false,
+            deshabilitar: true
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`_id`, `Nombre`, 'Auditoria', 'Usuario'],
+            oculto: [_id, habilitado],
+            ordenFormu: [0, 1, 2, 3],
+            inputRenglones: [5, 5],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [_id, nombre, date, username],
+                pestanas: [],
+                soloLectura: [date, username]
+            },
+            impresion: {
+                tituloFormulario: `Tipo de pago`,
+                ocultoImpresion: [_id, id, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        numerador: [],
+        acumulador: [],
+        validaciones: [nombre],
+        key: {
+            atributo: nombre,
+            nombre: `nombre`,
+        },
+        pest: `Forma de Pago`,
+        accion: `tipoPago`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: []
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran los tipos de pagos que utiliza In-inversiones.`,
+            modificar: modficarTodo,
+            entidades: [`Cobros recibidos`, `Pagos realizados`, `Acopios`, `Proyecciones Cash Flow`, `Movimientos financieros`, `Prestamos Fideicomisos`, `Devolucion de Pestamos`],
             desencadena: [],
             eliminar: false,
             deshabilitar: true,

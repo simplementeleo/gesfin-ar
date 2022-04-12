@@ -6,21 +6,22 @@ $('.men-prin').click(function (e) {
 $('.icon-menu').click(function (e) {
 
     let pantallaAncho = $(window).width();
-    let navVert = $(`.nav-vert`).css("width");
-    let withNavVert = navVert.slice(0, 2);
-    let withN = pantallaAncho - withNavVert * 4.6;
-
     $(`.desplegableAbm`).toggleClass(`oculto`)
     $(`.panelControl`).toggleClass(`oculto`)
     $(`ul.subMenu`).removeClass("show");
 
     $('#tablas').toggleClass("vistaActive");
-    $('#tablas').css("width", withN);
+
 
     $('#principalesIndicadores').toggleClass("vistaActive");
 
     $('.logoFondo').addClass("noShow");
 
+    let navVert = $(`.nav-vert`).css("width");
+    let withNavVert = navVert.slice(0, -2);
+    let withN = pantallaAncho - withNavVert;
+
+    $('#tablas').css("width", withN);
 })
 
 $(`body`).click(function () {

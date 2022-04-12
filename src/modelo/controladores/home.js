@@ -32,10 +32,7 @@ router.post("/users/login", passport.authenticate("local", {
 //hola forro trolo loco
 router.get('/home', (req, res) => {
 
-    const GrupoSeguridad = require("../models/marketPlace/seguridad/Grupo");
-    /*console.log(req)
-    console.log(req.user)*/
-
+    const GrupoSeguridad = require("../models/marketPlace/seguridad/Grupo")
 
     res.render('home/homeLog', { userNombre: req.user.name, username: req.user.username, userPermisos: req.user.grupoSeguridad });
 });
