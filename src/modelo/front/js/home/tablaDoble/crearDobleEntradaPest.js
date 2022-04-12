@@ -5,6 +5,7 @@ $('.menuDobleEntrada').on('click ',
 
         let numerador = "";
         let fidecomisoSelec = $(`#fideic input`).val()
+        let usuario = $("#oculto").val();
 
         if (fidecomisoSelec == undefined) {
             fidecomisoSelec = ""
@@ -33,9 +34,7 @@ $('.menuDobleEntrada').on('click ',
         imagenes.appendTo('#comandera');
         let columnasArray = new Object;
 
-        $.each(objeto.tablaDobleEntrada.datos, (indice, value) => {
-            console.log(indice)
-            console.log(value)
+        $.each(objeto.tablaDobleEntrada.datos.columna, (indice, value) => {
 
             $.ajax({
                 type: "get",
@@ -51,8 +50,6 @@ $('.menuDobleEntrada').on('click ',
             })
         })
 
-
-
         $.ajax({
             type: "get",
             url: `/${objeto.accion}`,
@@ -60,9 +57,9 @@ $('.menuDobleEntrada').on('click ',
             beforeSend: function () { },
             complete: function () { },
             success: function (response) {
-
-                crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
-                    // clickInput(objeto, contador, columnasArray),
+                crearTablaDoble(contador, objeto, response, height, usuario, columnasArray )
+                //crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
+                // clickInput(objeto, contador, columnasArray),
                     active(contador),
 
                     valoresTablaPestana(objeto, contador, columnasArray)

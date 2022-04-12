@@ -111,9 +111,8 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
 
     });
 }
-const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id, filaContad) {
+const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, filasMongo, id) {
 
-    let filaContador = filaContad || 0
     let accion = objeto.accion;
     let fila = [];
     let tituloFila = [];
@@ -130,7 +129,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
     let ano = ""
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
-        case `baseInterna`:
+        case `baseInterna`://Esta opción se usa cuando las filas esta determinadas por la accion principal de la entidad
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
 
                 $.each(fidei[indice][value], (ind, val) => {
@@ -140,24 +139,18 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
                 })
             })
             break;
-        case `fija`:
+        case `fija`:// Esta opcion cuando esta predeterminada en la fila 
             $.each(objeto.tablaDobleEntrada.fila, (indice, value) => {
                 fila.push(value)
                 tituloFila.push(value)
             })
             break;
-        case `agrupado`:
+        case `agrupado`:// igual que el anterior pero eta agrupado 
             fila = objeto.tablaDobleEntrada.fila
             tituloFila = objeto.tablaDobleEntrada.tituloFila
-
             break;
-        case `mes`:
-            mesActual = (hoy.getMonth() - 1);
-            console.log(mesActual)
-            ano = hoy.getFullYear()
-            let anoCort = parseFloat(ano.toString().slice(2, 4));
-
-
+        case `baseExterna`:
+            
             break;
     }
     /////////////////////tipo de Columna
@@ -174,6 +167,11 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, id
             break;
         case `mes`:
 
+            mesActual = (hoy.getMonth() - 1);
+            console.log(mesActual)
+            ano = hoy.getFullYear()
+            let anoCort = parseFloat(ano.toString().slice(2, 4))
+    
             break;
     }
 

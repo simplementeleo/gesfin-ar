@@ -407,8 +407,8 @@ let variablesModelo = {
             columna: [`mes`],
             titulosColumna: [],
             datos: {
-                columna: rubroPagos,
-                agrupador: []
+                filas: rubroPagos,
+               
             },
         },
         permisolimite: fecha,
