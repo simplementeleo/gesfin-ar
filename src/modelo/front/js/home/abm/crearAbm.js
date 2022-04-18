@@ -79,6 +79,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             consulta = data;
 
             for (var l = 0; l < objeto.pestanas.totales.length; l++) {
+             
 
                 $.ajax({
                     type: "get",
@@ -263,12 +264,12 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         })
 
         if (valid.includes("false")) {
-
+   
             $(`#bf${numeroForm} .cartelErrorFront p`).html("Revisar los campos en rojo")
             $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
 
         } else {
-
+         
             if (editando === true) {
                 let file = $(`#myFormEdit${objeto.accion}${numeroForm}`)
 
@@ -372,9 +373,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                     }
 
                     registroAcumulador(indice, acumuladorVar)
-
                 })
-
 
                 let individual = "false";
                 enviarRegistroNuevo(numeroForm, lengthUnoSelect, individual, fidecomisoSelec, objeto, consultaArray);
@@ -504,10 +503,11 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         if ((fechaDos > fecha) || objeto.permisolimite == undefined) {
 
             let resulEdit = editRegistro(objeto, numeroForm, consultaArray, botonEditar, consulta)
+           
             botonEditar = true;
             editando = true;
-            filaSeleccionada = resulEdit[filaSeleccionada]
-            memoriaValoreEditados = resulEdit[memoriaValoreEditados]
+            filaSeleccionada = resulEdit.filaSeleccionada
+            memoriaValoreEditados = resulEdit.memoriaValoreEditados
 
 
         } else {
@@ -532,8 +532,8 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                 let resulEdit = editRegistro(objeto, numeroForm, consultaArray, botonEditar, consulta)
                 botonEditar = true;
                 editando = true;
-                filaSeleccionada = resulEdit[filaSeleccionada]
-                memoriaValoreEditados = resulEdit[memoriaValoreEditados]
+                filaSeleccionada = resulEdit.filaSeleccionada
+                memoriaValoreEditados = resulEdit.memoriaValoreEditado
 
             } else {
                 $(`#bf${numeroForm} .cartelErrorFront p`).html(`No tiene permisos para editar registros anteriores a ${moment(fecha).format('DD-MM-YYYY')}`)
@@ -544,9 +544,9 @@ $('.menuSelectAbm').on('click ', this.id, function () {
     }
     $(`#bf${numeroForm} .cancelBoton,
     .menuCancelar.${numeroForm}`).click(function (e) {
-
+         
         if (editando == true) {
-
+          
             desabilitarRegistroEditando(objeto, memoriaValoreEditados)
             botonEditar = false;
             editando = false;
@@ -727,7 +727,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
 
             $(`.inputR.${value.nombre}.${cont}`).addClass("doEntrada");
         })
-
+   
         $.each(consultaArray, function (indice, value) {
 
             $(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`).children("select");

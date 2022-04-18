@@ -23,7 +23,7 @@ const ProyectadoCash = require("../models/home/operacionFinanciera/MovimientosFi
 //Indices
 const Icc = require("../models/home/indices/Icc");
 const TipoCambio = require("../models/home/indices/TipoDeCambio");
-
+console.log(2)
 router.post("/users/login", passport.authenticate("local", {
     successRedirect: "/home",
     failureRedirect: "/",
@@ -36,7 +36,6 @@ router.get('/home', (req, res) => {
 
     res.render('home/homeLog', { userNombre: req.user.name, username: req.user.username, userPermisos: req.user.grupoSeguridad });
 });
-
 router.get('/error', async (req, res) => {
 
     const errores = await Error.aggregate([{
@@ -363,7 +362,6 @@ router.put('/error', async (req, res) => {
         }
 
         let errorAct = await Error.findByIdAndUpdate(id, newErrorFlex);
-
 
         res.json(`El error de ${cliente} fue actualizado`);
 

@@ -8,13 +8,6 @@ const CobrosRecibidosSchema = new Schema({
         ref: "unidades"
     },
     fecha: { type: Date },
-    cantidadDosDigitos: { type: String },
-    letra: { type: String },
-    cantidadDosDigDos: { type: String },
-    tipoUnidad: {
-        type: Schema.Types.ObjectId,
-        ref: "Tpo Unidad"
-    },
     cliente: {
         type: Schema.Types.ObjectId,
         ref: "Cliente"

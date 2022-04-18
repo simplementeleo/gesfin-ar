@@ -34,13 +34,14 @@ $('.menuDobleEntrada').on('click ',
         imagenes.appendTo('#comandera');
         let columnasArray = new Object;
 
-        $.each(objeto.tablaDobleEntrada.datos.columna, (indice, value) => {
+        $.each(objeto.tablaDobleEntrada.datos.filas, (indice, value) => {
 
             $.ajax({
                 type: "get",
                 async: false,
-                url: `/${value.nombre}`,
+                url: `/${value}`,
                 success: function (data) {
+                    console.log(data)
                     columnasArray[indice] = data;
 
                 },
@@ -49,7 +50,7 @@ $('.menuDobleEntrada').on('click ',
                 }
             })
         })
-
+        if(objeto.tablaDobleEntrada.datosPropios== true){
         $.ajax({
             type: "get",
             url: `/${objeto.accion}`,
@@ -73,6 +74,7 @@ $('.menuDobleEntrada').on('click ',
                 console.log(error);
             }
         });
+      }
 
         //Funcion de asignar atributo Active asi vemos la tabla de seleccionada
         $('.pestana').on('click',

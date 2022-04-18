@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 
 const RubrosSchema = new Schema({
-    nume: { type: String },
+    num: { type: String },
     name: { type: String, required: true },
     date: { type: Date },
     username: {

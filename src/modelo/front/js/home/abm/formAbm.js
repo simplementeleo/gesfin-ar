@@ -8,8 +8,7 @@ let crearTabla = function (contador, objeto, consulta) {
 
     var tabla = "";
 
-    tabla += `<table class="tabs_contents_item active ${contador}" id="t${contador}" style="max-height: ${height}px">`;
-
+    tabla += `<table class="tabs_contents_item active ${contador}" id="t${contador}">`;
     tabla += `<form method="POST" action="/${objeto.accion}" id="myForm${objeto.accion}${contador}" enctype="multipart/form-data"></form>`;
 
     for (let i = -1; i <= consulta.length; i++) {
@@ -45,45 +44,45 @@ let crearTabla = function (contador, objeto, consulta) {
             tabla += tipoAtributo(consulta[i], objeto);
         } else {
             //Creaciòn de campos input
-            if (permisObject.crear.includes(`${objeto.accion}`)) {
-
-                $.each(objeto.atributos.names, function (indice, value) {
-                    switch (value.type) {
-                        case "coleccion":
-                            $.each(value.componentes, function (ind, val) {
-                                tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
+            if(permisObject.crear.includes(objeto.accion)){
+          
+            $.each(objeto.atributos.names, function (indice, value) {
+                switch (value.type) {
+                    case "coleccion":
+                        $.each(value.componentes, function (ind, val) {
+                            tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
                              <input class="inputR ${val.nombre} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
-                            });
+                        });
 
-                            break;
-                        case "coleccionTotal":
-                            $.each(value.componentes, function (ind, val) {
-                                tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
+                        break;
+                    case "coleccionTotal":
+                        $.each(value.componentes, function (ind, val) {
+                            tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
                  <input class="inputR ${ind} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
-                            });
+                        });
 
-                            break;
-                        case "logico":
-                            tabla += `<td class="inputTd ${value.nombre}">
+                        break;
+                    case "logico":
+                        tabla += `<td class="inputTd ${value.nombre}">
                             <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony>
                             <input type="text" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" value="false" style="display:none"></td>`;
-                            break;
-                        case "password":
-                            tabla += `<td class="inputTd ${value.nombre}">
+                        break;
+                    case "password":
+                        tabla += `<td class="inputTd ${value.nombre}">
                                 <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword tachado" src="/img/abm/ojoTachado.png"></td>`;
-                            break;
-                        case "adjunto":
-                            tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
+                        break;
+                    case "adjunto":
+                        tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
                         <label for="in${value.nombre}${contador}" class="inputR ${value.nombre} ${contador}">Adjunto</label>
                          <input type="file" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}">
                         </td>`;
-                            break;
-                        default:
-                            tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador} >
+                        break;
+                    default:
+                        tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador} >
                           <input class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" maxlength="${value.maxCaract}"></td>`;
-                    }
-                });
-            }
+                }
+            });
+         }
         }
 
         tabla += "</tr>";
@@ -212,7 +211,6 @@ let reCrearTabla = function (id, objeto, fidecomisoSelec) {
         },
     });
 };
-
 let editRegistro = function (objeto, numeroForm, consultaArray, botonEditar, consulta) {
 
     let memoriaValoreEditados = []
@@ -809,7 +807,7 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
 };
 let desabilitarRegistroEditando = function (objeto, memoriaValoreEditados) {
     let names = objeto.atributos.names;
-
+console.log(memoriaValoreEditados)
     $.each(names, function (indice, value) {
         let valor = memoriaValoreEditados[indice];
 
@@ -857,7 +855,7 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
     let file = new FormData($(`#myForm${objeto.accion}${id}`)[0]);
     let fileEvniar = $(`#myForm${objeto.accion}${id}`);
 
-    let inputs = $(`.tabs_contents_item input.inputR, .tabs_contents_item input.form`);
+   // let inputs = $(`.tabs_contents_item input.inputR, .tabs_contents_item input.form`);
     let barraCargar = "";
 
     let dessencadenanteForm = [];
@@ -877,7 +875,9 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
         desencadenanteModif[indice] = value;
         desencadenateModifTriger = true;
     });
-    if (inputs.length > 0) {
+
+  //  if (inputs.length > 0) {
+        
         $.ajax({
             type: "POST",
             url: `/${objeto.accion}`,
@@ -885,6 +885,7 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
             contentType: false,
             processData: false, // tell jQuery not to process the data
             beforeSend: function () {
+               
                 $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `none`);
                 $(`#bf${id} .botonesForm .progressBar`).css(`display`, `flex`);
                 $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `wait`);
@@ -947,7 +948,7 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
                 console.log(error);
             },
         });
-    }
+    //}
 };
 const desencadenante = function (desencadena, objeto, numeroForm, fileData, id) {
 
@@ -996,7 +997,7 @@ const desencadenante = function (desencadena, objeto, numeroForm, fileData, id) 
 };
 ////////////ENVIAR UPDATE//////////////
 let enviarRegistroEditado = (id, objeto, fidecomisoSelec, enviarEditadoReconst, eliminarAdjunto) => {
-
+     
     let inputs = $(`.tabs_contents_item input.edit`);
 
     let file = new FormData($(`#myFormEdit${objeto.accion}${id}`)[0]);
@@ -1019,7 +1020,7 @@ let enviarRegistroEditado = (id, objeto, fidecomisoSelec, enviarEditadoReconst, 
             complete: function () { },
             success: function (response) {
 
-                if (response.posteo != undefined) {
+               // if (response.posteo != undefined) {
 
                     agregarRegistroEditado(id, objeto, fidecomisoSelec, enviarEditadoReconst);
 
@@ -1037,7 +1038,7 @@ let enviarRegistroEditado = (id, objeto, fidecomisoSelec, enviarEditadoReconst, 
                     })
 
                     clearInterval(barraCargar)
-                } else {
+              /*  } else {
 
                     let key = Object.keys(response.keyValue)
 
@@ -1051,7 +1052,7 @@ let enviarRegistroEditado = (id, objeto, fidecomisoSelec, enviarEditadoReconst, 
                         $(this).css(`background-color`, `rgb(235, 233, 236)`)
                     })
 
-                }
+                }*/
             },
             error: function (error) {
                 console.log(error);
@@ -1109,6 +1110,7 @@ const validarFormulario = function (objeto, numeroForm) {
 
     const validarCampo = (match, e) => {
 
+        console.log(e.taget.value)
         if (match.test(e.target.value)) {
 
             $(e.target).addClass("validado");
@@ -1296,19 +1298,20 @@ let eliminarRegistroDesencadenado = function (value, idRegistro) {
         },
     });
 };
-
 const numeroconFiltro = function (objeto, numeroForm) {
+
     let accion = objeto.accion;
 
     const insertarNumero = function (e) {
+      
         let father = $(this).parent().parent();
         let unidades = $(`#formularioIndividual select.${objeto.numerador.funcion[0].atributoFiltro.name}`).val() || $(`#t${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.name}`).val()
 
         consultaNumer(objeto.numerador.funcion[0].name, objeto.numerador.funcion[0].filtro, numeroForm, unidades, father);
     };
-
-    $(`#formulario${accion}${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.name}, 
-       #t${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.name}`).change(insertarNumero)
+ 
+    $(`#formulario${accion}${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.nombre}, 
+       #t${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.nombre}`).change(insertarNumero)
 
 };
 const desencadenaModif = function (valor, objeto, numeroForm, editando, registroEnviado, idDesen) {
@@ -1620,7 +1623,6 @@ const formatoCeldas = function (objeto, cont) {
         value[0](objeto, cont, value[1])
 
     });
-
 };
 const tipoAtributo = function (consulta, objeto) {
 
@@ -2501,14 +2503,6 @@ const lecturaLengthBooleano = function (objeto, numeroForm, logico, atrDos) {
         $(`#formularioIndividual input.${logico.nombre}`).change(lecturaCondicionalBooleano);
     }
 }
-const limiteEjercicio = function (objeto, numeroForm) {
-
-
-}
-const limitesDePermiso = function (objeto, numeroForm) {
-
-}
-
 
 
 

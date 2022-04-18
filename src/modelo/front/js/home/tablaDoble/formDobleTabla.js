@@ -152,7 +152,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             tituloFila = objeto.tablaDobleEntrada.tituloFila
             break;
         case `baseExterna`:
-
+              console.log(filasMongo)
             break;
     }
     /////////////////////tipo de Columna
@@ -440,7 +440,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
                 chequefiltrar(attr, subFiltro)
             })
             $(`#de${numeroForm} th.agrupador`).click(function (e) {
-
+           alert(1)
                 let indi = $(this).attr(`filtro`).indexOf(` `)
                 let filtro = ""
                 if (indi > 0) {

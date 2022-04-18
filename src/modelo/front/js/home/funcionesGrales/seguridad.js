@@ -8,7 +8,6 @@ $.ajax({
   beforeSend: function () { },
   complete: function () { },
   success: function (response) {
-
     if (permisos != undefined) {
 
       let arrayId = permisos.split(",");

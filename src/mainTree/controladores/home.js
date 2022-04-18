@@ -8,11 +8,16 @@ const multer = require(`multer`)
 const { unlink } = require(`fs-extra`)
 
 const RubrosPagos = require("../../models/marketPlace/pagos/RubrosPagos");
+const Rubros = require("../../models/marketPlace/cliente/Rubros");
+const Unidades = require("../../models/marketPlace/cliente/Unidades");
+const TipoPagos = require("../../modelo/models/marketPlace/financiero/TipoPagos");
+const Moneda = require("../../modelo/models/marketPlace/financiero/Moneda");
+const Cliente = require("../../modelo/models/marketPlace/terceros/Cliente");
 const CobrosRecibidos = require("../../models/home/CobrosRecibidos");
 const PagosRealizado = require("../../models/home/PagosRealizados");
+const User = require("../../modelo/models/marketPlace/User");
 
 router.get('/cobrosRecibidos', async (req, res) => {
-
     let unidFidei = /./;
 
     if ((req.query.unid != undefined)) {
@@ -31,14 +36,6 @@ router.get('/cobrosRecibidos', async (req, res) => {
             localField: "cliente",
             foreignField: "_id",
             as: "clienteCR",
-        }
-    },
-    {
-        $lookup: {
-            from: "tipodeunidades",
-            localField: "tipoUnidad",
-            foreignField: "_id",
-            as: "tipoCR",
         }
     },
     {
@@ -81,11 +78,6 @@ router.get('/cobrosRecibidos', async (req, res) => {
             _id: 1,
             num: 1,
             unidades: "$unidadesCR.name",
-            fecha: 1,
-            cantidadDosDigitos: 1,
-            letra: 1,
-            cantidadDosDigDos: 1,
-            tipoUnidad: "$tipoCR.name",
             cliente: "$clienteCR.name",
             moneda: "$moneda.name",
             tipoCambio: 1,
@@ -115,15 +107,11 @@ router.get('/cobrosRecibidos', async (req, res) => {
     ]);
 
     let cobros = [];
-    let CobranzaRecibida = function (num, unidades, fecha, cantidadDosDigitos, letra, cantidadDosDigDos, tipoUnidad, cliente, moneda, tipoCambio, tipoPagos, observaciones, filename, path, originalname, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, id, date) {
+    let CobranzaRecibida = function (num, unidades, fecha, cliente, moneda, tipoCambio, tipoPagos, observaciones, filename, path, originalname, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, id, date) {
 
         this.num = num;
         this.unidades = unidades;
         this.fecha = fecha;
-        this.cantidadDosDigitos = cantidadDosDigitos;
-        this.letra = letra;
-        this.cantidadDosDigDos = cantidadDosDigDos;
-        this.tipoUnidad = tipoUnidad;
         this.cliente = cliente;
         this.moneda = moneda;
         this.tipoCambio = tipoCambio;
@@ -169,10 +157,6 @@ router.get('/cobrosRecibidos', async (req, res) => {
             cobranzas[x].num,
             cobranzas[x].unidades,
             cobranzas[x].fecha,
-            cobranzas[x].cantidadDosDigitos,
-            cobranzas[x].letra,
-            cobranzas[x].cantidadDosDigDos,
-            cobranzas[x].tipoUnidad,
             cobranzas[x].cliente,
             cobranzas[x].moneda,
             cobranzas[x].tipoCambio,
@@ -266,8 +250,8 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
 });
 router.post('/cobrosRecibidos', async (req, res) => {
     try {
-        let { num, unidades, fecha, cantidadDosDigitos, letra, cantidadDosDigDos, tipoUnidad, cliente, moneda, tipoCambio, tipoPago, observaciones, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date } = req.body;
-
+        let { num, unidades, fecha, cliente, moneda, tipoCambio, tipoPago, observaciones, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date } = req.body;
+        console.log(req.body)
         let rubroCobrosArray = []
         if (Array.isArray(rubro)) {
 
@@ -284,7 +268,6 @@ router.post('/cobrosRecibidos', async (req, res) => {
 
         const clientesFound = await Cliente.find({ name: { $in: cliente } });
         const unidadesFound = await Unidades.find({ name: { $in: unidades } });
-        const tipoFound = await Tipo.find({ name: { $in: tipoUnidad } });
         const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
         const usersFound = await User.find({ username: { $in: username } });
         const monedaFound = await Moneda.find({ name: { $in: moneda } });
@@ -293,10 +276,6 @@ router.post('/cobrosRecibidos', async (req, res) => {
             num,
             unidades: unidadesFound.map((unidades) => unidades._id),
             fecha,
-            cantidadDosDigitos,
-            letra,
-            cantidadDosDigDos,
-            tipoUnidad: tipoFound.map((tipo) => tipo._id),
             cliente: clientesFound.map((cliente) => cliente._id),
             moneda: monedaFound.map((mon) => mon._id),
             tipoCambio,
@@ -335,14 +314,13 @@ router.post('/cobrosRecibidos', async (req, res) => {
 });
 router.put('/cobrosRecibidos', async (req, res) => {
     try {
-        let { id, num, unidades, fecha, cantidadDosDigitos, letra, cantidadDosDigDos, tipoUnidad, cliente, moneda, tipoCambio, tipoPago, observaciones, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date } = req.body;
+        let { id, num, unidades, fecha, cliente, moneda, tipoCambio, tipoPago, observaciones, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date } = req.body;
 
         let rubroCobrosArray = []
 
         if (rubro == undefined) {
 
             const clientesFound = await Cliente.find({ name: { $in: cliente } });
-            const tipoFound = await Tipo.find({ name: { $in: tipoUnidad } });
             const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
             const usersFound = await User.find({ username: { $in: username } });
             const monedaFound = await Moneda.find({ name: { $in: moneda } });
@@ -350,10 +328,6 @@ router.put('/cobrosRecibidos', async (req, res) => {
             const newCobranzaRecAct = ({
                 num,
                 fecha,
-                cantidadDosDigitos,
-                letra,
-                cantidadDosDigDos,
-                tipoUnidad: tipoFound.map((tipo) => tipo._id),
                 cliente: clientesFound.map((cliente) => cliente._id),
                 moneda: monedaFound.map((mon) => mon._id),
                 tipoCambio,
@@ -399,7 +373,6 @@ router.put('/cobrosRecibidos', async (req, res) => {
             }
 
             const clientesFound = await Cliente.find({ name: { $in: cliente } });
-            const tipoFound = await Tipo.find({ name: { $in: tipoUnidad } });
             const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
             const usersFound = await User.find({ username: { $in: username } });
             const monedaFound = await Moneda.find({ name: { $in: moneda } });
@@ -407,10 +380,6 @@ router.put('/cobrosRecibidos', async (req, res) => {
             const newCobranzaRecAct = ({
                 num,
                 fecha,
-                cantidadDosDigitos,
-                letra,
-                cantidadDosDigDos,
-                tipoUnidad: tipoFound.map((tipo) => tipo._id),
                 cliente: clientesFound.map((cliente) => cliente._id),
                 moneda: monedaFound.map((mon) => mon._id),
                 tipoCambio,
@@ -434,7 +403,6 @@ router.put('/cobrosRecibidos', async (req, res) => {
                 username: usersFound.map((user) => user._id)
 
             });
-
 
             if (req.files[0] != undefined) {
 

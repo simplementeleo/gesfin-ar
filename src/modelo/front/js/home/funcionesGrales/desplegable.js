@@ -12,7 +12,6 @@ $('.icon-menu').click(function (e) {
 
     $('#tablas').toggleClass("vistaActive");
 
-
     $('#principalesIndicadores').toggleClass("vistaActive");
 
     $('.logoFondo').addClass("noShow");

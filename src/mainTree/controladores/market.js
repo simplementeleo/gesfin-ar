@@ -305,87 +305,6 @@ router.put('/unidades', async (req, res) => {
         console.error(error);
     }
 });
-router.get('/tipoUnidad', async (req, res) => {
-
-    const tipo = await Tipo.aggregate([{
-        $lookup: {
-            from: "users",
-            localField: "username",
-            foreignField: "_id",
-            as: "tipoUser"
-        }
-    },
-    {
-        $project: {
-            _id: 1,
-            name: 1,
-            date: 1,
-            username: "$tipoUser.username",
-            habilitado: 1
-        }
-    }
-    ]);
-
-    res.json(tipo);
-
-});
-router.post('/tipoUnidad', async (req, res) => {
-    try {
-        let { name, date, username, habilitado } = req.body;
-
-        const usersFound = await User.find({ username: { $in: username } });
-
-        const newTipo = new Tipo({
-            name,
-            date,
-            username: usersFound.map((user) => user._id),
-            habilitado
-        });
-
-        let tipo = await newTipo.save();
-        res.json({
-            mensaje: `El tipo de unidad "${name}" fue creado con exito`,
-            posteo: tipo
-        });
-
-    } catch (error) {
-        console.error(error);
-    }
-});
-router.delete('/tipoUnidad', async (req, res) => {
-
-    let { id, habilitado } = req.body;
-
-    const newTipoHab = ({
-        habilitado
-    })
-
-    let subRubroHab = await Tipo.findByIdAndUpdate(id, newTipoHab);
-
-    res.json(`El registro ha sido deshabilitado con exito`);
-
-})
-router.put('/tipoUnidad', async (req, res) => {
-    try {
-        let { _id, name, date, username } = req.body;
-
-        const usersFound = await User.find({ username: { $in: username } });
-
-        const newTipo = ({
-            name,
-            date,
-            username: usersFound.map((user) => user._id)
-
-        });
-
-        var subRubro = await Tipo.findByIdAndUpdate(_id, newTipo);
-        res.json(`El tipo de Unidad ${name} fue actualizado`);
-
-
-    } catch (error) {
-        console.error(error);
-    }
-});
 router.get('/rubro', async (req, res) => {
 
     const rubros = await Rubros.aggregate([{
@@ -399,7 +318,7 @@ router.get('/rubro', async (req, res) => {
     {
         $project: {
             _id: 1,
-            nume: 1,
+            num: 1,
             name: 1,
             date: 1,
             username: "$User.username",
@@ -413,12 +332,12 @@ router.get('/rubro', async (req, res) => {
 });
 router.post('/rubro', async (req, res) => {
     try {
-        let { nume, name, date, username, habilitado } = req.body;
+        let { num, name, date, username, habilitado } = req.body;
 
         const usersFound = await User.find({ username: { $in: username } });
 
         const newRubros = new Rubros({
-            nume,
+            num,
             name,
             date,
             username: usersFound.map((user) => user._id),
@@ -450,7 +369,7 @@ router.delete('/rubro', async (req, res) => {
 })
 router.put('/rubro', async (req, res) => {
     try {
-        let { _id, nume, name, date, username } = req.body;
+        let { _id, num, name, date, username } = req.body;
 
         const usersFound = await User.find({ username: { $in: username } });
 

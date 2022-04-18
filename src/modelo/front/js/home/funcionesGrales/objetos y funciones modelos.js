@@ -406,9 +406,13 @@ let variablesModelo = {
             columnaType: `mes`,
             columna: [`mes`],
             titulosColumna: [],
+            datosPropios: false,
             datos: {
-                ingresos: `cobranzas`,
-                egresos: `pagos`
+                filas: {
+                    ingresos: `cobrosRecibidosRubro`,
+                    egresos: `pagosRealizadosRubro`
+                }
+               
             },
         },
         permisolimite: fecha,
@@ -871,6 +875,119 @@ let variablesModelo = {
             introduccion: `En esta entidad se registran los clientes que utiliza In-inversiones.`,
             modificar: modficarTodo,
             entidades: [`Cobros recibidos`, `Proyecciones Cash Flow`],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
+    proveedor: {
+        atributos: {
+            names: [id, num, nombre, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date, habilitado],
+            titulos: [`id`, 'Numero', 'Nombre', `DNI/CUIT`, `Telefono`, `Email`, `Dirección`, `Ciudad`, `Forma de pago`, `Observaciones`, 'Usuario', 'Auditoria'],
+            soloLectura: [num, username, date],
+            oculto: [id, habilitado],
+            importe: {
+                totalizador: [],
+                importeBase: [],
+                importePesos: [],
+                importeUsd: [],
+            },
+            coompuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: {
+                    habilitado: true
+                },
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [num],
+                    cinco: [],
+                    siete: [documento, telefono, username, date],
+                    diez: [nombre, email, direccion, ciudad, tipoPago],
+                    quince: [observaciones],
+                },
+                formatoFunc: {
+                    formatoNumeroDni: [formatoNumeroDni, [documento]],
+                    primeraLetraMayuscula: [primeraLetraMayuscula, [nombre]]
+
+                }
+            },
+            modificar: {
+                names: [id, num, nombre, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date],
+                pestanas: [ciudad, tipoPago],
+                soloLectura: [num, username, date],
+            },
+            eliminar: false,
+            deshabilitar: true
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`id`, 'Numero', 'Nombre', `DNI/CUIT`, `Telefono`, `Email`, `Dirección`, `Ciudad`, `Forma de pago`, `Observaciones`, 'Usuario', 'Auditoria'],
+            oculto: [id, num, habilitado],
+            ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            inputRenglones: [4, 4, 5],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [id, num, nombre, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date],
+                pestanas: [ciudad, tipoPago],
+                soloLectura: [num, username, date],
+            },
+            impresion: {
+                tituloFormulario: `Proveedores`,
+                ocultoImpresion: [_id, id, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        acumulador: [],
+        numerador: {
+            global: {
+                0: {
+                    name: `proveedor`,
+                    filtro: false
+                },
+            }
+        },
+
+        validaciones: [nombre, documento, telefono, email, direccion, ciudad, tipoPago],
+        key: {
+            atributo: documento,
+            nombre: `dni`,
+        },
+        pest: `Proveeedor`,
+        accion: `proveedor`,
+        pestanas: {
+            cabecera: [ciudad, tipoPago],
+            coleccion: [],
+            totales: [ciudad, tipoPago],
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran los proveedores' que utiliza In-inversiones.`,
+            modificar: modficarTodo,
+            entidades: [`Pagos realizados`, `Acopio`],
             desencadena: [],
             eliminar: false,
             deshabilitar: true,

@@ -1,8 +1,8 @@
 let variablesIniciales = {
     cobrosRecibidos: {
         atributos: {
-            names: [num, unidades, fecha, cantidadDosDigitos, letra, cantidadDosDigDos, tipoUnidad, cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, compuestoCobranza, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date, id, destino],
-            titulos: ['Numero', `Fideicomiso`, `Fecha`, `Piso`, `Letra`, `Nro`, `Tipo`, 'Cliente', `Moneda`, `TC`, `Cobro`, `Obrservaciones`, `Ajunto`, `Rubro`, `Descripcion`, `Bruto`, `importeArs`, `importeUsd`, `Cargos`, `impuestoDosArs`, `impuestoDosUsd`, `Subtotal`, `totalArs`, `totalUsd`, `Total`, `importeDesencadenadoArs`, `importeDesencadenadoUsd`, 'Usuario', `Aditoria`, `id`],
+            names: [num, unidades, fecha,cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, compuestoCobranza, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date, id, destino],
+            titulos: ['Numero', `Fideicomiso`, `Fecha`,  'Cliente', `Moneda`, `TC`, `Cobro`, `Obrservaciones`, `Ajunto`, `Rubro`, `Descripcion`, `Bruto`, `importeArs`, `importeUsd`, `Cargos`, `impuestoDosArs`, `impuestoDosUsd`, `Subtotal`, `totalArs`, `totalUsd`, `Total`, `importeDesencadenadoArs`, `importeDesencadenadoUsd`, 'Usuario', `Aditoria`, `id`],
             soloLectura: [num, tipoCambio, importeDesencadenado, date, username],
             oculto: [id, destino, origen, importeArs, importeUsd, impuestoUnoArs, impuestoUnoUsd, importeDosArs, importeDosUsd, importeDesencadenadoArs, importeDesencadenadoUsd, idDesen, filename, originalname, path],
             importe: {
@@ -59,8 +59,8 @@ let variablesIniciales = {
                 }
             },
             modificar: {
-                names: [num, unidades, fecha, cantidadDosDigitos, letra, cantidadDosDigDos, tipoUnidad, cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, username, date, id, destino],
-                pestanas: [unidades, tipoUnidad, cliente, moneda, tipoPago],
+                names: [num, unidades, fecha,  cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, username, date, id, destino],
+                pestanas: [unidades, cliente, moneda, tipoPago],
                 soloLectura: [num, importeDos, importeDesencadenado, date, username],
 
             },
@@ -69,7 +69,7 @@ let variablesIniciales = {
         },
         formInd: {
             compuesto: true,
-            titulos: ['Numero', `Fideicomiso`, `Fecha`, `Piso`, `Letra`, `Nro`, `Tipo de Unid`, 'Cliente', `Moneda`, `TC`, `Medio Pago`, `Obrservaciones`, `Adjunto`, `Items`, `Importe`, `importeArs`, `importeUsd`, 'Usuario', `Aditoria`, `id`],
+            titulos: ['Numero', `Fideicomiso`, `Fecha`,  'Cliente', `Moneda`, `TC`, `Medio Pago`, `Obrservaciones`, `Adjunto`, `Items`, `Importe`, `importeArs`, `importeUsd`, 'Usuario', `Aditoria`, `id`],
             titulosCompuesto: {
                 compuestoCobranza: [`Rubro`, `Descripción`, `Bruto`, `importeArs`, `importeUsd`, `Cargos`, `impuestoUnoArs`, `impuestoUnoUsd`, `Subtotal`, `totalArs`, `totalUsd`]
             },
@@ -80,8 +80,8 @@ let variablesIniciales = {
             },
             inputRenglones: [3, 5, 5, `compuesto`, 6],
             modificar: {
-                names: [num, unidades, fecha, cantidadDosDigitos, letra, cantidadDosDigDos, tipoUnidad, cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date, id, destino],
-                pestanas: [unidades, tipoUnidad, cliente, rubro, moneda, tipoPago],
+                names: [num, unidades, fecha, cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date, id, destino],
+                pestanas: [unidades, cliente, rubro, moneda, tipoPago],
                 soloLectura: [num, unidades, tipoCambio, importeDos, importeDesencadenado, date, username],
             },
             impresion: {
@@ -93,7 +93,7 @@ let variablesIniciales = {
         },
         funcionesPropias: {
             cargar: {
-                numeroFidei: numeroconFiltro, //Form ABM -- 1072
+                numeroFidei: numeroconFiltro,
                 totalesBaseYMoneda: totalesBaseYMoneda, //Form ABM -- 834
                 nombreBotonAdjunto: nombreBotonAdjunto,
 
@@ -124,9 +124,9 @@ let variablesIniciales = {
         pestIndividual: `Ingreso Cobros`,
         accion: `cobrosRecibidos`,
         pestanas: {
-            cabecera: [unidades, tipoUnidad, cliente, moneda, tipoPago],
+            cabecera: [unidades,  cliente, moneda, tipoPago],
             coleccion: [rubro],
-            totales: [unidades, tipoUnidad, cliente, rubro, moneda, tipoPago],
+            totales: [unidades,  cliente, rubro, moneda, tipoPago],
 
         },
         tablaDobleEntrada: false,
@@ -501,7 +501,15 @@ let variablesIniciales = {
                 filtroRapido: filtroRapido
             },
         },
-        numerador: [],
+        numerador: {
+            global: {
+                0: {
+                    name: `cliente`,
+                    atributos: [num, username],
+                    filtro: false
+                },
+            },
+        },
         acumulador: [],
         ordenFormu: [0, 1, 2, 3, 4],
         validaciones: [nombre],
