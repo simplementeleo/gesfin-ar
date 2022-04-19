@@ -15,15 +15,18 @@ const Tarea = require("../models/marketPlace/procesos/Tarea");
 const Estado = require("../models/marketPlace/procesos/Estado");
 const Criticidad = require("../models/marketPlace/procesos/Criticidad");
 const Cliente = require("../models/marketPlace/terceros/Cliente");
-
-//financiero
+//Financiero
 const MovimientoFinanciero = require("../models/home/operacionFinanciera/MovimientosFinancieros");
 const ProyectadoCash = require("../models/home/operacionFinanciera/MovimientosFinancieros");
-
 //Indices
 const Icc = require("../models/home/indices/Icc");
 const TipoCambio = require("../models/home/indices/TipoDeCambio");
-console.log(2)
+//Financiero modelo
+const TipoPagos = require("../models/marketPlace/financiero/TipoPagos");
+const Moneda = require("../models/marketPlace/financiero/Moneda");
+//Clientes mainTree
+const Unidades = require("../../models/marketPlace/cliente/Unidades");
+
 router.post("/users/login", passport.authenticate("local", {
     successRedirect: "/home",
     failureRedirect: "/",
@@ -385,7 +388,6 @@ router.delete('/error', async (req, res) => {
     res.json('ok');
 
 })
-
 router.get('/requerimiento', async (req, res) => {
 
     const reqs = await Requerimiento.aggregate([{
@@ -936,7 +938,6 @@ router.post('/movimientoFinanciero', async (req, res) => {
 
             newMovFinFlex[keys[x]] = req.body[keys[x]]
         }
-
 
         const unidadesFound = await Unidades.find({ name: { $in: unidades } });
         newMovFinFlex.unidades = unidadesFound.map((unidad) => unidad._id)

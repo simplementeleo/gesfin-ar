@@ -158,25 +158,26 @@ const telefono = { nombre: `telefono`, type: `texto`, validacion: { match: valid
 const username = { nombre: `username`, type: `texto`, validacion: { match: validacionTextoStandar, texto: `Campo obligatorio` } };
 const usuario = { nombre: `usuario`, type: `texto`, validacion: { match: validacionTextoStandar, texto: `Campo obligatorio` } };
 //////referencia
-const letraComprobante = { nombre: `letraComprobante`, type: `texto`, key: [`letraComprobante`], validacion: { texto: `Seleccione una opcion` } };
-const rubro = { nombre: `rubro`, type: `referencia`, observaciones: `Referencia a concepto del pago`, maxCaract: 100, key: [`name`] };
-const subRubroPagos = { nombre: `subRubroPagos`, type: `texto`, Observaciones: `Referencia a los sub rubros pagos creados`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const rubroPagos = { nombre: `rubroPagos`, type: `referencia`, Observaciones: `Referencia a los rubros pagos creados`, key: [`nume`, `name`] };
-const cliente = { nombre: `cliente`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const ciudad = { nombre: `ciudad`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const proveedor = { nombre: `proveedor`, type: `texto`, Observaciones: `Referencia a los proveedores existentes`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
+const valReferencia = /./
+const letraComprobante = { nombre: `letraComprobante`, type: `texto`, key: [`letraComprobante`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const rubro = { nombre: `rubro`, type: `referencia`, observaciones: `Referencia a concepto del pago`, maxCaract: 100, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const subRubroPagos = { nombre: `subRubroPagos`, type: `texto`, Observaciones: `Referencia a los sub rubros pagos creados`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const rubroPagos = { nombre: `rubroPagos`, type: `referencia`, Observaciones: `Referencia a los rubros pagos creados`, key: [`num`, `name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const cliente = { nombre: `cliente`, type: `texto`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const ciudad = { nombre: `ciudad`, type: `texto`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const proveedor = { nombre: `proveedor`, type: `texto`, Observaciones: `Referencia a los proveedores existentes`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
 const pais = { nombre: `pais`, type: `texto`, referencia: `pais`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const provincia = { nombre: `provincia`, type: `texto`, referencia: `provincia`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const tipoPago = { nombre: `tipoPago`, type: `texto`, referencia: `tipoPago`, key: [`name`] };
-const tipoPagoColeccion = { nombre: `tipoPagoColeccion`, type: `texto`, referencia: `tipoPago`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const tipoUnidad = { nombre: `tipoUnidad`, type: `texto`, referencia: `tipoPago`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const tipoComprobante = { nombre: `tipoComprobante`, type: `texto`, key: [`letraComprobante`], validacion: { texto: `Seleccione una opcion` } };
-const moneda = { nombre: `moneda`, type: `texto`, observaciones: `Referencia a la moneda del comprobante`, key: [`abrev`], validacion: { texto: `Seleccione una opcion` } };
-const agrupadorRubrosPago = { nombre: `agrupadorRubrosPago`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
-const criticidad = { nombre: `criticidad`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
-const estadoProceso = { nombre: `estadoProceso`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
-const tarea = { nombre: `tarea`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
-const grupoSeguridad = { nombre: `grupoSeguridad`, type: `texto`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
+const provincia = { nombre: `provincia`, type: `texto`, referencia: `provincia`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const tipoPago = { nombre: `tipoPago`, type: `texto`, referencia: `tipoPago`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const tipoPagoColeccion = { nombre: `tipoPagoColeccion`, type: `texto`, referencia: `tipoPago`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const tipoUnidad = { nombre: `tipoUnidad`, type: `texto`, referencia: `tipoPago`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const tipoComprobante = { nombre: `tipoComprobante`, type: `texto`, key: [`letraComprobante`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const moneda = { nombre: `moneda`, type: `texto`, observaciones: `Referencia a la moneda del comprobante`, key: [`abrev`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const agrupadorRubrosPago = { nombre: `agrupadorRubrosPago`, type: `texto`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } };
+const criticidad = { nombre: `criticidad`, type: `texto`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } }
+const estadoProceso = { nombre: `estadoProceso`, type: `texto`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } }
+const tarea = { nombre: `tarea`, type: `texto`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } }
+const grupoSeguridad = { nombre: `grupoSeguridad`, type: `texto`, key: [`name`], validacion: { match: valReferencia, texto: `Seleccione una opcion` } }
 ///////logico
 const logico = { nombre: `logico`, type: `logico` };
 const estado = { nombre: `estado`, type: `texto` };
@@ -284,28 +285,6 @@ const formatoNumeroFactura = function (numero) {
 
     return numeroFactura
 }
-$(`#tablas, #formularioIndividual`).on(`keyup`, `.numeroFactura`, function (e) {
-
-    if (e.keyCode != 8) {
-        let value = this.value
-        if (value != undefined) {
-            if (value.length == 4) {
-                let primerosCuatro = (value.slice(0, 4))
-                let ultimosOcho = (value.slice(4))
-
-                $(this).val(`${primerosCuatro}-${ultimosOcho}`)
-            } else if (value.length > 4) {
-
-                let primerosCuatro = (value.slice(0, 4))
-                let ultimosOcho = (value.slice(5))
-
-                $(this).val(`${primerosCuatro}-${ultimosOcho}`)
-            } else {
-                $(this).val(value)
-            }
-        }
-    }
-})
 $(`body`).on('contextmenu', `th.tituloTablas`, function (e) {
     objetivoClickMenuContextual = $(this).attr(`filtro`)
 

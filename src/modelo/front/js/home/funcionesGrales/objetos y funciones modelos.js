@@ -412,7 +412,7 @@ let variablesModelo = {
                     ingresos: `cobrosRecibidosRubro`,
                     egresos: `pagosRealizadosRubro`
                 }
-               
+
             },
         },
         permisolimite: fecha,
@@ -961,11 +961,11 @@ let variablesModelo = {
             global: {
                 0: {
                     name: `proveedor`,
+                    atributos: [num, username, date],
                     filtro: false
                 },
             }
         },
-
         validaciones: [nombre, documento, telefono, email, direccion, ciudad, tipoPago],
         key: {
             atributo: documento,

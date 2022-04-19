@@ -78,6 +78,7 @@ app.use((req, res, next) => {
 });
 
 app.use(require('./modelo/controladores/inicio'));
+app.use(require('./mainTree/controladores/inicio'));
 app.use(require('./modelo/controladores/home'));
 app.use(require('./mainTree/controladores/home'));
 app.use(require('./modelo/controladores/market'));

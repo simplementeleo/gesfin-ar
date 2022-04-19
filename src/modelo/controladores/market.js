@@ -325,7 +325,6 @@ router.put('/grupoSeguridad', async (req, res) => {
 router.put('/grupoSeguridadDoble', async (req, res) => {
     try {
         let { id, name, username } = req.body
-        console.log(req.body)
 
         let keys = Object.keys(req.body);
 
@@ -453,9 +452,7 @@ router.get('/cliente', async (req, res) => {
         cliente.push(clientess);
 
     }
-console.log(cliente)
     res.json(cliente);
-
 });
 router.post('/cliente', async (req, res) => {
     try {
@@ -620,7 +617,7 @@ router.get('/proveedor', async (req, res) => {
 router.post('/proveedor', async (req, res) => {
     try {
         let { num, name, documento, telefono, email, direccion, ciudad, tipoPago, observaciones, username, date, habilitado } = req.body;
-       
+
         const ciudadFound = await Ciudad.find({ name: { $in: ciudad } });
         const pagosFound = await TipoPagos.find({ name: { $in: tipoPago } });
         const usersFound = await User.find({ username: { $in: username } });
@@ -640,7 +637,7 @@ router.post('/proveedor', async (req, res) => {
             habilitado
 
         });
-     
+
         let proveedor = await newProveedor.save();
 
 

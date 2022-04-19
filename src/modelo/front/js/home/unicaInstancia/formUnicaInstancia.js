@@ -437,7 +437,6 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 desencadenanteModif[indice] = value
                 desencadenateModifTriger = true
             })
-
             if (desencadenateModifTriger == true) {
 
                 desencadenaModifForm(desencadenanteModif, objeto, numeroForm)
@@ -451,14 +450,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 imprimirDirecto(objeto, numeroForm),
                     confirmarImprimir = false
             }
-
-
         } else {
-
-
-            let fideicomiso = $(`#formunidades${contador} select option:selected`).val();
-            let individual = true;
-
             $.when($.each(objeto.numerador, (ind, val) => {
 
                 $.each(val, (indice, value) => {
@@ -468,14 +460,14 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
 
                     $.each(value.atributos, (i, v) => {
 
-                        if ($(`#formulario${accion}${numeroForm} .form.${v.nombre}`).val() == "") {
-                            numeradorObjeto[v.nombre] = $(`#formulario${accion}${numeroForm}  .select.${v.nombre} option:selected`).val();;
-                        } else {
-                            numeradorObjeto[v.nombre] = $(`#formulario${accion}${numeroForm} input.form.${v.nombre}`).val();
-                        }
+                        numeradorObjeto[v.nombre] = $(`#formulario${accion}${numeroForm}  .select.${v.nombre} option:selected`).val() || $(`#formulario${accion}${numeroForm} input.form.${v.nombre}`).val();
                     })
+                    if (value.filtro == true) {
+                        insertarNumerador(numeradorObjeto)
+                    } else {
 
-                    insertarNumerador(numeradorObjeto)
+                        insertarNumeradorGlobal(numeradorObjeto)
+                    }
                 })
             })).done(enviarRegistroNuevoForm(numeroForm, objeto, lengthUnoSelect, false))
         }
@@ -1127,9 +1119,6 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
             confirmarImprimir = false
         } else {
 
-            let fideicomiso = $(`#formunidades${contador} select option:selected`).val();
-            let individual = true;
-
             $.when($.each(objeto.numerador, (ind, val) => {
 
                 $.each(val, (indice, value) => {
@@ -1138,15 +1127,13 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                     numeradorObjeto[`name`] = value.name;
 
                     $.each(value.atributos, (i, v) => {
-
-                        if ($(`#t${contador} .form.${v.nombre}`).val() == "") {
-                            numeradorObjeto[v.nombre] = $(`#t${contador} .select.${v.nombre} option:selected`).val();;
-                        } else {
-                            numeradorObjeto[v.nombre] = $(`#t${contador} .form.${v.nombre}`).val();
-                        }
+                        numeradorObjeto[v.nombre] = $(`#t${contador} .select.${v.nombre} option:selected`).val() || $(`#t${contador} .form.${v.nombre}`).val();
                     })
-
-                    insertarNumerador(numeradorObjeto)
+                    if (value.filtro == true) {
+                        insertarNumerador(numeradorObjeto)
+                    } else {
+                        insertarNumeradorGlobal(numeradorObjeto)
+                    }
                 })
             })).done(enviarRegistroNuevoForm(contador, objeto, lengthUnoSelect, true))
             if (confirmarImprimir == true) {
@@ -3257,9 +3244,10 @@ const abrirAdjuntoFormIndividual = function (objeto, numeroForm) {
     });
 };
 const insertarNumerador = function (numerador) {
+
     $.ajax({
         type: "POST",
-        url: `/numeradores`,
+        url: `/numeradoresFiltro`,
         data: numerador,
         success: function (response) { },
         error: function (error) {

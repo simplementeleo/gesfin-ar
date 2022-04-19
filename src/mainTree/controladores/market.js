@@ -11,7 +11,9 @@ const Unidades = require("../../models/marketPlace/cliente/Unidades");
 const User = require("../../modelo/models/marketPlace/User");
 const Tipo = require("../../models/marketPlace/cliente/TipoUnidad");
 const Rubros = require("../../models/marketPlace/cliente/Rubros");
+const RubrosPagos = require("../../models/marketPlace/pagos/RubrosPagos");
 const SubRubroPagos = require("../../models/marketPlace/pagos/SubRubroPagos");
+const AgrupadorRubroPagos = require("../../models/marketPlace/pagos/AgrupadorRubroPagos");
 
 router.get('/unidades', async (req, res) => {
     let unidFidei = /./;
@@ -389,6 +391,105 @@ router.put('/rubro', async (req, res) => {
         console.error(error);
     }
 })
+router.get('/rubroPagos', async (req, res) => {
+
+    const rubroPago = await RubrosPagos.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "rubroPago"
+        }
+    },
+    {
+        $lookup: {
+            from: "agrupadorrubropagos",
+            localField: "agrupadorRubrosPago",
+            foreignField: "_id",
+            as: "agrupador"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            num: 1,
+            name: 1,
+            agrupadorRubrosPago: "$agrupador.name",
+            date: 1,
+            username: "$rubroPago.username",
+            habilitado: 1
+        }
+    }
+    ]);
+
+    res.json(rubroPago);
+
+});
+router.post('/rubroPagos', async (req, res) => {
+    try {
+        let { num, name, agrupadorRubrosPago, date, username, habilitado } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+        const agrupadorRubro = await AgrupadorRubroPagos.find({ name: { $in: agrupadorRubrosPago } });
+
+        const newRubroPagos = new RubrosPagos({
+            num,
+            name,
+            agrupadorRubrosPago: agrupadorRubro.map((agrup) => agrup._id),
+            date,
+            username: usersFound.map((user) => user._id),
+            habilitado
+
+        });
+
+        let rubroPagos = await newRubroPagos.save();
+
+        res.json({
+            mensaje: `El Rubro "${name}" fue creado con exito`,
+            posteo: rubroPagos
+        });
+
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.delete('/rubroPagos', async (req, res) => {
+
+    let { id, habilitado } = req.body;
+
+    const rubroPagHab = ({
+        habilitado
+    });
+
+    let rubro = await RubrosPagos.findByIdAndUpdate(id, rubroPagHab);
+    res.json(`El registro ha sido deshabilitado con exito`);
+
+})
+router.put('/rubroPagos', async (req, res) => {
+    try {
+        let { _id, num, name, agrupadorRubrosPago, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+        const agrupadorRubro = await AgrupadorRubroPagos.find({ name: { $in: agrupadorRubrosPago } });
+
+        const newSubRubro = ({
+            num,
+            name,
+            agrupadorRubrosPago: agrupadorRubro.map((agrup) => agrup._id),
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        let subRubro = await RubrosPagos.findByIdAndUpdate(_id, newSubRubro);
+        res.json(`EL Rubro ${name} fue actualizado`);
+
+
+    } catch (error) {
+        console.error(error);
+    }
+});
 router.get('/subRubroPagos', async (req, res) => {
 
     const subRubroPago = await SubRubroPagos.aggregate([{
@@ -468,6 +569,89 @@ router.put('/subRubroPagos', async (req, res) => {
 
         let subRubro = await SubRubroPagos.findByIdAndUpdate(_id, newSubRubro);
         res.json(`EL sub Rubro ${name} fue actualizado`);
+
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.get('/agrupadorRubrosPago', async (req, res) => {
+
+    const agrupadorRubroPago = await AgrupadorRubroPagos.aggregate([{
+        $lookup: {
+            from: "users",
+            localField: "username",
+            foreignField: "_id",
+            as: "rubroPago"
+        }
+    },
+    {
+        $project: {
+            _id: 1,
+            name: 1,
+            date: 1,
+            username: "$rubroPago.username",
+            habilitado: 1
+
+        }
+    }
+    ]);
+
+    res.json(agrupadorRubroPago);
+
+});
+router.post('/agrupadorRubrosPago', async (req, res) => {
+    try {
+        let { name, date, username, habilitado } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newAgrupadorRubroPagos = new AgrupadorRubroPagos({
+            name,
+            date,
+            username: usersFound.map((user) => user._id),
+            habilitado
+
+        });
+
+        let agrupadorRubroPagos = await newAgrupadorRubroPagos.save();
+
+        res.json({
+            mensaje: `El Agrupador "${name}" fue creado con exito`,
+            posteo: agrupadorRubroPagos
+        });
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+router.delete('/agrupadorRubrosPago', async (req, res) => {
+
+    let { id, habilitado } = req.body;
+
+    const agrupadorHab = ({
+        habilitado
+    });
+
+    let agrupadorHa = await AgrupadorRubroPagos.findByIdAndUpdate(id, agrupadorHab);
+    res.json(`El registro ha sido deshabilitado con exito`);
+
+})
+router.put('/agrupadorRubrosPago', async (req, res) => {
+    try {
+        let { _id, name, date, username } = req.body;
+
+        const usersFound = await User.find({ username: { $in: username } });
+
+        const newAgrupadorRubro = ({
+            name,
+            date,
+            username: usersFound.map((user) => user._id)
+
+        });
+
+        let agrupadorPut = await AgrupadorRubroPagos.findByIdAndUpdate(_id, newAgrupadorRubro);
+        res.json(`EL agrupador rubro de pagos ${name} fue actualizado`);
 
 
     } catch (error) {

@@ -1,13 +1,8 @@
 const { Schema, model } = require("mongoose");
 
 
-const RubrosPagosSchema = new Schema({
-    num: { type: String },
+const AgrupadorRubroPagosSchema = new Schema({
     name: { type: String, required: true },
-    agrupadorRubrosPago: {
-        type: Schema.Types.ObjectId,
-        ref: "AgrupadorRubros"
-    },
     date: { type: Date },
     username: {
         type: Schema.Types.ObjectId,
@@ -17,4 +12,4 @@ const RubrosPagosSchema = new Schema({
 
 });
 
-module.exports = model("RubrosPagos", RubrosPagosSchema);
+module.exports = model("AgrupadorRubroPagos", AgrupadorRubroPagosSchema);

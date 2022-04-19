@@ -44,45 +44,45 @@ let crearTabla = function (contador, objeto, consulta) {
             tabla += tipoAtributo(consulta[i], objeto);
         } else {
             //Creaciòn de campos input
-            if(permisObject.crear.includes(objeto.accion)){
-          
-            $.each(objeto.atributos.names, function (indice, value) {
-                switch (value.type) {
-                    case "coleccion":
-                        $.each(value.componentes, function (ind, val) {
-                            tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
+            if (permisObject.crear.includes(objeto.accion)) {
+
+                $.each(objeto.atributos.names, function (indice, value) {
+                    switch (value.type) {
+                        case "coleccion":
+                            $.each(value.componentes, function (ind, val) {
+                                tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
                              <input class="inputR ${val.nombre} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
-                        });
+                            });
 
-                        break;
-                    case "coleccionTotal":
-                        $.each(value.componentes, function (ind, val) {
-                            tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
+                            break;
+                        case "coleccionTotal":
+                            $.each(value.componentes, function (ind, val) {
+                                tabla += `<td class="inputTd des ${ind}" id="inputTd${val.nombre}${contador}" cont=${contador}>
                  <input class="inputR ${ind} ${contador}" id="in${ind}${contador}" readonly name="${ind}" form="myForm${objeto.accion}${contador}"></td>`;
-                        });
+                            });
 
-                        break;
-                    case "logico":
-                        tabla += `<td class="inputTd ${value.nombre}">
+                            break;
+                        case "logico":
+                            tabla += `<td class="inputTd ${value.nombre}">
                             <input type="checkbox" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony>
                             <input type="text" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" value="false" style="display:none"></td>`;
-                        break;
-                    case "password":
-                        tabla += `<td class="inputTd ${value.nombre}">
+                            break;
+                        case "password":
+                            tabla += `<td class="inputTd ${value.nombre}">
                                 <input type="password" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" readony><img class="ojoPassword tachado" src="/img/abm/ojoTachado.png"></td>`;
-                        break;
-                    case "adjunto":
-                        tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
+                            break;
+                        case "adjunto":
+                            tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador}>
                         <label for="in${value.nombre}${contador}" class="inputR ${value.nombre} ${contador}">Adjunto</label>
                          <input type="file" class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}">
                         </td>`;
-                        break;
-                    default:
-                        tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador} >
+                            break;
+                        default:
+                            tabla += `<td class="inputTd des ${value.nombre}" id="inputTd${value.nombre}${contador}" cont=${contador} >
                           <input class="inputR ${value.nombre} ${contador}" id="in${value.nombre}${contador}" readonly name="${value.nombre}" form="myForm${objeto.accion}${contador}" maxlength="${value.maxCaract}"></td>`;
-                }
-            });
-         }
+                    }
+                });
+            }
         }
 
         tabla += "</tr>";
@@ -807,7 +807,7 @@ let editarRegistro = function (objeto, consultaArray, numeroForm, consulta) {
 };
 let desabilitarRegistroEditando = function (objeto, memoriaValoreEditados) {
     let names = objeto.atributos.names;
-console.log(memoriaValoreEditados)
+    console.log(memoriaValoreEditados)
     $.each(names, function (indice, value) {
         let valor = memoriaValoreEditados[indice];
 
@@ -855,7 +855,7 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
     let file = new FormData($(`#myForm${objeto.accion}${id}`)[0]);
     let fileEvniar = $(`#myForm${objeto.accion}${id}`);
 
-   // let inputs = $(`.tabs_contents_item input.inputR, .tabs_contents_item input.form`);
+    // let inputs = $(`.tabs_contents_item input.inputR, .tabs_contents_item input.form`);
     let barraCargar = "";
 
     let dessencadenanteForm = [];
@@ -876,78 +876,78 @@ let enviarRegistroNuevo = function (id, lengthUnoSelect, individual, fidecomisoS
         desencadenateModifTriger = true;
     });
 
-  //  if (inputs.length > 0) {
-        
-        $.ajax({
-            type: "POST",
-            url: `/${objeto.accion}`,
-            data: file,
-            contentType: false,
-            processData: false, // tell jQuery not to process the data
-            beforeSend: function () {
-               
-                $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `none`);
-                $(`#bf${id} .botonesForm .progressBar`).css(`display`, `flex`);
-                $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `wait`);
-                barraCargar = setInterval(progressBarFun, 80, id);
-            },
-            complete: function (data) { },
-            success: function (response) {
+    //  if (inputs.length > 0) {
 
-                if (response.posteo != undefined) {
+    $.ajax({
+        type: "POST",
+        url: `/${objeto.accion}`,
+        data: file,
+        contentType: false,
+        processData: false, // tell jQuery not to process the data
+        beforeSend: function () {
 
-                    registroEnviado.push({ name: `idDesen`, value: response.posteo._id });
-                    registroEnviado.push({ name: `filename`, value: response.posteo.filename }, { name: `originalname`, value: response.posteo.originalname }, { name: `path`, value: response.posteo.path });
+            $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `none`);
+            $(`#bf${id} .botonesForm .progressBar`).css(`display`, `flex`);
+            $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `wait`);
+            barraCargar = setInterval(progressBarFun, 80, id);
+        },
+        complete: function (data) { },
+        success: function (response) {
 
-                    if (desencadenateTriger == true) {
-                        desencadenante(dessencadenanteForm, objeto, id, file, response.posteo._id);
-                    }
+            if (response.posteo != undefined) {
 
-                    if (desencadenateModifTriger == true) {
-                        desencadenaModif(desencadenanteModif, objeto, id, false, fileEvniar, response.posteo._id);
-                    }
+                registroEnviado.push({ name: `idDesen`, value: response.posteo._id });
+                registroEnviado.push({ name: `filename`, value: response.posteo.filename }, { name: `originalname`, value: response.posteo.originalname }, { name: `path`, value: response.posteo.path });
 
-                    agregarRegistro(id, lengthUnoSelect, objeto, fidecomisoSelec, registroEnviado, response.posteo);
-
-                    $.each(objeto.numerador.global, (indice, value) => {
-                        consultaNumer(value.name, value.filtro, id);
-                    });
-
-                    if (individual == "false") {
-                        $(`#bf${id} .cartelErrorFront p`).html(response.mensaje);
-                        $(`#bf${id} .cartelErrorFront`).css("display", "block");
-                    } else {
-                        $(`#formnumFidei${id} p`).html(0);
-                    }
-
-                    $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
-                    $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
-                    $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
-                    clearInterval(barraCargar);
-                } else {
-
-                    let key = Object.keys(response.keyValue)
-
-                    $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
-                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
-                    $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
-
-                    $(`#t${id} input.inputR.${key[0]}`).css(`background-color`, `rgb(199, 94, 94)`)
-
-                    $(`#t${id} input.inputR.${key[0]}`).on(`focus`, function () {
-                        $(this).css(`background-color`, `rgb(235, 233, 236)`)
-                    })
-
+                if (desencadenateTriger == true) {
+                    desencadenante(dessencadenanteForm, objeto, id, file, response.posteo._id);
                 }
-            },
-            error: function (error) {
-                /*
-                 * Se ejecuta si la peticón ha sido erronea
-                 * */
 
-                console.log(error);
-            },
-        });
+                if (desencadenateModifTriger == true) {
+                    desencadenaModif(desencadenanteModif, objeto, id, false, fileEvniar, response.posteo._id);
+                }
+
+                agregarRegistro(id, lengthUnoSelect, objeto, fidecomisoSelec, registroEnviado, response.posteo);
+
+                $.each(objeto.numerador.global, (indice, value) => {
+                    consultaNumer(value.name, value.filtro, id);
+                });
+
+                if (individual == "false") {
+                    $(`#bf${id} .cartelErrorFront p`).html(response.mensaje);
+                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                } else {
+                    $(`#formnumFidei${id} p`).html(0);
+                }
+
+                $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
+                $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
+                $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
+                clearInterval(barraCargar);
+            } else {
+
+                let key = Object.keys(response.keyValue)
+
+                $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
+                $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+
+                $(`#t${id} input.inputR.${key[0]}`).css(`background-color`, `rgb(199, 94, 94)`)
+
+                $(`#t${id} input.inputR.${key[0]}`).on(`focus`, function () {
+                    $(this).css(`background-color`, `rgb(235, 233, 236)`)
+                })
+
+            }
+        },
+        error: function (error) {
+            /*
+             * Se ejecuta si la peticón ha sido erronea
+             * */
+
+            console.log(error);
+        },
+    });
     //}
 };
 const desencadenante = function (desencadena, objeto, numeroForm, fileData, id) {
@@ -997,7 +997,7 @@ const desencadenante = function (desencadena, objeto, numeroForm, fileData, id) 
 };
 ////////////ENVIAR UPDATE//////////////
 let enviarRegistroEditado = (id, objeto, fidecomisoSelec, enviarEditadoReconst, eliminarAdjunto) => {
-     
+
     let inputs = $(`.tabs_contents_item input.edit`);
 
     let file = new FormData($(`#myFormEdit${objeto.accion}${id}`)[0]);
@@ -1020,39 +1020,39 @@ let enviarRegistroEditado = (id, objeto, fidecomisoSelec, enviarEditadoReconst, 
             complete: function () { },
             success: function (response) {
 
-               // if (response.posteo != undefined) {
+                // if (response.posteo != undefined) {
 
-                    agregarRegistroEditado(id, objeto, fidecomisoSelec, enviarEditadoReconst);
+                agregarRegistroEditado(id, objeto, fidecomisoSelec, enviarEditadoReconst);
 
-                    $(`#bf${id} .cartelErrorFront p`).html(response);
-                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                $(`#bf${id} .cartelErrorFront p`).html(response);
+                $(`#bf${id} .cartelErrorFront`).css("display", "block");
 
-                    $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
-                    $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
-                    $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
+                $(`#bf${id} .botonesForm .imgB.okfBoton`).css(`display`, `flex`);
+                $(`#bf${id} .botonesForm .progressBar`).css(`display`, `none`);
+                $(`#bf${id} .botonesForm .imgB`).css(`cursor`, `pointer`);
 
 
-                    $.each(eliminarAdjunto, (inidce, value) => {
-                        eliminarAdjunto(value)
+                $.each(eliminarAdjunto, (inidce, value) => {
+                    eliminarAdjunto(value)
 
-                    })
+                })
 
-                    clearInterval(barraCargar)
-              /*  } else {
-
-                    let key = Object.keys(response.keyValue)
-
-                    $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
-                    $(`#bf${id} .cartelErrorFront`).css("display", "block");
-                    $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
-
-                    $(`#t${id} input.inputR.${key[0]}`).css(`background-color`, `rgb(199, 94, 94)`)
-
-                    $(`#t${id} input.inputR.${key[0]}`).on(`focus`, function () {
-                        $(this).css(`background-color`, `rgb(235, 233, 236)`)
-                    })
-
-                }*/
+                clearInterval(barraCargar)
+                /*  } else {
+  
+                      let key = Object.keys(response.keyValue)
+  
+                      $(`#bf${id} .cartelErrorFront p`).html(`El ${key[0]} ${response.keyValue[key[0]]} ya fue registrado`)
+                      $(`#bf${id} .cartelErrorFront`).css("display", "block");
+                      $(`#bf${id} .cartelErrorFront`).fadeOut(8000)
+  
+                      $(`#t${id} input.inputR.${key[0]}`).css(`background-color`, `rgb(199, 94, 94)`)
+  
+                      $(`#t${id} input.inputR.${key[0]}`).on(`focus`, function () {
+                          $(this).css(`background-color`, `rgb(235, 233, 236)`)
+                      })
+  
+                  }*/
             },
             error: function (error) {
                 console.log(error);
@@ -1109,15 +1109,11 @@ const validarFormulario = function (objeto, numeroForm) {
     let accion = objeto.accion;
 
     const validarCampo = (match, e) => {
-
-        console.log(e.taget.value)
         if (match.test(e.target.value)) {
-
             $(e.target).addClass("validado");
             $(e.target).attr("validado", true);
 
         } else {
-
             if (!$(e.target).is("[readonly]")) {
                 $(e.target).removeClass("validado");
                 $(e.target).attr("validado", false);
@@ -1303,13 +1299,13 @@ const numeroconFiltro = function (objeto, numeroForm) {
     let accion = objeto.accion;
 
     const insertarNumero = function (e) {
-      
+
         let father = $(this).parent().parent();
-        let unidades = $(`#formularioIndividual select.${objeto.numerador.funcion[0].atributoFiltro.name}`).val() || $(`#t${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.name}`).val()
+        let unidades = $(`#formularioIndividual select.${objeto.numerador.funcion[0].atributoFiltro.nombre}`).val() || $(`#t${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.nombre}`).val();
 
         consultaNumer(objeto.numerador.funcion[0].name, objeto.numerador.funcion[0].filtro, numeroForm, unidades, father);
     };
- 
+
     $(`#formulario${accion}${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.nombre}, 
        #t${numeroForm} select.${objeto.numerador.funcion[0].atributoFiltro.nombre}`).change(insertarNumero)
 
@@ -1510,11 +1506,14 @@ const actualizaDesecandenante = function (numeroForm, destino, accion) {
     });
 };
 const consultaNumer = function (name, filtro, id, unidades, father) {
+
     if (filtro == false) {
+
         $.ajax({
             type: "GET",
             url: `/numeradores?name=${name}`,
             success: function (response) {
+
                 if (response.length > 0) {
                     $(`#t${id} input.num`).val(response[0].num + 1);
                     $(`#formnum${id} input.form.num`).val(response[0].num + 1);
@@ -1532,11 +1531,11 @@ const consultaNumer = function (name, filtro, id, unidades, father) {
     } else {
         let fidei = "";
         fidei = unidades || $(`#t${id} select.unidades option:selected`).val();
-
         $.ajax({
             type: "GET",
             url: `/numeradoresFiltro?name=${name}&unid=${fidei}`,
             success: function (response) {
+
                 if (response.length > 0) {
                     if (father == undefined) {
                         $(`#t${id} input.num`).val(response[0].num + 1);
@@ -2504,5 +2503,17 @@ const lecturaLengthBooleano = function (objeto, numeroForm, logico, atrDos) {
     }
 }
 
+const insertarNumeradorGlobal = function (numerador) {
+    console.log(numerador)
+    $.ajax({
+        type: "POST",
+        url: `/numeradores`,
+        data: numerador,
+        success: function (response) { },
+        error: function (error) {
+            console.log(error);
+        },
+    });
+};
 
 

@@ -63,8 +63,6 @@ router.get("/logout", (req, res) => {
     req.flash("success_msg", "You have logged out successfully")
     res.redirect("/");
 });
-router
-
 router.delete('/imagen', async (req, res) => {
 
 
@@ -95,41 +93,11 @@ router.get('/numeradores', async (req, res) => {
 
 
 });
-router.get('/numeradoresFiltro', async (req, res) => {
-
-    let nameR = req.query.name;
-    let unid = req.query.unid;
-
-    const numerador = await Numerador.aggregate([{
-        $lookup: {
-            from: "unidades",
-            localField: "unidades",
-            foreignField: "_id",
-            as: "unidadesNum"
-        }
-    },
-    {
-        $match: {
-            name: nameR,
-            "unidadesNum.name": unid
-        }
-    },
-    {
-        $project: {
-            num: 1,
-            name: 1,
-            unidades: "$unidadesCR.name",
-        }
-    },
-
-    ]).sort({ _id: -1 }).limit(1);;
-
-    res.json(numerador);
-});
 router.post(`/numeradores`, async (req, res) => {
-
     try {
         let { name, num, username, } = req.body;
+
+        console.log(req.body)
 
         const usersFound = await User.find({ username: { $in: username } });
 

@@ -4,6 +4,10 @@ const { Schema, model } = require("mongoose");
 const NumeroSchema = new Schema({
     name: { type: String, required: true },
     num: { type: Number, required: true },
+    unidades: {
+        type: Schema.Types.ObjectId,
+        ref: "Referencia"
+    },
     username: {
         type: Schema.Types.ObjectId,
         ref: "Unidad"
@@ -12,4 +16,4 @@ const NumeroSchema = new Schema({
 });
 
 
-module.exports = model("Numerador", NumeroSchema);
+module.exports = model("NumeradorFiltro", NumeroSchema);

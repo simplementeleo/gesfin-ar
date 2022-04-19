@@ -79,7 +79,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
             consulta = data;
 
             for (var l = 0; l < objeto.pestanas.totales.length; l++) {
-             
+
 
                 $.ajax({
                     type: "get",
@@ -264,12 +264,12 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         })
 
         if (valid.includes("false")) {
-   
+
             $(`#bf${numeroForm} .cartelErrorFront p`).html("Revisar los campos en rojo")
             $(`#bf${numeroForm} .cartelErrorFront`).css("display", "block");
 
         } else {
-         
+
             if (editando === true) {
                 let file = $(`#myFormEdit${objeto.accion}${numeroForm}`)
 
@@ -295,7 +295,6 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                 $.each(objeto.desencadena.condicionalUnBooleano, function (indice, value) {
 
                     enviarRegistroEditadoDesenc(objeto, numeroForm, value.destino, file)
-
                 })
 
                 let enviarEditadoReconst = new Object;
@@ -336,29 +335,27 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                 editando = false;
                 memoriaValoreEditados = []
 
-            } else if (losInput === true) {
+            } else if (losInput == true) {
 
                 $.each(objeto.numerador, (ind, val) => {
 
-                    $.each(val, (indice, value) => {
 
+                    $.each(val, (indice, value) => {
 
                         let numeradorObjeto = new Object;
                         numeradorObjeto[`name`] = value.name;
 
                         $.each(value.atributos, (i, v) => {
 
+                            numeradorObjeto[v.nombre] = $(`#t${numeroForm} .select.${v.nombre} option:selected`).val() || $(`#t${numeroForm} .inputR.${v.nombre}`).val();
 
-                            if ($(`#t${numeroForm} .inputR.${v.nombre}`).val() == "") {
-
-                                numeradorObjeto[v.nombre] = $(`#t${numeroForm} .select.${v.nombre} option:selected`).val();;
-                            } else {
-
-                                numeradorObjeto[v.nombre] = $(`#t${numeroForm} .inputR.${v.nombre}`).val();
-                            }
                         })
+                        if (value.filtro == true) {
+                            insertarNumerador(numeradorObjeto)
+                        } else {
 
-                        insertarNumerador(numeradorObjeto)
+                            insertarNumeradorGlobal(numeradorObjeto)
+                        }
                     })
                 })
 
@@ -503,7 +500,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
         if ((fechaDos > fecha) || objeto.permisolimite == undefined) {
 
             let resulEdit = editRegistro(objeto, numeroForm, consultaArray, botonEditar, consulta)
-           
+
             botonEditar = true;
             editando = true;
             filaSeleccionada = resulEdit.filaSeleccionada
@@ -544,9 +541,9 @@ $('.menuSelectAbm').on('click ', this.id, function () {
     }
     $(`#bf${numeroForm} .cancelBoton,
     .menuCancelar.${numeroForm}`).click(function (e) {
-         
+
         if (editando == true) {
-          
+
             desabilitarRegistroEditando(objeto, memoriaValoreEditados)
             botonEditar = false;
             editando = false;
@@ -727,7 +724,7 @@ $('.menuSelectAbm').on('click ', this.id, function () {
 
             $(`.inputR.${value.nombre}.${cont}`).addClass("doEntrada");
         })
-   
+
         $.each(consultaArray, function (indice, value) {
 
             $(`#inputTd${objeto.pestanas.totales[indice].nombre}${cont}`).children("select");

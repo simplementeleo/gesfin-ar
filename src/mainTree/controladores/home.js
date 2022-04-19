@@ -6,13 +6,19 @@ const morgan = require(`morgan`);
 const path = require('path');
 const multer = require(`multer`)
 const { unlink } = require(`fs-extra`)
-
+//MainTree pagos
 const RubrosPagos = require("../../models/marketPlace/pagos/RubrosPagos");
+const SubRubroPagos = require("../../models/marketPlace/pagos/SubRubroPagos");
+//MainTree cliente
 const Rubros = require("../../models/marketPlace/cliente/Rubros");
 const Unidades = require("../../models/marketPlace/cliente/Unidades");
+//Modelo financiero
 const TipoPagos = require("../../modelo/models/marketPlace/financiero/TipoPagos");
 const Moneda = require("../../modelo/models/marketPlace/financiero/Moneda");
+//Modelo terceros
 const Cliente = require("../../modelo/models/marketPlace/terceros/Cliente");
+const Proveedor = require("../../modelo/models/marketPlace/terceros/Proveedor");
+//Modelo
 const CobrosRecibidos = require("../../models/home/CobrosRecibidos");
 const PagosRealizado = require("../../models/home/PagosRealizados");
 const User = require("../../modelo/models/marketPlace/User");
@@ -20,7 +26,7 @@ const User = require("../../modelo/models/marketPlace/User");
 router.get('/cobrosRecibidos', async (req, res) => {
     let unidFidei = /./;
 
-    if ((req.query.unid != undefined)) {
+    if (req.query.unid != undefined && req.query.unid != "") {
 
         unidFidei = req.query.unid
     }
@@ -251,7 +257,7 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
 router.post('/cobrosRecibidos', async (req, res) => {
     try {
         let { num, unidades, fecha, cliente, moneda, tipoCambio, tipoPago, observaciones, rubro, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, importeDos, importeDosArs, importeDosUsd, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date } = req.body;
-        console.log(req.body)
+
         let rubroCobrosArray = []
         if (Array.isArray(rubro)) {
 
@@ -417,7 +423,6 @@ router.put('/cobrosRecibidos', async (req, res) => {
             }
 
             var cobroRecAct = await CobrosRecibidos.findByIdAndUpdate(id, newCobranzaRecAct);
-            console.log(cobroRecAct)
 
             res.json(`La Cobranza del cliente ${cliente} fue actualizada`);
         }
@@ -436,10 +441,9 @@ router.delete('/cobrosRecibidos', async (req, res) => {
 })
 ///////////////Pagos Realizados
 router.get('/pagosRealizados', async (req, res) => {
-
     let unidFidei = /./;
 
-    if ((req.query.unid != undefined)) {
+    if (req.query.unid != undefined && req.query.unid != "") {
 
         unidFidei = req.query.unid
     }
@@ -713,7 +717,7 @@ router.post('/pagosRealizados', async (req, res) => {
 
         let acopioGuardar = false;
 
-        if (acopio == `on`) {
+        if (logico == `on`) {
             acopioGuardar = true
         } else {
             acopioGuardar = false
@@ -744,7 +748,6 @@ router.post('/pagosRealizados', async (req, res) => {
             }
 
         } else {
-
 
             let rubrosFound = await RubrosPagos.find({ name: { $in: rubroPagos } });
             let subRubrosFound = await SubRubroPagos.find({ name: { $in: subRubroPagos } });
@@ -872,105 +875,4 @@ router.delete('/pagosRealizados', async (req, res) => {
     res.json('ok');
 
 })
-router.get('/rubroPagos', async (req, res) => {
-
-    const rubroPago = await RubrosPagos.aggregate([{
-        $lookup: {
-            from: "users",
-            localField: "username",
-            foreignField: "_id",
-            as: "rubroPago"
-        }
-    },
-    {
-        $lookup: {
-            from: "agrupadorrubropagos",
-            localField: "agrupadorRubrosPago",
-            foreignField: "_id",
-            as: "agrupador"
-        }
-    },
-    {
-        $project: {
-            _id: 1,
-            nume: 1,
-            name: 1,
-            agrupadorRubrosPago: "$agrupador.name",
-            date: 1,
-            username: "$rubroPago.username",
-            habilitado: 1
-        }
-    }
-    ]);
-
-    res.json(rubroPago);
-
-});
-router.post('/rubroPagos', async (req, res) => {
-    try {
-        let { nume, name, agrupadorRubrosPago, date, username, habilitado } = req.body;
-
-        const usersFound = await User.find({ username: { $in: username } });
-        const agrupadorRubro = await AgrupadorRubroPagos.find({ name: { $in: agrupadorRubrosPago } });
-
-        const newRubroPagos = new RubrosPagos({
-            nume,
-            name,
-            agrupadorRubrosPago: agrupadorRubro.map((agrup) => agrup._id),
-            date,
-            username: usersFound.map((user) => user._id),
-            habilitado
-
-        });
-
-        let rubroPagos = await newRubroPagos.save();
-
-
-        res.json({
-            mensaje: `El Rubro "${name}" fue creado con exito`,
-            posteo: rubroPagos
-        });
-
-
-    } catch (error) {
-        console.error(error);
-    }
-});
-router.delete('/rubroPagos', async (req, res) => {
-
-    let { id, habilitado } = req.body;
-
-    const rubroPagHab = ({
-        habilitado
-    });
-
-    let rubro = await RubrosPagos.findByIdAndUpdate(id, rubroPagHab);
-    res.json(`El registro ha sido deshabilitado con exito`);
-
-})
-router.put('/rubroPagos', async (req, res) => {
-    try {
-        let { _id, nume, name, agrupadorRubrosPago, date, username } = req.body;
-
-        const usersFound = await User.find({ username: { $in: username } });
-        const agrupadorRubro = await AgrupadorRubroPagos.find({ name: { $in: agrupadorRubrosPago } });
-
-        const newSubRubro = ({
-            nume,
-            name,
-            agrupadorRubrosPago: agrupadorRubro.map((agrup) => agrup._id),
-            date,
-            username: usersFound.map((user) => user._id)
-
-        });
-
-        let subRubro = await RubrosPagos.findByIdAndUpdate(_id, newSubRubro);
-        res.json(`EL Rubro ${name} fue actualizado`);
-
-
-    } catch (error) {
-        console.error(error);
-    }
-});
-
 module.exports = router;

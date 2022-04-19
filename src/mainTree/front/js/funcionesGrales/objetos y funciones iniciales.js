@@ -1,9 +1,9 @@
 let variablesIniciales = {
     cobrosRecibidos: {
         atributos: {
-            names: [num, unidades, fecha,cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, compuestoCobranza, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date, id, destino],
-            titulos: ['Numero', `Fideicomiso`, `Fecha`,  'Cliente', `Moneda`, `TC`, `Cobro`, `Obrservaciones`, `Ajunto`, `Rubro`, `Descripcion`, `Bruto`, `importeArs`, `importeUsd`, `Cargos`, `impuestoDosArs`, `impuestoDosUsd`, `Subtotal`, `totalArs`, `totalUsd`, `Total`, `importeDesencadenadoArs`, `importeDesencadenadoUsd`, 'Usuario', `Aditoria`, `id`],
-            soloLectura: [num, tipoCambio, importeDesencadenado, date, username],
+            names: [num, unidades, fecha, cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, compuestoCobranza, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, username, date, id, destino],
+            titulos: ['Numero', `Fideicomiso`, `Fecha`, 'Cliente', `Moneda`, `TC`, `Cobro`, `Obrservaciones`, `Ajunto`, `Rubro`, `Descripcion`, `Bruto`, `importeArs`, `importeUsd`, `Cargos`, `impuestoDosArs`, `impuestoDosUsd`, `Subtotal`, `totalArs`, `totalUsd`, `Total`, `importeDesencadenadoArs`, `importeDesencadenadoUsd`, 'Usuario', `Aditoria`, `id`],
+            soloLectura: [num, tipoCambio, importeDos, importeDesencadenado, date, username],
             oculto: [id, destino, origen, importeArs, importeUsd, impuestoUnoArs, impuestoUnoUsd, importeDosArs, importeDosUsd, importeDesencadenadoArs, importeDesencadenadoUsd, idDesen, filename, originalname, path],
             importe: {
                 saldo: [],
@@ -59,7 +59,7 @@ let variablesIniciales = {
                 }
             },
             modificar: {
-                names: [num, unidades, fecha,  cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, username, date, id, destino],
+                names: [num, unidades, fecha, cliente, moneda, tipoCambio, tipoPago, observaciones, adjunto, username, date, id, destino],
                 pestanas: [unidades, cliente, moneda, tipoPago],
                 soloLectura: [num, importeDos, importeDesencadenado, date, username],
 
@@ -69,7 +69,7 @@ let variablesIniciales = {
         },
         formInd: {
             compuesto: true,
-            titulos: ['Numero', `Fideicomiso`, `Fecha`,  'Cliente', `Moneda`, `TC`, `Medio Pago`, `Obrservaciones`, `Adjunto`, `Items`, `Importe`, `importeArs`, `importeUsd`, 'Usuario', `Aditoria`, `id`],
+            titulos: ['Numero', `Fideicomiso`, `Fecha`, 'Cliente', `Moneda`, `TC`, `Medio Pago`, `Obrservaciones`, `Adjunto`, `Items`, `Importe`, `importeArs`, `importeUsd`, 'Usuario', `Aditoria`, `id`],
             titulosCompuesto: {
                 compuestoCobranza: [`Rubro`, `Descripción`, `Bruto`, `importeArs`, `importeUsd`, `Cargos`, `impuestoUnoArs`, `impuestoUnoUsd`, `Subtotal`, `totalArs`, `totalUsd`]
             },
@@ -124,9 +124,9 @@ let variablesIniciales = {
         pestIndividual: `Ingreso Cobros`,
         accion: `cobrosRecibidos`,
         pestanas: {
-            cabecera: [unidades,  cliente, moneda, tipoPago],
+            cabecera: [unidades, cliente, moneda, tipoPago],
             coleccion: [rubro],
-            totales: [unidades,  cliente, rubro, moneda, tipoPago],
+            totales: [unidades, cliente, rubro, moneda, tipoPago],
 
         },
         tablaDobleEntrada: false,
@@ -541,6 +541,105 @@ let variablesIniciales = {
         }
 
     },
+    rubroPagos: {
+        atributos: {
+            names: [_id, num, nombre, agrupadorRubrosPago, date, username, habilitado],
+            titulos: [`_id`, `Numero`, `Rubros`, `Agrupado`, 'Auditoria', 'Usuario'],
+            soloLectura: [date, username],
+            oculto: [_id, habilitado],
+            importe: {
+                totalizador: [],
+                importeBase: [],
+                importePesos: [],
+                importeUsd: [],
+            },
+            compuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: {
+                    habilitado: true
+                },
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [num],
+                    cinco: [],
+                    siete: [username, date],
+                    diez: [nombre, agrupadorRubrosPago],
+                    quince: [],
+                }
+            },
+            modificar: {
+                names: [_id, num, nombre, agrupadorRubrosPago, date, username],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            eliminar: false,
+            deshabilitar: true
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`_id`, `Numero`, `Rubros`, `Agrupado`, 'Auditoria', 'Usuario'],
+            oculto: [_id, habilitado],
+            ordenFormu: [0, 1, 2, 3, 4, 5, 6, 7],
+            inputRenglones: [4, 4],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [_id, num, nombre, agrupadorRubrosPago, date, username],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            impresion: {
+                tituloFormulario: `Rubro de Pagos`,
+                ocultoImpresion: [_id, id, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        numerador: [],
+        validaciones: [num, nombre, agrupadorRubrosPago],
+        key: {
+            atributo: num,
+            nombre: `nombre`,
+        },
+        pest: `Rubro Egresos`,
+        accion: `rubroPagos`,
+        pestanas: {
+            cabecera: [agrupadorRubrosPago],
+            coleccion: [],
+            totales: [agrupadorRubrosPago],
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran los rubros que utiliza In-inversiones.`,
+            modificar: modficarTodo,
+            entidades: [`Pagos realizados`, `Proyecciones CashFlow`],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
     subRubroPagos: {
         atributos: {
             names: [_id, num, nombre, date, username, habilitado],
@@ -615,6 +714,7 @@ let variablesIniciales = {
             global: {
                 0: {
                     name: `subRubroPagos`,
+                    atributos: [num, username, date],
                     filtro: false
                 },
             }
@@ -642,6 +742,107 @@ let variablesIniciales = {
             introduccion: `En esta entidad se registran los sub rubros que utiliza In-inversiones.`,
             modificar: modficarTodo,
             entidades: [`Pagos realizados`],
+            desencadena: [],
+            eliminar: false,
+            deshabilitar: true,
+            FiltroRapido: `Habitalitado/deshabilitado`
+        }
+    },
+    agrupadorRubrosPago: {
+        atributos: {
+            names: [_id, nombre, date, username, habilitado],
+            titulos: [`_id`, `Agrupador`, 'Auditoria', 'Usuario'],
+            soloLectura: [date, username],
+            oculto: [_id, habilitado],
+            importe: {
+                totalizador: [],
+                importeBase: [],
+                importePesos: [],
+                importeUsd: [],
+            },
+            compuesto: [],
+            signo: [],
+            color: [],
+            number: [],
+            date: [],
+            filtroRapido: {
+                referencia: habilitado,
+                filtros: [`true`, `false`, `Todos`],
+                titulos: [`Habilitado`, `DesHab`, `Todos`]
+            },
+            valoresIniciales: {
+                funcion: [],
+                string: {
+                    habilitado: true
+                },
+            },
+            configAbm: {
+                with: {
+                    cuatroCinco: [],
+                    cinco: [],
+                    siete: [username, date],
+                    diez: [nombre],
+                    quince: [],
+                }
+            },
+            modificar: {
+                names: [_id, nombre, date, username],
+                pestanas: [],
+                soloLectura: [date, username],
+            },
+            eliminar: false,
+            deshabilitar: true
+
+        },
+        formInd: {
+            compuesto: false,
+            titulos: [`_id`, `Agrupador`, 'Auditoria', 'Usuario'],
+            oculto: [_id, habilitado],
+            ordenFormu: [0, 1, 2, 3, 4],
+            inputRenglones: [5, 5],
+            soloLectura: {
+                compuesto: []
+            },
+            modificar: {
+                names: [_id, nombre, date, username],
+                pestanas: [],
+                soloLectura: [date, username]
+            },
+            impresion: {
+                tituloFormulario: `Agrupador de pagos`,
+                ocultoImpresion: [_id, id, habilitado],
+                titulosImpresionCompuesto: [],
+            }
+        },
+        funcionesPropias: {
+            inicio: {
+                filtroRapido: filtroRapido
+            },
+        },
+        numerador: [],
+        validaciones: [nombre],
+        key: {
+            atributo: nombre,
+            nombre: `nombre`,
+        },
+        pest: `Agrupador Egresos`,
+        accion: `agrupadorRubrosPago`,
+        pestanas: {
+            cabecera: [],
+            coleccion: [],
+            totales: []
+        },
+        tablaDobleEntrada: false,
+        desencadena: false,
+        desencadenaColeccion: {
+            principal: [],
+            desencadenaModif: []
+        },
+        ayuda: {
+            introduccion: `En esta entidad se registran los Agrupadores que utiliza In-inversiones. Este agrupados es utlizado
+            principalmente cuando se realiza el proyectado del cash flow a fines de poder agrupar los tipos de pagos`,
+            modificar: modficarTodo,
+            entidades: [`Proyecciones Cash Flow`, `Rubros de pagos`],
             desencadena: [],
             eliminar: false,
             deshabilitar: true,
