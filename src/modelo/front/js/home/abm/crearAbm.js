@@ -743,10 +743,10 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                         let show = ""
                         $.each(objeto.pestanas.totales[indice].key, (ind, val) => {
 
-                            show += `${value[i][val]}`
+                            show += `${value[i][val]} `
                         })
 
-                        s += `<option class="opciones" value="${value[i].name}">${show}</option>`;
+                        s += `<option class="opciones" value="${value[i].name}">${show.slice(0, -1)}</option>`;
                     }
                 }
 
@@ -771,10 +771,10 @@ $('.menuSelectAbm').on('click ', this.id, function () {
                     let show = ""
                     $.each(objeto.pestanas.totales[indice].key, (ind, val) => {
 
-                        show += `${value[0][val]}`
+                        show += `${value[0][val]} `
                     })
 
-                    lengthUnoSelect[objeto.pestanas.totales[indice].nombre] = show
+                    lengthUnoSelect[objeto.pestanas.totales[indice].nombre] = show.slice(0, -1)
 
                     $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).val(show);
                     $(`.inputR.${objeto.pestanas.totales[indice].nombre}.${cont}`).prop("readonly", "true");

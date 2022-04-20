@@ -219,7 +219,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                         show += `${value[i][val]} `
                     })
 
-                    s += `<option class="opciones ${value[i].habilitado}" value="${value[i].name}">${show}</option>`;
+                    s += `<option class="opciones ${value[i].habilitado}" value="${value[i].name}">${show.slice(0, -1)}</option>`;
                 }
             }
 
@@ -256,7 +256,6 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 let primerFila = $(`#tablaCol${objeto.accion}${numeroForm} tr:nth-child(1n) td.${pestanas[indice].nombre}`)
                 if (!(primerFila.hasClass(`comp`))) {
 
-
                     select.appendTo(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first`)
                 }
 
@@ -269,7 +268,6 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
 
                         let input = $(`input.${pestanas[indice].nombre}`, v).val()
                         $(`input.${pestanas[indice].nombre}`, v).attr(`disabled`, `disabled`)
-
 
                         $(`select.${pestanas[indice].nombre}`, v).val(input)
                         $(`select.${pestanas[indice].nombre}`, v).attr(`disabled`, `disabled`)
@@ -288,7 +286,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 let show = ""
                 $.each(objeto.pestanas.totales[indice].key, (ind, val) => {
 
-                    show += `${value[0][val]}`
+                    show += `${value[0][val]} `
                 })
 
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).addClass("validado");
@@ -296,7 +294,7 @@ let crearFormulario = function (objeto, consultaArray, contador, numeroForm, fid
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).attr("validado", "true");
                 $(`#formularioIndividual .form.${pestanas[indice].nombre}`).val(show)
 
-                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).val(show)
+                $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).val(show.slice(0, -1))
                 $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).addClass("validado");
                 $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).prop("readonly", "true");
                 $(`.vacio.${pestanas[indice].nombre}.${numeroForm}:first input`).attr("validado", "true");
@@ -974,7 +972,7 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                                 show += `${data[i][val]} `
                             })
 
-                            s += `<option class="opciones" value="${data[i].name}">${show}</option>`;
+                            s += `<option class="opciones" value="${data[i].name}">${show.slice(0, -1)}</option>`;
                         }
                     }
 
@@ -1011,14 +1009,14 @@ let crearFormularioPestana = function (objeto, numeroInterno, contador, fidecomi
                         let show = ""
                         $.each(objeto.pestanas.totales[indice].key, (ind, val) => {
 
-                            show += `${data[0][val]}`;
+                            show += `${data[0][val]} `;
                         })
 
                         $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).removeClass("requerido");
                         $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).prop("readOnly", true);
                         $(`#t${contador} .form.${pestanas.totales[indice].nombre}`).val(show);
 
-                        $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).val(show)
+                        $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).val(show.slice(0, -1))
                         $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).prop("readOnly", true);
                         $(`.vacio.${pestanas.totales[indice].nombre}.${contador}:first input`).removeClass("requerido");
 

@@ -129,6 +129,45 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
     let hoy = new Date(Date.now());
     let mesActual = ""
     let ano = ""
+    let mesesTablaDoble = [`Ene`, `Feb`, `Mar`, `Abr`, `May`, `Jun`, `Jul`, `Ago`, `Sep`, `Oct`, `Nov`, `Dic`];
+
+    let cabeceraRegular = function (titulosColumna) {
+        let cabecera = ""
+
+        $.each(titulosColumna, function (indice, value) {
+
+            // definicion de cabecera de la tabla
+            cabecera += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
+        })
+        cabecera += `<tr>`;
+
+        return cabecera
+
+    }
+    let cabecerTotalizador = function (titulosColumna) {
+        let cabecera = ""
+
+        $.each(titulosColumna, function (indice, value) {
+
+            // definicion de cabecera de la tabla
+            cabecera += `<th class="tituloTablasSuperior ${[indice]}">${[indice]}</th>`;
+
+            cabecera += `</tr>`;
+            cabecera += `<tr>`;
+            $.each(value, (ind, val) => {
+                cabecera += `<th class="tituloTablas ${[val]}">${[val]}</th>`;
+            })
+        })
+        cabecera += `<tr>`;
+
+        return cabecera
+
+    }
+
+    tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
+    tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
+    tabla += `<tr><th class="tituloTablas vacio"></th>`;
+
     /////////////////////tipo de fila
     switch (objeto.tablaDobleEntrada.filaType) {
         case `baseInterna`://Esta opción se usa cuando las filas esta determinadas por la accion principal de la entidad
@@ -152,7 +191,8 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             tituloFila = objeto.tablaDobleEntrada.tituloFila
             break;
         case `baseExterna`:
-              console.log(filasMongo)
+
+            fila = filasMongo
             break;
     }
     /////////////////////tipo de Columna
@@ -164,37 +204,38 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
                 columna.push(value.nombre)
                 totalesColumna[value.nombre] = 0
             })
-            titulosColumna = objeto.tablaDobleEntrada.titulosColumna
-
+            tabla += cabeceraRegular(objeto.tablaDobleEntrada.titulosColumna)
             break;
         case `mes`:
 
-            mesActual = (hoy.getMonth() - 1);
-            console.log(mesActual)
+            mesActual = (hoy.getMonth());
             ano = hoy.getFullYear()
             let anoCort = parseFloat(ano.toString().slice(2, 4))
+
+
+            let y = 0
+            if ((mesActual - y) == 0) {
+                anoCort--
+                y += 11
+            }
+            y++
 
             break;
     }
 
+
+    $.each(titulosColumna, function (indice, value) {
+
+        // definicion de cabecera de la tabla
+        tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
+    })
+    tabla += `<tr>`;
+
     switch (objeto.tablaDobleEntrada.type) {
         case `regularConTotales`:
-
-            tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
-            tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-
-            // definicion de cabecera de la tabla
-            tabla += `<th class="tituloTablas vacio"></th>`;
-            $.each(titulosColumna, function (indice, value) {
-
-                // definicion de cabecera de la tabla
-                tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
-
-
-            })
             $.each(fila, (ind, val) => {
                 tabla += `<tr>
-                <th class ="filaNombre ${val}">${tituloFila[ind]}<input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${val}" fila="${filaContador}" display="none">
+                <th class ="filaNombre ${val}">${tituloFila[ind]}<input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${val}" display="none">
                 <input class="doEn ${val} fila" name="fila" form="dobleEntrada${accion}${numeroForm}" display="none"></th>`;
 
                 for (let t = 0; t < columna.length; t++) {
@@ -211,8 +252,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
 
                 tabla += `<td class="de ${val} totales"><input type"${inputType}" value="${totalesFila[val]}" form="dobleEntrada${accion}${numeroForm}" class="tablaDobleN totales" name="totales ${val}"></input></td>`;
 
-                tabla += `</tr>`;
-                filaContador++
+                tabla += `</tr>`
 
             })
 
@@ -242,19 +282,6 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             totalesDobleEn(numeroForm, objeto, fila, columna)
             break;
         case `regularSinTotales`:
-
-            tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
-            tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-
-            // for (var i = -1; i <= columna.length; i++) {
-            tabla += `<th class="tituloTablas vacio"></th>`;
-            $.each(titulosColumna, function (indice, value) {
-
-                // definicion de cabecera de la tabla
-                tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
-
-            })
-
             $.each(fila, (ind, val) => {
                 tabla += `<tr>
                 <th class ="filaNombre ${val}">${tituloFila[ind]}<input class="doEn ${val}" name="nombreCol" form="dobleEntrada${accion}${numeroForm}" value="${val}" fila="${filaContador}" display="none">
@@ -285,19 +312,6 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
 
             break;
         case `agrupar`:
-
-            tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
-            tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
-
-            // for (var i = -1; i <= columna.length; i++) {
-            tabla += `<th class="tituloTablas vacio"></th>`;
-            $.each(titulosColumna, function (indice, value) {
-
-                // definicion de cabecera de la tabla
-                tabla += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
-
-            })
-            tabla += `<tr>`;
             tabla += `<th class="tituloTablas filtro">Seleccionar todo</th>`;
 
             $.each(columna, function (indice, value) {
@@ -440,7 +454,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
                 chequefiltrar(attr, subFiltro)
             })
             $(`#de${numeroForm} th.agrupador`).click(function (e) {
-           alert(1)
+                alert(1)
                 let indi = $(this).attr(`filtro`).indexOf(` `)
                 let filtro = ""
                 if (indi > 0) {
@@ -793,6 +807,7 @@ const totalesDobleEn = function (numeroForm, objeto, fila, columna) {
 
     const totalesFilasInput = function () {
 
+        let total = 0
         $.each(columna, function (indice, value) {
             let valorTotal = 0;
             for (let f = 0; f < fila.length; f++) {

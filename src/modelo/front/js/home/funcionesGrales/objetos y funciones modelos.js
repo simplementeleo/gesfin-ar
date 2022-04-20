@@ -400,7 +400,7 @@ let variablesModelo = {
             type: `regularConTotales`,
             inputType: `text`,
             totales: false,
-            filaType: `agrupado`,
+            filaType: `baseExterna`,
             fila: [], //fila
             tituloFila: [],
             columnaType: `mes`,

@@ -202,7 +202,7 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
     let fechaHasta = req.query.fechaHasta
     let fechaDesde = req.query.fechaDesde
 
-    if ((req.query.unidad != "undefined")) {
+    if (req.query.unid != undefined && req.query.unid != "") {
 
         unidFidei = req.query.unidad
     }
@@ -211,7 +211,9 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
 
         unidFidei = /./;
     }
-
+    console.log(unidFidei)
+    console.log(fechaDesde)
+    console.log(fechaHasta)
     const cobranzas = await CobrosRecibidos.aggregate([{
         $lookup: {
             from: "rubros",
@@ -541,7 +543,7 @@ router.get('/pagosRealizados', async (req, res) => {
     ]);
 
     var pagos = [];
-    var PagoRealizado = function (_id, num, unidades, fecha, proveedor, moneda, tipoCambio, logico, estado, fechaDos, tipo, observaciones, cantidad, rubroPagos, subRubroPagos, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, impuestoDos, impuestoDosArs, impuestoDosUsd, importeDos, importeDosArs, importeDosUsd, filename, path, originalname, importeDesencadenado, importeDesencadenado, importeDesencadenado, date, username) {
+    var PagoRealizado = function (_id, num, unidades, fecha, proveedor, moneda, tipoCambio, logico, estado, fechaDos, tipo, observaciones, cantidad, rubroPagos, subRubroPagos, descripcion, importe, importeArs, importeUsd, impuestoUno, impuestoUnoArs, impuestoUnoUsd, impuestoDos, impuestoDosArs, impuestoDosUsd, importeDos, importeDosArs, importeDosUsd, filename, path, originalname, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, date, username) {
         this.id = _id;
         this.num = num;
         this.unidades = unidades;

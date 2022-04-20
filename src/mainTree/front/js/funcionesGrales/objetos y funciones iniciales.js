@@ -154,7 +154,7 @@ let variablesIniciales = {
         atributos: {
             names: [id, num, unidades, fecha, proveedor, moneda, tipoCambio, logico, estado, fechaDos, tipoPago, observaciones, adjunto, componenteFiscal, importeDesencadenado, importeDesencadenadoArs, importeDesencadenadoUsd, date, username, destino],
             titulos: [`id`, 'Numero', `Fideicomiso`, `Fecha`, 'Proveedor', `Moneda`, `TC`, `Acopio`, `estado`, `Venc Acopio`, `Pago`, `Observaciones`, `Adjunto`, `Cant`, `Rubro`, `Sub Rubro`, `Descripción`, `Precio Unit`, `importeArs`, `importeUsd`, `Iva`, `impuestoUnoArs`, `impuestoUnoUsd`, `Otros Impuestos`, `impuestoUnoArs`, `impuestoUnoUsd`, `SubTotal`, `importeDosUsd`, `importeDosArs`, `importeDos`, `importeDesencadenadoArs`, `importeDesencadenadoUsd`, `Auditoria`, 'Usuario'],
-            soloLectura: [num, tipoCambio, importe, date, username, importeDesencadenado, fechaDos, importeDos, destino],
+            soloLectura: [num, tipoCambio, date, username, importeDesencadenado, fechaDos, importeDos, destino],
             oculto: [id, estado, cantidad, importeDesencadenadoArs, importeDesencadenadoUsd, importeArs, importeUsd, impuestoUnoArs, impuestoUnoUsd, impuestoDosArs, impuestoDosUsd, importeDosUsd, importeDosArs, importeArs, destino, origen, idDesen, filename, originalname, path, importeUsd],
             importe: {
                 totalizadorCabecera: {

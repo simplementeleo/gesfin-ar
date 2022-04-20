@@ -4,8 +4,12 @@ $('.menuDobleEntrada').on('click ',
         let objeto = variablesModelo[this.id] || variablesIniciales[this.id]
 
         let numerador = "";
-        let fidecomisoSelec = $(`#fideic input`).val()
+        let fidecomisoSelec = $(`#fideic input`).val() || /./;
         let usuario = $("#oculto").val();
+        let fechaD = new Date()
+        fechaD.setDate(fechaD.getDate() - 30)
+        let fechaDesde = moment(fechaD).format('YYYY-MM-DD');
+        let fechaHasta = moment(Date.now()).format('YYYY-MM-DD');
 
         if (fidecomisoSelec == undefined) {
             fidecomisoSelec = ""
@@ -34,47 +38,53 @@ $('.menuDobleEntrada').on('click ',
         imagenes.appendTo('#comandera');
         let columnasArray = new Object;
 
+
         $.each(objeto.tablaDobleEntrada.datos.filas, (indice, value) => {
 
             $.ajax({
                 type: "get",
                 async: false,
-                url: `/${value}`,
+                url: `/${value}?unidad=${fidecomisoSelec}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`,
                 success: function (data) {
-                    console.log(data)
                     columnasArray[indice] = data;
-
                 },
                 error: function (error) {
                     console.log(error);
                 }
             })
         })
-        if(objeto.tablaDobleEntrada.datosPropios== true){
-        $.ajax({
-            type: "get",
-            url: `/${objeto.accion}`,
+        if (objeto.tablaDobleEntrada.datosPropios == true) {
+            $.ajax({
+                type: "get",
+                url: `/${objeto.accion}`,
 
-            beforeSend: function () { },
-            complete: function () { },
-            success: function (response) {
-                crearTablaDoble(contador, objeto, response, height, usuario, columnasArray )
-                //crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
-                // clickInput(objeto, contador, columnasArray),
-                    active(contador),
-
+                beforeSend: function () { },
+                complete: function () { },
+                success: function (response) {
+                    crearTablaDoble(contador, objeto, response, height, usuario, columnasArray)
+                    //crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
+                    // clickInput(objeto, contador, columnasArray),
+                    active(contador)
                     valoresTablaPestana(objeto, contador, columnasArray)
+                    ocultarTds(objeto, contador)
+                    contador++
+                    numerador++
 
-                ocultarTds(objeto, contador)
-                contador++
-                numerador++
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        } else {
 
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-      }
+            let response = ""
+            crearTablaDoble(contador, objeto, response, height, usuario, columnasArray)
+            active(contador)
+            valoresTablaPestana(objeto, contador, columnasArray)
+            ocultarTds(objeto, contador)
+            contador++
+            numerador++
+        }
 
         //Funcion de asignar atributo Active asi vemos la tabla de seleccionada
         $('.pestana').on('click',
