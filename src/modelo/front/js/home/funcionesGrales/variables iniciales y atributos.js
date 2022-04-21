@@ -24,31 +24,31 @@ $(`#fechaTextoDe`).val(fechaDesde)
 $(`#fechaTextoHasta`).val(fechaHasta)
 
 //Comandos completa ABM
-let iCrear = `< div class= "barraForm crear" > <img src="/img/abm/plus.png" class="imgBarra crearBoton" alt="Crear registro" title="Crear una instancia"></div>`;
-let iEdit = `< div class= "barraForm" > <img src="/img/abm/edit2.png" class="imgBarra editBoton" alt="Edit registro" title="Editar una instancia"></div>`;
-let iDelete = `< div class= "barraForm" > <img src="/img/abm/eliminarTacho2.png" class="imgBarra deleteBoton" alt="Eliminar registro" title="Eliminar una instancia"></div>`;
-let iDeshabilitar = `< div class= "barraForm" > <img src="/img/abm/eliminar.png" class="imgBarra desHabilitarBoton" alt="Eliminar registro" title="Deshabilitar un registro"></div>`;
-let iExpo = `< div class= "barraForm" > <img src="/img/abm/expo.svg" class="imgBarra achiq1 expo" alt="Eliminar registro" title="Exportar Reporte"></div>`;
-let iMail = `< div class= "barraForm" > <img src="/img/abm/email.svg" class="imgBarra agrande" alt="Eliminar registro" title="Enviar información por correo"></div>`;
-let iOk = `< div class= "barraForm" > <img src="/img/abm/ok2.png" class="imgBarra achiq4 okBoton" alt="Eliminar registro" title="Confirmar instacia"></div>`;
-let iCruz = `< div class= "barraForm" > <img src="/img/abm/cancell2.png" class="imgBarra achiq5 cancelBoton" alt="Eliminar registro" title="Cancelar Cambios instacia"></div>`;
-let iCalen = `< div class= "barraForm" > <img src="/img/abm/calen.svg" class="imgBarra achiq2" alt="Eliminar registro" title="Marcar un evento en el calendario"></div>`;
-let iCheck = `< div class= "barraForm" > <img src="/img/abm/check.svg" class="imgBarra achiq1" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
-let iDoble = `< div class= "barraForm" > <img src="/img/abm/letraD.svg" class="imgBarra dobleBoton" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
-let ayuda = `< div class= "barraForm iconoAyuda" > <img src="/img/abm/ayuda.png" class="imgBarra ayuda" alt="ayuda" title="Ayuda"></div>`;
-let video = `< div class= "barraForm" > <img src="/img/abm/video.png" class="imgBarra video" alt="ayuda" title="Instructivo en video"></div>`;
+let iCrear = `<div class= "barraForm crear"> <img src="/img/abm/plus.png" class="imgBarra crearBoton" alt="Crear registro" title="Crear una instancia"></div>`;
+let iEdit = `<div class= "barraForm"> <img src="/img/abm/edit2.png" class="imgBarra editBoton" alt="Edit registro" title="Editar una instancia"></div>`;
+let iDelete = `<div class= "barraForm"> <img src="/img/abm/eliminarTacho2.png" class="imgBarra deleteBoton" alt="Eliminar registro" title="Eliminar una instancia"></div>`;
+let iDeshabilitar = `<div class= "barraForm" > <img src="/img/abm/eliminar.png" class="imgBarra desHabilitarBoton" alt="Eliminar registro" title="Deshabilitar un registro"></div>`;
+let iExpo = `<div class= "barraForm"> <img src="/img/abm/expo.svg" class="imgBarra achiq1 expo" alt="Eliminar registro" title="Exportar Reporte"></div>`;
+let iMail = `<div class= "barraForm"> <img src="/img/abm/email.svg" class="imgBarra agrande" alt="Eliminar registro" title="Enviar información por correo"></div>`;
+let iOk = `<div class= "barraForm"> <img src="/img/abm/ok2.png" class="imgBarra achiq4 okBoton" alt="Eliminar registro" title="Confirmar instacia"></div>`;
+let iCruz = `<div class= "barraForm"> <img src="/img/abm/cancell2.png" class="imgBarra achiq5 cancelBoton" alt="Eliminar registro" title="Cancelar Cambios instacia"></div>`;
+let iCalen = `<div class= "barraForm"> <img src="/img/abm/calen.svg" class="imgBarra achiq2" alt="Eliminar registro" title="Marcar un evento en el calendario"></div>`;
+let iCheck = `<div class= "barraForm"> <img src="/img/abm/check.svg" class="imgBarra achiq1" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
+let iDoble = `<div class= "barraForm"> <img src="/img/abm/letraD.svg" class="imgBarra dobleBoton" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;
+let ayuda = `<div class= "barraForm iconoAyuda"> <img src="/img/abm/ayuda.png" class="imgBarra ayuda" alt="ayuda" title="Ayuda"></div>`;
+let video = `<div class= "barraForm"> <img src="/img/abm/video.png" class="imgBarra video" alt="ayuda" title="Instructivo en video"></div>`;
 
 //Comandos de formulario de unica instancia
-let iCrearF = `< div > <img src="/img/abm/crear.svg" class="imgB" alt="Crear registro" title="Crear una instancia"></div>`;
-let iEditF = `< div > <img src="/img/abm/edit2.png" class="imgB achiq1 editBoton" alt="Edit registro" title="Editar una instancia"></div>`;
-let iDeleteF = `< div > <img src="/img/abm/eliminarTacho2.png" class="imgB achiq1 deleteBoton" alt="Eliminar registro" title="Eliminar una instancia"></div>`;
-let iDeshabilitarF = `< div > <img src="/img/abm/eliminar.png" class="imgB achiq1 desHabilitarBoton" alt="Deshabiltar registro" title="Desabilitar una instancia"></div>`;
-let iExpoF = `< div > <img src="/img/abm/expo.svg" class="imgB achiq1" alt="Eliminar registro" title="Exportar Reporte"></div>`;
-let iMailF = `< div > <img src="/img/abm/email.svg" class="imgB agrande" alt="Eliminar registro" title="Enviar información por correo"></div>`;
-let iOkF = `< div > <img src="/img/abm/ok2.png" class="imgB okfBoton" alt="Eliminar registro" title="Confirmar instacia"></div>`;
-let iOkimprimirF = `< div > <img src="/img/abm/imprimirOk.png" class="imgB achiq3 okfImprimirBoton" title="Confirmar e imprimir instancia"></div>`;
-let iLupa = `< div > <img src="/img/abm/previaImpresion.png" class="imgB achiq3 okfLupa" alt="Vista previa documento" title="Vista previa documento"></div>`;
-let iImprimir = `< div > <img src="/img/abm/imprimir2.png" class="imgB achiq3 okfImprimir" alt=Imprimir registro" title="Imprimir registro"></div>`;
+let iCrearF = `<div> <img src="/img/abm/crear.svg" class="imgB" alt="Crear registro" title="Crear una instancia"></div>`;
+let iEditF = `<div> <img src="/img/abm/edit2.png" class="imgB achiq1 editBoton" alt="Edit registro" title="Editar una instancia"></div>`;
+let iDeleteF = `<div> <img src="/img/abm/eliminarTacho2.png" class="imgB achiq1 deleteBoton" alt="Eliminar registro" title="Eliminar una instancia"></div>`;
+let iDeshabilitarF = `<div> <img src="/img/abm/eliminar.png" class="imgB achiq1 desHabilitarBoton" alt="Deshabiltar registro" title="Desabilitar una instancia"></div>`;
+let iExpoF = `<div> <img src="/img/abm/expo.svg" class="imgB achiq1" alt="Eliminar registro" title="Exportar Reporte"></div>`;
+let iMailF = `<div> <img src="/img/abm/email.svg" class="imgB agrande" alt="Eliminar registro" title="Enviar información por correo"></div>`;
+let iOkF = `<div> <img src="/img/abm/ok2.png" class="imgB okfBoton" alt="Eliminar registro" title="Confirmar instacia"></div>`;
+let iOkimprimirF = `<div> <img src="/img/abm/imprimirOk.png" class="imgB achiq3 okfImprimirBoton" title="Confirmar e imprimir instancia"></div>`;
+let iLupa = `<div> <img src="/img/abm/previaImpresion.png" class="imgB achiq3 okfLupa" alt="Vista previa documento" title="Vista previa documento"></div>`;
+let iImprimir = `<div> <img src="/img/abm/imprimir2.png" class="imgB achiq3 okfImprimir" alt=Imprimir registro" title="Imprimir registro"></div>`;
 let iCruzF = `<div><img src="/img/abm/cancell2.png" class="imgB cruzBoton" alt="Eliminar registro" title="Cancelar Cambios instacia"></div>`;
 let iCalenF = `<div><img src="/img/abm/calen.svg" class="imgB achiq2" alt="Eliminar registro" title="Marcar un evento en el calendario"></div>`;
 let iCheckF = `<div><img src="/img/abm/check.svg" class="imgB achiq1" alt="Eliminar registro" title="Habilita seleccion de elementos"></div>`;

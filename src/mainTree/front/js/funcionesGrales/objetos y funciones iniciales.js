@@ -415,6 +415,9 @@ let variablesIniciales = {
             columnaType: `fija`,
             columna: [mono, unaHab, dosHab, tresHab, cuatroHab, oficina, cochera, locales],
             titulosColumna: ['Mono', `Una Hab`, `Dos Hab`, `Tres Hab`, `Cuatro Hab`, `Oficinas`, `Cocheras`, `Loc Com`, `Total`],
+            funcionesFilaCol: {
+                totalesDobleEn: totalesDobleEn
+            }
         },
         desencadena: false,
         desencadenaColeccion: {

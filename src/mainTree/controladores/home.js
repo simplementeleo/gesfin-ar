@@ -211,9 +211,7 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
 
         unidFidei = /./;
     }
-    console.log(unidFidei)
-    console.log(fechaDesde)
-    console.log(fechaHasta)
+
     const cobranzas = await CobrosRecibidos.aggregate([{
         $lookup: {
             from: "rubros",
@@ -230,7 +228,6 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
             as: "unidadesCR"
         }
     },
-
     {
         $match: {
             "unidadesCR.name": unidFidei,
@@ -239,11 +236,9 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
             }, {
                 fecha: { $lte: new Date(fechaHasta) }
             }]
-
-
         }
-
-    }, {
+    },
+    {
         $group: {
             _id: { $first: `$rubroCR` },
             totalArs: { $sum: `$importeDesencadenadoArs` },
@@ -251,7 +246,6 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
             tc: { $avg: `$tipoCambio` },
         }
     },
-
     ]);
 
     res.json(cobranzas);

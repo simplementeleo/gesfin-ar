@@ -10,6 +10,7 @@ $('.menuDobleEntrada').on('click ',
         fechaD.setDate(fechaD.getDate() - 30)
         let fechaDesde = moment(fechaD).format('YYYY-MM-DD');
         let fechaHasta = moment(Date.now()).format('YYYY-MM-DD');
+        let tabla = ""
 
         if (fidecomisoSelec == undefined) {
             fidecomisoSelec = ""
@@ -36,6 +37,11 @@ $('.menuDobleEntrada').on('click ',
 
         pestana.appendTo('#tabs_links'); //colgamos la pestaña final
         imagenes.appendTo('#comandera');
+
+        tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
+        tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
+        tabla += `<tr><th class="tituloTablas vacio"></th>`;
+
         let columnasArray = new Object;
 
 
@@ -80,8 +86,8 @@ $('.menuDobleEntrada').on('click ',
             let response = ""
             crearTablaDoble(contador, objeto, response, height, usuario, columnasArray)
             active(contador)
-            valoresTablaPestana(objeto, contador, columnasArray)
-            ocultarTds(objeto, contador)
+            //valoresTablaPestana(objeto, contador, columnasArray)
+            //ocultarTds(objeto, contador)
             contador++
             numerador++
         }

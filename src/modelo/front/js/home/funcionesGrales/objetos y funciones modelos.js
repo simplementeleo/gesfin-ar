@@ -397,7 +397,7 @@ let variablesModelo = {
         },
         tablaDobleEntrada: {
             abm: false,
-            type: `regularConTotales`,
+            type: `regularSinTotales`,
             inputType: `text`,
             totales: false,
             filaType: `baseExterna`,

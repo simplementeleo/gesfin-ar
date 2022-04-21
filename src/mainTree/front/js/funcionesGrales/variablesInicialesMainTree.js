@@ -1,9 +1,9 @@
 //////atributos numericos
-//const importevalidacion = /[\d.,]{1,30}$/
+const importevalidacionMainTree = /[\d.,]{1,30}$/
 const unidades = { nombre: `unidades`, type: `texto`, referencia: `unidades`, key: [`name`], validacion: { texto: `Seleccione una opcion` } };
 const unidadesDestino = { nombre: `unidadesDestino`, type: `texto`, referencia: `unidades`, key: [`name`], validacion: { texto: `Seleccione una opcion` } }
 //////////////////////////////////////
-const totales = { nombre: `totales`, type: `importe`, maxCaract: 30, validacion: { match: importevalidacion, texto: `Importe Obligatorio` } };
+const totales = { nombre: `totales`, type: `importe`, maxCaract: 30, validacion: { match: importevalidacionMainTree, texto: `Importe Obligatorio` } };
 const cochera = { nombre: `cochera`, type: `texto`, observaciones: `Oficinas en una edificio`, maxCaract: 100 };
 const cocheraTotal = { nombre: `cocheraTotal`, type: `texto`, observaciones: `Cantidad de cocheras que contiene el fideicomiso`, maxCaract: 100 };
 const mono = { nombre: `mono`, type: `texto`, observaciones: `Cantidad de departamentos monoambiente que posee un edificio`, maxCaract: 100 };
