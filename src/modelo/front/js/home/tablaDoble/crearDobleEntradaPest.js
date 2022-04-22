@@ -11,6 +11,9 @@ $('.menuDobleEntrada').on('click ',
         let fechaDesde = moment(fechaD).format('YYYY-MM-DD');
         let fechaHasta = moment(Date.now()).format('YYYY-MM-DD');
         let tabla = ""
+        let user = ""
+        let fila = []
+        let columna = []
 
         if (fidecomisoSelec == undefined) {
             fidecomisoSelec = ""
@@ -38,8 +41,8 @@ $('.menuDobleEntrada').on('click ',
         pestana.appendTo('#tabs_links'); //colgamos la pestaña final
         imagenes.appendTo('#comandera');
 
-        tabla += `<table class="tablaDoble active ${numeroForm}" id="de${numeroForm}" style = "max-height: ${height}px">`;
-        tabla += `<form method="PUT" action="/${accion}Doble" id="dobleEntrada${accion}${numeroForm}"></form>`;
+        tabla += `<table class="tablaDoble active ${contador}" id="de${contador}" style = "max-height: ${height}px">`;
+        tabla += `<form method="PUT" action="/${objeto.accion}Doble" id="dobleEntrada${objeto.accion}${contador}"></form>`;
         tabla += `<tr><th class="tituloTablas vacio"></th>`;
 
         let columnasArray = new Object;
@@ -82,12 +85,24 @@ $('.menuDobleEntrada').on('click ',
                 }
             });
         } else {
-
+            let resp = ""
             let response = ""
-            crearTablaDoble(contador, objeto, response, height, usuario, columnasArray)
+            resp = crearTablaDoble(contador, objeto, response, height, usuario, columnasArray)
             active(contador)
             //valoresTablaPestana(objeto, contador, columnasArray)
             //ocultarTds(objeto, contador)
+
+            tabla += resp.tabla
+            user += resp.user
+            fila = resp.fila
+            columna = resp.columna
+            console.log(tabla)
+
+            let tabl = $(tabla);
+            let usern = $(user);
+            tabl.appendTo(`#tabs_contents`);
+            usern.appendTo(`#tabs_contents`);
+
             contador++
             numerador++
         }
@@ -110,7 +125,6 @@ $('.menuDobleEntrada').on('click ',
 
             }
         );
-
         //Cerrar tabla y asignar atributo active a la tabla de la izquierda excepto si es la primera
         $('.close').on('click',
 

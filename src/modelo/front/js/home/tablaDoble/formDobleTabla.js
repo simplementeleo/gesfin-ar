@@ -67,6 +67,30 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
             tabl.appendTo(`#cabeceraForm`);
             usern.appendTo(`#cabeceraForm`);
 
+            $.each(objeto.tablaDobleEntrada.funcionesFilaCol, (indice, value) => {
+                value(numeroForm, objeto, fila, columna)
+            })
+            $.each(columna, (indice, value) => {
+
+                chequeTodo(value)
+
+                $.each(fila, (ind, val) => {
+
+                    let indi = (Object.keys(val)[0]).indexOf(` `)
+
+                    let subFiltro = ""
+
+                    if (indi > 0) {
+
+                        let subFilt = (Object.keys(val)[0]).split(` `)
+                        subFiltro = subFilt[0]
+                    } else {
+                        subFiltro = (Object.keys(val)[0])
+                    }
+                    chequefiltrar(value, subFiltro)
+                })
+            })
+
         })
 
     $(`#cabeceraForm #de${numeroForm} input.dobleEntrada.totales`).remove();
@@ -135,9 +159,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         volverValoresGrabados(objeto, numeroForm, fidei)
 
     });
-   alert(0)
-    $(`#formularioIndividual`).on(`click`, `input.filtroTodo.checkbox`,function (e) {
-        alert(1)
+    $(`#formularioIndividual`).on(`click`, `input.filtroTodo.checkbox`, function (e) {
 
         let attr = $(this).attr(`filtro`)
 
@@ -158,8 +180,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
 
         }
     })
-    $(`#de${numeroForm} input.agrupador`).click(function () {
-        alert(2)
+    $(`#formularioIndividual`).on(`click`, `input.agrupador`, function (e) {
 
         let indi = $(this).attr(`subfiltro`).indexOf(` `)
         let subFiltro = ""
@@ -186,8 +207,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         chequeTodo(filtro)
         chequefiltrar(filtro, subFiltro)
     })
-    $(`#de${numeroForm} input.tablaDobleN[type="checkbox"]`).click(function (e) {
-        alert(3)
+    $(`#formularioIndividual`).on(`click`, `input.tablaDobleN[type="checkbox"]`, function (e) {
 
         let indi = $(this).attr(`subFiltro`).indexOf(` `)
         let subFiltro = ""
@@ -197,7 +217,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
             subFiltro = subFilt[0]
         } else {
             subFiltro = $(this).attr(`subFiltro`)
-
         }
 
         let father = $(this).parent()
@@ -221,9 +240,8 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         chequeTodo(attr)
         chequefiltrar(attr, subFiltro)
     })
-    $(`#de${numeroForm} th.agrupador`).click(function (e) {
-        alert(4)
-   
+    $(`#formularioIndividual`).on(`click`, `th.agrupador`, function (e) {
+
         let indi = $(this).attr(`filtro`).indexOf(` `)
         let filtro = ""
         if (indi > 0) {
@@ -245,7 +263,6 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         let input = $(`#de${numeroForm} input.tablaDobleN.${filtro}`)
         let checked = []
         $.each(input, (indice, value) => {
-
 
             checked.push($(value).is(":checked"))
         })
@@ -274,31 +291,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
 
         }
     }
-    $.each(columna, (indice, value) => {
 
-        chequeTodo(value)
-
-        $.each(fila, (ind, val) => {
-
-            let indi = (Object.keys(val)[0]).indexOf(` `)
-
-            let subFiltro = ""
-
-            if (indi > 0) {
-
-                let subFilt = (Object.keys(val)[0]).split(` `)
-                subFiltro = subFilt[0]
-            } else {
-                subFiltro = (Object.keys(val)[0])
-
-            }
-
-            chequefiltrar(value, subFiltro)
-        })
-    })
-    $.each(objeto.tablaDobleEntrada.funcionesFilaCol, (indice, value) => {
-        value(numeroForm, objeto, fila, columna)
-    })
 
 }
 const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, filasMongo, id) {
