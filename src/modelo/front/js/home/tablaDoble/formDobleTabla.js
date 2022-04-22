@@ -1,5 +1,6 @@
 const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec) {
 
+
     let consulta = ""
     let fidei = ""
     let accion = objeto.accion;
@@ -134,7 +135,9 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         volverValoresGrabados(objeto, numeroForm, fidei)
 
     });
-    $(`#de${numeroForm} input.filtroTodo.checkbox`).click(function () {
+   alert(0)
+    $(`#formularioIndividual`).on(`click`, `input.filtroTodo.checkbox`,function (e) {
+        alert(1)
 
         let attr = $(this).attr(`filtro`)
 
@@ -156,6 +159,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         }
     })
     $(`#de${numeroForm} input.agrupador`).click(function () {
+        alert(2)
 
         let indi = $(this).attr(`subfiltro`).indexOf(` `)
         let subFiltro = ""
@@ -183,6 +187,7 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         chequefiltrar(filtro, subFiltro)
     })
     $(`#de${numeroForm} input.tablaDobleN[type="checkbox"]`).click(function (e) {
+        alert(3)
 
         let indi = $(this).attr(`subFiltro`).indexOf(` `)
         let subFiltro = ""
@@ -217,7 +222,8 @@ const crearTablaDobleEntradaForm = function (numeroForm, objeto, fidecomisoSelec
         chequefiltrar(attr, subFiltro)
     })
     $(`#de${numeroForm} th.agrupador`).click(function (e) {
-        alert(1)
+        alert(4)
+   
         let indi = $(this).attr(`filtro`).indexOf(` `)
         let filtro = ""
         if (indi > 0) {
