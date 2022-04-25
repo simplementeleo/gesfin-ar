@@ -211,7 +211,7 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
 
         unidFidei = /./;
     }
-
+    let out = ""
     const cobranzas = await CobrosRecibidos.aggregate([{
         $lookup: {
             from: "rubros",
@@ -231,23 +231,36 @@ router.get('/cobrosRecibidosRubro', async (req, res) => {
     {
         $match: {
             "unidadesCR.name": unidFidei,
-            $and: [{
-                fecha: { $gte: new Date(fechaDesde) }
-            }, {
-                fecha: { $lte: new Date(fechaHasta) }
-            }]
+            /*  $and: [{
+               fecha: { $gte: new Date(fechaDesde) }
+              }, {
+                  fecha: { $lte: new Date(fechaHasta) }
+              }]*/
         }
     },
     {
         $group: {
-            _id: { $first: `$rubroCR` },
+            _id: {
+                cliente: `$rubroCR._id`,
+                mes: { $month: `$fecha` },
+                ano: { $year: `$fecha` }
+
+            },
+
+            name: { $first: `$rubroCR.name` },
+            mes: {
+                $first: { $month: `$fecha` }
+            },
+            ano: {
+                $first: { $year: `$fecha` }
+            },
             totalArs: { $sum: `$importeDesencadenadoArs` },
             totalUsd: { $sum: `$importeDesencadenadoUsd` },
-            tc: { $avg: `$tipoCambio` },
+            //tc: { $avg: `$tipoCambio` },
         }
     },
-    ]);
 
+    ]);
     res.json(cobranzas);
 });
 router.post('/cobrosRecibidos', async (req, res) => {

@@ -397,10 +397,10 @@ let variablesModelo = {
         },
         tablaDobleEntrada: {
             abm: false,
-            type: `regularSinTotales`,
+            type: `agrupadaExterna`,
             inputType: `text`,
             totales: false,
-            filaType: `baseExterna`,
+            filaType: `baseExternaAgrupado`,
             fila: [], //fila
             tituloFila: [],
             columnaType: `mes`,

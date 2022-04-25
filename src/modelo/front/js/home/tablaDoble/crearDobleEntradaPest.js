@@ -12,8 +12,10 @@ $('.menuDobleEntrada').on('click ',
         let fechaHasta = moment(Date.now()).format('YYYY-MM-DD');
         let tabla = ""
         let user = ""
-        let fila = []
-        let columna = []
+        let respTrabajada = new Object
+        let mesesTablaDoble = [`Ene`, `Feb`, `Mar`, `Abr`, `May`, `Jun`, `Jul`, `Ago`, `Sep`, `Oct`, `Nov`, `Dic`];
+
+        let info = ""
 
         if (fidecomisoSelec == undefined) {
             fidecomisoSelec = ""
@@ -43,7 +45,6 @@ $('.menuDobleEntrada').on('click ',
 
         tabla += `<table class="tablaDoble active ${contador}" id="de${contador}" style = "max-height: ${height}px">`;
         tabla += `<form method="PUT" action="/${objeto.accion}Doble" id="dobleEntrada${objeto.accion}${contador}"></form>`;
-        tabla += `<tr><th class="tituloTablas vacio"></th>`;
 
         let columnasArray = new Object;
 
@@ -55,6 +56,12 @@ $('.menuDobleEntrada').on('click ',
                 async: false,
                 url: `/${value}?unidad=${fidecomisoSelec}&fechaDesde=${fechaDesde}&fechaHasta=${fechaHasta}`,
                 success: function (data) {
+
+                    $.each(data, (indice, value) => {
+
+                        respTrabajada[value.name + mesesTablaDoble[value.mes - 1] + value.ano] = { "totalArs": value.totalArs, "totalUsd": value.totalUsd, }
+                    })
+
                     columnasArray[indice] = data;
                 },
                 error: function (error) {
@@ -70,7 +77,7 @@ $('.menuDobleEntrada').on('click ',
                 beforeSend: function () { },
                 complete: function () { },
                 success: function (response) {
-                    crearTablaDoble(contador, objeto, response, height, usuario, columnasArray)
+                    crearTablaDoble(contador, objeto, info, height, usuario, columnasArray)
                     //crearTablaDoblePestanaFecha(objeto, contador, height, columnasArray, fidecomisoSelec, response),
                     // clickInput(objeto, contador, columnasArray),
                     active(contador)
@@ -87,7 +94,7 @@ $('.menuDobleEntrada').on('click ',
         } else {
             let resp = ""
             let response = ""
-            resp = crearTablaDoble(contador, objeto, response, height, usuario, columnasArray)
+            resp = crearTablaDoble(contador, objeto, respTrabajada, height, usuario, columnasArray)
             active(contador)
             //valoresTablaPestana(objeto, contador, columnasArray)
             //ocultarTds(objeto, contador)
@@ -96,7 +103,6 @@ $('.menuDobleEntrada').on('click ',
             user += resp.user
             fila = resp.fila
             columna = resp.columna
-            console.log(tabla)
 
             let tabl = $(tabla);
             let usern = $(user);

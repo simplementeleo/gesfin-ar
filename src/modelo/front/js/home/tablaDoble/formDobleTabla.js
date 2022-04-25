@@ -314,9 +314,8 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
 
     let cabeceraRegular = function (titulosColumna) {
         let cabecera = ""
-
+        cabecera += `<tr><th class="tituloTablas vacio"></th>`;
         $.each(titulosColumna, function (indice, value) {
-
             // definicion de cabecera de la tabla
             cabecera += `<th class="tituloTablas ${[value]}">${[value]}</th>`;
         })
@@ -327,22 +326,26 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
     }
     let cabecerTotalizador = function (titulosColumna) {
         let cabecera = ""
+        cabecera += `<tr><th class="tituloTablas vacio"></th>`;
 
         $.each(titulosColumna, function (indice, value) {
 
-            // definicion de cabecera de la tabla
-            cabecera += `<th class="tituloTablasSuperior ${[indice]}">${[indice]}</th>`;
+            cabecera += `<th class="tituloTablasSuperior" agrupa="${[indice]}">${[indice]}</th>`;
 
-            cabecera += `</tr>`;
-            cabecera += `<tr>`;
-            $.each(value, (ind, val) => {
-                cabecera += `<th class="tituloTablas ${[val]}">${[val]}</th>`;
-            })
         })
-        cabecera += `<tr>`;
+        cabecera += `</tr>`;
+        cabecera += `<tr><th class="tituloTablas vacio"></th>`;
 
+        $.each(titulosColumna, (indice, value) => {
+
+            $.each(value, (ind, val) => {
+
+                cabecera += `<th class="tituloTablas ${[val]} ${indice}" agrupapado="${[indice][val]}</th>`;
+            })
+            cabecera += `<th class="tituloTablas total ${indice}">Total</th>`;
+        })
+        cabecera += `</tr>`;
         return cabecera
-
     }
 
     /////////////////////tipo de fila
@@ -367,8 +370,19 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             fila = objeto.tablaDobleEntrada.fila
             tituloFila = objeto.tablaDobleEntrada.tituloFila
             break;
-        case `baseExterna`:
-            fila = filasMongo
+        case `baseExternaAgrupado`:
+            let filon = new Object
+
+            $.each(filasMongo, (indice, value) => {
+
+                filon[indice] = []
+                $.each(value, (ind, val) => {
+
+                    if (!filon[indice].includes(val.name[0]))
+                        filon[indice].push(val.name[0])
+                })
+                fila = filon
+            })
 
             break;
     }
@@ -384,6 +398,7 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             tabla += cabeceraRegular(objeto.tablaDobleEntrada.titulosColumna)
             break;
         case `mes`:
+
             let cantidadDeAnos = 0
             let anosMeses = new Object
             mesActual = (hoy.getMonth());
@@ -393,10 +408,12 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
             let mesesPrevious = mesesTablaDoble.slice(mesesAño.length)
 
             anosMeses[ano] = mesesAño
+
             ano--
 
             for (let x = 0; x < cantidadDeAnos; x++) {
                 anosMeses[ano] = mesesTablaDoble
+
                 ano--
             }
             anosMeses[ano] = mesesPrevious
@@ -406,7 +423,6 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
 
             break;
     }
-
     $.each(titulosColumna, function (indice, value) {
 
         // definicion de cabecera de la tabla
@@ -521,6 +537,101 @@ const crearTablaDoble = function (numeroForm, objeto, fidei, height, usuario, fi
                     tabla += `</tr>`;
 
                 })
+            })
+
+            user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
+                       <input class="d id" name="id" form="dobleEntrada${accion}${numeroForm}" value="${id}" readonly="true">
+                       <input class="d date ${numeroForm}" name="date" form="dobleEntrada${accion}${numeroForm}" value="${moment(fidei.date).format("L")}" readonly="true"></div>`;
+
+            break;
+        case `agrupadaExterna`://solo expone no envia info, porque son totalizadas de otros tablas 
+
+            $.each(fila, function (indice, v) {
+
+                tabla += `<tr>`
+                tabla += `<th class="tituloTablas filtro agrupador ${indice}" filtro="${indice}">${indice}</th>`;
+
+                $.each(columna, (ind, val) => {
+
+                    if (val.length > 1) {
+
+                        $.each(val, (posicion, valor) => {
+
+                            tabla += `<th class="tituloTablas ${valor} ${posicion}">
+                    <input type="${inputType}" class="agrupador ${posicion}" filtro="${valor}" subFiltro="${posicion}"></input>
+                     
+                    </th>`;
+
+                        })
+                        tabla += `<th class="tituloTablas Total">
+                    <input type="${inputType}" class= "total"></input>
+                     
+                    </th>`;
+                    } else {
+
+                        tabla += `<th class="tituloTablas ${val} ${indice}">
+                    <input type="${inputType}" class="agrupador ${indice}" filtro="${val}" subFiltro="${indice}"></input>
+                     
+                    </th>`;
+                    }
+                })
+
+                tabla += `</tr>`
+
+                $.each(v, (ind, val) => {
+
+                    tabla += `<tr>
+                    <th class ="filaNombre ${val}" filtro="${indice}">${val}`;
+
+                    $.each(columna, (int, value) => {
+
+                        if (value.length > 1) {
+
+                            $.each(value, (posicion, valor) => {
+                                let valorCelda = ""
+                                if (fidei[val + valor + int] != undefined) {
+
+                                    valorCelda = fidei[val + valor + int].totalArs
+
+                                }
+                                tabla += `<td class="de ${valor}">
+                        <input type="${inputType}"  class="tablaDobleN ${valor}${indice}" value=${valorCelda}></input>
+                        </td>`;
+
+
+                            })
+                            tabla += `<td class="de Total">
+                        <input type="${inputType}"  class="tablaDobleN Total"></input>
+                        </td>`;
+                        } else {
+
+                            tabla += `<td class="de ${val} ${value}" filtro=>
+                        <input type="${inputType}"  class="tablaDobleN ${value}"></input>
+                        </td>`;
+                        }
+
+                    })
+
+                    tabla += `</tr>`;
+
+                })
+            })
+            tabla += `<tr>`
+            tabla += `<th class="tituloTablas filtro agrupador total" >Total</th>`;
+            $.each(columna, (indice, value) => {
+
+                if (value.length > 1) {
+
+                    $.each(value, (posicion, valor) => {
+
+                        tabla += `<td class="de total ${valor}"></td>`;
+                    })
+
+                    tabla += `<td class="de total"> </td>`;
+                } else {
+
+                    tabla += `<td class="de ${val} Total">Total</td>`;
+                }
             })
 
             user = `<div class="audit ${numeroForm}"><input class="d username" name="username" form="dobleEntrada${accion}${numeroForm}" value="${usuario}" readonly="true">
@@ -923,12 +1034,9 @@ const clickInput = function (objeto, numeroForm, consulta) {
                 if (valorCelda != "") {
                     $(`p`, value).html(new Intl.NumberFormat("de-DE").format(valorCelda))
                 }
-
-
             })
 
             valoresTablaPestana(objeto, numeroForm, consulta)
-
         }
 
 
@@ -1024,8 +1132,6 @@ const valoresTablaPestana = function (objeto, numeroForm, consulta) {
 
                     $(val).siblings(`p`).addClass(`conValorPesos`)
 
-
-
                     let valor = parseFloat($(val).val() || 0)
 
                     totalMes[meses[mesActual + b]][anoCort] += parseFloat(valor || 0);
@@ -1034,9 +1140,7 @@ const valoresTablaPestana = function (objeto, numeroForm, consulta) {
 
 
             })
-
             $(`#t${numeroForm} tr.${className} th.${meses[mesActual + b]}.${anoCort}`).html(new Intl.NumberFormat("de-DE").format(totalAgrupadorMes[meses[mesActual + b]][anoCort]))
-
         })
         $(`#t${numeroForm} td.total.${meses[mesActual + b]}.${anoCort}`).html(new Intl.NumberFormat("de-DE").format(totalMes[meses[mesActual + b]][anoCort]))
 
@@ -1179,4 +1283,10 @@ const ocultarTds = function (objeto, numeroForm) {
         }
     })
 
+}
+
+const anchoTituloTablaSuperior = function (objeto, numeroForm) {
+
+    /*$()
+     $(`th[agrupado=``]`).*/
 }
