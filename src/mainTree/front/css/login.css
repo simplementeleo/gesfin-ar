@@ -1,4 +1,4 @@
-body {
+/* body {
   background-color: #000e8f;
 }
 .navegacionSupHomeLog .ultimaParte .olvidaste a {
@@ -6,4 +6,200 @@ body {
 }
 .navegacionSupHomeLog .primeraParteNavegacion #letraLogo {
   border-left: 0.3em solid rgb(0, 0, 0);
+} */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+body {
+  background: url("https://images.pexels.com/photos/4482900/pexels-photo-4482900.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  transition: all 0.2s ease-in-out;
+}
+body * {
+  outline: none;
+}
+
+.alert-err {
+  color: red;
+  text-align: center;
+  font-size: 1.1em;
+  background: white;
+  padding: 10px;
+  border-radius: 3px;
+}
+.card {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #0716225c;
+}
+.card__login {
+  border-radius: 5px;
+  background: #0874d3;
+  color: #eee;
+  display: flex;
+  height: 26em;
+  width: 40em;
+  box-shadow: 1px 1px 16px #090b0c80;
+  position: relative;
+}
+@media (max-width: 690px) {
+  .card__login {
+    max-width: 20em;
+  }
+}
+.card__login .marker {
+  position: absolute;
+  border: 3px solid #0000;
+  z-index: 3;
+  border-radius: 5px;
+  transition: all ease-in-out 0.2s;
+  left: 388px !important;
+}
+@media (max-width: 690px) {
+  .card__login .marker {
+    left: 54px !important;
+  }
+}
+.card__login__inputs {
+  width: 100%;
+  position: relative;
+}
+.card__login__inputs .register {
+  position: absolute;
+  height: 100%;
+  width: 0px;
+  background: white;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+  border-radius: 0 5px 5px 0;
+}
+.card__login__inputs .close {
+  position: absolute;
+  top: 26px;
+  left: 33px;
+  cursor: pointer;
+}
+.card__login__inputs .close::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #2d435d73;
+  border-left: 2px solid #2d435d73;
+  transform: rotateZ(-45deg);
+}
+.card__login__inputs .expand {
+  width: 100%;
+}
+.card__login__inputs .d-none {
+  display: none;
+}
+.card__login__inputs .title {
+  text-align: center;
+  padding: 1em 0;
+  margin-bottom: 2em;
+}
+.card__login__inputs__form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3em 4em;
+}
+.card__login__inputs__form.signup {
+  color: #333;
+  padding: 3em 4em;
+  animation: 0.3s slide ease-in-out;
+}
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.card__login__inputs__form__input {
+  margin-bottom: 2em;
+  padding: 0.8em;
+  border: none;
+  background: #0000;
+  border-bottom: 1px solid #eee;
+  color: #eee;
+}
+.card__login__inputs__form__input::placeholder {
+  color: #eee;
+}
+.card__login__inputs__form__input.signup {
+  border-color: #ff5722;
+  color: #ff5722;
+}
+.card__login__inputs__form__input.signup::placeholder {
+  color: #ff5722;
+}
+.card__login__inputs__form__button {
+  border: none;
+  padding: 0.3em 0.5em;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  text-transform: uppercase;
+  background: #0000;
+  color: #eee;
+  cursor: pointer;
+  margin-top: 1em;
+}
+.card__login__inputs__form__button.signup {
+  border-color: #ff5722;
+  color: #ff5722;
+}
+.card__login__inputs__form .btn-register {
+  color: #eee;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 1.4em;
+}
+.card__login__image {
+  position: relative;
+  height: 100%;
+}
+@media (max-width: 690px) {
+  .card__login__image {
+    display: none;
+  }
+}
+.card__login__image img {
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+}
+.card__login__image .image-signup {
+  position: absolute;
+  top: 0;
+  width: 0%;
+  height: 100%;
+  background: url("https://images.pexels.com/photos/4493795/pexels-photo-4493795.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500") no-repeat;
+  background-size: cover;
+  background-position: center right;
+  border-radius: 5px 0 0 5px;
+  transition: all 0.5s ease-in-out;
+}
+.card__login__image .image-signup.expand {
+  width: 100%;
 }

@@ -30,7 +30,8 @@ const Unidades = require("../../models/marketPlace/cliente/Unidades");
 router.post("/users/login", passport.authenticate("local", {
     successRedirect: "/home",
     failureRedirect: "/",
-    failureFlash: true
+    failureFlash: true,
+    
 }));
 //hola forro trolo loco
 router.get('/home', (req, res) => {

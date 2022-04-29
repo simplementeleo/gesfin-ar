@@ -9,6 +9,8 @@ const multer = require(`multer`)
 const User = require("../models/marketPlace/User");
 const Numerador = require('../models/Numerador')
 const { rawListeners } = require('../models/marketPlace/User');
+const { LocalStorage } = require('node-localstorage');
+let Storage = new LocalStorage('../lib/storage'); 
 
 router.get('/', (req, res) => {
     res.render('home/home');
@@ -62,6 +64,7 @@ router.get("/logout", (req, res) => {
     req.logout();
     req.flash("success_msg", "You have logged out successfully")
     res.redirect("/");
+    Storage.removeItem('session')
 });
 router.delete('/imagen', async (req, res) => {
 

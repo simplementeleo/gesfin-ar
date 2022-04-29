@@ -9,16 +9,15 @@
     <!--GOOGLE FONTS-->
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap" rel="stylesheet">
     <!--CUSTOM CSS-->
-    <link rel="stylesheet" href="/css/login/loginModeloCRM.css">
+    <!-- <link rel="stylesheet" href="/css/login/loginModeloCRM.css"> -->
     <link rel="stylesheet" href="/css/login.css">
-
-
-    <title>Gesfin</title>
+    <link rel="stylesheet" href="/css/login-new.css">
+    <title> Gesfin </title>
 </head>
 <body>
     <div class="container">
-
-        <div class="navegacionSupHomeLog">
+        <!-- Before Login -->
+        <!-- <div class="navegacionSupHomeLog">
             <div class="primeraParteNavegacion">
 
                 <img src="/img/iconos/flechaBarra.svg" class="logoPrincipal" alt="Logo">
@@ -52,17 +51,50 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
+        
 
+        <!-- New login -->
+        <div class="card">
+            <div class="card__login">
+                <div class="marker"></div>
+                <div class="card__login__image">
+                    <img src="https://images.pexels.com/photos/4482900/pexels-photo-4482900.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1">
+                    <div class="image-signup"></div>
+                </div>
+                <div class="card__login__inputs">
+                    <div class="sign-in">
+                        <form action="/users/login" method="POST" class="card__login__inputs__form">
+                            <h3 class="title">Sign In</h3>
+                           
+                            <% if (error.length> 0) {%>
+                                <span class="alert-err">
+                                    <%= error %>
+                                </span>
+                            <%}%>
+                            <input type="text" name="username" id="username" class="card__login__inputs__form__input" placeholder="User">
+                            <input type="password" name="password" id="password" class="card__login__inputs__form__input" placeholder="Password">
+                            <button type="submit" class="card__login__inputs__form__button">
+                                sign in
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
     <!--JQUERY-->
     <script src="/js/librerias/jquery-3.4.1.min.js "></script>
     <script src="/js/librerias/moment.js "></script>
     <script src="/js/home/funcionesGrales/variables iniciales y atributos.js"></script>
+    <script src="/js/app.js "></script>
 
 
 </body>
+
+
+</html>
 
 
 </html>
