@@ -20,6 +20,7 @@ const UserSchema = new Schema({
         ref: "usuario"
     },
     habilitado: { type: Boolean },
+    sessionStatus: { type: Boolean, default: false },
 });
 
 UserSchema.methods.encryptPassword = async (password) => {

@@ -276,3 +276,4 @@ $(`#fechaTextoDe`).change(function () {
     pagoCobroPorRubro(variablesIniciales.pagosRealizados)
     pagoCobroPorRubro(variablesIniciales.cobrosRecibidos)
 })
+

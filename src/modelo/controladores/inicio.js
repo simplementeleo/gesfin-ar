@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const session = require("express-session");
-const passport = require("passport");
 const morgan = require(`morgan`);
 const path = require('path');
 const multer = require(`multer`)
 
 const User = require("../models/marketPlace/User");
 const Numerador = require('../models/Numerador')
-const { rawListeners } = require('../models/marketPlace/User');
 const { LocalStorage } = require('node-localstorage');
 let Storage = new LocalStorage('../lib/storage'); 
+const storageValidation = Storage.getItem('session')
+const location = require('location-href')
+
+
 
 router.get('/', (req, res) => {
     res.render('home/home');
@@ -60,11 +61,21 @@ router.post("/users/register", async (req, res) => {
         }
     }
 });
-router.get("/logout", (req, res) => {
-    req.logout();
-    req.flash("success_msg", "You have logged out successfully")
-    res.redirect("/");
-    Storage.removeItem('session')
+router.get("/logout", async (req, res) => {
+    
+    try {
+        const isActive = Storage.getItem('session')
+        console.log('Storage: ' + isActive)
+        const update = { sessionStatus: false }
+        const status = await User.findOneAndUpdate({ isActive }, update, { returnOriginal: false })
+        console.log('New: ' + status)
+        req.logout();
+        req.flash("success_msg", "You have logged out successfully")
+        res.redirect("/");
+    } catch (err) {
+        console.log('LOGOUT::', err)
+    }
+    console.log('Logout... ' + isActive)
 });
 router.delete('/imagen', async (req, res) => {
 

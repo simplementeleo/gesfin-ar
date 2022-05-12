@@ -86,3 +86,7 @@ app.use(require('./mainTree/controladores/market'));
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+// 
+
+console.log('index.js')

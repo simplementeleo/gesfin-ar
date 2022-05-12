@@ -1,19 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { LocalStorage } = require('node-localstorage');
 const User = require('../models/marketPlace/User');
+const { LocalStorage } = require('node-localstorage');
 let Storage = new LocalStorage('./storage'); 
-function getServerIp() {
-    var os = require('os');
-    var ifaces = os.networkInterfaces();
-    var values = Object.keys(ifaces).map(function(name) {
-        return ifaces[name];
-    });
-    values = [].concat.apply([], values).filter(function(val){ 
-        return val.family == 'IPv4' && val.internal == false; 
-    });
-    return values.length ? values[0].address : '0.0.0.0';
-}
 
 passport.use(new LocalStrategy({
     usernameField: 'username'
@@ -27,17 +16,28 @@ passport.use(new LocalStrategy({
     } else {
         // Match Password's User
         const match = await user.matchPassword(password);
-        const IPv4 =  getServerIp();
-        const session = Storage.getItem('session');
-        if (session == user.username && IPv4 == IPv4) Storage.removeItem('session')
-        if (session == user.username && IPv4 == IPv4) {
-            return done(null, false, { message: 'Ya tiene una sesión abierta. Intente nuevamente, su sesión se ha cerrado.' })
+        const isActive = await User.findOne({ username })
+        if (isActive.sessionStatus) {
+            let update = { sessionStatus: false }
+            await User.findOneAndUpdate({ username }, update);
+            return done(null, false, { message: 'Ha ocurrido un error, intente nuevamente.' })
         } else if (match) {
-            Storage.setItem('session', user.username);
+            // Update data sessionStatus
+            let update = { sessionStatus: true }
+            try {
+                const status = await User.findOneAndUpdate({ username }, update, {
+                    returnOriginal: false
+                });
+                Storage.setItem('session', user.username);
+                console.log(status)
+            } catch (err) {
+                console.log('Ha ocurrido un error ', err)
+            }
             return done(null, user);
         } else {
             return done(null, false, { message: 'Contraseña incorrecta' });
         }
+       
     }
 }));
 
